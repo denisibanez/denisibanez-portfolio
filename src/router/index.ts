@@ -11,15 +11,20 @@ import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
  *       { path: '', name: 'home', component: () => import('@/views/HomeView.vue') },
  *     ],
  *   }
+ *
+ * The catch-all (404) is a top-level route that reuses DefaultLayout so the
+ * standard header/footer still wrap the NotFound view.
  */
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('@/layouts/DefaultLayout.vue'),
-    children: [
-      { path: '', name: 'home', component: () => import('@/views/HomeView.vue') },
-      { path: ':pathMatch(.*)*', name: 'not-found', component: () => import('@/views/NotFoundView.vue') },
-    ],
+    children: [{ path: '', name: 'home', component: () => import('@/views/HomeView.vue') }],
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: () => import('@/layouts/DefaultLayout.vue'),
+    children: [{ path: '', name: 'not-found', component: () => import('@/views/NotFoundView.vue') }],
   },
 ]
 
