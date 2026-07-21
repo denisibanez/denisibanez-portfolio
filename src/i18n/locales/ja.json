@@ -1,0 +1,22 @@
+{
+  "app": {
+    "title": "Denis Ibañez",
+    "subtitle": "フロントエンド開発者 — ポートフォリオ。"
+  },
+  "nav": {
+    "home": "ホーム",
+    "about": "自己紹介",
+    "projects": "プロジェクト",
+    "testimonials": "お客様の声"
+  },
+  "actions": {
+    "resume": "履歴書をダウンロード"
+  },
+  "home": {
+    "eyebrow": "ポートフォリオ",
+    "greetingLead": "こんにちは、私は",
+    "role": "Software Developer",
+    "description": "Vue・React・Angular を専門とするフロントエンド開発者。14年以上の経験があり、デザインシステムとプロトタイピングが得意です。",
+    "cta": "プロジェクトを見る"
+  }
+}

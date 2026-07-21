@@ -1,0 +1,73 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import AppNav from '@/components/AppNav/AppNav.vue'
+import LanguageSelect from '@/components/LanguageSelect/LanguageSelect.vue'
+import BaseButton from '@/components/BaseButton/BaseButton.vue'
+
+const { t, locale } = useI18n()
+
+const navLinks = computed(() => [
+  { label: t('nav.home'), href: '#home' },
+  { label: t('nav.about'), href: '#about' },
+  { label: t('nav.projects'), href: '#projects' },
+  { label: t('nav.testimonials'), href: '#testimonials' },
+])
+
+const languages = [
+  { label: 'EN', value: 'en', flag: '🇬🇧' },
+  { label: 'PT', value: 'pt', flag: '🇵🇹' },
+  { label: 'ES', value: 'es', flag: '🇪🇸' },
+  { label: 'DE', value: 'de', flag: '🇩🇪' },
+  { label: 'FR', value: 'fr', flag: '🇫🇷' },
+  { label: 'JA', value: 'ja', flag: '🇯🇵' },
+]
+
+const socials = [
+  { label: 'LinkedIn', href: '#' },
+  { label: 'GitHub', href: '#' },
+  { label: 'Medium', href: '#' },
+  { label: 'WhatsApp', href: 'https://wa.me/351961488375' },
+]
+const year = new Date().getFullYear()
+
+const onLocaleChange = (value: string) => {
+  locale.value = value
+}
+</script>
+
+<template>
+  <div class="relative flex min-h-screen flex-col bg-surface text-on-surface">
+    <!-- Chrome overlays the hero (transparent header/footer) -->
+    <header class="absolute inset-x-0 top-0 z-20 flex items-center justify-between gap-4 px-[5vw] py-6">
+      <div class="flex-1">
+        <AppNav :links="navLinks" />
+      </div>
+      <div class="flex items-center gap-3 sm:gap-4">
+        <LanguageSelect :model-value="locale" :options="languages" @update:model-value="onLocaleChange" />
+        <BaseButton variant="outline">{{ t('actions.resume') }}</BaseButton>
+      </div>
+    </header>
+
+    <main class="flex-1">
+      <RouterView />
+    </main>
+
+    <footer
+      class="absolute inset-x-0 bottom-0 z-20 flex flex-col items-start justify-between gap-4 px-[5vw] py-6 text-label-lg uppercase text-on-surface-variant sm:flex-row sm:items-center"
+    >
+      <span>© {{ year }} Denis Ibañez</span>
+      <div class="flex gap-6">
+        <a
+          v-for="s in socials"
+          :key="s.label"
+          :href="s.href"
+          target="_blank"
+          rel="noopener"
+          class="transition-colors hover:text-primary"
+          >{{ s.label }}</a
+        >
+      </div>
+    </footer>
+  </div>
+</template>

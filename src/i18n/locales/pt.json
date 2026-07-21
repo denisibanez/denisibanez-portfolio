@@ -1,0 +1,22 @@
+{
+  "app": {
+    "title": "Denis Ibañez",
+    "subtitle": "Desenvolvedor front-end — portfólio."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "Sobre mim",
+    "projects": "Projetos",
+    "testimonials": "Depoimentos"
+  },
+  "actions": {
+    "resume": "Baixar resume"
+  },
+  "home": {
+    "eyebrow": "Portfolio",
+    "greetingLead": "Olá, eu sou",
+    "role": "Software Developer",
+    "description": "Frontend Developer especializado em Vue, React e Angular, mais de 14 anos de experiência como desenvolvedor, muito forte em design system e prototipação.",
+    "cta": "Ver projetos"
+  }
+}
