@@ -1,9 +1,13 @@
 # Denis Ibañez — Portfolio
 
+<img width="1920" height="962" alt="Captura de Tela 2026-07-21 às 21 58 38" src="https://github.com/user-attachments/assets/4ad7e1c5-c266-47dd-b323-423eed006519" />
+
 Personal portfolio of Denis Ibañez (front-end developer), built as a modern, fully-typed
 single-page app. Dark, minimalist design ("Ethereal Precision"), Poppins typography, a
 cinematic hero (background video that cross-fades into a still banner), an interactive
 "liquid glass" loading reveal, and full internationalization.
+
+LINK [https://denisibanez.dev/]: https://denisibanez.dev/
 
 ---
 
