@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import AppNav from '@/components/AppNav/AppNav.vue'
 import LanguageSelect from '@/components/LanguageSelect/LanguageSelect.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
+import { site } from '@/config/site'
 
 const { t, locale } = useI18n()
 
@@ -23,12 +24,7 @@ const languages = [
   { label: 'JA', value: 'ja', flag: '🇯🇵' },
 ]
 
-const socials = [
-  { label: 'LinkedIn', href: '#' },
-  { label: 'GitHub', href: '#' },
-  { label: 'Medium', href: '#' },
-  { label: 'WhatsApp', href: 'https://wa.me/351961488375' },
-]
+const socials = site.socials
 const year = new Date().getFullYear()
 
 const onLocaleChange = (value: string) => {

@@ -18,5 +18,10 @@
     "role": "Software Developer",
     "description": "Vue・React・Angular を専門とするフロントエンド開発者。14年以上の経験があり、デザインシステムとプロトタイピングが得意です。",
     "cta": "プロジェクトを見る"
+  },
+  "notFound": {
+    "eyebrow": "迷子？",
+    "message": "お探しのページは存在しません。",
+    "cta": "ホームに戻る"
   }
 }

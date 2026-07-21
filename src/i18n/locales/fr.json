@@ -18,5 +18,10 @@
     "role": "Software Developer",
     "description": "Développeur front-end spécialisé en Vue, React et Angular, avec plus de 14 ans d'expérience — solide en design systems et prototypage.",
     "cta": "Voir les projets"
+  },
+  "notFound": {
+    "eyebrow": "Perdu ?",
+    "message": "La page que vous cherchez n'existe pas.",
+    "cta": "Retour à l'accueil"
   }
 }
