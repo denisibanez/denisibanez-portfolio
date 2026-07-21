@@ -16,7 +16,7 @@ const navLinks = computed(() => [
 
 const languages = [
   { label: 'EN', value: 'en', flag: '🇬🇧' },
-  { label: 'PT', value: 'pt', flag: '🇵🇹' },
+  { label: 'PT', value: 'pt', flag: '🇧🇷' },
   { label: 'ES', value: 'es', flag: '🇪🇸' },
   { label: 'DE', value: 'de', flag: '🇩🇪' },
   { label: 'FR', value: 'fr', flag: '🇫🇷' },
