@@ -69,13 +69,13 @@ onUnmounted(() => window.removeEventListener("keydown", onKey));
   <Transition name="player">
     <div v-if="open" class="fixed inset-0 z-50" @click.self="emit('close')">
       <div
-        class="absolute bottom-44 right-[5vw] w-[20rem] max-w-[90vw] origin-bottom-right overflow-hidden rounded-[2.25rem] border border-white/15 bg-white/10 p-6 shadow-2xl backdrop-blur-2xl"
+        class="glass-card absolute bottom-44 right-[5vw] w-[20rem] max-w-[90vw] origin-bottom-right overflow-hidden rounded-[2.25rem] p-6"
         role="dialog"
         aria-modal="true"
       >
-        <!-- Liquid-glass sheen -->
+        <!-- Liquid-glass top sheen -->
         <div
-          class="pointer-events-none absolute -top-1/3 left-0 h-2/3 w-full bg-linear-to-b from-white/15 to-transparent"
+          class="pointer-events-none absolute -top-1/3 left-0 h-2/3 w-full rounded-[inherit] bg-linear-to-b from-white/20 to-transparent"
           aria-hidden="true"
         />
 
@@ -176,6 +176,51 @@ onUnmounted(() => window.removeEventListener("keydown", onKey));
 </template>
 
 <style scoped>
+/* Liquid-glass card — same treatment as the play button */
+.glass-card {
+  background: linear-gradient(
+    -75deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.06)
+  );
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  box-shadow:
+    inset 0 0.125em 0.125em rgba(0, 0, 0, 0.05),
+    inset 0 -0.125em 0.125em rgba(255, 255, 255, 0.5),
+    inset 0 0 0.1em 0.25em rgba(255, 255, 255, 0.15),
+    0 0.75em 2.5em rgba(0, 0, 0, 0.35);
+}
+/* Refracting rim */
+.glass-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background:
+    conic-gradient(
+      from -75deg at 50% 50%,
+      rgba(255, 255, 255, 0.6),
+      rgba(255, 255, 255, 0) 5% 40%,
+      rgba(255, 255, 255, 0.6) 50%,
+      rgba(255, 255, 255, 0) 60% 95%,
+      rgba(255, 255, 255, 0.6)
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  box-shadow: inset 0 0 0 0.75px rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+}
+
 .player-enter-active,
 .player-leave-active {
   transition: opacity 0.3s ease;
