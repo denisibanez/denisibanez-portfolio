@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRoute } from 'vue-router'
 import AppNav from '@/components/AppNav/AppNav.vue'
 import LanguageSelect from '@/components/LanguageSelect/LanguageSelect.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import { site } from '@/config/site'
 
 const { t, locale } = useI18n()
+const route = useRoute()
 
 const navLinks = computed(() => [
-  { label: t('nav.home'), href: '#home' },
-  { label: t('nav.about'), href: '#about' },
+  { label: t('nav.home'), href: '/' },
+  { label: t('nav.about'), href: '/about' },
   { label: t('nav.projects'), href: '#projects' },
   { label: t('nav.testimonials'), href: '#testimonials' },
 ])
@@ -37,7 +39,7 @@ const onLocaleChange = (value: string) => {
     <!-- Chrome overlays the hero (transparent header/footer) -->
     <header class="absolute inset-x-0 top-0 z-20 flex items-center justify-between gap-4 px-[5vw] py-6">
       <div class="flex-1">
-        <AppNav :links="navLinks" />
+        <AppNav :links="navLinks" :active="route.path" />
       </div>
       <div class="flex items-center gap-3 sm:gap-4">
         <LanguageSelect :model-value="locale" :options="languages" @update:model-value="onLocaleChange" />

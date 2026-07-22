@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { RouterLink } from 'vue-router'
 
 type NavLink = { label: string; href: string }
 
@@ -11,6 +12,11 @@ const mobileOpen = ref(false)
 
 const activeHref = computed(() => props.active ?? props.links[0]?.href)
 const isActive = (link: NavLink) => link.href === activeHref.value
+
+// Internal paths navigate via the router; hashes/externals stay plain anchors.
+const isRoute = (href: string) => href.startsWith('/')
+const linkTag = (link: NavLink) => (isRoute(link.href) ? RouterLink : 'a')
+const linkAttrs = (link: NavLink) => (isRoute(link.href) ? { to: link.href } : { href: link.href })
 
 const toggleMobile = () => {
   mobileOpen.value = !mobileOpen.value
@@ -26,14 +32,15 @@ const closeMobile = () => {
     <!-- Desktop: inline links (>= md) -->
     <ul class="hidden md:flex md:items-center md:gap-8">
       <li v-for="link in links" :key="link.href">
-        <a
-          :href="link.href"
+        <component
+          :is="linkTag(link)"
+          v-bind="linkAttrs(link)"
           class="inline-flex flex-col items-start text-label-lg uppercase transition-colors"
           :class="isActive(link) ? 'text-primary' : 'text-on-surface-variant hover:text-primary'"
         >
           {{ link.label }}
           <span v-if="isActive(link)" class="mt-1 h-px w-full bg-primary" aria-hidden="true" />
-        </a>
+        </component>
       </li>
     </ul>
 
@@ -61,15 +68,16 @@ const closeMobile = () => {
     >
       <ul class="flex flex-col gap-2 px-[5vw] pt-24">
         <li v-for="link in links" :key="link.href">
-          <a
-            :href="link.href"
+          <component
+            :is="linkTag(link)"
+            v-bind="linkAttrs(link)"
             class="inline-flex min-h-11 flex-col items-start py-2 text-label-lg uppercase transition-colors"
             :class="isActive(link) ? 'text-primary' : 'text-on-surface hover:text-primary'"
             @click="closeMobile"
           >
             {{ link.label }}
             <span v-if="isActive(link)" class="mt-1 h-px w-8 bg-primary" aria-hidden="true" />
-          </a>
+          </component>
         </li>
       </ul>
     </div>

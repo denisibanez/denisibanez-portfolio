@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { createRouter, createMemoryHistory } from 'vue-router'
 import AppNav from './AppNav.vue'
 
 const links = [
@@ -34,5 +35,21 @@ describe('AppNav', () => {
     await wrapper.find('button[aria-label="Menu"]').trigger('click')
     await wrapper.find('.fixed.inset-0 a').trigger('click')
     expect(wrapper.find('.fixed.inset-0').exists()).toBe(false)
+  })
+
+  it('renders internal paths as router links', async () => {
+    const router = createRouter({
+      history: createMemoryHistory(),
+      routes: [
+        { path: '/', component: { template: '<div />' } },
+        { path: '/about', component: { template: '<div />' } },
+      ],
+    })
+    const wrapper = mount(AppNav, {
+      props: { links: [{ label: 'About Me', href: '/about' }] },
+      global: { plugins: [router] },
+    })
+    await router.isReady()
+    expect(wrapper.find('ul.md\\:flex a').attributes('href')).toBe('/about')
   })
 })

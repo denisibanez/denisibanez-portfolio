@@ -19,6 +19,14 @@
     "description": "Front-End-Entwickler mit Spezialisierung auf Vue, React und Angular, über 14 Jahre Erfahrung — stark in Designsystemen und Prototyping.",
     "cta": "Projekte ansehen"
   },
+  "about": {
+    "eyebrow": "Freut mich",
+    "title": "Über mich",
+    "lead": "Ich bin Denis Ibañez, Front-end-Entwickler mit über 14 Jahren Erfahrung darin, komplexe Produkte in klare, schnelle Interfaces mit Vue, React und Angular zu verwandeln.",
+    "body": "Am wichtigsten sind mir Design-Systeme und Prototyping – die Kunst, ein UI selbstverständlich, konsistent und mühelos erweiterbar zu machen. Ich arbeite eng mit Design und Produkt zusammen, um Beständiges zu liefern.",
+    "cta": "Meine Arbeit ansehen",
+    "roles": "Vue • React • Angular • Design Systems"
+  },
   "notFound": {
     "eyebrow": "Verirrt?",
     "message": "Die gesuchte Seite existiert nicht.",
