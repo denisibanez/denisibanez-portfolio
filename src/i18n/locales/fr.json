@@ -35,6 +35,14 @@
     "next": "Suivant",
     "view": "Voir le projet"
   },
+  "projectDetail": {
+    "caseStudy": "Étude de cas",
+    "viewLive": "Voir le projet en ligne",
+    "back": "Retour au portfolio",
+    "prev": "Projet précédent",
+    "next": "Projet suivant",
+    "notFound": "Projet introuvable"
+  },
   "testimonials": {
     "title": "Témoignages",
     "subtitle": "Réflexions sur la collaboration, la précision et le travail numérique livré à partir d'une vision partagée.",

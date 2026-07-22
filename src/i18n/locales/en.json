@@ -35,6 +35,14 @@
     "next": "Next",
     "view": "View project"
   },
+  "projectDetail": {
+    "caseStudy": "Case Study",
+    "viewLive": "View Live Project",
+    "back": "Back to Portfolio",
+    "prev": "Previous project",
+    "next": "Next project",
+    "notFound": "Project not found"
+  },
   "testimonials": {
     "title": "Testimonials",
     "subtitle": "Reflections on collaboration, precision, and the digital work delivered through shared vision.",

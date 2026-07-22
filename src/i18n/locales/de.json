@@ -35,6 +35,14 @@
     "next": "Weiter",
     "view": "Projekt ansehen"
   },
+  "projectDetail": {
+    "caseStudy": "Fallstudie",
+    "viewLive": "Live-Projekt ansehen",
+    "back": "Zurück zum Portfolio",
+    "prev": "Vorheriges Projekt",
+    "next": "Nächstes Projekt",
+    "notFound": "Projekt nicht gefunden"
+  },
   "testimonials": {
     "title": "Referenzen",
     "subtitle": "Gedanken über Zusammenarbeit, Präzision und die digitale Arbeit, die aus einer gemeinsamen Vision entsteht.",

@@ -35,6 +35,14 @@
     "next": "Próximo",
     "view": "Ver projeto"
   },
+  "projectDetail": {
+    "caseStudy": "Estudo de caso",
+    "viewLive": "Ver projeto online",
+    "back": "Voltar ao portfólio",
+    "prev": "Projeto anterior",
+    "next": "Próximo projeto",
+    "notFound": "Projeto não encontrado"
+  },
   "testimonials": {
     "title": "Depoimentos",
     "subtitle": "Reflexões sobre colaboração, precisão e o trabalho digital entregue a partir de uma visão compartilhada.",
