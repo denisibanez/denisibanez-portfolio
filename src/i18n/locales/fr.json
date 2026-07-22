@@ -28,6 +28,13 @@
     "cta": "Voir mon travail",
     "roles": "Vue • React • Angular • Design Systems"
   },
+  "projects": {
+    "title": "Travaux Sélectionnés",
+    "subtitle": "Une collection d'expériences numériques, de visualisations architecturales et de concepts de design industriel. Chaque projet est une intersection précise entre fonction et esthétique.",
+    "prev": "Précédent",
+    "next": "Suivant",
+    "view": "Voir le projet"
+  },
   "testimonials": {
     "title": "Témoignages",
     "subtitle": "Réflexions sur la collaboration, la précision et le travail numérique livré à partir d'une vision partagée.",
