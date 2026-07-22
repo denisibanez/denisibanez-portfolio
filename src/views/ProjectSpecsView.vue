@@ -54,10 +54,10 @@ const rise = (delay: number) => ({
         <!-- Narrative — no card, sits directly on the background -->
         <Motion as="div" v-bind="rise(0)" class="flex flex-col lg:overflow-hidden">
           <div class="shrink-0">
-            <span class="block text-label-lg uppercase tracking-widest text-tertiary">
+            <span class="block text-label-lg uppercase tracking-widest text-on-surface-variant">
               {{ t('projectSpecs.specifications') }}
             </span>
-            <h1 class="mt-4 font-serif text-5xl leading-[1.02] tracking-tight md:text-6xl lg:text-7xl">
+            <h1 class="mt-6 font-serif text-5xl leading-[1.02] tracking-tight md:text-6xl lg:text-7xl">
               {{ project.title }}
             </h1>
           </div>
@@ -71,7 +71,7 @@ const rise = (delay: number) => ({
               </span>
               <ul class="space-y-3">
                 <li v-for="(feature, i) in project.features" :key="i" class="flex items-start gap-3 text-body-lg">
-                  <span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-tertiary" aria-hidden="true" />
+                  <span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true" />
                   <span>{{ feature }}</span>
                 </li>
               </ul>
