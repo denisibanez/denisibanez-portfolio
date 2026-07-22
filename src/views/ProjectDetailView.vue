@@ -114,8 +114,10 @@ const rise = (delay: number) => ({
       aria-hidden="true"
       class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
     />
+    <!-- Mobile-only scrim — content spans the full height here, so keep it legible -->
+    <div class="pointer-events-none absolute inset-0 bg-linear-to-b from-surface/65 via-surface/45 to-surface/85 lg:hidden" />
 
-    <div class="relative z-10 flex min-h-screen flex-col justify-center px-[5vw] pt-28 pb-20 lg:pt-24">
+    <div class="relative z-10 flex min-h-screen flex-col justify-start px-[5vw] pt-28 pb-36 lg:justify-center lg:pt-24 lg:pb-20">
       <!-- Project -->
       <div v-if="project" class="flex flex-col items-stretch gap-8 lg:flex-row lg:items-center lg:gap-10">
         <!-- Vertical prev/next controls (desktop) -->
@@ -213,38 +215,39 @@ const rise = (delay: number) => ({
             {{ project.summary }}
           </Motion>
 
-          <Motion as="div" v-bind="rise(0.3)" class="flex flex-wrap gap-4">
-            <BaseButton variant="primary" @click="openLive">
+          <Motion as="div" v-bind="rise(0.3)" class="flex gap-3 sm:gap-4">
+            <BaseButton variant="primary" class="flex-1 text-center sm:flex-none" @click="openLive">
               {{ t('projectDetail.viewLive') }}
             </BaseButton>
-            <BaseButton variant="outline" @click="goToProjects">
+            <BaseButton variant="outline" class="flex-1 text-center sm:flex-none" @click="goToProjects">
               {{ t('projectDetail.back') }}
             </BaseButton>
           </Motion>
 
-          <!-- Prev / next (mobile) -->
-          <Motion
-            as="div"
-            v-bind="rise(0.4)"
-            class="mt-2 flex items-center justify-between gap-4 border-t border-outline/40 pt-6 lg:hidden"
-          >
+          <!-- Prev / next (mobile) — square controls matching desktop -->
+          <Motion as="div" v-bind="rise(0.4)" class="mt-2 flex items-center gap-4 lg:hidden">
             <button
               type="button"
-              class="group inline-flex max-w-[45%] cursor-pointer items-center gap-3 text-left text-on-surface-variant transition-colors hover:text-on-surface"
+              class="inline-flex size-12 shrink-0 cursor-pointer items-center justify-center border border-outline text-on-surface-variant transition-colors hover:border-on-surface hover:text-on-surface"
               :aria-label="t('projectDetail.prev')"
               @click="goToProject(adjacent.prev)"
             >
-              <span aria-hidden="true" class="transition-transform group-hover:-translate-x-1">&larr;</span>
-              <span class="truncate text-label-lg uppercase tracking-widest">{{ adjacent.prev?.title }}</span>
+              <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path d="M15 5l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
             </button>
+            <div class="h-0.5 flex-1 bg-on-surface/20">
+              <div class="h-full bg-primary transition-[width] duration-500" :style="{ width: `${progress}%` }" />
+            </div>
             <button
               type="button"
-              class="group inline-flex max-w-[45%] cursor-pointer items-center justify-end gap-3 text-right text-on-surface-variant transition-colors hover:text-on-surface"
+              class="inline-flex size-12 shrink-0 cursor-pointer items-center justify-center border border-outline text-on-surface-variant transition-colors hover:border-on-surface hover:text-on-surface"
               :aria-label="t('projectDetail.next')"
               @click="goToProject(adjacent.next)"
             >
-              <span class="truncate text-label-lg uppercase tracking-widest">{{ adjacent.next?.title }}</span>
-              <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">&rarr;</span>
+              <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
             </button>
           </Motion>
         </div>
