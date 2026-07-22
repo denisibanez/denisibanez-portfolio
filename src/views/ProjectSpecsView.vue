@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import { Motion } from 'motion-v'
@@ -19,6 +19,26 @@ const { getBySlug } = useProjects()
 
 const slug = computed(() => props.slug ?? String(route.params.slug ?? ''))
 const project = computed<Project | null>(() => getBySlug(slug.value))
+
+// Demo filler so the scroll + progress bar are visible; replace with real copy.
+const LOREM = [
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+  'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet consectetur.',
+  'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa.',
+]
+const paragraphs = computed(() => [...(project.value?.overview ?? []), ...LOREM])
+
+// Custom scroll-progress indicator for the narrative box.
+const scrollArea = ref<HTMLElement | null>(null)
+const scrollProgress = ref(0)
+const onScroll = () => {
+  const el = scrollArea.value
+  if (!el) return
+  const max = el.scrollHeight - el.clientHeight
+  scrollProgress.value = max > 0 ? (el.scrollTop / max) * 100 : 0
+}
 
 const goToProjects = () => router.push({ name: 'projects' })
 const openLive = () => {
@@ -62,19 +82,30 @@ const rise = (delay: number) => ({
             </h1>
           </div>
 
-          <div class="no-scrollbar mt-6 flex-1 space-y-6 text-on-surface-variant lg:overflow-y-auto lg:pr-4">
-            <p v-for="(paragraph, i) in project.overview" :key="i" class="text-body-lg">{{ paragraph }}</p>
+          <div class="mt-6 flex flex-1 gap-4 lg:min-h-0">
+            <div
+              ref="scrollArea"
+              class="no-scrollbar flex-1 space-y-6 text-on-surface-variant lg:overflow-y-auto lg:pr-2"
+              @scroll="onScroll"
+            >
+              <p v-for="(paragraph, i) in paragraphs" :key="i" class="text-body-lg">{{ paragraph }}</p>
 
-            <div>
-              <span class="mb-4 block border-b border-outline-variant/30 pb-2 text-label-lg uppercase tracking-widest text-on-surface">
-                {{ t('projectSpecs.keyFeatures') }}
-              </span>
-              <ul class="space-y-3">
-                <li v-for="(feature, i) in project.features" :key="i" class="flex items-start gap-3 text-body-lg">
-                  <span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true" />
-                  <span>{{ feature }}</span>
-                </li>
-              </ul>
+              <div>
+                <span class="mb-4 block border-b border-outline-variant/30 pb-2 text-label-lg uppercase tracking-widest text-on-surface">
+                  {{ t('projectSpecs.keyFeatures') }}
+                </span>
+                <ul class="space-y-3">
+                  <li v-for="(feature, i) in project.features" :key="i" class="flex items-start gap-3 text-body-lg">
+                    <span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true" />
+                    <span>{{ feature }}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Scroll progress (desktop) -->
+            <div class="hidden w-0.5 shrink-0 bg-on-surface/20 lg:block">
+              <div class="w-full bg-primary" :style="{ height: `${scrollProgress}%` }" />
             </div>
           </div>
 
