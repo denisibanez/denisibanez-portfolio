@@ -31,7 +31,10 @@
     "title": "Referenzen",
     "subtitle": "Gedanken über Zusammenarbeit, Präzision und die digitale Arbeit, die aus einer gemeinsamen Vision entsteht.",
     "prev": "Zurück",
-    "next": "Weiter"
+    "next": "Weiter",
+    "goTo": "Zur Referenz",
+    "readMore": "Mehr lesen",
+    "close": "Schließen"
   },
   "notFound": {
     "eyebrow": "Verirrt?",

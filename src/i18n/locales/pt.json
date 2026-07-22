@@ -31,7 +31,10 @@
     "title": "Depoimentos",
     "subtitle": "Reflexões sobre colaboração, precisão e o trabalho digital entregue a partir de uma visão compartilhada.",
     "prev": "Anterior",
-    "next": "Próximo"
+    "next": "Próximo",
+    "goTo": "Ir para depoimento",
+    "readMore": "Ler mais",
+    "close": "Fechar"
   },
   "notFound": {
     "eyebrow": "Perdido?",

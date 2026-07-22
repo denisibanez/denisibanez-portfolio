@@ -31,7 +31,10 @@
     "title": "Testimonios",
     "subtitle": "Reflexiones sobre colaboración, precisión y el trabajo digital entregado desde una visión compartida.",
     "prev": "Anterior",
-    "next": "Siguiente"
+    "next": "Siguiente",
+    "goTo": "Ir al testimonio",
+    "readMore": "Leer más",
+    "close": "Cerrar"
   },
   "notFound": {
     "eyebrow": "¿Perdido?",

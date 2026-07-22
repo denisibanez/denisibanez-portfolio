@@ -31,7 +31,10 @@
     "title": "Témoignages",
     "subtitle": "Réflexions sur la collaboration, la précision et le travail numérique livré à partir d'une vision partagée.",
     "prev": "Précédent",
-    "next": "Suivant"
+    "next": "Suivant",
+    "goTo": "Aller au témoignage",
+    "readMore": "Lire plus",
+    "close": "Fermer"
   },
   "notFound": {
     "eyebrow": "Perdu ?",

@@ -13,6 +13,9 @@ const i18n = createI18n({
         subtitle: 'What people say.',
         prev: 'Previous',
         next: 'Next',
+        goTo: 'Go to testimonial',
+        readMore: 'Read more',
+        close: 'Close',
       },
     },
   },
@@ -35,5 +38,21 @@ describe('TestimonialsView', () => {
   it('renders the background image', () => {
     const wrapper = factory()
     expect(wrapper.get('img').attributes('src')).toBeTruthy()
+  })
+
+  it('opens a detail modal with the full quote when a card is clicked', async () => {
+    const wrapper = factory()
+    expect(wrapper.find('[role="dialog"]').exists()).toBe(false)
+    await wrapper.findAll('article')[0]!.trigger('click')
+    const dialog = wrapper.find('[role="dialog"]')
+    expect(dialog.exists()).toBe(true)
+    expect(dialog.find('button[aria-label="Close"]').exists()).toBe(true)
+  })
+
+  it('closes the detail modal via the close button', async () => {
+    const wrapper = factory()
+    await wrapper.findAll('article')[0]!.trigger('click')
+    await wrapper.find('button[aria-label="Close"]').trigger('click')
+    expect(wrapper.find('[role="dialog"]').exists()).toBe(false)
   })
 })
