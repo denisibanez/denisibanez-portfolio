@@ -9,7 +9,9 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [
     vue(),
-    vueDevTools(),
+    // DevTools crashes Storybook/Vitest browser runs:
+    // `@vue/devtools-kit` reads `.app` on an undefined active app.
+    ...(process.env.VITEST ? [] : [vueDevTools()]),
     tailwindcss(),
   ],
   resolve: {
