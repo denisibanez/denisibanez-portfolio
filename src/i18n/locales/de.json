@@ -36,6 +36,16 @@
     "view": "Projekt ansehen"
   },
   "projectDetail": {
+    "caseStudy": "Fallstudie",
+    "viewLive": "Details ansehen",
+    "back": "Zurück zum Portfolio",
+    "prev": "Vorheriges Projekt",
+    "next": "Nächstes Projekt",
+    "expand": "Bild vergrößern",
+    "close": "Schließen",
+    "notFound": "Projekt nicht gefunden"
+  },
+  "projectSpecs": {
     "specifications": "Projektspezifikationen",
     "keyFeatures": "Kernfunktionen & Meilensteine",
     "industry": "Branche",
@@ -44,7 +54,7 @@
     "techStack": "Tech-Stack & Tools",
     "myRole": "Meine Rolle",
     "collaborators": "Mitwirkende",
-    "viewLive": "Details ansehen",
+    "viewLive": "Live-Projekt ansehen",
     "back": "Zurück zum Portfolio",
     "notFound": "Projekt nicht gefunden"
   },

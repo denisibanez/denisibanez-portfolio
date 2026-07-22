@@ -36,6 +36,16 @@
     "view": "Ver projeto"
   },
   "projectDetail": {
+    "caseStudy": "Estudo de caso",
+    "viewLive": "Ver detalhes",
+    "back": "Voltar ao portfólio",
+    "prev": "Projeto anterior",
+    "next": "Próximo projeto",
+    "expand": "Ampliar imagem",
+    "close": "Fechar",
+    "notFound": "Projeto não encontrado"
+  },
+  "projectSpecs": {
     "specifications": "Especificações do projeto",
     "keyFeatures": "Principais funcionalidades e marcos",
     "industry": "Indústria",
@@ -44,7 +54,7 @@
     "techStack": "Stack e ferramentas",
     "myRole": "Meu papel",
     "collaborators": "Colaboradores",
-    "viewLive": "Ver detalhes",
+    "viewLive": "Ver projeto online",
     "back": "Voltar ao portfólio",
     "notFound": "Projeto não encontrado"
   },

@@ -36,6 +36,16 @@
     "view": "プロジェクトを見る"
   },
   "projectDetail": {
+    "caseStudy": "ケーススタディ",
+    "viewLive": "詳細を見る",
+    "back": "ポートフォリオに戻る",
+    "prev": "前のプロジェクト",
+    "next": "次のプロジェクト",
+    "expand": "画像を拡大",
+    "close": "閉じる",
+    "notFound": "プロジェクトが見つかりません"
+  },
+  "projectSpecs": {
     "specifications": "プロジェクト仕様",
     "keyFeatures": "主な機能とマイルストーン",
     "industry": "業界",
@@ -44,7 +54,7 @@
     "techStack": "技術スタックとツール",
     "myRole": "担当",
     "collaborators": "協力",
-    "viewLive": "詳細を見る",
+    "viewLive": "ライブプロジェクトを見る",
     "back": "ポートフォリオに戻る",
     "notFound": "プロジェクトが見つかりません"
   },

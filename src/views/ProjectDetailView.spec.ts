@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import { createI18n } from 'vue-i18n'
 import { createRouter, createMemoryHistory, type Router } from 'vue-router'
@@ -10,16 +10,13 @@ const i18n = createI18n({
   messages: {
     en: {
       projectDetail: {
-        specifications: 'Project Specifications',
-        keyFeatures: 'Key Features & Milestones',
-        industry: 'Industry',
-        timeline: 'Timeline',
-        months: 'Months',
-        techStack: 'Tech Stack & Tools',
-        myRole: 'My Role',
-        collaborators: 'Collaborators',
+        caseStudy: 'Case Study',
         viewLive: 'View details',
         back: 'Back to Portfolio',
+        prev: 'Previous project',
+        next: 'Next project',
+        expand: 'Expand image',
+        close: 'Close',
         notFound: 'Project not found',
       },
     },
@@ -32,6 +29,7 @@ const makeRouter = (): Router =>
     routes: [
       { path: '/projects', name: 'projects', component: { template: '<div />' } },
       { path: '/projects/:slug', name: 'project-detail', component: { template: '<div />' } },
+      { path: '/projects/:slug/specs', name: 'project-specs', component: { template: '<div />' } },
     ],
   })
 
@@ -44,44 +42,46 @@ const factory = async (slug?: string) => {
 }
 
 describe('ProjectDetailView', () => {
-  it('renders the title and specification sections for a known slug', async () => {
+  it('renders the project title and case-study meta for a known slug', async () => {
     const { wrapper } = await factory('aether-watch')
     expect(wrapper.get('h1').text()).toBe('Aether Watch Co.')
-    const text = wrapper.text()
-    expect(text).toContain('Project Specifications')
-    expect(text).toContain('Key Features & Milestones')
+    expect(wrapper.text()).toContain('Case Study')
+    expect(wrapper.text()).toContain('2024')
   })
 
-  it('renders the metadata panels (industry, timeline, role)', async () => {
-    const { wrapper } = await factory('aether-watch')
-    const text = wrapper.text()
-    expect(text).toContain('Product Design') // industry
-    expect(text).toContain('Months') // timeline label
-    expect(text).toContain('Lead Front-end & Motion') // role
-  })
-
-  it('renders one pill per tech-stack entry', async () => {
-    const { wrapper } = await factory('aether-watch')
-    // Aether Watch has 5 tech entries; each is a bordered pill.
-    expect(wrapper.text()).toContain('Three.js')
-    expect(wrapper.text()).toContain('TypeScript')
-  })
-
-  it('opens a live URL when "View details" is clicked', async () => {
-    const { wrapper } = await factory('aether-watch')
-    const openSpy = vi.spyOn(window, 'open').mockImplementation(() => null)
-    const live = wrapper.findAll('button').find((b) => b.text() === 'View details')
-    expect(live?.attributes('disabled')).toBeUndefined()
-    await live?.trigger('click')
-    expect(openSpy).toHaveBeenCalledOnce()
-    openSpy.mockRestore()
-  })
-
-  it('navigates back to the projects list', async () => {
+  it('drills into the specs page when "View details" is clicked', async () => {
     const { wrapper, router } = await factory('aether-watch')
-    await wrapper.findAll('button').find((b) => b.text() === 'Back to Portfolio')?.trigger('click')
+    await wrapper.findAll('button').find((b) => b.text() === 'View details')?.trigger('click')
     await flushPromises()
-    expect(router.currentRoute.value.name).toBe('projects')
+    expect(router.currentRoute.value.name).toBe('project-specs')
+    expect(router.currentRoute.value.params.slug).toBe('aether-watch')
+  })
+
+  it('navigates to the adjacent project via the next control', async () => {
+    const { wrapper, router } = await factory('aether-watch')
+    await wrapper.find('button[aria-label="Next project"]').trigger('click')
+    await flushPromises()
+    expect(router.currentRoute.value.params.slug).toBe('brutalist-villa')
+  })
+
+  it('opens and closes the image lightbox via the maximize control', async () => {
+    const { wrapper } = await factory('aether-watch')
+    expect(wrapper.find('[role="dialog"]').exists()).toBe(false)
+    await wrapper.find('button[aria-label="Expand image"]').trigger('click')
+    expect(wrapper.find('[role="dialog"]').exists()).toBe(true)
+    await wrapper.find('[role="dialog"] button[aria-label="Close"]').trigger('click')
+    expect(wrapper.find('[role="dialog"]').exists()).toBe(false)
+  })
+
+  it('changes the gallery frame when the media is dragged sideways', async () => {
+    const { wrapper } = await factory('aether-watch')
+    expect(wrapper.text()).toContain('AW — 01')
+    // jsdom can't set clientX via VTU trigger, so dispatch native events.
+    const media = wrapper.find('.cursor-grab').element
+    media.dispatchEvent(new MouseEvent('pointerdown', { clientX: 220, bubbles: true }))
+    media.dispatchEvent(new MouseEvent('pointerup', { clientX: 120, bubbles: true }))
+    await wrapper.vm.$nextTick()
+    expect(wrapper.text()).toContain('AW — 02')
   })
 
   it('shows a not-found fallback for an unknown slug', async () => {

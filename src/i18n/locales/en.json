@@ -36,6 +36,16 @@
     "view": "View project"
   },
   "projectDetail": {
+    "caseStudy": "Case Study",
+    "viewLive": "View details",
+    "back": "Back to Portfolio",
+    "prev": "Previous project",
+    "next": "Next project",
+    "expand": "Expand image",
+    "close": "Close",
+    "notFound": "Project not found"
+  },
+  "projectSpecs": {
     "specifications": "Project Specifications",
     "keyFeatures": "Key Features & Milestones",
     "industry": "Industry",
@@ -44,7 +54,7 @@
     "techStack": "Tech Stack & Tools",
     "myRole": "My Role",
     "collaborators": "Collaborators",
-    "viewLive": "View details",
+    "viewLive": "View live project",
     "back": "Back to Portfolio",
     "notFound": "Project not found"
   },
