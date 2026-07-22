@@ -72,9 +72,9 @@ const rise = (delay: number) => ({
     <!-- Mobile-only scrim — subtle, keeps the header copy legible over the portrait -->
     <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-surface/75 via-surface/35 to-transparent lg:hidden" />
 
-    <div class="relative z-10 flex min-h-screen flex-col justify-center px-[5vw] pt-28 pb-28">
+    <div class="relative z-10 flex min-h-screen flex-col justify-end px-[5vw] pt-24 pb-24 sm:justify-center sm:pt-28 sm:pb-28">
       <!-- Header -->
-      <div class="mb-10 flex flex-wrap items-end justify-between gap-6">
+      <div class="mb-6 flex flex-wrap items-end justify-between gap-6 sm:mb-10">
         <div>
           <Motion as="h1" v-bind="rise(0)" class="text-headline-md md:text-headline-lg">
             {{ t('testimonials.title') }}
@@ -84,7 +84,7 @@ const rise = (delay: number) => ({
           </Motion>
         </div>
 
-        <Motion as="div" v-bind="rise(0.2)" class="flex gap-3">
+        <Motion as="div" v-bind="rise(0.2)" class="hidden gap-3 sm:flex">
           <button
             type="button"
             class="inline-flex size-12 cursor-pointer items-center justify-center border border-outline text-on-surface transition-colors hover:bg-on-surface hover:text-surface"
@@ -116,7 +116,7 @@ const rise = (delay: number) => ({
           class="flex w-[85vw] shrink-0 snap-start flex-col overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl transition-colors hover:border-white/20 hover:bg-white/8 sm:w-[360px]"
         >
           <!-- Media: portrait, or an initials placeholder until real photos are added -->
-          <div class="h-72 w-full shrink-0 overflow-hidden">
+          <div class="h-40 w-full shrink-0 overflow-hidden sm:h-72">
             <img v-if="item.photo" :src="item.photo" :alt="item.name" class="h-full w-full object-cover" />
             <div
               v-else
@@ -127,7 +127,7 @@ const rise = (delay: number) => ({
             </div>
           </div>
           <!-- Copy -->
-          <div class="flex flex-1 flex-col justify-between p-8">
+          <div class="flex flex-1 flex-col justify-between p-6 sm:p-8">
             <p class="text-body-lg italic text-on-surface">&ldquo;{{ item.quote }}&rdquo;</p>
             <div class="mt-6">
               <h3 class="text-body-lg text-on-surface">{{ item.name }}</h3>
