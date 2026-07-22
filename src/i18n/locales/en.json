@@ -41,6 +41,7 @@
     "back": "Back to Portfolio",
     "prev": "Previous project",
     "next": "Next project",
+    "expand": "Expand image",
     "notFound": "Project not found"
   },
   "testimonials": {

@@ -5,7 +5,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { Motion } from 'motion-v'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import { useProjects, type Project } from '@/composables/useProjects'
-import detailBg from '@/assets/images/banner-portfolio.png'
+import detailBg from '@/assets/images/testimonials-bg.jpg'
 
 // `slug` prop overrides the route param (handy for stories/tests).
 type Props = { slug?: string }
@@ -19,6 +19,19 @@ const { getBySlug, getAdjacent } = useProjects()
 const slug = computed(() => props.slug ?? String(route.params.slug ?? ''))
 const project = computed<Project | null>(() => getBySlug(slug.value))
 const adjacent = computed(() => getAdjacent(slug.value))
+
+const heroCode = computed(() => {
+  const current = project.value
+  if (!current) return ''
+  const initials = current.title
+    .split(' ')
+    .filter(Boolean)
+    .map((word) => word[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase()
+  return `${initials} — 01`
+})
 
 const goToProjects = () => router.push({ name: 'projects' })
 const goToProject = (target: Project | null) => {
@@ -46,36 +59,94 @@ const rise = (delay: number) => ({
       aria-hidden="true"
       class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
     />
-    <div class="pointer-events-none absolute inset-0 bg-surface/70" />
 
     <div class="relative z-10 flex min-h-screen flex-col justify-center px-[5vw] pt-28 pb-20 lg:pt-24">
       <!-- Project -->
-      <div v-if="project" class="grid grid-cols-1 items-center gap-8 md:grid-cols-[0.9fr_1.1fr] md:gap-12">
+      <div v-if="project" class="flex flex-col items-stretch gap-8 lg:flex-row lg:items-center lg:gap-10">
+        <!-- Vertical prev/next controls (desktop) -->
+        <div class="hidden shrink-0 flex-col items-center gap-4 lg:flex">
+          <button
+            type="button"
+            class="inline-flex size-14 cursor-pointer items-center justify-center border border-outline-variant/40 text-on-surface-variant transition-colors hover:border-on-surface hover:text-on-surface"
+            :aria-label="t('projectDetail.prev')"
+            @click="goToProject(adjacent.prev)"
+          >
+            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M12 19V5M5 12l7-7 7 7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <div class="h-20 w-px bg-outline-variant/40">
+            <div class="h-1/3 w-full bg-primary" />
+          </div>
+          <button
+            type="button"
+            class="inline-flex size-14 cursor-pointer items-center justify-center border border-outline-variant/40 text-on-surface-variant transition-colors hover:border-on-surface hover:text-on-surface"
+            :aria-label="t('projectDetail.next')"
+            @click="goToProject(adjacent.next)"
+          >
+            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M12 5v14M19 12l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
         <!-- Media -->
-        <Motion as="div" v-bind="rise(0.1)" class="relative h-[38vh] overflow-hidden bg-surface-container-low md:h-[62vh]">
-          <img v-if="project.image" :src="project.image" :alt="project.title" class="h-full w-full object-cover" />
+        <Motion
+          as="div"
+          v-bind="rise(0.1)"
+          class="group relative h-[46vh] w-full shrink-0 overflow-hidden bg-surface-container-low shadow-2xl lg:h-[64vh] lg:w-[34%]"
+        >
+          <img
+            v-if="project.image"
+            :src="project.image"
+            :alt="project.title"
+            class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
           <div
             v-else
             class="flex h-full w-full flex-col items-center justify-center gap-4 bg-linear-to-br from-surface-bright/40 via-surface-container to-surface-container-lowest"
             aria-hidden="true"
           >
-            <span class="text-label-lg uppercase tracking-widest text-on-surface-variant/50">{{ project.category }}</span>
+            <svg class="size-16 text-on-surface/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M12 3v6m0 0l-4.5 9m4.5-9l4.5 9M12 9a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="text-label-lg uppercase tracking-widest text-on-surface/30">{{ heroCode }}</span>
           </div>
+
           <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-surface/50 to-transparent" />
+
+          <!-- Expand (enabled once a real image exists) -->
+          <button
+            type="button"
+            class="absolute right-4 top-4 inline-flex size-11 items-center justify-center border border-white/10 bg-surface/40 text-on-surface backdrop-blur-md transition-colors hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-40"
+            :disabled="!project.image"
+            :aria-label="t('projectDetail.expand')"
+          >
+            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+
+          <!-- Gallery indicators -->
+          <div class="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-2">
+            <span class="h-0.5 w-8 bg-on-surface" />
+            <span class="h-0.5 w-8 bg-on-surface/30" />
+            <span class="h-0.5 w-8 bg-on-surface/30" />
+          </div>
         </Motion>
 
         <!-- Content -->
-        <div class="flex flex-col justify-center gap-6 md:gap-8">
+        <div class="flex flex-1 flex-col justify-center gap-6 md:gap-8">
           <div class="space-y-3">
-            <Motion as="span" v-bind="rise(0)" class="block text-label-lg uppercase tracking-widest text-on-surface-variant">
+            <Motion as="span" v-bind="rise(0)" class="block text-label-lg uppercase tracking-widest text-tertiary">
               {{ t('projectDetail.caseStudy') }} — {{ project.year }}
             </Motion>
-            <Motion as="h1" v-bind="rise(0.1)" class="text-headline-md md:text-headline-lg">
+            <Motion as="h1" v-bind="rise(0.1)" class="font-serif text-5xl leading-[1.05] tracking-tight md:text-7xl">
               {{ project.title }}
             </Motion>
           </div>
 
-          <Motion as="p" v-bind="rise(0.2)" class="max-w-lg text-body-lg text-on-surface-variant">
+          <Motion as="p" v-bind="rise(0.2)" class="max-w-xl text-body-lg text-on-surface-variant">
             {{ project.summary }}
           </Motion>
 
@@ -88,8 +159,12 @@ const rise = (delay: number) => ({
             </BaseButton>
           </Motion>
 
-          <!-- Prev / next project -->
-          <Motion as="div" v-bind="rise(0.4)" class="mt-2 flex items-center justify-between gap-4 border-t border-outline-variant/40 pt-6">
+          <!-- Prev / next (mobile) -->
+          <Motion
+            as="div"
+            v-bind="rise(0.4)"
+            class="mt-2 flex items-center justify-between gap-4 border-t border-outline-variant/40 pt-6 lg:hidden"
+          >
             <button
               type="button"
               class="group inline-flex max-w-[45%] cursor-pointer items-center gap-3 text-left text-on-surface-variant transition-colors hover:text-on-surface"
