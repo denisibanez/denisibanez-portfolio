@@ -6,7 +6,7 @@ import testimonialsBg from '@/assets/images/testimonials-bg.jpg'
 
 const { t } = useI18n()
 
-type Testimonial = { quote: string; name: string; role: string }
+type Testimonial = { quote: string; name: string; role: string; photo?: string }
 
 // Sample testimonials — replace with real quotes when available.
 const testimonials: Testimonial[] = [
@@ -67,7 +67,7 @@ const rise = (delay: number) => ({
       :src="testimonialsBg"
       alt=""
       aria-hidden="true"
-      class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center opacity-30 grayscale"
+      class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
     />
 
     <div class="relative z-10 flex min-h-screen flex-col justify-center px-[5vw] pt-28 pb-28">
@@ -111,21 +111,25 @@ const rise = (delay: number) => ({
         <article
           v-for="item in testimonials"
           :key="item.name"
-          class="flex w-[85vw] shrink-0 snap-start flex-col justify-between border border-white/10 bg-white/5 p-8 backdrop-blur-xl transition-colors hover:border-white/20 hover:bg-white/8 sm:w-[380px]"
+          class="flex w-[85vw] shrink-0 snap-start flex-col overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl transition-colors hover:border-white/20 hover:bg-white/8 sm:w-[360px]"
         >
-          <div>
-            <span class="block text-6xl leading-none text-on-surface-variant/30" aria-hidden="true">&ldquo;</span>
-            <p class="mt-2 text-body-lg italic text-on-surface">{{ item.quote }}</p>
-          </div>
-          <div class="mt-8 flex items-center gap-4">
-            <span
-              class="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/10 text-label-lg uppercase text-on-surface"
+          <!-- Media: portrait, or an initials placeholder until real photos are added -->
+          <div class="h-72 w-full shrink-0 overflow-hidden">
+            <img v-if="item.photo" :src="item.photo" :alt="item.name" class="h-full w-full object-cover" />
+            <div
+              v-else
+              class="flex h-full w-full items-center justify-center bg-linear-to-br from-white/10 to-transparent"
+              aria-hidden="true"
             >
-              {{ initials(item.name) }}
-            </span>
-            <div>
+              <span class="text-headline-md uppercase text-on-surface-variant/60">{{ initials(item.name) }}</span>
+            </div>
+          </div>
+          <!-- Copy -->
+          <div class="flex flex-1 flex-col justify-between p-8">
+            <p class="text-body-lg italic text-on-surface">&ldquo;{{ item.quote }}&rdquo;</p>
+            <div class="mt-6">
               <h3 class="text-body-lg text-on-surface">{{ item.name }}</h3>
-              <p class="text-label-lg uppercase tracking-widest text-on-surface-variant">{{ item.role }}</p>
+              <p class="mt-1 text-label-lg uppercase tracking-widest text-on-surface-variant">{{ item.role }}</p>
             </div>
           </div>
         </article>
