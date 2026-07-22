@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import { createI18n } from 'vue-i18n'
 import { createRouter, createMemoryHistory, type Router } from 'vue-router'
@@ -15,6 +15,8 @@ const i18n = createI18n({
         back: 'Back to Portfolio',
         prev: 'Previous project',
         next: 'Next project',
+        expand: 'Expand image',
+        close: 'Close',
         notFound: 'Project not found',
       },
     },
@@ -46,11 +48,14 @@ describe('ProjectDetailView', () => {
     expect(wrapper.text()).toContain('2024')
   })
 
-  it('disables "View Live Project" when the project has no url', async () => {
+  it('opens a live URL when "View Live Project" is clicked', async () => {
     const { wrapper } = await factory('aether-watch')
-    const buttons = wrapper.findAll('button')
-    const live = buttons.find((b) => b.text() === 'View Live Project')
-    expect(live?.attributes('disabled')).toBeDefined()
+    const openSpy = vi.spyOn(window, 'open').mockImplementation(() => null)
+    const live = wrapper.findAll('button').find((b) => b.text() === 'View Live Project')
+    expect(live?.attributes('disabled')).toBeUndefined()
+    await live?.trigger('click')
+    expect(openSpy).toHaveBeenCalledOnce()
+    openSpy.mockRestore()
   })
 
   it('navigates to the adjacent project via the next control', async () => {
@@ -58,6 +63,26 @@ describe('ProjectDetailView', () => {
     await wrapper.find('button[aria-label="Next project"]').trigger('click')
     await flushPromises()
     expect(router.currentRoute.value.params.slug).toBe('brutalist-villa')
+  })
+
+  it('opens and closes the image lightbox via the maximize control', async () => {
+    const { wrapper } = await factory('aether-watch')
+    expect(wrapper.find('[role="dialog"]').exists()).toBe(false)
+    await wrapper.find('button[aria-label="Expand image"]').trigger('click')
+    expect(wrapper.find('[role="dialog"]').exists()).toBe(true)
+    await wrapper.find('[role="dialog"] button[aria-label="Close"]').trigger('click')
+    expect(wrapper.find('[role="dialog"]').exists()).toBe(false)
+  })
+
+  it('changes the gallery frame when the media is dragged sideways', async () => {
+    const { wrapper } = await factory('aether-watch')
+    expect(wrapper.text()).toContain('AW — 01')
+    // jsdom can't set clientX via VTU trigger, so dispatch native events.
+    const media = wrapper.find('.cursor-grab').element
+    media.dispatchEvent(new MouseEvent('pointerdown', { clientX: 220, bubbles: true }))
+    media.dispatchEvent(new MouseEvent('pointerup', { clientX: 120, bubbles: true }))
+    await wrapper.vm.$nextTick()
+    expect(wrapper.text()).toContain('AW — 02')
   })
 
   it('shows a not-found fallback for an unknown slug', async () => {

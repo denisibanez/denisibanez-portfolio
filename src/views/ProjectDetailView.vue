@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import { Motion } from 'motion-v'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import { useProjects, type Project } from '@/composables/useProjects'
+import { site } from '@/config/site'
 import detailBg from '@/assets/images/testimonials-bg.jpg'
 
 // `slug` prop overrides the route param (handy for stories/tests).
@@ -14,23 +15,78 @@ const props = defineProps<Props>()
 const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
-const { getBySlug, getAdjacent } = useProjects()
+const { projects, getBySlug, getAdjacent } = useProjects()
 
 const slug = computed(() => props.slug ?? String(route.params.slug ?? ''))
 const project = computed<Project | null>(() => getBySlug(slug.value))
 const adjacent = computed(() => getAdjacent(slug.value))
+const currentIndex = computed(() => projects.findIndex((p) => p.slug === slug.value))
 
-const heroCode = computed(() => {
+// Position of this project within the collection (drives the progress bar).
+const progress = computed(() => {
+  if (projects.length <= 1 || currentIndex.value < 0) return 0
+  return ((currentIndex.value + 1) / projects.length) * 100
+})
+
+// Image gallery — falls back to a few placeholder frames until real shots land.
+const gallery = computed(() => project.value?.image ? [project.value.image] : [])
+const slideCount = computed(() => Math.max(gallery.value.length, 3))
+const activeImage = ref(0)
+const activeSrc = computed(() => gallery.value[activeImage.value])
+
+const initials = computed(() => {
   const current = project.value
   if (!current) return ''
-  const initials = current.title
+  return current.title
     .split(' ')
     .filter(Boolean)
     .map((word) => word[0])
     .slice(0, 2)
     .join('')
     .toUpperCase()
-  return `${initials} — 01`
+})
+const heroCode = computed(() => `${initials.value} — ${String(activeImage.value + 1).padStart(2, '0')}`)
+
+const setImage = (index: number) => {
+  activeImage.value = index
+}
+
+const cycleImage = (direction: number) => {
+  const count = slideCount.value
+  activeImage.value = (activeImage.value + direction + count) % count
+}
+
+// Drag/swipe the media panel sideways to change image.
+let dragStartX: number | null = null
+const onDragStart = (event: PointerEvent) => {
+  dragStartX = event.clientX
+}
+const onDragEnd = (event: PointerEvent) => {
+  if (dragStartX === null) return
+  const deltaX = event.clientX - dragStartX
+  dragStartX = null
+  if (Math.abs(deltaX) < 40) return
+  cycleImage(deltaX < 0 ? 1 : -1)
+}
+
+// Lightbox
+const lightboxOpen = ref(false)
+const openLightbox = () => {
+  lightboxOpen.value = true
+}
+const closeLightbox = () => {
+  lightboxOpen.value = false
+}
+const onKey = (event: KeyboardEvent) => {
+  if (event.key === 'Escape') closeLightbox()
+}
+onMounted(() => window.addEventListener('keydown', onKey))
+onUnmounted(() => window.removeEventListener('keydown', onKey))
+
+// Reset gallery/lightbox when navigating between projects.
+watch(slug, () => {
+  activeImage.value = 0
+  lightboxOpen.value = false
 })
 
 const goToProjects = () => router.push({ name: 'projects' })
@@ -39,9 +95,8 @@ const goToProject = (target: Project | null) => {
   router.push({ name: 'project-detail', params: { slug: target.slug } })
 }
 const openLive = () => {
-  const url = project.value?.url
-  if (!url) return
-  window.open(url, '_blank', 'noopener')
+  // Falls back to the portfolio site until projects carry real live URLs.
+  window.open(project.value?.url ?? site.url, '_blank', 'noopener')
 }
 
 const rise = (delay: number) => ({
@@ -67,7 +122,7 @@ const rise = (delay: number) => ({
         <div class="hidden shrink-0 flex-col items-center gap-4 lg:flex">
           <button
             type="button"
-            class="inline-flex size-14 cursor-pointer items-center justify-center border border-outline-variant/40 text-on-surface-variant transition-colors hover:border-on-surface hover:text-on-surface"
+            class="inline-flex size-14 cursor-pointer items-center justify-center border border-outline text-on-surface-variant transition-colors hover:border-on-surface hover:text-on-surface"
             :aria-label="t('projectDetail.prev')"
             @click="goToProject(adjacent.prev)"
           >
@@ -75,12 +130,12 @@ const rise = (delay: number) => ({
               <path d="M12 19V5M5 12l7-7 7 7" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </button>
-          <div class="h-20 w-px bg-outline-variant/40">
-            <div class="h-1/3 w-full bg-primary" />
+          <div class="h-20 w-0.5 bg-on-surface/20">
+            <div class="w-full bg-primary transition-[height] duration-500" :style="{ height: `${progress}%` }" />
           </div>
           <button
             type="button"
-            class="inline-flex size-14 cursor-pointer items-center justify-center border border-outline-variant/40 text-on-surface-variant transition-colors hover:border-on-surface hover:text-on-surface"
+            class="inline-flex size-14 cursor-pointer items-center justify-center border border-outline text-on-surface-variant transition-colors hover:border-on-surface hover:text-on-surface"
             :aria-label="t('projectDetail.next')"
             @click="goToProject(adjacent.next)"
           >
@@ -94,11 +149,13 @@ const rise = (delay: number) => ({
         <Motion
           as="div"
           v-bind="rise(0.1)"
-          class="group relative h-[46vh] w-full shrink-0 overflow-hidden bg-surface-container-low shadow-2xl lg:h-[64vh] lg:w-[34%]"
+          class="group relative h-[46vh] w-full shrink-0 cursor-grab touch-pan-y select-none overflow-hidden bg-surface-container-low shadow-2xl active:cursor-grabbing lg:h-[64vh] lg:w-[34%]"
+          @pointerdown="onDragStart"
+          @pointerup="onDragEnd"
         >
           <img
-            v-if="project.image"
-            :src="project.image"
+            v-if="activeSrc"
+            :src="activeSrc"
             :alt="project.title"
             class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
@@ -115,12 +172,12 @@ const rise = (delay: number) => ({
 
           <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-surface/50 to-transparent" />
 
-          <!-- Expand (enabled once a real image exists) -->
+          <!-- Maximize -->
           <button
             type="button"
-            class="absolute right-4 top-4 inline-flex size-11 items-center justify-center border border-white/10 bg-surface/40 text-on-surface backdrop-blur-md transition-colors hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-40"
-            :disabled="!project.image"
+            class="absolute right-4 top-4 inline-flex size-11 cursor-pointer items-center justify-center border border-white/10 bg-surface/40 text-on-surface backdrop-blur-md transition-colors hover:bg-white/20"
             :aria-label="t('projectDetail.expand')"
+            @click="openLightbox"
           >
             <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
               <path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5" stroke-linecap="round" stroke-linejoin="round" />
@@ -129,9 +186,15 @@ const rise = (delay: number) => ({
 
           <!-- Gallery indicators -->
           <div class="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-2">
-            <span class="h-0.5 w-8 bg-on-surface" />
-            <span class="h-0.5 w-8 bg-on-surface/30" />
-            <span class="h-0.5 w-8 bg-on-surface/30" />
+            <button
+              v-for="i in slideCount"
+              :key="i"
+              type="button"
+              class="h-0.5 w-8 cursor-pointer transition-all duration-300"
+              :class="i - 1 === activeImage ? 'bg-on-surface' : 'bg-on-surface/30 hover:bg-on-surface/60'"
+              :aria-label="`${project.title} — ${i}`"
+              @click="setImage(i - 1)"
+            />
           </div>
         </Motion>
 
@@ -151,7 +214,7 @@ const rise = (delay: number) => ({
           </Motion>
 
           <Motion as="div" v-bind="rise(0.3)" class="flex flex-wrap gap-4">
-            <BaseButton variant="primary" :disabled="!project.url" @click="openLive">
+            <BaseButton variant="primary" @click="openLive">
               {{ t('projectDetail.viewLive') }}
             </BaseButton>
             <BaseButton variant="outline" @click="goToProjects">
@@ -163,7 +226,7 @@ const rise = (delay: number) => ({
           <Motion
             as="div"
             v-bind="rise(0.4)"
-            class="mt-2 flex items-center justify-between gap-4 border-t border-outline-variant/40 pt-6 lg:hidden"
+            class="mt-2 flex items-center justify-between gap-4 border-t border-outline/40 pt-6 lg:hidden"
           >
             <button
               type="button"
@@ -193,5 +256,52 @@ const rise = (delay: number) => ({
         <BaseButton variant="outline" @click="goToProjects">{{ t('projectDetail.back') }}</BaseButton>
       </div>
     </div>
+
+    <!-- Lightbox -->
+    <Transition name="fade">
+      <div
+        v-if="lightboxOpen && project"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-surface/85 p-[5vw] backdrop-blur-sm"
+        role="dialog"
+        aria-modal="true"
+        @click.self="closeLightbox"
+      >
+        <div class="relative h-[80vh] w-full max-w-5xl overflow-hidden bg-surface-container-low">
+          <img v-if="activeSrc" :src="activeSrc" :alt="project.title" class="h-full w-full object-contain" />
+          <div
+            v-else
+            class="flex h-full w-full flex-col items-center justify-center gap-4 bg-linear-to-br from-surface-bright/40 via-surface-container to-surface-container-lowest"
+            aria-hidden="true"
+          >
+            <svg class="size-24 text-on-surface/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M12 3v6m0 0l-4.5 9m4.5-9l4.5 9M12 9a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="text-headline-md uppercase tracking-widest text-on-surface/30">{{ heroCode }}</span>
+          </div>
+
+          <button
+            type="button"
+            class="absolute right-4 top-4 inline-flex size-11 cursor-pointer items-center justify-center border border-white/15 bg-surface/40 text-on-surface backdrop-blur-md transition-colors hover:bg-on-surface hover:text-surface"
+            :aria-label="t('projectDetail.close')"
+            @click="closeLightbox"
+          >
+            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </Transition>
   </section>
 </template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
