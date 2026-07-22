@@ -13,7 +13,7 @@ const route = useRoute()
 const navLinks = computed(() => [
   { label: t('nav.home'), href: '/' },
   { label: t('nav.about'), href: '/about' },
-  { label: t('nav.projects'), href: '#projects' },
+  { label: t('nav.projects'), href: '/projects' },
   { label: t('nav.testimonials'), href: '/testimonials' },
 ])
 
@@ -54,18 +54,29 @@ const onLocaleChange = (value: string) => {
     <footer
       class="absolute inset-x-0 bottom-0 z-20 flex flex-col items-start justify-between gap-4 px-[5vw] py-6 text-label-lg uppercase text-on-surface-variant sm:flex-row sm:items-center"
     >
-      <span>© {{ year }} Denis Ibañez</span>
-      <div class="flex gap-6">
+      <span class="shrink-0">© {{ year }} Denis Ibañez</span>
+      <!-- Socials scroll horizontally on mobile (they overflow once the list grows); inline on desktop -->
+      <div class="no-scrollbar flex w-full max-w-full gap-6 overflow-x-auto sm:w-auto sm:overflow-visible">
         <a
           v-for="s in socials"
           :key="s.label"
           :href="s.href"
           target="_blank"
           rel="noopener"
-          class="transition-colors hover:text-primary"
+          class="shrink-0 whitespace-nowrap transition-colors hover:text-primary"
           >{{ s.label }}</a
         >
       </div>
     </footer>
   </div>
 </template>
+
+<style scoped>
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+</style>

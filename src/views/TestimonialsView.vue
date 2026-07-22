@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { Motion } from 'motion-v'
-import testimonialsBg from '@/assets/images/testimonials-bg.jpg'
+import BaseCarousel from '@/components/BaseCarousel/BaseCarousel.vue'
+import testimonialsBg from '@/assets/images/banner-portfolio.png'
 
 const { t } = useI18n()
 
@@ -49,29 +49,8 @@ const initials = (name: string) =>
     .slice(0, 2)
     .join('')
 
-const track = ref<HTMLElement | null>(null)
-const activeIndex = ref(0)
-
-const step = () => {
-  const el = track.value
-  if (!el) return 1
-  const card = el.querySelector('article')
-  return card ? card.clientWidth + 24 : el.clientWidth
-}
-
-const scrollByCards = (direction: number) => {
-  track.value?.scrollBy({ left: direction * step(), behavior: 'smooth' })
-}
-
-const scrollToCard = (index: number) => {
-  track.value?.scrollTo({ left: index * step(), behavior: 'smooth' })
-}
-
-const onScroll = () => {
-  const el = track.value
-  if (!el) return
-  activeIndex.value = Math.round(el.scrollLeft / step())
-}
+const testimonialCardClass =
+  'flex w-[72vw] flex-col border border-white/10 bg-white/5 backdrop-blur-xl transition-colors hover:border-white/20 sm:w-[360px]'
 
 // Detail modal
 const selected = ref<Testimonial | null>(null)
@@ -86,12 +65,6 @@ const onKey = (event: KeyboardEvent) => {
 }
 onMounted(() => window.addEventListener('keydown', onKey))
 onUnmounted(() => window.removeEventListener('keydown', onKey))
-
-const rise = (delay: number) => ({
-  initial: { opacity: 0, y: 24 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, delay, ease: 'easeOut' },
-})
 </script>
 
 <template>
@@ -102,61 +75,19 @@ const rise = (delay: number) => ({
       aria-hidden="true"
       class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
     />
-    <!-- Mobile-only scrim — subtle, keeps the header copy legible over the portrait -->
-    <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-surface/75 via-surface/35 to-transparent lg:hidden" />
 
     <div class="relative z-10 flex h-screen flex-col justify-end px-[5vw] pt-24 pb-20 sm:justify-center sm:pt-20 sm:pb-16">
-      <!-- Header -->
-      <div class="mb-6 flex flex-wrap items-end justify-between gap-6 sm:mb-10">
-        <div>
-          <Motion as="h1" v-bind="rise(0)" class="text-headline-md md:text-headline-lg">
-            {{ t('testimonials.title') }}
-          </Motion>
-          <Motion as="p" v-bind="rise(0.1)" class="mt-3 max-w-lg text-body-lg text-on-surface-variant">
-            {{ t('testimonials.subtitle') }}
-          </Motion>
-        </div>
-
-        <Motion as="div" v-bind="rise(0.2)" class="hidden gap-3 sm:flex">
-          <button
-            type="button"
-            class="inline-flex size-12 cursor-pointer items-center justify-center border border-outline text-on-surface transition-colors hover:bg-on-surface hover:text-surface"
-            :aria-label="t('testimonials.prev')"
-            @click="scrollByCards(-1)"
-          >
-            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-              <path d="M15 5l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            class="inline-flex size-12 cursor-pointer items-center justify-center border border-outline text-on-surface transition-colors hover:bg-on-surface hover:text-surface"
-            :aria-label="t('testimonials.next')"
-            @click="scrollByCards(1)"
-          >
-            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-              <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </button>
-        </Motion>
-      </div>
-
-      <!-- Carousel -->
-      <div
-        ref="track"
-        class="no-scrollbar flex shrink-0 snap-x snap-mandatory gap-6 overflow-x-auto pb-4"
-        @scroll="onScroll"
+      <BaseCarousel
+        :items="testimonials"
+        :title="t('testimonials.title')"
+        :subtitle="t('testimonials.subtitle')"
+        :labels="{ prev: t('testimonials.prev'), next: t('testimonials.next'), goTo: t('testimonials.goTo') }"
+        :card-class="testimonialCardClass"
+        :dim="false"
+        :item-key="(item) => item.name"
+        @select="openDetail"
       >
-        <article
-          v-for="item in testimonials"
-          :key="item.name"
-          role="button"
-          tabindex="0"
-          class="flex w-[72vw] shrink-0 cursor-pointer snap-start flex-col overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl transition-all duration-300 ease-out will-change-transform hover:-translate-y-2 hover:border-white/20 hover:bg-white/8 sm:w-[360px]"
-          @click="openDetail(item)"
-          @keydown.enter="openDetail(item)"
-          @keydown.space.prevent="openDetail(item)"
-        >
+        <template #card="{ item }">
           <!-- Media: portrait, or an initials placeholder until real photos are added -->
           <div class="h-28 w-full shrink-0 overflow-hidden sm:h-[22vh]">
             <img v-if="item.photo" :src="item.photo" :alt="item.name" class="h-full w-full object-cover" />
@@ -180,21 +111,8 @@ const rise = (delay: number) => ({
               </span>
             </div>
           </div>
-        </article>
-      </div>
-
-      <!-- Dash indicators — mobile only (desktop uses the prev/next arrows) -->
-      <div class="mt-4 flex justify-center gap-2 sm:hidden">
-        <button
-          v-for="(item, i) in testimonials"
-          :key="item.name"
-          type="button"
-          class="h-0.5 rounded-full transition-all duration-300"
-          :class="i === activeIndex ? 'w-8 bg-on-surface' : 'w-4 bg-on-surface-variant/40 hover:bg-on-surface-variant'"
-          :aria-label="`${t('testimonials.goTo')} ${i + 1}`"
-          @click="scrollToCard(i)"
-        />
-      </div>
+        </template>
+      </BaseCarousel>
     </div>
 
     <!-- Detail modal -->
@@ -249,14 +167,6 @@ const rise = (delay: number) => ({
 </template>
 
 <style scoped>
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
 .modal-enter-active,
 .modal-leave-active {
   transition: opacity 0.3s ease;
