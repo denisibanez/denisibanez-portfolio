@@ -36,13 +36,16 @@
     "view": "Ver projeto"
   },
   "projectDetail": {
-    "caseStudy": "Estudo de caso",
+    "specifications": "Especificações do projeto",
+    "keyFeatures": "Principais funcionalidades e marcos",
+    "industry": "Indústria",
+    "timeline": "Cronograma",
+    "months": "Meses",
+    "techStack": "Stack e ferramentas",
+    "myRole": "Meu papel",
+    "collaborators": "Colaboradores",
     "viewLive": "Ver detalhes",
     "back": "Voltar ao portfólio",
-    "prev": "Projeto anterior",
-    "next": "Próximo projeto",
-    "expand": "Ampliar imagem",
-    "close": "Fechar",
     "notFound": "Projeto não encontrado"
   },
   "testimonials": {
