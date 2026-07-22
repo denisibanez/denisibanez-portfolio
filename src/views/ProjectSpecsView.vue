@@ -50,14 +50,16 @@ const rise = (delay: number) => ({
 
     <div class="relative z-10 flex min-h-screen items-start px-[5vw] pt-28 pb-28 lg:items-center lg:pt-24">
       <!-- Project -->
-      <div v-if="project" class="grid w-full grid-cols-1 gap-6 lg:h-[76vh] lg:grid-cols-2">
-        <!-- Narrative -->
-        <Motion as="div" v-bind="rise(0)" :class="glass" class="flex flex-col p-6 sm:p-8 lg:overflow-hidden">
+      <div v-if="project" class="grid w-full grid-cols-1 gap-10 lg:h-[78vh] lg:grid-cols-2 lg:gap-16">
+        <!-- Narrative — no card, sits directly on the background -->
+        <Motion as="div" v-bind="rise(0)" class="flex flex-col lg:overflow-hidden">
           <div class="shrink-0">
             <span class="block text-label-lg uppercase tracking-widest text-tertiary">
               {{ t('projectSpecs.specifications') }}
             </span>
-            <h1 class="mt-3 font-serif text-4xl leading-[1.1] tracking-tight md:text-5xl">{{ project.title }}</h1>
+            <h1 class="mt-4 font-serif text-5xl leading-[1.02] tracking-tight md:text-6xl lg:text-7xl">
+              {{ project.title }}
+            </h1>
           </div>
 
           <div class="no-scrollbar mt-6 flex-1 space-y-6 text-on-surface-variant lg:overflow-y-auto lg:pr-4">
@@ -89,13 +91,13 @@ const rise = (delay: number) => ({
         <!-- Specifications grid -->
         <Motion as="div" v-bind="rise(0.15)" class="no-scrollbar grid grid-cols-2 gap-4 lg:content-start lg:overflow-y-auto">
           <!-- Industry -->
-          <div :class="glass" class="col-span-1 flex aspect-square flex-col justify-between p-6">
+          <div :class="glass" class="col-span-1 flex min-h-[220px] flex-col justify-between p-6">
             <span :class="metaLabel">{{ t('projectSpecs.industry') }}</span>
             <p class="font-serif text-3xl leading-tight md:text-4xl">{{ project.industry }}</p>
           </div>
 
           <!-- Timeline -->
-          <div :class="glass" class="col-span-1 flex aspect-square flex-col justify-between p-6">
+          <div :class="glass" class="col-span-1 flex min-h-[220px] flex-col justify-between p-6">
             <span :class="metaLabel">{{ t('projectSpecs.timeline') }}</span>
             <div class="flex items-baseline gap-2">
               <span class="font-serif text-5xl leading-none">{{ project.timelineMonths }}</span>
