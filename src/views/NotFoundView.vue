@@ -18,7 +18,7 @@ const goHome = () => router.push('/')
       class="absolute inset-0 h-full w-full object-cover"
     />
 
-    <div class="relative z-10 px-[5vw]">
+    <div class="relative z-10 mt-[30px] px-[5vw]">
       <BaseButton variant="outline" @click="goHome">{{ t('notFound.cta') }}</BaseButton>
     </div>
   </section>
