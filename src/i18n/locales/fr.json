@@ -27,6 +27,12 @@
     "cta": "Voir mon travail",
     "roles": "Vue • React • Angular • Design Systems"
   },
+  "testimonials": {
+    "title": "Témoignages",
+    "subtitle": "Réflexions sur la collaboration, la précision et le travail numérique livré à partir d'une vision partagée.",
+    "prev": "Précédent",
+    "next": "Suivant"
+  },
   "notFound": {
     "eyebrow": "Perdu ?",
     "message": "La page que vous cherchez n'existe pas.",

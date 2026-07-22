@@ -27,6 +27,12 @@
     "cta": "制作実績を見る",
     "roles": "Vue • React • Angular • Design Systems"
   },
+  "testimonials": {
+    "title": "お客様の声",
+    "subtitle": "共有されたビジョンから生まれる協働・精度・デジタルワークについての言葉。",
+    "prev": "前へ",
+    "next": "次へ"
+  },
   "notFound": {
     "eyebrow": "迷子？",
     "message": "お探しのページは存在しません。",

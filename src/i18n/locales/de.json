@@ -27,6 +27,12 @@
     "cta": "Meine Arbeit ansehen",
     "roles": "Vue • React • Angular • Design Systems"
   },
+  "testimonials": {
+    "title": "Referenzen",
+    "subtitle": "Gedanken über Zusammenarbeit, Präzision und die digitale Arbeit, die aus einer gemeinsamen Vision entsteht.",
+    "prev": "Zurück",
+    "next": "Weiter"
+  },
   "notFound": {
     "eyebrow": "Verirrt?",
     "message": "Die gesuchte Seite existiert nicht.",
