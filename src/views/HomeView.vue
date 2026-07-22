@@ -3,10 +3,15 @@ import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { Motion } from 'motion-v'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
-import PlayButton from '@/components/PlayButton/PlayButton.vue'
 import GlassPlayer, { type Track } from '@/components/GlassPlayer/GlassPlayer.vue'
 import bannerHome from '@/assets/images/banner-home-full.png'
 import videoHome from '@/assets/video/video-home.mp4'
+import iSeeFireAudio from '@/assets/mp3/ed-sheeran-i-see-fire.mp3'
+import iSeeFireCover from '@/assets/mp3/ed-sheeran-i-see-fire.jpeg'
+import rememberAudio from '@/assets/mp3/michael-jackson-remember-the-time.mp3'
+import rememberCover from '@/assets/mp3/michael-jackson-remember-the-time.jpeg'
+import oBemAudio from '@/assets/mp3/arlindo-cruz-o-bem.mp3'
+import oBemCover from '@/assets/mp3/arlindo-cruz-o-bem.avif'
 
 const { t } = useI18n()
 
@@ -14,9 +19,26 @@ const videoReady = ref(false)
 const videoEnded = ref(false)
 
 const playerOpen = ref(false)
-// TEMP: reuses the home video's audio track as a placeholder. Replace `src`
-// with the real audio file and add a `cover` image once they are provided.
-const track: Track = { title: 'Denis Ibañez', artist: 'Showreel', src: videoHome }
+const tracks: Track[] = [
+  {
+    title: 'I See Fire',
+    artist: 'Ed Sheeran',
+    src: iSeeFireAudio,
+    cover: iSeeFireCover,
+  },
+  {
+    title: 'Remember The Time',
+    artist: 'Michael Jackson',
+    src: rememberAudio,
+    cover: rememberCover,
+  },
+  {
+    title: 'O Bem',
+    artist: 'Arlindo Cruz',
+    src: oBemAudio,
+    cover: oBemCover,
+  },
+]
 
 // Show the video only once it can play and until it finishes — the banner stays
 // painted underneath, so the swap cross-fades with no black frame or flicker.
@@ -81,11 +103,13 @@ const rise = (delay: number) => ({
       </div>
     </div>
 
-    <!-- Floating play button — bottom-right, above the footer socials -->
-    <div class="absolute bottom-24 right-[5vw] z-10">
-      <PlayButton :label="t('home.play')" @click="playerOpen = true" />
-    </div>
-
-    <GlassPlayer :open="playerOpen" :track="track" @close="playerOpen = false" />
+    <!-- Morphing play button ↔ player (single glass element) -->
+    <GlassPlayer
+      :open="playerOpen"
+      :tracks="tracks"
+      :label="t('home.play')"
+      @open="playerOpen = true"
+      @close="playerOpen = false"
+    />
   </section>
 </template>
