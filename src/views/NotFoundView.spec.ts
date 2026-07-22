@@ -14,14 +14,14 @@ const i18n = createI18n({
 const factory = () => mount(NotFoundView, { global: { plugins: [i18n] } })
 
 describe('NotFoundView', () => {
-  it('shows the 404 heading and message', () => {
+  it('renders the back-home button with the CTA label', () => {
     const wrapper = factory()
-    expect(wrapper.get('h1').text()).toBe('404')
-    expect(wrapper.text()).toContain('That page does not exist.')
+    const button = wrapper.get('button')
+    expect(button.text()).toBe('Back home')
   })
 
-  it('links back to the home page', () => {
+  it('shows the notfound background image', () => {
     const wrapper = factory()
-    expect(wrapper.get('a').attributes('href')).toBe('/')
+    expect(wrapper.get('img').attributes('src')).toBeTruthy()
   })
 })

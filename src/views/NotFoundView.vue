@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import router from '@/router'
+import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import notFoundBg from '@/assets/images/notfound.jpg'
 
 const { t } = useI18n()
+
+const goHome = () => router.push('/')
 </script>
 
 <template>
@@ -13,19 +17,11 @@ const { t } = useI18n()
       aria-hidden="true"
       class="absolute inset-0 h-full w-full object-cover"
     />
-    <!-- Scrim for text legibility over the busy photo -->
-    <div class="absolute inset-0 bg-linear-to-t from-surface via-surface/60 to-transparent"></div>
+    <!-- Scrim so the button stays legible over the busy photo -->
+    <div class="absolute inset-0 bg-linear-to-t from-surface via-surface/40 to-transparent"></div>
 
-    <div class="relative z-10 flex w-full max-w-2xl flex-col items-center gap-3 px-[5vw] pb-[18vh] text-center">
-      <p class="text-label-lg uppercase tracking-widest text-on-surface-variant">{{ t('notFound.eyebrow') }}</p>
-      <h1 class="text-headline-lg">404</h1>
-      <p class="max-w-md text-body-lg text-on-surface-variant">{{ t('notFound.message') }}</p>
-      <a
-        href="/"
-        class="mt-2 text-label-lg uppercase text-on-surface underline underline-offset-4 transition-colors hover:text-primary"
-      >
-        {{ t('notFound.cta') }}
-      </a>
+    <div class="relative z-10 px-[5vw] pb-[16vh]">
+      <BaseButton variant="outline" @click="goHome">{{ t('notFound.cta') }}</BaseButton>
     </div>
   </section>
 </template>
