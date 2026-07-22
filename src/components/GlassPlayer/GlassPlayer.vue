@@ -67,15 +67,11 @@ onUnmounted(() => window.removeEventListener("keydown", onKey));
 
 <template>
   <Transition name="player">
-    <div
-      v-if="open"
-      class="fixed inset-0 z-50 flex items-center justify-center bg-surface/60 px-6 py-10 backdrop-blur-md"
-      role="dialog"
-      aria-modal="true"
-      @click.self="emit('close')"
-    >
+    <div v-if="open" class="fixed inset-0 z-50" @click.self="emit('close')">
       <div
-        class="relative w-full max-w-xs overflow-hidden rounded-[2.25rem] border border-white/15 bg-white/10 p-6 shadow-2xl backdrop-blur-2xl"
+        class="absolute bottom-44 right-[5vw] w-[20rem] max-w-[90vw] origin-bottom-right overflow-hidden rounded-[2.25rem] border border-white/15 bg-white/10 p-6 shadow-2xl backdrop-blur-2xl"
+        role="dialog"
+        aria-modal="true"
       >
         <!-- Liquid-glass sheen -->
         <div
@@ -190,10 +186,13 @@ onUnmounted(() => window.removeEventListener("keydown", onKey));
 }
 .player-enter-active > div,
 .player-leave-active > div {
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.3s ease;
 }
 .player-enter-from > div,
 .player-leave-to > div {
-  transform: translateY(16px) scale(0.96);
+  transform: scale(0.85);
+  opacity: 0;
 }
 </style>
