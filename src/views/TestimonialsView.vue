@@ -69,6 +69,8 @@ const rise = (delay: number) => ({
       aria-hidden="true"
       class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
     />
+    <!-- Mobile-only scrim — subtle, keeps the header copy legible over the portrait -->
+    <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-surface/75 via-surface/35 to-transparent lg:hidden" />
 
     <div class="relative z-10 flex min-h-screen flex-col justify-center px-[5vw] pt-28 pb-28">
       <!-- Header -->
