@@ -91,13 +91,13 @@ const rise = (delay: number) => ({
         <!-- Specifications grid -->
         <Motion as="div" v-bind="rise(0.15)" class="no-scrollbar grid grid-cols-2 gap-4 lg:content-start lg:overflow-y-auto">
           <!-- Industry -->
-          <div :class="glass" class="col-span-1 flex min-h-[220px] flex-col justify-between p-6">
+          <div :class="glass" class="col-span-1 flex aspect-square flex-col justify-between p-6">
             <span :class="metaLabel">{{ t('projectSpecs.industry') }}</span>
             <p class="font-serif text-3xl leading-tight md:text-4xl">{{ project.industry }}</p>
           </div>
 
           <!-- Timeline -->
-          <div :class="glass" class="col-span-1 flex min-h-[220px] flex-col justify-between p-6">
+          <div :class="glass" class="col-span-1 flex aspect-square flex-col justify-between p-6">
             <span :class="metaLabel">{{ t('projectSpecs.timeline') }}</span>
             <div class="flex items-baseline gap-2">
               <span class="font-serif text-5xl leading-none">{{ project.timelineMonths }}</span>
