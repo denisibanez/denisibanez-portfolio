@@ -105,7 +105,7 @@ const rise = (delay: number) => ({
     <!-- Mobile-only scrim — subtle, keeps the header copy legible over the portrait -->
     <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-surface/75 via-surface/35 to-transparent lg:hidden" />
 
-    <div class="relative z-10 flex min-h-screen flex-col justify-end px-[5vw] pt-24 pb-24 sm:justify-center sm:pt-28 sm:pb-28">
+    <div class="relative z-10 flex h-screen flex-col justify-end px-[5vw] pt-24 pb-20 sm:justify-center sm:pt-20 sm:pb-16">
       <!-- Header -->
       <div class="mb-6 flex flex-wrap items-end justify-between gap-6 sm:mb-10">
         <div>
@@ -144,7 +144,7 @@ const rise = (delay: number) => ({
       <!-- Carousel -->
       <div
         ref="track"
-        class="no-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4"
+        class="no-scrollbar flex shrink-0 snap-x snap-mandatory gap-6 overflow-x-auto pb-4"
         @scroll="onScroll"
       >
         <article
@@ -158,7 +158,7 @@ const rise = (delay: number) => ({
           @keydown.space.prevent="openDetail(item)"
         >
           <!-- Media: portrait, or an initials placeholder until real photos are added -->
-          <div class="h-28 w-full shrink-0 overflow-hidden sm:h-72">
+          <div class="h-28 w-full shrink-0 overflow-hidden sm:h-[22vh]">
             <img v-if="item.photo" :src="item.photo" :alt="item.name" class="h-full w-full object-cover" />
             <div
               v-else
@@ -170,7 +170,7 @@ const rise = (delay: number) => ({
           </div>
           <!-- Copy -->
           <div class="flex flex-1 flex-col justify-between p-6 sm:p-8">
-            <p class="text-body-lg italic text-on-surface">&ldquo;{{ item.quote }}&rdquo;</p>
+            <p class="line-clamp-3 text-body-lg italic text-on-surface">&ldquo;{{ item.quote }}&rdquo;</p>
             <div class="mt-6">
               <h3 class="text-body-lg text-on-surface">{{ item.name }}</h3>
               <p class="mt-1 text-label-lg uppercase tracking-widest text-on-surface-variant">{{ item.role }}</p>
@@ -183,8 +183,8 @@ const rise = (delay: number) => ({
         </article>
       </div>
 
-      <!-- Dash indicators — one per testimonial -->
-      <div class="mt-4 flex justify-center gap-2 sm:mt-6 sm:justify-start">
+      <!-- Dash indicators — mobile only (desktop uses the prev/next arrows) -->
+      <div class="mt-4 flex justify-center gap-2 sm:hidden">
         <button
           v-for="(item, i) in testimonials"
           :key="item.name"
