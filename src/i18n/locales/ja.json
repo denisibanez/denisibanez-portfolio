@@ -17,7 +17,8 @@
     "greetingLead": "こんにちは、私は",
     "role": "Software Developer",
     "description": "Vue・React・Angular を専門とするフロントエンド開発者。14年以上の経験があり、デザインシステムとプロトタイピングが得意です。",
-    "cta": "プロジェクトを見る"
+    "cta": "プロジェクトを見る",
+    "play": "ショーリールを再生"
   },
   "about": {
     "eyebrow": "はじめまして",

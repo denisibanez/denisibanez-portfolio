@@ -17,7 +17,8 @@
     "greetingLead": "Hola, soy",
     "role": "Software Developer",
     "description": "Desarrollador front-end especializado en Vue, React y Angular, con más de 14 años de experiencia — fuerte en design systems y prototipado.",
-    "cta": "Ver proyectos"
+    "cta": "Ver proyectos",
+    "play": "Reproducir showreel"
   },
   "about": {
     "eyebrow": "Encantado, soy yo",

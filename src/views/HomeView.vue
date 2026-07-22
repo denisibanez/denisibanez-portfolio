@@ -3,6 +3,8 @@ import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { Motion } from 'motion-v'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
+import PlayButton from '@/components/PlayButton/PlayButton.vue'
+import GlassPlayer, { type Track } from '@/components/GlassPlayer/GlassPlayer.vue'
 import bannerHome from '@/assets/images/banner-home-full.png'
 import videoHome from '@/assets/video/video-home.mp4'
 
@@ -10,6 +12,11 @@ const { t } = useI18n()
 
 const videoReady = ref(false)
 const videoEnded = ref(false)
+
+const playerOpen = ref(false)
+// TEMP: reuses the home video's audio track as a placeholder. Replace `src`
+// with the real audio file and add a `cover` image once they are provided.
+const track: Track = { title: 'Denis Ibañez', artist: 'Showreel', src: videoHome }
 
 // Show the video only once it can play and until it finishes — the banner stays
 // painted underneath, so the swap cross-fades with no black frame or flicker.
@@ -69,9 +76,11 @@ const rise = (delay: number) => ({
 
         <Motion as="div" v-bind="rise(0.3)" class="mt-10 flex items-center gap-6">
           <BaseButton block>{{ t('home.cta') }}</BaseButton>
-          <span class="text-2xl text-on-surface" aria-hidden="true">&rarr;</span>
+          <PlayButton :label="t('home.play')" @click="playerOpen = true" />
         </Motion>
       </div>
     </div>
+
+    <GlassPlayer :open="playerOpen" :track="track" @close="playerOpen = false" />
   </section>
 </template>
