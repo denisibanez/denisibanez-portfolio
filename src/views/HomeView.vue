@@ -76,9 +76,14 @@ const rise = (delay: number) => ({
 
         <Motion as="div" v-bind="rise(0.3)" class="mt-10 flex items-center gap-6">
           <BaseButton block>{{ t('home.cta') }}</BaseButton>
-          <PlayButton :label="t('home.play')" @click="playerOpen = true" />
+          <span class="text-2xl text-on-surface" aria-hidden="true">&rarr;</span>
         </Motion>
       </div>
+    </div>
+
+    <!-- Floating play button — bottom-right, above the footer socials -->
+    <div class="absolute bottom-24 right-[5vw] z-10">
+      <PlayButton :label="t('home.play')" @click="playerOpen = true" />
     </div>
 
     <GlassPlayer :open="playerOpen" :track="track" @close="playerOpen = false" />
