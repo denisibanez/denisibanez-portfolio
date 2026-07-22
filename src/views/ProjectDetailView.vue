@@ -207,7 +207,7 @@ const rise = (delay: number) => ({
             <Motion as="span" v-bind="rise(0)" class="block text-label-lg uppercase tracking-widest text-tertiary">
               {{ t('projectDetail.caseStudy') }} — {{ project.year }}
             </Motion>
-            <Motion as="h1" v-bind="rise(0.1)" class="font-serif text-5xl leading-[1.05] tracking-tight md:text-7xl">
+            <Motion as="h1" v-bind="rise(0.1)" class="text-headline-md md:text-headline-lg">
               {{ project.title }}
             </Motion>
           </div>

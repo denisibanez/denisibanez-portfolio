@@ -57,7 +57,7 @@ const rise = (delay: number) => ({
             <span class="block text-label-lg uppercase tracking-widest text-on-surface-variant">
               {{ t('projectSpecs.specifications') }}
             </span>
-            <h1 class="mt-6 font-serif text-5xl leading-[1.02] tracking-tight md:text-6xl lg:text-7xl">
+            <h1 class="mt-6 text-headline-md md:text-headline-lg">
               {{ project.title }}
             </h1>
           </div>
@@ -136,7 +136,7 @@ const rise = (delay: number) => ({
 
       <!-- Unknown slug -->
       <div v-else class="flex flex-col items-start gap-6">
-        <h1 class="font-serif text-4xl md:text-5xl">{{ t('projectSpecs.notFound') }}</h1>
+        <h1 class="text-headline-md md:text-headline-lg">{{ t('projectSpecs.notFound') }}</h1>
         <BaseButton variant="outline" @click="goToProjects">{{ t('projectSpecs.back') }}</BaseButton>
       </div>
     </div>
