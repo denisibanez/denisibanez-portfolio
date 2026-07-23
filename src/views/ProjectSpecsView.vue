@@ -6,6 +6,7 @@ import { Motion } from 'motion-v'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import { useProjects } from '@/composables/useProjects'
 import { useRise } from '@/composables/useRise'
+import { monthsBetween, formatRange } from '@/utils/timeline'
 import type { Project } from '@/types/project'
 import { site } from '@/config/site'
 import detailBg from '@/assets/images/testimonials-bg.jpg'
@@ -46,6 +47,9 @@ const goToProjects = () => router.push({ name: 'projects' })
 const openLive = () => {
   // Falls back to the portfolio site until projects carry real live URLs.
   window.open(project.value?.url ?? site.url, '_blank', 'noopener')
+}
+const openRepo = () => {
+  if (project.value?.repoUrl) window.open(project.value.repoUrl, '_blank', 'noopener')
 }
 
 // Shared panel/label styles.
@@ -109,11 +113,19 @@ const { rise } = useRise()
             </div>
           </div>
 
-          <div class="mt-8 flex shrink-0 gap-3 sm:gap-4">
-            <BaseButton variant="primary" class="flex-1 text-center" @click="openLive">
+          <div class="mt-8 flex shrink-0 flex-wrap gap-3 sm:gap-4">
+            <BaseButton variant="primary" class="min-w-[45%] flex-1 text-center sm:min-w-0" @click="openLive">
               {{ t('projectSpecs.viewLive') }}
             </BaseButton>
-            <BaseButton variant="outline" class="flex-1 text-center" @click="goToProjects">
+            <BaseButton
+              v-if="project.kind === 'study' && project.repoUrl"
+              variant="outline"
+              class="min-w-[45%] flex-1 text-center sm:min-w-0"
+              @click="openRepo"
+            >
+              {{ t('projectSpecs.viewGithub') }}
+            </BaseButton>
+            <BaseButton variant="outline" class="min-w-[45%] flex-1 text-center sm:min-w-0" @click="goToProjects">
               {{ t('projectSpecs.back') }}
             </BaseButton>
           </div>
@@ -131,10 +143,10 @@ const { rise } = useRise()
           <div :class="glass" class="col-span-1 flex aspect-square flex-col justify-between p-6">
             <span :class="metaLabel">{{ t('projectSpecs.timeline') }}</span>
             <div class="flex items-baseline gap-2">
-              <span class="font-serif text-5xl leading-none">{{ project.timelineMonths }}</span>
+              <span class="font-serif text-5xl leading-none">{{ monthsBetween(project.startDate, project.endDate) }}</span>
               <span class="text-label-lg uppercase tracking-widest text-on-surface-variant">{{ t('projectSpecs.months') }}</span>
             </div>
-            <p class="text-sm text-on-surface-variant">{{ project.timelineRange }}</p>
+            <p class="text-sm text-on-surface-variant">{{ formatRange(project.startDate, project.endDate) }}</p>
           </div>
 
           <!-- Tech stack -->

@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import BaseCarousel from '@/components/BaseCarousel/BaseCarousel.vue'
+import BaseTabs from '@/components/BaseTabs/BaseTabs.vue'
 import { useProjects } from '@/composables/useProjects'
 import type { Project } from '@/types/project'
 import projectsBg from '@/assets/images/testimonials-bg.jpg'
@@ -9,6 +11,17 @@ import projectsBg from '@/assets/images/testimonials-bg.jpg'
 const { t } = useI18n()
 const router = useRouter()
 const { projects } = useProjects()
+
+// Filter tabs — projects stay ordered newest-first within each kind.
+const activeTab = ref('all')
+const tabs = computed(() => [
+  { label: t('projects.all'), value: 'all' },
+  { label: t('projects.study'), value: 'study' },
+  { label: t('projects.client'), value: 'client' },
+])
+const visibleProjects = computed(() =>
+  activeTab.value === 'all' ? projects : projects.filter((p) => p.kind === activeTab.value),
+)
 
 const openProject = (project: Project) => {
   router.push({ name: 'project-detail', params: { slug: project.slug } })
@@ -28,8 +41,9 @@ const posterClass =
     />
 
     <div class="relative z-10 flex h-screen flex-col justify-start px-[5vw] pt-28 pb-16 sm:justify-center sm:pt-20">
+      <BaseTabs v-model="activeTab" :tabs="tabs" class="mb-8 self-start" />
       <BaseCarousel
-        :items="projects"
+        :items="visibleProjects"
         :title="t('projects.title')"
         :subtitle="t('projects.subtitle')"
         :labels="{ prev: t('projects.prev'), next: t('projects.next'), goTo: t('projects.title') }"

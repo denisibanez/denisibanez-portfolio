@@ -33,7 +33,10 @@
     "subtitle": "Eine kuratierte Sammlung digitaler Erlebnisse, architektonischer Visualisierungen und industrieller Designkonzepte. Jedes Projekt ist eine präzise Verbindung von Funktion und Ästhetik.",
     "prev": "Zurück",
     "next": "Weiter",
-    "view": "Projekt ansehen"
+    "view": "Projekt ansehen",
+    "all": "Alle",
+    "study": "Studie",
+    "client": "Kunde"
   },
   "projectDetail": {
     "caseStudy": "Fallstudie",
@@ -43,7 +46,8 @@
     "next": "Nächstes Projekt",
     "expand": "Bild vergrößern",
     "close": "Schließen",
-    "notFound": "Projekt nicht gefunden"
+    "notFound": "Projekt nicht gefunden",
+    "viewGithub": "Auf GitHub ansehen"
   },
   "projectSpecs": {
     "specifications": "Projektspezifikationen",
@@ -56,7 +60,8 @@
     "collaborators": "Mitwirkende",
     "viewLive": "Live-Projekt ansehen",
     "back": "Zurück zum Portfolio",
-    "notFound": "Projekt nicht gefunden"
+    "notFound": "Projekt nicht gefunden",
+    "viewGithub": "Auf GitHub ansehen"
   },
   "testimonials": {
     "title": "Referenzen",
