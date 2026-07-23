@@ -9,6 +9,9 @@ cinematic hero (background video that cross-fades into a still banner), an inter
 
 LINK [https://denisibanez.dev/]: https://denisibanez.dev/
 
+📚 **Docs:** conventions, architecture, decisions, patterns and a code-quality review live in
+[`docs/`](./docs). Agent guidance is in [`CLAUDE.md`](./CLAUDE.md).
+
 ---
 
 ## Tech stack
