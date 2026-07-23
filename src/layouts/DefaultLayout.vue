@@ -33,6 +33,15 @@ const year = new Date().getFullYear()
 const onLocaleChange = (value: string) => {
   locale.value = value
 }
+
+// Download the résumé PDF (served from public/) with a friendly filename.
+const downloadResume = () => {
+  const link = document.createElement('a')
+  link.href = `${import.meta.env.BASE_URL}${site.resumeUrl.replace(/^\//, '')}`
+  link.download = 'Denis Ibanez - CV.pdf'
+  link.rel = 'noopener'
+  link.click()
+}
 </script>
 
 <template>
@@ -44,7 +53,7 @@ const onLocaleChange = (value: string) => {
       </div>
       <div class="flex items-center gap-3 sm:gap-4">
         <LanguageSelect :model-value="locale" :options="languages" @update:model-value="onLocaleChange" />
-        <BaseButton variant="outline">{{ t('actions.resume') }}</BaseButton>
+        <BaseButton variant="outline" @click="downloadResume">{{ t('actions.resume') }}</BaseButton>
       </div>
     </header>
 

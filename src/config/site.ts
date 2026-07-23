@@ -9,6 +9,8 @@ export const site = {
   description:
     'Front-end developer specialised in Vue, React and Angular, with 14+ years of experience — strong in design systems and prototyping.',
   whatsapp: '351961488375',
+  /** Résumé PDF, served from public/ (stable URL, no hashing). */
+  resumeUrl: '/denis-ibanez-cv.pdf',
   socials: [
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/denis-ibanez' },
     { label: 'GitHub', href: 'https://github.com/denisibanez' },
