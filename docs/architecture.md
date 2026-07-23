@@ -10,6 +10,7 @@ views/        Routed pages. Compose components; own page-level state and copy (v
 layouts/      Route chrome (DefaultLayout = nav + footer) with an inner <RouterView/>.
 components/   Agnostic, reusable UI. Know the design system, never the page. Props/emits/slots.
 composables/  Reusable logic & stateful behaviour (useProjects, useRise, useAudioPlayer, …).
+data/         Static sample content (projects.ts, testimonials.ts) — the seam to swap for an API.
 utils/        Pure, stateless helpers (getInitials, timeline).
 types/        SHARED domain types (project.ts, track.ts). Component/page-only types are
               co-located as *.types.ts next to their consumer.
@@ -37,8 +38,8 @@ Nested routes under layouts, so page chrome lives in the layout, not the page:
 
 ## Data flow (today → tomorrow)
 
-- **Today:** content is static, defined in composables/data (`useProjects`) and view-local
-  arrays (testimonials). Projects carry `status` (published/draft) and `kind` (study/client)
+- **Today:** content is static, defined in `src/data/` (`projects.ts`, `testimonials.ts`);
+  composables read from it. Projects carry `status` (published/draft) and `kind` (study/client)
   and are ordered by build date. Drafts are hidden from the list and 404 on direct access.
 - **Tomorrow:** when projects/testimonials/blog come from **endpoints**, `services/http` fetches
   them into **Pinia stores**; composables read from the store instead of a literal array. The

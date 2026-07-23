@@ -23,18 +23,16 @@ what was improved, and what's left.
 - **Scaffolding documented** — `stores/counter.ts` + `services/http.ts` are marked as the pattern
   for future dynamic data (see [decisions.md](./decisions.md#3)).
 - **E2e broadened** — navigation, language switch, 404, specs drill-down, tab filtering.
+- **Data separated from logic** — projects and testimonials now live in `src/data/`; `useProjects`
+  is logic-only. This is the seam to swap for an API later.
+- **Reduced motion** — `useRise` collapses to a no-op under `prefers-reduced-motion` (native
+  `matchMedia`, no extra dependency), so entrance animations are gated app-wide.
 
 ## What's next (candidates, not blockers)
 
-- **Separate project data from logic.** `useProjects.ts` still mixes ~150 lines of sample data
-  with the helpers. Move the data to `src/data/projects.ts` (or a JSON/endpoint) so the composable
-  is just logic — this is the natural seam for the "static → API" step.
 - **`GlassPlayer` is still large** (~740 lines) — now mostly template + morph CSS. Could split the
   expanded player body / transport row into small presentational subcomponents.
-- **Replace view-local sample arrays** (testimonials) the same way as projects when data goes dynamic.
-- **Add loading/error states** once `services/http` + Pinia are wired to real endpoints.
-- **Gate non-essential motion** behind `usePreferredReducedMotion()` (@vueuse) app-wide, rather
-  than per-component.
-- **Round out e2e:** mobile nav drawer, testimonial modal, gallery swipe/lightbox, prev/next
-  project navigation.
+- **Add loading/error states** once `services/http` + Pinia are wired to real endpoints (then the
+  `data/` modules become API calls feeding stores).
+- **Round out e2e:** gallery swipe/lightbox and prev/next project navigation.
 - **Remove the two Storybook chunk-size warnings** by code-splitting stories if the build grows.
