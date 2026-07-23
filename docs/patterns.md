@@ -44,12 +44,14 @@ backdrop click, locks body scroll. Powers the testimonial detail modal and the p
 </BaseModal>
 ```
 
-### `ToastHost` + `useToast`
-Transient notifications (errors as toasts). Mount `<ToastHost/>` once (it's in DefaultLayout);
-fire from anywhere via `useToast()`:
+### `BaseToast` + `ToastHost` + `useToast`
+Elegant, transient notifications in four variants — `info` / `success` / `warning` / `error` —
+each with a semantic accent bar + icon (tokens `--color-info/success/warning/error`) on a glass
+panel. `BaseToast` is the single presentational toast; `ToastHost` renders the shared queue once
+(mounted in DefaultLayout); `useToast()` fires them from anywhere:
 ```ts
-const { error, success, notify } = useToast()
-error(t('state.errorMessage')) // gold-accented error toast, auto-dismisses
+const { info, success, warning, error, notify, dismiss } = useToast()
+error(t('state.errorMessage')) // coral-accented, auto-dismisses; error/warning use role="alert"
 ```
 
 ### `BaseButton` / `GlassPlayer` / `LoadingReveal` / `AppNav` / `PlayButton` / `LanguageSelect`

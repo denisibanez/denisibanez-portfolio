@@ -14,9 +14,13 @@ describe('useToast', () => {
     expect(toasts.value[0]).toMatchObject({ message: 'Saved', type: 'success' })
   })
 
-  it('defaults error() to the error type', () => {
-    error('Boom', 0)
-    expect(toasts.value[0]?.type).toBe('error')
+  it('maps the typed helpers to their variant', () => {
+    const { warning, success, info } = useToast()
+    error('e', 0)
+    warning('w', 0)
+    success('s', 0)
+    info('i', 0)
+    expect(toasts.value.map((t) => t.type)).toEqual(['error', 'warning', 'success', 'info'])
   })
 
   it('dismisses by id and shares one queue', () => {

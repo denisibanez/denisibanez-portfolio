@@ -20,6 +20,11 @@
   --color-outline: #919191;
   /* Accent — used sparingly (e.g. case-study eyebrows) */
   --color-tertiary: #e9c349;
+  /* Semantic feedback (toasts) — muted to sit on the dark theme */
+  --color-success: #5cc98a;
+  --color-warning: #e9c349;
+  --color-error: #f0808a;
+  --color-info: #7fb0f5;
 
   /* Typography */
   --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;

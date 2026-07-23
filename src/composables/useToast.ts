@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 
-export type ToastType = 'info' | 'success' | 'error'
+export type ToastType = 'info' | 'success' | 'warning' | 'error'
 export type Toast = { id: number; message: string; type: ToastType }
 
 // Singleton queue shared across the app and the single <ToastHost/>.
@@ -20,6 +20,8 @@ const notify = (message: string, type: ToastType = 'info', timeout = 5000): numb
 
 const error = (message: string, timeout = 6000) => notify(message, 'error', timeout)
 const success = (message: string, timeout = 4000) => notify(message, 'success', timeout)
+const warning = (message: string, timeout = 6000) => notify(message, 'warning', timeout)
+const info = (message: string, timeout = 5000) => notify(message, 'info', timeout)
 
 /** Fire-and-forget notifications. Render once with `<ToastHost/>` (in the layout). */
-export const useToast = () => ({ toasts, notify, error, success, dismiss })
+export const useToast = () => ({ toasts, notify, error, success, warning, info, dismiss })
