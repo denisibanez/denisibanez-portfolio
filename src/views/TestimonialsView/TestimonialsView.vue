@@ -26,7 +26,7 @@ const closeDetail = () => {
 
 <template>
   <MediaBackdrop :src="testimonialsBg">
-    <div class="relative z-10 flex h-screen flex-col justify-end px-[5vw] pt-24 pb-20 sm:justify-center sm:pt-20 sm:pb-16">
+    <div class="relative z-10 flex min-h-screen flex-col justify-end px-[5vw] pt-24 pb-28 sm:justify-center sm:pt-20 sm:pb-20">
       <BaseCarousel
         :items="testimonials"
         :title="t('testimonials.title')"
