@@ -74,10 +74,10 @@ const rise = (delay: number) => ({
         <!-- Narrative — no card, sits directly on the background -->
         <Motion as="div" v-bind="rise(0)" class="flex flex-col lg:overflow-hidden">
           <div class="shrink-0">
-            <span class="block text-label-lg uppercase tracking-widest text-on-surface-variant">
+            <span class="mb-3 block text-label-lg uppercase tracking-widest text-on-surface-variant">
               {{ t('projectSpecs.specifications') }}
             </span>
-            <h1 class="mt-6 text-headline-md md:text-headline-lg">
+            <h1 class="text-headline-md md:text-headline-lg">
               {{ project.title }}
             </h1>
           </div>
@@ -88,10 +88,12 @@ const rise = (delay: number) => ({
               class="no-scrollbar flex-1 space-y-6 text-on-surface-variant lg:overflow-y-auto lg:pr-2"
               @scroll="onScroll"
             >
-              <p v-for="(paragraph, i) in paragraphs" :key="i" class="text-body-lg">{{ paragraph }}</p>
+              <p v-for="(paragraph, i) in paragraphs" :key="i" class="text-body-lg leading-relaxed">
+                {{ paragraph }}
+              </p>
 
-              <div>
-                <span class="mb-4 block border-b border-outline-variant/30 pb-2 text-label-lg uppercase tracking-widest text-on-surface">
+              <div class="pt-2">
+                <span class="mb-4 block border-b border-outline-variant/30 pb-3 text-label-lg uppercase tracking-widest text-on-surface">
                   {{ t('projectSpecs.keyFeatures') }}
                 </span>
                 <ul class="space-y-3">
