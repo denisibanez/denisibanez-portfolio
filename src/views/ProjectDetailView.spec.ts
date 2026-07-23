@@ -1,4 +1,5 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
+import { nextTick } from 'vue'
 import { mount, flushPromises } from '@vue/test-utils'
 import { createI18n } from 'vue-i18n'
 import { createRouter, createMemoryHistory, type Router } from 'vue-router'
@@ -42,6 +43,11 @@ const factory = async (slug?: string) => {
 }
 
 describe('ProjectDetailView', () => {
+  // The lightbox teleports to <body>, so reset it between tests.
+  beforeEach(() => {
+    document.body.innerHTML = ''
+  })
+
   it('renders the project title and case-study meta for a known slug', async () => {
     const { wrapper } = await factory('aether-watch')
     expect(wrapper.get('h1').text()).toBe('Aether Watch Co.')
@@ -67,11 +73,13 @@ describe('ProjectDetailView', () => {
 
   it('opens and closes the image lightbox via the maximize control', async () => {
     const { wrapper } = await factory('aether-watch')
-    expect(wrapper.find('[role="dialog"]').exists()).toBe(false)
+    expect(document.body.querySelector('[role="dialog"]')).toBeNull()
     await wrapper.find('button[aria-label="Expand image"]').trigger('click')
-    expect(wrapper.find('[role="dialog"]').exists()).toBe(true)
-    await wrapper.find('[role="dialog"] button[aria-label="Close"]').trigger('click')
-    expect(wrapper.find('[role="dialog"]').exists()).toBe(false)
+    await nextTick()
+    expect(document.body.querySelector('[role="dialog"]')).not.toBeNull()
+    document.body.querySelector<HTMLButtonElement>('[role="dialog"] button[aria-label="Close"]')?.click()
+    await flushPromises()
+    expect(document.body.querySelector('[role="dialog"]')).toBeNull()
   })
 
   it('changes the gallery frame when the media is dragged sideways', async () => {

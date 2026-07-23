@@ -81,6 +81,7 @@
     "loading": "A carregar…",
     "errorTitle": "Algo correu mal",
     "errorMessage": "Não foi possível carregar este conteúdo. Tenta novamente.",
-    "retry": "Tentar novamente"
+    "retry": "Tentar novamente",
+    "dismiss": "Dispensar"
   }
 }

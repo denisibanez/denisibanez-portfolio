@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router'
 import AppNav from '@/components/AppNav/AppNav.vue'
 import LanguageSelect from '@/components/LanguageSelect/LanguageSelect.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
+import ToastHost from '@/components/ToastHost/ToastHost.vue'
 import { site } from '@/config/site'
 
 const { t, locale } = useI18n()
@@ -68,6 +69,8 @@ const onLocaleChange = (value: string) => {
         >
       </div>
     </footer>
+
+    <ToastHost :dismiss-label="t('state.dismiss')" />
   </div>
 </template>
 

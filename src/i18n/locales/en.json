@@ -81,6 +81,7 @@
     "loading": "Loading…",
     "errorTitle": "Something went wrong",
     "errorMessage": "We couldn't load this content. Please try again.",
-    "retry": "Try again"
+    "retry": "Try again",
+    "dismiss": "Dismiss"
   }
 }

@@ -81,6 +81,7 @@
     "loading": "Chargement…",
     "errorTitle": "Une erreur est survenue",
     "errorMessage": "Impossible de charger ce contenu. Veuillez réessayer.",
-    "retry": "Réessayer"
+    "retry": "Réessayer",
+    "dismiss": "Fermer"
   }
 }

@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { Motion } from 'motion-v'
+import BaseModal from '@/components/BaseModal/BaseModal.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
 import { useProjects } from '@/composables/useProjects'
@@ -61,7 +62,7 @@ const onDragEnd = (event: PointerEvent) => {
   cycleImage(deltaX < 0 ? 1 : -1)
 }
 
-// Lightbox
+// Lightbox (Escape / backdrop close handled by BaseModal)
 const lightboxOpen = ref(false)
 const openLightbox = () => {
   lightboxOpen.value = true
@@ -69,11 +70,6 @@ const openLightbox = () => {
 const closeLightbox = () => {
   lightboxOpen.value = false
 }
-const onKey = (event: KeyboardEvent) => {
-  if (event.key === 'Escape') closeLightbox()
-}
-onMounted(() => window.addEventListener('keydown', onKey))
-onUnmounted(() => window.removeEventListener('keydown', onKey))
 
 // Reset gallery/lightbox when navigating between projects.
 watch(slug, () => {
@@ -258,15 +254,8 @@ const { rise } = useRise()
     </div>
 
     <!-- Lightbox -->
-    <Transition name="fade">
-      <div
-        v-if="lightboxOpen && project"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-surface/85 p-[5vw] backdrop-blur-sm"
-        role="dialog"
-        aria-modal="true"
-        @click.self="closeLightbox"
-      >
-        <div class="relative h-[80vh] w-full max-w-5xl overflow-hidden bg-surface-container-low">
+    <BaseModal :open="lightboxOpen && !!project" :label="project?.title" @close="closeLightbox">
+      <div v-if="project" class="relative h-[80vh] w-full max-w-5xl overflow-hidden bg-surface-container-low">
           <img v-if="activeSrc" :src="activeSrc" :alt="project.title" class="h-full w-full object-contain" />
           <div
             v-else
@@ -289,19 +278,7 @@ const { rise } = useRise()
               <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round" />
             </svg>
           </button>
-        </div>
       </div>
-    </Transition>
+    </BaseModal>
   </MediaBackdrop>
 </template>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>

@@ -27,8 +27,9 @@ what was improved, and what's left.
   is logic-only. This is the seam to swap for an API later.
 - **Reduced motion** — `useRise` collapses to a no-op under `prefers-reduced-motion` (native
   `matchMedia`, no extra dependency), so entrance animations are gated app-wide.
-- **Async state kit ready** — `LoadingState`, `ErrorState` and `useAsyncData` are built and on-brand,
-  ready to wrap real requests (`state.*` i18n in all six locales). Not wired yet — no endpoints.
+- **Async & overlay kit ready** — `BaseSkeleton` (modern shimmer), `ToastHost` + `useToast`
+  (transient errors), `BaseModal` (reusable dialog, now powering the testimonial modal + lightbox)
+  and `useAsyncData`. On-brand, `state.*` i18n in all six locales. Not wired to data yet — no endpoints.
 
 ## What's next (candidates, not blockers)
 

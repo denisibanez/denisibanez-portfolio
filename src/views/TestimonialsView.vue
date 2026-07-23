@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import BaseCarousel from '@/components/BaseCarousel/BaseCarousel.vue'
+import BaseModal from '@/components/BaseModal/BaseModal.vue'
 import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
 import { getInitials } from '@/utils/getInitials'
 import { testimonials } from '@/data/testimonials'
@@ -21,11 +22,6 @@ const openDetail = (item: Testimonial) => {
 const closeDetail = () => {
   selected.value = null
 }
-const onKey = (event: KeyboardEvent) => {
-  if (event.key === 'Escape') closeDetail()
-}
-onMounted(() => window.addEventListener('keydown', onKey))
-onUnmounted(() => window.removeEventListener('keydown', onKey))
 </script>
 
 <template>
@@ -70,17 +66,11 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
     </div>
 
     <!-- Detail modal -->
-    <Transition name="modal">
+    <BaseModal :open="!!selected" :label="selected?.name" @close="closeDetail">
       <div
         v-if="selected"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-surface/70 px-[5vw] py-16 backdrop-blur-sm"
-        role="dialog"
-        aria-modal="true"
-        @click.self="closeDetail"
+        class="relative flex max-h-[85vh] w-full max-w-3xl flex-col overflow-hidden border border-white/15 bg-white/8 backdrop-blur-2xl sm:flex-row"
       >
-        <div
-          class="relative flex max-h-[85vh] w-full max-w-3xl flex-col overflow-hidden border border-white/15 bg-white/8 backdrop-blur-2xl sm:flex-row"
-        >
           <!-- Media -->
           <div class="h-56 w-full shrink-0 overflow-hidden sm:h-auto sm:w-2/5">
             <img v-if="selected.photo" :src="selected.photo" :alt="selected.name" class="h-full w-full object-cover" />
@@ -114,19 +104,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
               <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round" />
             </svg>
           </button>
-        </div>
       </div>
-    </Transition>
+    </BaseModal>
   </MediaBackdrop>
 </template>
-
-<style scoped>
-.modal-enter-active,
-.modal-leave-active {
-  transition: opacity 0.3s ease;
-}
-.modal-enter-from,
-.modal-leave-to {
-  opacity: 0;
-}
-</style>

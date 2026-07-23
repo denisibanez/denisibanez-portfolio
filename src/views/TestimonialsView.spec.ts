@@ -1,5 +1,6 @@
-import { describe, it, expect } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { describe, it, expect, beforeEach } from 'vitest'
+import { nextTick } from 'vue'
+import { mount, flushPromises } from '@vue/test-utils'
 import { createI18n } from 'vue-i18n'
 import TestimonialsView from './TestimonialsView.vue'
 
@@ -24,6 +25,11 @@ const i18n = createI18n({
 const factory = () => mount(TestimonialsView, { global: { plugins: [i18n] } })
 
 describe('TestimonialsView', () => {
+  // The detail modal teleports to <body>, so reset it between tests.
+  beforeEach(() => {
+    document.body.innerHTML = ''
+  })
+
   it('renders the title heading', () => {
     const wrapper = factory()
     expect(wrapper.get('h1').text()).toBe('Testimonials')
@@ -42,17 +48,20 @@ describe('TestimonialsView', () => {
 
   it('opens a detail modal with the full quote when a card is clicked', async () => {
     const wrapper = factory()
-    expect(wrapper.find('[role="dialog"]').exists()).toBe(false)
+    expect(document.body.querySelector('[role="dialog"]')).toBeNull()
     await wrapper.findAll('article')[0]!.trigger('click')
-    const dialog = wrapper.find('[role="dialog"]')
-    expect(dialog.exists()).toBe(true)
-    expect(dialog.find('button[aria-label="Close"]').exists()).toBe(true)
+    await nextTick()
+    const dialog = document.body.querySelector('[role="dialog"]')
+    expect(dialog).not.toBeNull()
+    expect(dialog?.querySelector('button[aria-label="Close"]')).not.toBeNull()
   })
 
   it('closes the detail modal via the close button', async () => {
     const wrapper = factory()
     await wrapper.findAll('article')[0]!.trigger('click')
-    await wrapper.find('button[aria-label="Close"]').trigger('click')
-    expect(wrapper.find('[role="dialog"]').exists()).toBe(false)
+    await nextTick()
+    document.body.querySelector<HTMLButtonElement>('button[aria-label="Close"]')?.click()
+    await flushPromises()
+    expect(document.body.querySelector('[role="dialog"]')).toBeNull()
   })
 })

@@ -23,15 +23,33 @@ dashes (mobile) that auto-hide when the cards fit, entrance motion, hover pop, o
 Accessible tab bar (roving arrow keys); `v-model` the active value, pass `{ label, value }[]`.
 Active tab shows the gold underline. Used for the projects study/client filter.
 
-### `LoadingState` / `ErrorState`
-On-brand async placeholders. `LoadingState` is an accessible spinner (`role="status"`) with an
-optional i18n label. `ErrorState` shows a gold eyebrow + message and emits `retry`. Pair them
-with `useAsyncData`:
+### `BaseSkeleton`
+Shimmering placeholder that mirrors the real layout (modern skeleton, not a spinner). Size it
+with utility classes; `rounded` for pills/avatars; wrap the group in `aria-busy`.
 ```vue
-<LoadingState v-if="pending" :label="t('state.loading')" />
-<ErrorState v-else-if="error" :title="t('state.errorTitle')" :message="t('state.errorMessage')"
-  :retry-label="t('state.retry')" @retry="retry" />
-<template v-else>…render data…</template>
+<div v-if="pending" aria-busy="true" class="flex gap-6">
+  <div v-for="n in 3" :key="n" class="w-[220px]">
+    <BaseSkeleton class="aspect-[2/3] w-full" />
+    <BaseSkeleton class="mt-4 h-3 w-1/2" />
+  </div>
+</div>
+```
+
+### `BaseModal`
+Reusable dialog: teleported backdrop + centred panel (default slot), closes on Escape /
+backdrop click, locks body scroll. Powers the testimonial detail modal and the project lightbox.
+```vue
+<BaseModal :open="!!selected" :label="selected?.name" @close="close">
+  <div v-if="selected" class="…panel…">…</div>
+</BaseModal>
+```
+
+### `ToastHost` + `useToast`
+Transient notifications (errors as toasts). Mount `<ToastHost/>` once (it's in DefaultLayout);
+fire from anywhere via `useToast()`:
+```ts
+const { error, success, notify } = useToast()
+error(t('state.errorMessage')) // gold-accented error toast, auto-dismisses
 ```
 
 ### `BaseButton` / `GlassPlayer` / `LoadingReveal` / `AppNav` / `PlayButton` / `LanguageSelect`
@@ -46,8 +64,11 @@ See their stories in Storybook (design.denisibanez.dev).
   progress, media-event handlers). Host component binds `audio` to `<audio>` and the `on*` handlers.
 - **`useProjects()`** → published-and-sorted `projects` + `getBySlug` / `getAdjacent`.
 - **`useInitialLoad()`** → boot loading state for `LoadingReveal`.
-- **`useAsyncData(fetcher)`** → `{ data, pending, error, retry }` — glue for `LoadingState`/
-  `ErrorState`; the seam for when `data/` modules become `services/http` calls.
+- **`useAsyncData(fetcher)`** → `{ data, pending, error, retry }` — glue for `BaseSkeleton`
+  (while `pending`) and a `useToast().error(...)` on `error`; the seam for when `data/` modules
+  become `services/http` calls.
+- **`useToast()`** → `{ toasts, notify, success, error, dismiss }` — shared toast queue rendered by
+  `ToastHost`.
 
 ## Utils
 
