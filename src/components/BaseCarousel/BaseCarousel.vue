@@ -1,6 +1,7 @@
 <script setup lang="ts" generic="T">
 import { ref, onMounted, onUnmounted, nextTick, watch } from 'vue'
 import { Motion } from 'motion-v'
+import { useRise } from '@/composables/useRise'
 
 type Labels = { prev: string; next: string; goTo: string }
 
@@ -71,11 +72,7 @@ const onScroll = () => {
 
 const onSelect = (item: T) => emit('select', item)
 
-const rise = (delay: number) => ({
-  initial: { opacity: 0, y: 24 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, delay, ease: 'easeOut' },
-})
+const { rise } = useRise()
 </script>
 
 <template>

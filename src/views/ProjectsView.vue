@@ -2,7 +2,8 @@
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import BaseCarousel from '@/components/BaseCarousel/BaseCarousel.vue'
-import { useProjects, type Project } from '@/composables/useProjects'
+import { useProjects } from '@/composables/useProjects'
+import type { Project } from '@/types/project'
 import projectsBg from '@/assets/images/testimonials-bg.jpg'
 
 const { t } = useI18n()

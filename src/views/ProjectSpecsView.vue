@@ -4,7 +4,9 @@ import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import { Motion } from 'motion-v'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
-import { useProjects, type Project } from '@/composables/useProjects'
+import { useProjects } from '@/composables/useProjects'
+import { useRise } from '@/composables/useRise'
+import type { Project } from '@/types/project'
 import { site } from '@/config/site'
 import detailBg from '@/assets/images/testimonials-bg.jpg'
 
@@ -50,11 +52,7 @@ const openLive = () => {
 const glass = 'border border-white/10 bg-surface-container/70 backdrop-blur-xl'
 const metaLabel = 'text-label-lg uppercase tracking-widest text-on-surface-variant/70'
 
-const rise = (delay: number) => ({
-  initial: { opacity: 0, y: 24 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, delay, ease: 'easeOut' },
-})
+const { rise } = useRise()
 </script>
 
 <template>

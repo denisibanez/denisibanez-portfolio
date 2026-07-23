@@ -39,8 +39,8 @@ Dark, geometric, high-contrast. All colours, typography, radii and spacing are e
 (`bg-surface`, `text-on-surface`, `text-headline-lg`, `border-outline`) — never hardcoded hex.
 See [`DESIGN-SYSTEM.md`](./DESIGN-SYSTEM.md) for the full token reference.
 
-- **Palette:** `surface` `#131313`, `on-surface` `#e2e2e2`, `primary` `#ffffff`, `outline` `#919191`, plus surface-container tiers.
-- **Type:** Poppins — `headline-lg/md`, `body-lg`, `label-lg`.
+- **Palette:** `surface` `#131313`, `on-surface` `#e2e2e2`, `primary` `#ffffff`, `outline` `#919191`, plus surface-container tiers. A `tertiary` gold (`#e9c349`) is used sparingly as an editorial accent.
+- **Type:** **Poppins** everywhere (`headline-lg/md`, `body-lg`, `label-lg`). A **Playfair Display** serif token (`font-serif`) is reserved for a couple of editorial display values on the project pages.
 - **Shape/spacing:** `rounded-none`→`rounded-sm`, 8px grid, `5vw` side padding.
 
 ---
@@ -49,23 +49,34 @@ See [`DESIGN-SYSTEM.md`](./DESIGN-SYSTEM.md) for the full token reference.
 
 ```
 src/
-  assets/          Tailwind entry + design tokens (@theme), images, video
+  assets/          Tailwind entry + design tokens (@theme), images, video, mp3
   components/      agnostic, design-system-driven UI (+ .stories.ts + .spec.ts each)
     AppNav/          responsive nav (inline desktop, grid-icon drawer on mobile)
     BaseButton/      primary / outline variants
+    BaseCarousel/    generic, slot-driven Netflix-style carousel (Projects + Testimonials)
+    GlassPlayer/     morphing "liquid glass" audio player with playlist
     LanguageSelect/  6-language flag dropdown (liquid-glass panel)
     LoadingReveal/   cursor-reveal "liquid glass" loading screen
-  composables/     reusable logic (useInitialLoad)
+    PlayButton/      animated round play trigger
+    <Name>.types.ts  co-located types when they're component-only (e.g. NavLink)
+  composables/     reusable logic (useInitialLoad, useProjects, useRise)
+  utils/           pure helpers (getInitials)
+  types/           SHARED domain types (project.ts, track.ts)
+  config/          site-wide constants (site.ts: identity, socials)
   i18n/            vue-i18n setup + locales (en, pt, es, de, fr, ja)
   layouts/         route layouts (DefaultLayout: nav + footer chrome)
   router/          nested routes
   services/        axios instance (http.ts)
   stores/          Pinia stores
-  views/           routed pages (HomeView)
+  views/           routed pages — Home, About, Projects, ProjectDetail,
+                   ProjectSpecs, Testimonials, NotFound (+ .stories/.spec each)
 e2e/               Playwright specs
 .storybook/        Storybook config
-.claude/skills/    "new-component" skill (see below)
+.claude/skills/    project skills (new-component, open-pr, deploy, …)
 ```
+
+**Types convention:** component/page-only types live in a co-located `*.types.ts`
+next to the component; types shared across the app live in `src/types/`.
 
 ---
 
@@ -77,6 +88,16 @@ e2e/               Playwright specs
 - **Loading screen (`LoadingReveal`)** — shown on boot via `useInitialLoad` until the hero
   image is ready (+ a minimum display time), then fades out. A frosted **glass ring follows
   the cursor**, revealing the sharp banner over a blurred backdrop.
+- **Projects (`ProjectsView`)** — a **Netflix-style horizontal carousel** (`BaseCarousel`)
+  of poster cards, with prev/next + mobile dashes that auto-hide when the cards fit, and a
+  hover "dim the siblings" cue. Clicking a card opens the project.
+- **Project detail (`ProjectDetailView`)** — case-study page with an image gallery
+  (dots + drag/swipe), a lightbox, prev/next project navigation and a scroll-progress bar.
+  Its "View details" action drills into…
+- **Project specs (`ProjectSpecsView`)** — a project-specification sheet: a scrollable
+  narrative (with its own scroll-progress bar) beside metadata panels (industry, timeline,
+  tech stack, role & collaborators). Project data is shared via the `useProjects` composable.
+- **Testimonials** — reuses `BaseCarousel` (photo + quote cards) with a detail modal.
 - **Language select** — 6 locales with flags; switches `vue-i18n` locale live.
 - **Responsive** — mobile-first; navigation collapses to a drawer below `md`.
 - **i18n** — all copy runs through `vue-i18n`.

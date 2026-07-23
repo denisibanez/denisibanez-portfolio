@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-
-type Option = { label: string; value: string; flag?: string }
+import type { Option } from './LanguageSelect.types'
 
 type Props = { modelValue: string; options: Option[] }
 

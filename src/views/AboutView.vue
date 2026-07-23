@@ -2,18 +2,13 @@
 import { useI18n } from 'vue-i18n'
 import { Motion } from 'motion-v'
 import router from '@/router'
+import { useRise } from '@/composables/useRise'
 import aboutBg from '@/assets/images/about-bg.jpg'
 
 const { t } = useI18n()
+const { rise } = useRise()
 
 const goToWork = () => router.push('/')
-
-// Staggered rise-in — reused per element with an increasing delay.
-const rise = (delay: number) => ({
-  initial: { opacity: 0, y: 24 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, delay, ease: 'easeOut' },
-})
 </script>
 
 <template>

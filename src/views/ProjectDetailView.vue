@@ -4,7 +4,10 @@ import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import { Motion } from 'motion-v'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
-import { useProjects, type Project } from '@/composables/useProjects'
+import { useProjects } from '@/composables/useProjects'
+import { useRise } from '@/composables/useRise'
+import { getInitials } from '@/utils/getInitials'
+import type { Project } from '@/types/project'
 import detailBg from '@/assets/images/testimonials-bg.jpg'
 
 // `slug` prop overrides the route param (handy for stories/tests).
@@ -33,17 +36,7 @@ const slideCount = computed(() => Math.max(gallery.value.length, 3))
 const activeImage = ref(0)
 const activeSrc = computed(() => gallery.value[activeImage.value])
 
-const initials = computed(() => {
-  const current = project.value
-  if (!current) return ''
-  return current.title
-    .split(' ')
-    .filter(Boolean)
-    .map((word) => word[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase()
-})
+const initials = computed(() => (project.value ? getInitials(project.value.title) : ''))
 const heroCode = computed(() => `${initials.value} — ${String(activeImage.value + 1).padStart(2, '0')}`)
 
 const setImage = (index: number) => {
@@ -100,11 +93,7 @@ const goToSpecs = () => {
   router.push({ name: 'project-specs', params: { slug: current.slug } })
 }
 
-const rise = (delay: number) => ({
-  initial: { opacity: 0, y: 24 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, delay, ease: 'easeOut' },
-})
+const { rise } = useRise()
 </script>
 
 <template>

@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { RouterLink } from 'vue-router'
-
-type NavLink = { label: string; href: string }
+import type { NavLink } from './AppNav.types'
 
 type Props = { links: NavLink[]; active?: string }
 
