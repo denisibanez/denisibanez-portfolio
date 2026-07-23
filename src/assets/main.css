@@ -18,9 +18,13 @@
   --color-primary: #ffffff;
   --color-on-primary: #131313;
   --color-outline: #919191;
+  /* Accent — used sparingly (e.g. case-study eyebrows) */
+  --color-tertiary: #e9c349;
 
   /* Typography */
   --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  /* Editorial serif — reserved for large display headings */
+  --font-serif: 'Playfair Display', ui-serif, Georgia, serif;
 
   --text-headline-lg: 3.5rem;
   --text-headline-lg--line-height: 1.2;

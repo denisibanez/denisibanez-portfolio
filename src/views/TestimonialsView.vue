@@ -2,11 +2,11 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import BaseCarousel from '@/components/BaseCarousel/BaseCarousel.vue'
+import { getInitials } from '@/utils/getInitials'
+import type { Testimonial } from './TestimonialsView.types'
 import testimonialsBg from '@/assets/images/banner-portfolio.png'
 
 const { t } = useI18n()
-
-type Testimonial = { quote: string; full: string; name: string; role: string; photo?: string }
 
 // Sample testimonials — replace with real quotes when available.
 const testimonials: Testimonial[] = [
@@ -41,13 +41,6 @@ const testimonials: Testimonial[] = [
     role: 'CTO, Northwind',
   },
 ]
-
-const initials = (name: string) =>
-  name
-    .split(' ')
-    .map((part) => part[0])
-    .slice(0, 2)
-    .join('')
 
 const testimonialCardClass =
   'flex w-[72vw] flex-col border border-white/10 bg-white/5 backdrop-blur-xl transition-colors hover:border-white/20 sm:w-[360px]'
@@ -96,7 +89,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
               class="flex h-full w-full items-center justify-center bg-linear-to-br from-white/10 to-transparent"
               aria-hidden="true"
             >
-              <span class="text-headline-md uppercase text-on-surface-variant/60">{{ initials(item.name) }}</span>
+              <span class="text-headline-md uppercase text-on-surface-variant/60">{{ getInitials(item.name) }}</span>
             </div>
           </div>
           <!-- Copy -->
@@ -135,7 +128,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
               class="flex h-full w-full items-center justify-center bg-linear-to-br from-white/12 to-transparent"
               aria-hidden="true"
             >
-              <span class="text-headline-lg uppercase text-on-surface-variant/60">{{ initials(selected.name) }}</span>
+              <span class="text-headline-lg uppercase text-on-surface-variant/60">{{ getInitials(selected.name) }}</span>
             </div>
           </div>
 

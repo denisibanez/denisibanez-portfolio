@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch, nextTick, onMounted, onUnmounted } from "vue";
-
-export type Track = { title: string; artist: string; src: string; cover?: string };
+import type { Track } from "@/types/track";
 
 type Props = { open: boolean; tracks: Track[]; label?: string };
 

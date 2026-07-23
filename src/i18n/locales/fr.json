@@ -35,6 +35,29 @@
     "next": "Suivant",
     "view": "Voir le projet"
   },
+  "projectDetail": {
+    "caseStudy": "Étude de cas",
+    "viewLive": "Voir les détails",
+    "back": "Retour au portfolio",
+    "prev": "Projet précédent",
+    "next": "Projet suivant",
+    "expand": "Agrandir l'image",
+    "close": "Fermer",
+    "notFound": "Projet introuvable"
+  },
+  "projectSpecs": {
+    "specifications": "Spécifications du projet",
+    "keyFeatures": "Fonctionnalités clés et jalons",
+    "industry": "Secteur",
+    "timeline": "Calendrier",
+    "months": "Mois",
+    "techStack": "Stack et outils",
+    "myRole": "Mon rôle",
+    "collaborators": "Collaborateurs",
+    "viewLive": "Voir le projet en ligne",
+    "back": "Retour au portfolio",
+    "notFound": "Projet introuvable"
+  },
   "testimonials": {
     "title": "Témoignages",
     "subtitle": "Réflexions sur la collaboration, la précision et le travail numérique livré à partir d'une vision partagée.",

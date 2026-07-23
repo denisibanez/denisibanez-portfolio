@@ -3,7 +3,9 @@ import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { Motion } from 'motion-v'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
-import GlassPlayer, { type Track } from '@/components/GlassPlayer/GlassPlayer.vue'
+import GlassPlayer from '@/components/GlassPlayer/GlassPlayer.vue'
+import { useRise } from '@/composables/useRise'
+import type { Track } from '@/types/track'
 import bannerHome from '@/assets/images/banner-home-full.png'
 import videoHome from '@/assets/video/video-home.mp4'
 import iSeeFireAudio from '@/assets/mp3/ed-sheeran-i-see-fire.mp3'
@@ -52,11 +54,7 @@ const onEnded = () => {
 }
 
 // Staggered rise-in — reused per element with an increasing delay.
-const rise = (delay: number) => ({
-  initial: { opacity: 0, y: 24 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, delay, ease: 'easeOut' },
-})
+const { rise } = useRise()
 </script>
 
 <template>

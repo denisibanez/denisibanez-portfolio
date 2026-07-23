@@ -35,6 +35,29 @@
     "next": "Siguiente",
     "view": "Ver proyecto"
   },
+  "projectDetail": {
+    "caseStudy": "Caso de estudio",
+    "viewLive": "Ver detalles",
+    "back": "Volver al portafolio",
+    "prev": "Proyecto anterior",
+    "next": "Proyecto siguiente",
+    "expand": "Ampliar imagen",
+    "close": "Cerrar",
+    "notFound": "Proyecto no encontrado"
+  },
+  "projectSpecs": {
+    "specifications": "Especificaciones del proyecto",
+    "keyFeatures": "Funciones clave e hitos",
+    "industry": "Industria",
+    "timeline": "Cronograma",
+    "months": "Meses",
+    "techStack": "Stack y herramientas",
+    "myRole": "Mi rol",
+    "collaborators": "Colaboradores",
+    "viewLive": "Ver proyecto en vivo",
+    "back": "Volver al portafolio",
+    "notFound": "Proyecto no encontrado"
+  },
   "testimonials": {
     "title": "Testimonios",
     "subtitle": "Reflexiones sobre colaboración, precisión y el trabajo digital entregado desde una visión compartida.",

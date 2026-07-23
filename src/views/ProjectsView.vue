@@ -1,21 +1,18 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 import BaseCarousel from '@/components/BaseCarousel/BaseCarousel.vue'
+import { useProjects } from '@/composables/useProjects'
+import type { Project } from '@/types/project'
 import projectsBg from '@/assets/images/testimonials-bg.jpg'
 
 const { t } = useI18n()
+const router = useRouter()
+const { projects } = useProjects()
 
-type Project = { title: string; category: string; image?: string }
-
-// Sample works — swap `image` in once real project shots are ready.
-const projects: Project[] = [
-  { title: 'Aether Watch', category: 'Product UI' },
-  { title: 'Brutalist Villa', category: 'Architecture' },
-  { title: 'Metallic Forms', category: '3D / Motion' },
-  { title: 'Drive Dashboard', category: 'Automotive' },
-  { title: 'Titanium Pen', category: 'Industrial' },
-  { title: 'Nexus System', category: 'Design System' },
-]
+const openProject = (project: Project) => {
+  router.push({ name: 'project-detail', params: { slug: project.slug } })
+}
 
 const posterClass =
   'h-[48vh] w-[60vw] bg-surface-container-low sm:aspect-[2/3] sm:h-auto sm:w-[20vw] sm:min-w-[280px] sm:shadow-2xl'
@@ -37,7 +34,8 @@ const posterClass =
         :subtitle="t('projects.subtitle')"
         :labels="{ prev: t('projects.prev'), next: t('projects.next'), goTo: t('projects.title') }"
         :card-class="posterClass"
-        :item-key="(project) => project.title"
+        :item-key="(project) => project.slug"
+        @select="openProject"
       >
         <template #card="{ item }">
           <!-- Media, or a gradient placeholder until real shots land -->

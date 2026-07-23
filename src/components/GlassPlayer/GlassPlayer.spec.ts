@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import GlassPlayer, { type Track } from './GlassPlayer.vue'
+import GlassPlayer from './GlassPlayer.vue'
+import type { Track } from '@/types/track'
 
 const tracks: Track[] = [
   { title: 'Denis Ibañez', artist: 'Showreel', src: '' },

@@ -10,3 +10,14 @@ test('navigates to Projects from the nav and shows the carousel', async ({ page 
   // At least a few project cards render.
   await expect(page.locator('article')).toHaveCount(6)
 })
+
+test('opens a project detail page when a card is clicked', async ({ page }) => {
+  await page.goto('/projects')
+
+  await page.locator('article').first().click()
+  await expect(page).toHaveURL(/\/projects\/[a-z-]+$/)
+
+  // Detail page shows the case-study heading and a back control.
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+  await expect(page.getByRole('button', { name: /back to portfolio/i })).toBeVisible()
+})

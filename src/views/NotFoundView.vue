@@ -2,7 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import router from '@/router'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
-import notFoundBg from '@/assets/images/notfound.jpg'
+import notFoundBg from '@/assets/images/not-found.jpg'
 
 const { t } = useI18n()
 

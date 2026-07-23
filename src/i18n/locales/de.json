@@ -35,6 +35,29 @@
     "next": "Weiter",
     "view": "Projekt ansehen"
   },
+  "projectDetail": {
+    "caseStudy": "Fallstudie",
+    "viewLive": "Details ansehen",
+    "back": "Zurück zum Portfolio",
+    "prev": "Vorheriges Projekt",
+    "next": "Nächstes Projekt",
+    "expand": "Bild vergrößern",
+    "close": "Schließen",
+    "notFound": "Projekt nicht gefunden"
+  },
+  "projectSpecs": {
+    "specifications": "Projektspezifikationen",
+    "keyFeatures": "Kernfunktionen & Meilensteine",
+    "industry": "Branche",
+    "timeline": "Zeitplan",
+    "months": "Monate",
+    "techStack": "Tech-Stack & Tools",
+    "myRole": "Meine Rolle",
+    "collaborators": "Mitwirkende",
+    "viewLive": "Live-Projekt ansehen",
+    "back": "Zurück zum Portfolio",
+    "notFound": "Projekt nicht gefunden"
+  },
   "testimonials": {
     "title": "Referenzen",
     "subtitle": "Gedanken über Zusammenarbeit, Präzision und die digitale Arbeit, die aus einer gemeinsamen Vision entsteht.",
