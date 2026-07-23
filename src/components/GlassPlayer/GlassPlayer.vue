@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, computed, watch, nextTick, onMounted, onUnmounted } from "vue";
+import { ref, watch, nextTick, onMounted, onUnmounted } from "vue";
+import { useAudioPlayer } from "@/composables/useAudioPlayer";
 import type { Track } from "@/types/track";
 
 type Props = { open: boolean; tracks: Track[]; label?: string };
@@ -7,13 +8,31 @@ type Props = { open: boolean; tracks: Track[]; label?: string };
 const props = withDefaults(defineProps<Props>(), { label: "Play" });
 const emit = defineEmits<{ open: []; close: [] }>();
 
-const audio = ref<HTMLAudioElement | null>(null);
+// Audio playback state + transport controls.
+const {
+  audio,
+  playing,
+  currentTime,
+  duration,
+  trackIndex,
+  track,
+  hasPlaylist,
+  progress,
+  format,
+  toggle,
+  playCurrent,
+  prevTrack,
+  nextTrack,
+  scrub,
+  onTimeUpdate,
+  onLoaded,
+  onPlay,
+  onPause,
+  onEnded,
+} = useAudioPlayer(() => props.tracks);
+
 const wrapEl = ref<HTMLElement | null>(null);
 const bodyEl = ref<HTMLElement | null>(null);
-const playing = ref(false);
-const currentTime = ref(0);
-const duration = ref(0);
-const trackIndex = ref(0);
 /** Shell chrome (padding / radius) — lags behind `open` on close. */
 const expanded = ref(false);
 /** True while width/height are tweening — drops expensive filters. */
@@ -29,71 +48,6 @@ const MORPH_MS = 520;
 const OPEN_HEIGHT_FALLBACK = 480;
 
 let morphTimer: ReturnType<typeof setTimeout> | null = null;
-
-const track = computed((): Track => {
-  return (
-    props.tracks[trackIndex.value] ??
-    props.tracks[0] ?? { title: "", artist: "", src: "" }
-  );
-});
-const hasPlaylist = computed(() => props.tracks.length > 1);
-const progress = computed(() => (duration.value ? (currentTime.value / duration.value) * 100 : 0));
-
-const format = (seconds: number) => {
-  if (!Number.isFinite(seconds)) return "0:00";
-  const m = Math.floor(seconds / 60);
-  const s = Math.floor(seconds % 60);
-  return `${m}:${s.toString().padStart(2, "0")}`;
-};
-
-const toggle = () => {
-  const el = audio.value;
-  if (!el) return;
-  if (el.paused) el.play().catch(() => {});
-  else el.pause();
-};
-
-const playCurrent = async () => {
-  await nextTick();
-  const el = audio.value;
-  if (!el) return;
-  el.currentTime = 0;
-  currentTime.value = 0;
-  duration.value = 0;
-  try {
-    await el.play();
-  } catch {
-    /* autoplay / jsdom may reject */
-  }
-};
-
-const prevTrack = () => {
-  if (!hasPlaylist.value) return;
-  trackIndex.value = (trackIndex.value - 1 + props.tracks.length) % props.tracks.length;
-};
-
-const nextTrack = () => {
-  if (!hasPlaylist.value) return;
-  trackIndex.value = (trackIndex.value + 1) % props.tracks.length;
-};
-
-const scrub = (event: MouseEvent) => {
-  const el = audio.value;
-  if (!el || !duration.value) return;
-  const bar = event.currentTarget as HTMLElement;
-  const rect = bar.getBoundingClientRect();
-  const fraction = Math.min(Math.max(0, (event.clientX - rect.left) / rect.width), 1);
-  el.currentTime = fraction * duration.value;
-};
-
-const onTimeUpdate = () => (currentTime.value = audio.value?.currentTime ?? 0);
-const onLoaded = () => (duration.value = audio.value?.duration ?? 0);
-const onPlay = () => (playing.value = true);
-const onPause = () => (playing.value = false);
-const onEnded = () => {
-  if (hasPlaylist.value) nextTrack();
-  else playing.value = false;
-};
 
 const onKey = (event: KeyboardEvent) => {
   if (event.key === "Escape" && props.open) emit("close");
