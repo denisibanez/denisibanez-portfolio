@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { Motion } from 'motion-v'
@@ -11,6 +12,11 @@ const { rise } = useRise()
 const router = useRouter()
 
 const goToProjects = () => router.push({ name: 'projects' })
+
+// SAFe® credential badge — drop the artwork at public/certifications/safe-sp.png.
+// If it's missing we degrade gracefully to the text-only credential.
+const certBadge = `${import.meta.env.BASE_URL}certifications/safe-sp.png`
+const badgeError = ref(false)
 </script>
 
 <template>
@@ -57,6 +63,23 @@ const goToProjects = () => router.push({ name: 'projects' })
               <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">&rarr;</span>
             </button>
           </Motion>
+
+          <!-- Credential -->
+          <Motion as="div" v-bind="rise(0.6)" class="mt-10 flex items-center gap-4">
+            <img
+              v-show="!badgeError"
+              :src="certBadge"
+              :alt="t('about.certTitle')"
+              class="size-14 shrink-0 object-contain"
+              @error="badgeError = true"
+            />
+            <div>
+              <span class="block text-label-lg uppercase tracking-widest text-on-surface-variant/70">
+                {{ t('about.certLabel') }}
+              </span>
+              <p class="mt-1 max-w-xs text-body-lg text-on-surface">{{ t('about.certTitle') }}</p>
+            </div>
+          </Motion>
         </div>
       </div>
 
@@ -96,6 +119,23 @@ const goToProjects = () => router.push({ name: 'projects' })
             {{ t('about.cta') }}
             <span aria-hidden="true">&rarr;</span>
           </button>
+        </Motion>
+
+        <!-- Credential -->
+        <Motion as="div" v-bind="rise(0.6)" class="mt-6 flex items-center gap-4">
+          <img
+            v-show="!badgeError"
+            :src="certBadge"
+            :alt="t('about.certTitle')"
+            class="size-14 shrink-0 object-contain"
+            @error="badgeError = true"
+          />
+          <div>
+            <span class="block text-label-lg uppercase tracking-widest text-on-surface-variant/70">
+              {{ t('about.certLabel') }}
+            </span>
+            <p class="mt-1 text-body-lg text-on-surface">{{ t('about.certTitle') }}</p>
+          </div>
         </Motion>
       </div>
     </div>

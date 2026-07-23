@@ -23,10 +23,12 @@
   "about": {
     "eyebrow": "はじめまして",
     "title": "私について",
-    "lead": "デニス・イバニェスです。14年以上にわたり、Vue・React・Angular で複雑なプロダクトを明快で高速なインターフェースに変えてきたフロントエンド開発者です。",
-    "body": "最も大切にしているのはデザインシステムとプロトタイピング — UI を必然的で一貫性があり、拡張しやすいものにする技術です。デザインとプロダクトと密に連携し、長く使えるものを届けます。",
+    "lead": "デニス・イバニェスです。Vue・React・React Native・TypeScript を用いて、大規模トラフィックのプロダクトの設計とリードを14年以上手がけてきたシニア・フロントエンド／フルスタックエンジニアです。",
+    "body": "Design Ops チームと緊密に連携し、ブランドと体験を大規模でも一貫させるデザインシステムの構築・保守を行っています。スペイン、イギリス、オランダ、ドイツの分散チームと協働してきました。現在は Betfair の Predicts の主要コントリビューターの一人です。",
     "cta": "制作実績を見る",
-    "roles": "Vue • React • Angular • Design Systems"
+    "roles": "Vue • React • Angular • TypeScript • Design Systems",
+    "certLabel": "認定",
+    "certTitle": "AI-Empowered SAFe® Practitioner (SP)"
   },
   "projects": {
     "title": "選りすぐりの作品",

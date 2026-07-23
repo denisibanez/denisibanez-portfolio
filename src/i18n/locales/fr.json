@@ -23,10 +23,12 @@
   "about": {
     "eyebrow": "Enchanté, c'est moi",
     "title": "À propos",
-    "lead": "Je suis Denis Ibañez, développeur front-end avec plus de 14 ans à transformer des produits complexes en interfaces claires et rapides avec Vue, React et Angular.",
-    "body": "Ce qui compte le plus pour moi, ce sont les design systems et le prototypage — l'art de rendre une interface évidente, cohérente et facile à faire évoluer. Je collabore étroitement avec le design et le produit pour livrer un travail durable.",
+    "lead": "Je suis Denis Ibañez, ingénieur front-end et full-stack senior avec plus de 14 ans d'expérience dans la conception et le pilotage de produits à fort trafic en Vue, React, React Native et TypeScript.",
+    "body": "Je collabore étroitement avec les équipes Design Ops pour construire et maintenir des design systems qui préservent la cohérence de la marque et de l'expérience à grande échelle, avec des équipes distribuées en Espagne, au Royaume-Uni, aux Pays-Bas et en Allemagne. Aujourd'hui, je suis l'un des principaux contributeurs de Predicts, de Betfair.",
     "cta": "Voir mon travail",
-    "roles": "Vue • React • Angular • Design Systems"
+    "roles": "Vue • React • Angular • TypeScript • Design Systems",
+    "certLabel": "Certification",
+    "certTitle": "AI-Empowered SAFe® Practitioner (SP)"
   },
   "projects": {
     "title": "Travaux Sélectionnés",
