@@ -7,7 +7,7 @@ import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
 import { getInitials } from '@/utils/getInitials/getInitials'
 import { testimonials } from '@/data/testimonials'
 import type { Testimonial } from '@/types/testimonial'
-import testimonialsBg from '@/assets/images/banner-portfolio.png'
+import testimonialsBg from '@/assets/images/banner-portfolio.webp'
 
 const { t } = useI18n()
 

@@ -1,5 +1,5 @@
 import { onMounted, ref } from 'vue'
-import bannerHome from '@/assets/images/banner-home-full.png'
+import bannerHome from '@/assets/images/banner-home-full.webp'
 
 const MIN_DISPLAY_MS = 700
 
