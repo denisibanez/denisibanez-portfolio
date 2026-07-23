@@ -23,6 +23,17 @@ dashes (mobile) that auto-hide when the cards fit, entrance motion, hover pop, o
 Accessible tab bar (roving arrow keys); `v-model` the active value, pass `{ label, value }[]`.
 Active tab shows the gold underline. Used for the projects study/client filter.
 
+### `LoadingState` / `ErrorState`
+On-brand async placeholders. `LoadingState` is an accessible spinner (`role="status"`) with an
+optional i18n label. `ErrorState` shows a gold eyebrow + message and emits `retry`. Pair them
+with `useAsyncData`:
+```vue
+<LoadingState v-if="pending" :label="t('state.loading')" />
+<ErrorState v-else-if="error" :title="t('state.errorTitle')" :message="t('state.errorMessage')"
+  :retry-label="t('state.retry')" @retry="retry" />
+<template v-else>…render data…</template>
+```
+
 ### `BaseButton` / `GlassPlayer` / `LoadingReveal` / `AppNav` / `PlayButton` / `LanguageSelect`
 See their stories in Storybook (design.denisibanez.dev).
 
@@ -35,6 +46,8 @@ See their stories in Storybook (design.denisibanez.dev).
   progress, media-event handlers). Host component binds `audio` to `<audio>` and the `on*` handlers.
 - **`useProjects()`** → published-and-sorted `projects` + `getBySlug` / `getAdjacent`.
 - **`useInitialLoad()`** → boot loading state for `LoadingReveal`.
+- **`useAsyncData(fetcher)`** → `{ data, pending, error, retry }` — glue for `LoadingState`/
+  `ErrorState`; the seam for when `data/` modules become `services/http` calls.
 
 ## Utils
 

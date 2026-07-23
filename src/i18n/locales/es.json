@@ -76,5 +76,11 @@
     "eyebrow": "¿Perdido?",
     "message": "La página que buscas no existe.",
     "cta": "Volver al inicio"
+  },
+  "state": {
+    "loading": "Cargando…",
+    "errorTitle": "Algo salió mal",
+    "errorMessage": "No se pudo cargar este contenido. Inténtalo de nuevo.",
+    "retry": "Reintentar"
   }
 }

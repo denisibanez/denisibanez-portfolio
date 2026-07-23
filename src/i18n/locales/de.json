@@ -76,5 +76,11 @@
     "eyebrow": "Verirrt?",
     "message": "Die gesuchte Seite existiert nicht.",
     "cta": "Zur Startseite"
+  },
+  "state": {
+    "loading": "Wird geladen…",
+    "errorTitle": "Etwas ist schiefgelaufen",
+    "errorMessage": "Dieser Inhalt konnte nicht geladen werden. Bitte versuche es erneut.",
+    "retry": "Erneut versuchen"
   }
 }

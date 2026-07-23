@@ -27,12 +27,14 @@ what was improved, and what's left.
   is logic-only. This is the seam to swap for an API later.
 - **Reduced motion** — `useRise` collapses to a no-op under `prefers-reduced-motion` (native
   `matchMedia`, no extra dependency), so entrance animations are gated app-wide.
+- **Async state kit ready** — `LoadingState`, `ErrorState` and `useAsyncData` are built and on-brand,
+  ready to wrap real requests (`state.*` i18n in all six locales). Not wired yet — no endpoints.
 
 ## What's next (candidates, not blockers)
 
-- **`GlassPlayer` is still large** (~740 lines) — now mostly template + morph CSS. Could split the
-  expanded player body / transport row into small presentational subcomponents.
-- **Add loading/error states** once `services/http` + Pinia are wired to real endpoints (then the
-  `data/` modules become API calls feeding stores).
+- **`GlassPlayer` is still large** (~740 lines) — now mostly template + morph CSS. It's a cohesive
+  animated widget; splitting it would prop-drill the morph refs, so it's left intact by choice.
+- **Wire the async kit** once `services/http` + Pinia hit real endpoints: `data/` modules become
+  fetchers passed to `useAsyncData`, rendering `LoadingState` / `ErrorState`.
 - **Round out e2e:** gallery swipe/lightbox and prev/next project navigation.
 - **Remove the two Storybook chunk-size warnings** by code-splitting stories if the build grows.

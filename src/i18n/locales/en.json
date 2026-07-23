@@ -76,5 +76,11 @@
     "eyebrow": "Lost?",
     "message": "The page you're looking for doesn't exist.",
     "cta": "Back to home"
+  },
+  "state": {
+    "loading": "Loading…",
+    "errorTitle": "Something went wrong",
+    "errorMessage": "We couldn't load this content. Please try again.",
+    "retry": "Try again"
   }
 }
