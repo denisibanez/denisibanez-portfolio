@@ -49,23 +49,8 @@ const badgeError = ref(false)
         <div class="col-span-4" aria-hidden="true" />
 
         <div class="col-span-4">
-          <Motion as="p" v-bind="rise(0.3)" class="max-w-xs text-body-lg text-on-surface-variant">
-            {{ t('about.body') }}
-          </Motion>
-          <Motion as="div" v-bind="rise(0.45)" class="mt-10">
-            <button
-              type="button"
-              class="group inline-flex cursor-pointer items-center gap-4 text-label-lg uppercase tracking-widest text-on-surface transition-colors hover:text-primary"
-              @click="goToProjects"
-            >
-              <span class="h-px w-12 bg-on-surface transition-all group-hover:w-16" />
-              {{ t('about.cta') }}
-              <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">&rarr;</span>
-            </button>
-          </Motion>
-
           <!-- Credential -->
-          <Motion as="div" v-bind="rise(0.6)" class="mt-10 flex items-center gap-4">
+          <Motion as="div" v-bind="rise(0.3)" class="flex items-center gap-4">
             <img
               v-show="!badgeError"
               :src="certBadge"
@@ -79,6 +64,21 @@ const badgeError = ref(false)
               </span>
               <p class="mt-1 max-w-xs text-body-lg text-on-surface">{{ t('about.certTitle') }}</p>
             </div>
+          </Motion>
+
+          <Motion as="p" v-bind="rise(0.4)" class="mt-10 max-w-xs text-body-lg text-on-surface-variant">
+            {{ t('about.body') }}
+          </Motion>
+          <Motion as="div" v-bind="rise(0.5)" class="mt-10">
+            <button
+              type="button"
+              class="group inline-flex cursor-pointer items-center gap-4 text-label-lg uppercase tracking-widest text-on-surface transition-colors hover:text-primary"
+              @click="goToProjects"
+            >
+              <span class="h-px w-12 bg-on-surface transition-all group-hover:w-16" />
+              {{ t('about.cta') }}
+              <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">&rarr;</span>
+            </button>
           </Motion>
         </div>
       </div>
@@ -106,23 +106,9 @@ const badgeError = ref(false)
         <Motion as="p" v-bind="rise(0.2)" class="text-body-lg text-on-surface-variant">
           {{ t('about.lead') }}
         </Motion>
-        <Motion as="p" v-bind="rise(0.3)" class="text-body-lg text-on-surface-variant">
-          {{ t('about.body') }}
-        </Motion>
-        <Motion as="div" v-bind="rise(0.45)" class="mt-2">
-          <button
-            type="button"
-            class="group inline-flex cursor-pointer items-center gap-4 text-label-lg uppercase tracking-widest text-on-surface transition-colors hover:text-primary"
-            @click="goToProjects"
-          >
-            <span class="h-px w-12 bg-on-surface" />
-            {{ t('about.cta') }}
-            <span aria-hidden="true">&rarr;</span>
-          </button>
-        </Motion>
 
         <!-- Credential -->
-        <Motion as="div" v-bind="rise(0.6)" class="mt-6 flex items-center gap-4">
+        <Motion as="div" v-bind="rise(0.3)" class="flex items-center gap-4">
           <img
             v-show="!badgeError"
             :src="certBadge"
@@ -136,6 +122,21 @@ const badgeError = ref(false)
             </span>
             <p class="mt-1 text-body-lg text-on-surface">{{ t('about.certTitle') }}</p>
           </div>
+        </Motion>
+
+        <Motion as="p" v-bind="rise(0.4)" class="text-body-lg text-on-surface-variant">
+          {{ t('about.body') }}
+        </Motion>
+        <Motion as="div" v-bind="rise(0.5)" class="mt-2">
+          <button
+            type="button"
+            class="group inline-flex cursor-pointer items-center gap-4 text-label-lg uppercase tracking-widest text-on-surface transition-colors hover:text-primary"
+            @click="goToProjects"
+          >
+            <span class="h-px w-12 bg-on-surface" />
+            {{ t('about.cta') }}
+            <span aria-hidden="true">&rarr;</span>
+          </button>
         </Motion>
       </div>
     </div>
