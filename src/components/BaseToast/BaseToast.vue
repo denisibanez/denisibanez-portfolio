@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { ToastType } from '@/composables/useToast'
+import type { ToastType } from '@/composables/useToast/useToast'
 
 // A single elegant toast: glass panel + a semantic accent bar and icon.
 type Props = { type?: ToastType; message: string; dismissLabel?: string }

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import BaseToast from './BaseToast.vue'
-import type { ToastType } from '@/composables/useToast'
+import type { ToastType } from '@/composables/useToast/useToast'
 
 const factory = (type: ToastType = 'info') =>
   mount(BaseToast, { props: { type, message: 'Hello', dismissLabel: 'Dismiss' } })

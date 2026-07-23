@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import { nextTick } from 'vue'
 import { mount } from '@vue/test-utils'
 import ToastHost from './ToastHost.vue'
-import { useToast } from '@/composables/useToast'
+import { useToast } from '@/composables/useToast/useToast'
 
 const { toasts, notify } = useToast()
 

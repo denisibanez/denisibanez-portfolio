@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { useProjects } from './useProjects'
+import { useProjects } from '@/composables/useProjects/useProjects'
 import type { Project } from '@/types/project'
 
 /**

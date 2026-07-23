@@ -5,6 +5,10 @@ into a data-driven app without re-architecture.
 
 ## Layers & responsibilities
 
+Every unit is a **folder named after it** holding the file + its `.spec` (+ `.stories` for UI),
+e.g. `views/HomeView/HomeView.vue`, `composables/useRise/useRise.ts`. Import the explicit file
+(`@/composables/useRise/useRise`) — no index files, matching the components convention.
+
 ```
 views/        Routed pages. Compose components; own page-level state and copy (via i18n).
 layouts/      Route chrome (DefaultLayout = nav + footer) with an inner <RouterView/>.

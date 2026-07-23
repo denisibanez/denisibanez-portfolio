@@ -8,7 +8,7 @@ import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
  *     path: '/',
  *     component: () => import('@/layouts/DefaultLayout.vue'),
  *     children: [
- *       { path: '', name: 'home', component: () => import('@/views/HomeView.vue') },
+ *       { path: '', name: 'home', component: () => import('@/views/HomeView/HomeView.vue') },
  *     ],
  *   }
  *
@@ -20,26 +20,26 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     component: () => import('@/layouts/DefaultLayout.vue'),
     children: [
-      { path: '', name: 'home', component: () => import('@/views/HomeView.vue') },
-      { path: 'about', name: 'about', component: () => import('@/views/AboutView.vue') },
-      { path: 'projects', name: 'projects', component: () => import('@/views/ProjectsView.vue') },
+      { path: '', name: 'home', component: () => import('@/views/HomeView/HomeView.vue') },
+      { path: 'about', name: 'about', component: () => import('@/views/AboutView/AboutView.vue') },
+      { path: 'projects', name: 'projects', component: () => import('@/views/ProjectsView/ProjectsView.vue') },
       {
         path: 'projects/:slug',
         name: 'project-detail',
-        component: () => import('@/views/ProjectDetailView.vue'),
+        component: () => import('@/views/ProjectDetailView/ProjectDetailView.vue'),
       },
       {
         path: 'projects/:slug/specs',
         name: 'project-specs',
-        component: () => import('@/views/ProjectSpecsView.vue'),
+        component: () => import('@/views/ProjectSpecsView/ProjectSpecsView.vue'),
       },
-      { path: 'testimonials', name: 'testimonials', component: () => import('@/views/TestimonialsView.vue') },
+      { path: 'testimonials', name: 'testimonials', component: () => import('@/views/TestimonialsView/TestimonialsView.vue') },
     ],
   },
   {
     path: '/:pathMatch(.*)*',
     component: () => import('@/layouts/DefaultLayout.vue'),
-    children: [{ path: '', name: 'not-found', component: () => import('@/views/NotFoundView.vue') }],
+    children: [{ path: '', name: 'not-found', component: () => import('@/views/NotFoundView/NotFoundView.vue') }],
   },
 ]
 

@@ -50,7 +50,7 @@ For a **component** `src/components/<Name>/<Name>.vue`, also create:
 2. `src/components/<Name>/<Name>.spec.ts` — Vitest + `@vue/test-utils`: render, props/variants, emitted events, edge cases.
 3. **Playwright e2e** in `e2e/` — only when the unit adds a user-facing flow (navigation, form, interaction across the page). Skip for purely presentational atoms.
 
-Create **stores** (`src/stores/<name>.ts`, Pinia `defineStore`, setup style) and **composables** (`src/composables/use<Name>.ts`) whenever there is shared state or reusable logic — keep it out of components.
+Create **stores** (`src/stores/<name>.ts`, Pinia `defineStore`, setup style) and **composables** whenever there is shared state or reusable logic — keep it out of components. Composables and utils follow the same **folder-per-unit** rule as components: `src/composables/<name>/<name>.ts` (+ `.spec.ts`), `src/utils/<name>/<name>.ts` (+ `.spec.ts`), imported via the explicit file (`@/composables/useRise/useRise`). Views too: `src/views/<Name>/<Name>.vue`.
 
 ## Conventions
 

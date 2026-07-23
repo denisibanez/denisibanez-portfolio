@@ -3,7 +3,7 @@ import { useI18n } from 'vue-i18n'
 import { Motion } from 'motion-v'
 import router from '@/router'
 import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
-import { useRise } from '@/composables/useRise'
+import { useRise } from '@/composables/useRise/useRise'
 import aboutBg from '@/assets/images/about-bg.jpg'
 
 const { t } = useI18n()

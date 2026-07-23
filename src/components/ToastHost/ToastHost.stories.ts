@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import ToastHost from './ToastHost.vue'
-import { useToast } from '@/composables/useToast'
+import { useToast } from '@/composables/useToast/useToast'
 
 const meta: Meta<typeof ToastHost> = {
   title: 'Components/ToastHost',

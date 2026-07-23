@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch, nextTick, onMounted, onUnmounted } from "vue";
-import { useAudioPlayer } from "@/composables/useAudioPlayer";
+import { useAudioPlayer } from "@/composables/useAudioPlayer/useAudioPlayer";
 import type { Track } from "@/types/track";
 
 type Props = { open: boolean; tracks: Track[]; label?: string };

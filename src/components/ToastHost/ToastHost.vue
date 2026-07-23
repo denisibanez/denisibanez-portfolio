@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import BaseToast from '@/components/BaseToast/BaseToast.vue'
-import { useToast } from '@/composables/useToast'
+import { useToast } from '@/composables/useToast/useToast'
 
 // Renders the shared toast queue once (mount in the layout). The dismiss label
 // is passed in (i18n'd) so the component stays copy-free.

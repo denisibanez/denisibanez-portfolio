@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useInitialLoad } from '@/composables/useInitialLoad'
+import { useInitialLoad } from '@/composables/useInitialLoad/useInitialLoad'
 import LoadingReveal from '@/components/LoadingReveal/LoadingReveal.vue'
 
 const { isLoading } = useInitialLoad()

@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 import BaseCarousel from '@/components/BaseCarousel/BaseCarousel.vue'
 import BaseTabs from '@/components/BaseTabs/BaseTabs.vue'
 import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
-import { useProjects } from '@/composables/useProjects'
+import { useProjects } from '@/composables/useProjects/useProjects'
 import type { Project } from '@/types/project'
 import projectsBg from '@/assets/images/testimonials-bg.jpg'
 

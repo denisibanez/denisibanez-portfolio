@@ -26,10 +26,12 @@ truth — read it before creating any UI. In short:
 
 ## Structure & where things go
 
-- `components/<Name>/` — agnostic UI (`.vue` + `.stories.ts` + `.spec.ts`).
-- `views/` — routed pages (flat). `layouts/` — chrome (DefaultLayout: nav + footer).
-- `composables/` — reusable logic (`useRise`, `useProjects`, `useInitialLoad`).
-- `utils/` — pure helpers (`getInitials`, `timeline`).
+- **Folder-per-unit** everywhere: `components/<Name>/`, `views/<Name>/`, `composables/<name>/`,
+  `utils/<name>/` — each folder holds the file named after it plus its `.spec.ts` (and
+  `.stories.ts` for UI). Import the explicit file: `@/composables/useRise/useRise`,
+  `@/views/HomeView/HomeView.vue` (no index files — matches the components convention).
+- `layouts/` — chrome (DefaultLayout: nav + footer). `data/` — static content. `types/` — shared
+  types (co-located `*.types.ts` for component-only ones).
 - **Types:** shared → `src/types/*.ts`; component/page-only → co-located `*.types.ts`.
 - `i18n/`, `router/` (nested routes under layouts), `config/site.ts` (identity/socials).
 - Sample content (e.g. projects) currently lives in `composables/useProjects.ts`.

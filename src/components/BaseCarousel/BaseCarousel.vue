@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="T">
 import { ref, onMounted, onUnmounted, nextTick, watch } from 'vue'
 import { Motion } from 'motion-v'
-import { useRise } from '@/composables/useRise'
+import { useRise } from '@/composables/useRise/useRise'
 
 type Labels = { prev: string; next: string; goTo: string }
 
