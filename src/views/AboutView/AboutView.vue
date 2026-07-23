@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 import { Motion } from 'motion-v'
-import router from '@/router'
 import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
 import { useRise } from '@/composables/useRise/useRise'
 import aboutBg from '@/assets/images/about-bg.jpg'
 
 const { t } = useI18n()
 const { rise } = useRise()
+const router = useRouter()
 
-const goToWork = () => router.push('/')
+const goToProjects = () => router.push({ name: 'projects' })
 </script>
 
 <template>
@@ -49,7 +50,7 @@ const goToWork = () => router.push('/')
             <button
               type="button"
               class="group inline-flex cursor-pointer items-center gap-4 text-label-lg uppercase tracking-widest text-on-surface transition-colors hover:text-primary"
-              @click="goToWork"
+              @click="goToProjects"
             >
               <span class="h-px w-12 bg-on-surface transition-all group-hover:w-16" />
               {{ t('about.cta') }}
@@ -89,7 +90,7 @@ const goToWork = () => router.push('/')
           <button
             type="button"
             class="group inline-flex cursor-pointer items-center gap-4 text-label-lg uppercase tracking-widest text-on-surface transition-colors hover:text-primary"
-            @click="goToWork"
+            @click="goToProjects"
           >
             <span class="h-px w-12 bg-on-surface" />
             {{ t('about.cta') }}

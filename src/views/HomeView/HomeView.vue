@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 import { Motion } from 'motion-v'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import GlassPlayer from '@/components/GlassPlayer/GlassPlayer.vue'
@@ -16,6 +17,9 @@ import oBemAudio from '@/assets/mp3/arlindo-cruz-o-bem.mp3'
 import oBemCover from '@/assets/mp3/arlindo-cruz-o-bem.avif'
 
 const { t } = useI18n()
+const router = useRouter()
+
+const goToProjects = () => router.push({ name: 'projects' })
 
 const videoReady = ref(false)
 const videoEnded = ref(false)
@@ -95,7 +99,7 @@ const { rise } = useRise()
         </Motion>
 
         <Motion as="div" v-bind="rise(0.3)" class="mt-10 flex items-center gap-6">
-          <BaseButton block>{{ t('home.cta') }}</BaseButton>
+          <BaseButton block @click="goToProjects">{{ t('home.cta') }}</BaseButton>
           <span class="text-2xl text-on-surface" aria-hidden="true">&rarr;</span>
         </Motion>
       </div>
