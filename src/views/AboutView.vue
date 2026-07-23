@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import { Motion } from 'motion-v'
 import router from '@/router'
+import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
 import { useRise } from '@/composables/useRise'
 import aboutBg from '@/assets/images/about-bg.jpg'
 
@@ -12,15 +13,11 @@ const goToWork = () => router.push('/')
 </script>
 
 <template>
-  <section class="relative min-h-screen w-full overflow-hidden">
-    <img
-      :src="aboutBg"
-      alt=""
-      aria-hidden="true"
-      class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
-    />
+  <MediaBackdrop :src="aboutBg">
     <!-- Mobile-only scrim — subtle, just enough to keep the stacked copy legible -->
-    <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-surface/75 via-surface/35 to-transparent lg:hidden" />
+    <template #scrim>
+      <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-surface/75 via-surface/35 to-transparent lg:hidden" />
+    </template>
 
     <div class="relative z-10 min-h-screen px-[5vw] pt-28 pb-28">
       <!-- Desktop / tablet: two text columns flanking the centred portrait -->
@@ -101,5 +98,5 @@ const goToWork = () => router.push('/')
         </Motion>
       </div>
     </div>
-  </section>
+  </MediaBackdrop>
 </template>

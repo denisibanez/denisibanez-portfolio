@@ -2,6 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import BaseCarousel from '@/components/BaseCarousel/BaseCarousel.vue'
+import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
 import { getInitials } from '@/utils/getInitials'
 import type { Testimonial } from './TestimonialsView.types'
 import testimonialsBg from '@/assets/images/banner-portfolio.png'
@@ -61,14 +62,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
 </script>
 
 <template>
-  <section class="relative min-h-screen w-full overflow-hidden">
-    <img
-      :src="testimonialsBg"
-      alt=""
-      aria-hidden="true"
-      class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
-    />
-
+  <MediaBackdrop :src="testimonialsBg">
     <div class="relative z-10 flex h-screen flex-col justify-end px-[5vw] pt-24 pb-20 sm:justify-center sm:pt-20 sm:pb-16">
       <BaseCarousel
         :items="testimonials"
@@ -156,7 +150,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
         </div>
       </div>
     </Transition>
-  </section>
+  </MediaBackdrop>
 </template>
 
 <style scoped>

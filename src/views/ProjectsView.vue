@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import BaseCarousel from '@/components/BaseCarousel/BaseCarousel.vue'
 import BaseTabs from '@/components/BaseTabs/BaseTabs.vue'
+import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
 import { useProjects } from '@/composables/useProjects'
 import type { Project } from '@/types/project'
 import projectsBg from '@/assets/images/testimonials-bg.jpg'
@@ -32,14 +33,7 @@ const posterClass =
 </script>
 
 <template>
-  <section class="relative min-h-screen w-full overflow-hidden">
-    <img
-      :src="projectsBg"
-      alt=""
-      aria-hidden="true"
-      class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
-    />
-
+  <MediaBackdrop :src="projectsBg">
     <div class="relative z-10 flex h-screen flex-col justify-start px-[5vw] pt-28 pb-16 sm:justify-center sm:pt-20">
       <BaseTabs v-model="activeTab" :tabs="tabs" class="mb-8 self-start" />
       <BaseCarousel
@@ -78,5 +72,5 @@ const posterClass =
         </template>
       </BaseCarousel>
     </div>
-  </section>
+  </MediaBackdrop>
 </template>

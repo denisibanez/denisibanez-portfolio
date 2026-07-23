@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { Motion } from 'motion-v'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
-import { useProjects } from '@/composables/useProjects'
+import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
+import { useProjectRoute } from '@/composables/useProjectRoute'
 import { useRise } from '@/composables/useRise'
 import { monthsBetween, formatRange } from '@/utils/timeline'
-import type { Project } from '@/types/project'
 import { site } from '@/config/site'
 import detailBg from '@/assets/images/testimonials-bg.jpg'
 
@@ -16,12 +16,8 @@ type Props = { slug?: string }
 const props = defineProps<Props>()
 
 const { t } = useI18n()
-const route = useRoute()
 const router = useRouter()
-const { getBySlug } = useProjects()
-
-const slug = computed(() => props.slug ?? String(route.params.slug ?? ''))
-const project = computed<Project | null>(() => getBySlug(slug.value))
+const { project } = useProjectRoute(() => props.slug)
 
 // Demo filler so the scroll + progress bar are visible; replace with real copy.
 const LOREM = [
@@ -60,15 +56,11 @@ const { rise } = useRise()
 </script>
 
 <template>
-  <section class="relative min-h-screen w-full overflow-hidden">
-    <img
-      :src="detailBg"
-      alt=""
-      aria-hidden="true"
-      class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
-    />
+  <MediaBackdrop :src="detailBg">
     <!-- Mobile-only scrim — content spans the full height here, keep it legible -->
-    <div class="pointer-events-none absolute inset-0 bg-linear-to-b from-surface/70 via-surface/50 to-surface/85 lg:hidden" />
+    <template #scrim>
+      <div class="pointer-events-none absolute inset-0 bg-linear-to-b from-surface/70 via-surface/50 to-surface/85 lg:hidden" />
+    </template>
 
     <div class="relative z-10 flex min-h-screen items-start px-[5vw] pt-28 pb-28 lg:items-center lg:pt-24">
       <!-- Project -->
@@ -183,7 +175,7 @@ const { rise } = useRise()
         <BaseButton variant="outline" @click="goToProjects">{{ t('projectSpecs.back') }}</BaseButton>
       </div>
     </div>
-  </section>
+  </MediaBackdrop>
 </template>
 
 <style scoped>

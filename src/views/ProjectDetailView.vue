@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { Motion } from 'motion-v'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
+import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
 import { useProjects } from '@/composables/useProjects'
+import { useProjectRoute } from '@/composables/useProjectRoute'
 import { useRise } from '@/composables/useRise'
 import { getInitials } from '@/utils/getInitials'
 import { yearOf } from '@/utils/timeline'
@@ -16,12 +18,9 @@ type Props = { slug?: string }
 const props = defineProps<Props>()
 
 const { t } = useI18n()
-const route = useRoute()
 const router = useRouter()
-const { projects, getBySlug, getAdjacent } = useProjects()
-
-const slug = computed(() => props.slug ?? String(route.params.slug ?? ''))
-const project = computed<Project | null>(() => getBySlug(slug.value))
+const { projects, getAdjacent } = useProjects()
+const { slug, project } = useProjectRoute(() => props.slug)
 const adjacent = computed(() => getAdjacent(slug.value))
 const currentIndex = computed(() => projects.findIndex((p) => p.slug === slug.value))
 
@@ -101,15 +100,11 @@ const { rise } = useRise()
 </script>
 
 <template>
-  <section class="relative min-h-screen w-full overflow-hidden">
-    <img
-      :src="detailBg"
-      alt=""
-      aria-hidden="true"
-      class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
-    />
+  <MediaBackdrop :src="detailBg">
     <!-- Mobile-only scrim — content spans the full height here, so keep it legible -->
-    <div class="pointer-events-none absolute inset-0 bg-linear-to-b from-surface/65 via-surface/45 to-surface/85 lg:hidden" />
+    <template #scrim>
+      <div class="pointer-events-none absolute inset-0 bg-linear-to-b from-surface/65 via-surface/45 to-surface/85 lg:hidden" />
+    </template>
 
     <div class="relative z-10 flex min-h-screen flex-col justify-start px-[5vw] pt-28 pb-36 lg:justify-center lg:pt-24 lg:pb-20">
       <!-- Project -->
@@ -297,7 +292,7 @@ const { rise } = useRise()
         </div>
       </div>
     </Transition>
-  </section>
+  </MediaBackdrop>
 </template>
 
 <style scoped>
