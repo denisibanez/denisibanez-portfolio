@@ -19,16 +19,24 @@ LINK [https://denisibanez.dev/]: https://denisibanez.dev/
 | Language | **TypeScript** (strict) |
 | Build | **Vite** |
 | Routing | **vue-router** — nested routes under layouts |
-| State | **Pinia** |
+| State | **Pinia** — scaffolded (see note below) |
 | i18n | **vue-i18n** — EN · PT · ES · DE · FR · JA |
 | Styling | **Tailwind CSS v4** (`@tailwindcss/vite`, design tokens via `@theme`) |
-| HTTP | **axios** (shared instance in `services/http.ts`) |
+| HTTP | **axios** (`services/http.ts`) — scaffolded (see note below) |
 | Animation | **motion-v** (Motion for Vue) |
 | Component workshop | **Storybook** (`@storybook/vue3-vite`) |
 | Unit tests | **Vitest** + `@vue/test-utils` |
 | E2E | **Playwright** |
 | Quality | **ESLint** (flat) + **oxlint**, **Prettier**, **Husky** pre-commit |
 | Package manager | **pnpm** |
+
+---
+
+> **Note — Pinia & axios are intentional scaffolding.** The site is currently static (content
+> lives in composables/data), so `stores/counter.ts` and `services/http.ts` aren't wired into
+> any view yet. They're kept as the pattern for the next step: when projects, testimonials or a
+> blog are served from real **endpoints**, data fetched via `services/http` will feed Pinia
+> stores instead of living in components. See [`docs/`](./docs) for the full rationale.
 
 ---
 
