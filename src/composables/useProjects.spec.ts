@@ -26,10 +26,10 @@ describe('useProjects', () => {
     expect(getAdjacent('nope')).toEqual({ prev: null, next: null })
   })
 
-  it('hides drafts from the public list but keeps them reachable by slug', () => {
+  it('hides drafts from the list and does not resolve them by slug', () => {
     expect(projects.every((p) => p.status !== 'draft')).toBe(true)
     expect(projects.some((p) => p.slug === 'titanium-pen')).toBe(false)
-    // Draft is still resolvable by direct URL for previewing.
-    expect(getBySlug('titanium-pen')?.status).toBe('draft')
+    // Draft is not resolvable — its detail/specs pages fall back to not-found.
+    expect(getBySlug('titanium-pen')).toBeNull()
   })
 })

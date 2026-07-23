@@ -143,13 +143,13 @@ const isPublished = (project: Project): boolean => project.status !== 'draft'
 
 /**
  * Shared access to the project list plus lookup/adjacency helpers.
- * `projects` is the PUBLIC (published-only) list; drafts stay reachable by
- * direct URL via `getBySlug` so they can be previewed before publishing.
+ * Everything is scoped to PUBLISHED projects — drafts are hidden from the
+ * list and are not resolvable by slug (their detail/specs pages 404).
  */
 export const useProjects = () => {
   const published = projects.filter(isPublished)
 
-  const getBySlug = (slug: string): Project | null => projects.find((p) => p.slug === slug) ?? null
+  const getBySlug = (slug: string): Project | null => published.find((p) => p.slug === slug) ?? null
 
   const getAdjacent = (slug: string): { prev: Project | null; next: Project | null } => {
     const index = published.findIndex((p) => p.slug === slug)
