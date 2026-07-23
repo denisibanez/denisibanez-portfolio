@@ -135,6 +135,19 @@ consistently. It enforces:
 
 ---
 
+## Deployment
+
+- **App** — hosted on **Vercel**, auto-deployed from `main` (production) and PRs (previews).
+  Live at [denisibanez.dev](https://denisibanez.dev). SPA routing via `vercel.json` rewrites.
+- **Design system (Storybook)** — published as a **separate Vercel project** at
+  **[design.denisibanez.dev](https://design.denisibanez.dev)**. It is deployed as a prebuilt
+  static folder (`storybook-static`) so the app's SPA rewrite doesn't apply. A GitHub Action
+  (`.github/workflows/publish-storybook.yml`) rebuilds and republishes it on every push to
+  `main`. It needs three repo secrets: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`
+  (the design-system project). Manual publish: `pnpm build-storybook && cd storybook-static && pnpm dlx vercel --prod`.
+
+---
+
 ## Quality
 
 - `type-check` (vue-tsc), `lint` (oxlint + eslint), and unit tests run clean.

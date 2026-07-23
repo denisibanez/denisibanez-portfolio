@@ -25,4 +25,11 @@ describe('useProjects', () => {
   it('returns nulls for an unknown slug', () => {
     expect(getAdjacent('nope')).toEqual({ prev: null, next: null })
   })
+
+  it('hides drafts from the list and does not resolve them by slug', () => {
+    expect(projects.every((p) => p.status !== 'draft')).toBe(true)
+    expect(projects.some((p) => p.slug === 'titanium-pen')).toBe(false)
+    // Draft is not resolvable — its detail/specs pages fall back to not-found.
+    expect(getBySlug('titanium-pen')).toBeNull()
+  })
 })

@@ -33,7 +33,10 @@
     "subtitle": "Uma coleção de experiências digitais, visualizações arquitetônicas e conceitos de design industrial. Cada projeto é uma intersecção precisa entre função e estética.",
     "prev": "Anterior",
     "next": "Próximo",
-    "view": "Ver projeto"
+    "view": "Ver projeto",
+    "all": "Todos",
+    "study": "Estudo",
+    "client": "Cliente"
   },
   "projectDetail": {
     "caseStudy": "Estudo de caso",
@@ -43,7 +46,8 @@
     "next": "Próximo projeto",
     "expand": "Ampliar imagem",
     "close": "Fechar",
-    "notFound": "Projeto não encontrado"
+    "notFound": "Projeto não encontrado",
+    "viewGithub": "Ver no GitHub"
   },
   "projectSpecs": {
     "specifications": "Especificações do projeto",
@@ -56,7 +60,8 @@
     "collaborators": "Colaboradores",
     "viewLive": "Ver projeto online",
     "back": "Voltar ao portfólio",
-    "notFound": "Projeto não encontrado"
+    "notFound": "Projeto não encontrado",
+    "viewGithub": "Ver no GitHub"
   },
   "testimonials": {
     "title": "Depoimentos",

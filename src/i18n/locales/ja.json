@@ -33,7 +33,10 @@
     "subtitle": "デジタル体験、建築ビジュアライゼーション、インダストリアルデザインのコンセプトを厳選。各プロジェクトは機能と美学が精密に交わる作品です。",
     "prev": "前へ",
     "next": "次へ",
-    "view": "プロジェクトを見る"
+    "view": "プロジェクトを見る",
+    "all": "すべて",
+    "study": "スタディ",
+    "client": "クライアント"
   },
   "projectDetail": {
     "caseStudy": "ケーススタディ",
@@ -43,7 +46,8 @@
     "next": "次のプロジェクト",
     "expand": "画像を拡大",
     "close": "閉じる",
-    "notFound": "プロジェクトが見つかりません"
+    "notFound": "プロジェクトが見つかりません",
+    "viewGithub": "GitHubで見る"
   },
   "projectSpecs": {
     "specifications": "プロジェクト仕様",
@@ -56,7 +60,8 @@
     "collaborators": "協力",
     "viewLive": "ライブプロジェクトを見る",
     "back": "ポートフォリオに戻る",
-    "notFound": "プロジェクトが見つかりません"
+    "notFound": "プロジェクトが見つかりません",
+    "viewGithub": "GitHubで見る"
   },
   "testimonials": {
     "title": "お客様の声",

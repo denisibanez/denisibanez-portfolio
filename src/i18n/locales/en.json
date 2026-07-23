@@ -33,7 +33,10 @@
     "subtitle": "A curated collection of digital experiences, architectural visualizations and industrial design concepts. Each project is a precise intersection of function and aesthetics.",
     "prev": "Previous",
     "next": "Next",
-    "view": "View project"
+    "view": "View project",
+    "all": "All",
+    "study": "Study",
+    "client": "Client"
   },
   "projectDetail": {
     "caseStudy": "Case Study",
@@ -43,7 +46,8 @@
     "next": "Next project",
     "expand": "Expand image",
     "close": "Close",
-    "notFound": "Project not found"
+    "notFound": "Project not found",
+    "viewGithub": "View on GitHub"
   },
   "projectSpecs": {
     "specifications": "Project Specifications",
@@ -56,7 +60,8 @@
     "collaborators": "Collaborators",
     "viewLive": "View live project",
     "back": "Back to Portfolio",
-    "notFound": "Project not found"
+    "notFound": "Project not found",
+    "viewGithub": "View on GitHub"
   },
   "testimonials": {
     "title": "Testimonials",

@@ -14,6 +14,9 @@ const i18n = createI18n({
         prev: 'Previous',
         next: 'Next',
         view: 'View project',
+        all: 'All',
+        study: 'Study',
+        client: 'Client',
       },
     },
   },
@@ -44,5 +47,16 @@ describe('ProjectsView', () => {
     // No project.image set yet, so the gradient placeholder (no <img>) is used.
     expect(firstCard.find('img').exists()).toBe(false)
     expect(firstCard.text().length).toBeGreaterThan(0)
+  })
+
+  it('filters the carousel by kind via the tabs', async () => {
+    const wrapper = factory()
+    // Default "All" shows every published project.
+    expect(wrapper.findAll('article').length).toBe(5)
+    const tabs = wrapper.findAll('[role="tab"]')
+    await tabs.find((t) => t.text() === 'Study')!.trigger('click')
+    expect(wrapper.findAll('article').length).toBe(2)
+    await tabs.find((t) => t.text() === 'Client')!.trigger('click')
+    expect(wrapper.findAll('article').length).toBe(3)
   })
 })

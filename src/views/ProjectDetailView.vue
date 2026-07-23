@@ -7,6 +7,7 @@ import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import { useProjects } from '@/composables/useProjects'
 import { useRise } from '@/composables/useRise'
 import { getInitials } from '@/utils/getInitials'
+import { yearOf } from '@/utils/timeline'
 import type { Project } from '@/types/project'
 import detailBg from '@/assets/images/testimonials-bg.jpg'
 
@@ -91,6 +92,9 @@ const goToSpecs = () => {
   const current = project.value
   if (!current) return
   router.push({ name: 'project-specs', params: { slug: current.slug } })
+}
+const openRepo = () => {
+  if (project.value?.repoUrl) window.open(project.value.repoUrl, '_blank', 'noopener')
 }
 
 const { rise } = useRise()
@@ -194,7 +198,7 @@ const { rise } = useRise()
         <div class="flex flex-1 flex-col justify-center gap-6 md:gap-8">
           <div class="space-y-3">
             <Motion as="span" v-bind="rise(0)" class="block text-label-lg uppercase tracking-widest text-tertiary">
-              {{ t('projectDetail.caseStudy') }} — {{ project.year }}
+              {{ t('projectDetail.caseStudy') }} — {{ yearOf(project.endDate) }}
             </Motion>
             <Motion as="h1" v-bind="rise(0.1)" class="text-headline-md md:text-headline-lg">
               {{ project.title }}
@@ -205,11 +209,19 @@ const { rise } = useRise()
             {{ project.summary }}
           </Motion>
 
-          <Motion as="div" v-bind="rise(0.3)" class="flex gap-3 sm:gap-4">
-            <BaseButton variant="primary" class="flex-1 text-center sm:flex-none" @click="goToSpecs">
+          <Motion as="div" v-bind="rise(0.3)" class="flex flex-wrap gap-3 sm:gap-4">
+            <BaseButton variant="primary" class="min-w-[45%] flex-1 text-center sm:min-w-0 sm:flex-none" @click="goToSpecs">
               {{ t('projectDetail.viewLive') }}
             </BaseButton>
-            <BaseButton variant="outline" class="flex-1 text-center sm:flex-none" @click="goToProjects">
+            <BaseButton
+              v-if="project.kind === 'study' && project.repoUrl"
+              variant="outline"
+              class="min-w-[45%] flex-1 text-center sm:min-w-0 sm:flex-none"
+              @click="openRepo"
+            >
+              {{ t('projectDetail.viewGithub') }}
+            </BaseButton>
+            <BaseButton variant="outline" class="min-w-[45%] flex-1 text-center sm:min-w-0 sm:flex-none" @click="goToProjects">
               {{ t('projectDetail.back') }}
             </BaseButton>
           </Motion>

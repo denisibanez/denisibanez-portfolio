@@ -61,7 +61,8 @@ describe('ProjectDetailView', () => {
     const { wrapper, router } = await factory('aether-watch')
     await wrapper.find('button[aria-label="Next project"]').trigger('click')
     await flushPromises()
-    expect(router.currentRoute.value.params.slug).toBe('brutalist-villa')
+    // Projects are ordered newest-first, so aether-watch (2024-09) → metallic-forms (2024-08).
+    expect(router.currentRoute.value.params.slug).toBe('metallic-forms')
   })
 
   it('opens and closes the image lightbox via the maximize control', async () => {
