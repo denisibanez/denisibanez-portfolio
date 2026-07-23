@@ -37,7 +37,7 @@ const onKey = (event: KeyboardEvent, index: number) => {
       {{ tab.label }}
       <span
         v-if="tab.value === modelValue"
-        class="absolute inset-x-0 bottom-0 h-px bg-primary"
+        class="absolute inset-x-0 bottom-0 h-0.5 bg-tertiary"
         aria-hidden="true"
       />
     </button>
