@@ -79,7 +79,7 @@ const { rise } = useRise()
           <div class="mt-6 flex flex-1 gap-4 lg:min-h-0">
             <div
               ref="scrollArea"
-              class="no-scrollbar flex-1 space-y-6 text-on-surface-variant lg:overflow-y-auto lg:pr-2"
+              class="no-scrollbar max-h-[42vh] flex-1 space-y-6 overflow-y-auto pr-2 text-on-surface-variant lg:max-h-none"
               @scroll="onScroll"
             >
               <p v-for="(paragraph, i) in paragraphs" :key="i" class="text-body-lg leading-relaxed">
@@ -99,8 +99,8 @@ const { rise } = useRise()
               </div>
             </div>
 
-            <!-- Scroll progress (desktop) -->
-            <div class="hidden w-0.5 shrink-0 bg-on-surface/20 lg:block">
+            <!-- Scroll progress -->
+            <div class="w-0.5 shrink-0 bg-on-surface/20">
               <div class="w-full bg-primary" :style="{ height: `${scrollProgress}%` }" />
             </div>
           </div>

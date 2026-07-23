@@ -34,7 +34,7 @@ const posterClass =
 
 <template>
   <MediaBackdrop :src="projectsBg">
-    <div class="relative z-10 flex h-screen flex-col justify-start px-[5vw] pt-28 pb-16 sm:justify-center sm:pt-20">
+    <div class="relative z-10 flex min-h-screen flex-col justify-start px-[5vw] pt-28 pb-28 sm:justify-center sm:pt-20 sm:pb-20">
       <BaseTabs v-model="activeTab" :tabs="tabs" class="mb-8 self-start" />
       <BaseCarousel
         :items="visibleProjects"
