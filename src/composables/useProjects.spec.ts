@@ -25,4 +25,11 @@ describe('useProjects', () => {
   it('returns nulls for an unknown slug', () => {
     expect(getAdjacent('nope')).toEqual({ prev: null, next: null })
   })
+
+  it('hides drafts from the public list but keeps them reachable by slug', () => {
+    expect(projects.every((p) => p.status !== 'draft')).toBe(true)
+    expect(projects.some((p) => p.slug === 'titanium-pen')).toBe(false)
+    // Draft is still resolvable by direct URL for previewing.
+    expect(getBySlug('titanium-pen')?.status).toBe('draft')
+  })
 })

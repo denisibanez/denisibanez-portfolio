@@ -1,9 +1,14 @@
+/** Publish state — `draft` projects are hidden from the public list. */
+export type ProjectStatus = 'published' | 'draft'
+
 /** A portfolio project — shared across the projects list and detail pages. */
 export type Project = {
   slug: string
   title: string
   category: string
   year: string
+  /** Defaults to published when omitted. */
+  status?: ProjectStatus
   /** One-line summary (used on cards). */
   summary: string
   /** Detail-page narrative paragraphs. */

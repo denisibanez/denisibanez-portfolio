@@ -97,6 +97,7 @@ const projects: Project[] = [
     title: 'Titanium Pen',
     category: 'Industrial',
     year: '2022',
+    status: 'draft',
     summary: 'An industrial-design microsite pairing macro photography with tactile, weighty micro-interactions.',
     overview: [
       'An industrial-design microsite for a machined titanium pen, pairing macro photography with weighty, tactile micro-interactions. Every detail reinforces the object’s precision.',
@@ -138,17 +139,25 @@ const projects: Project[] = [
   },
 ]
 
-/** Shared access to the project list plus lookup/adjacency helpers. */
+const isPublished = (project: Project): boolean => project.status !== 'draft'
+
+/**
+ * Shared access to the project list plus lookup/adjacency helpers.
+ * `projects` is the PUBLIC (published-only) list; drafts stay reachable by
+ * direct URL via `getBySlug` so they can be previewed before publishing.
+ */
 export const useProjects = () => {
+  const published = projects.filter(isPublished)
+
   const getBySlug = (slug: string): Project | null => projects.find((p) => p.slug === slug) ?? null
 
   const getAdjacent = (slug: string): { prev: Project | null; next: Project | null } => {
-    const index = projects.findIndex((p) => p.slug === slug)
+    const index = published.findIndex((p) => p.slug === slug)
     if (index === -1) return { prev: null, next: null }
-    const prev = projects[(index - 1 + projects.length) % projects.length] ?? null
-    const next = projects[(index + 1) % projects.length] ?? null
+    const prev = published[(index - 1 + published.length) % published.length] ?? null
+    const next = published[(index + 1) % published.length] ?? null
     return { prev, next }
   }
 
-  return { projects, getBySlug, getAdjacent }
+  return { projects: published, getBySlug, getAdjacent }
 }

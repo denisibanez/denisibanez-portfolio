@@ -7,8 +7,8 @@ test('navigates to Projects from the nav and shows the carousel', async ({ page 
   await expect(page).toHaveURL(/\/projects$/)
 
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
-  // At least a few project cards render.
-  await expect(page.locator('article')).toHaveCount(6)
+  // Only published projects render (drafts are hidden from the list).
+  await expect(page.locator('article')).toHaveCount(5)
 })
 
 test('opens a project detail page when a card is clicked', async ({ page }) => {
