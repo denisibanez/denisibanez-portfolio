@@ -116,4 +116,13 @@ export const testimonials: Testimonial[] = [
     role: 'Sr. Software Engineer, Kovi',
     photo: '/testimonials/danilo-sampaio.jpg',
   },
+  {
+    quote:
+      'Um profissional comprometido, aberto a sugestões, sempre disposto a aprender e com uma excelente relação com seus colegas de trabalho.',
+    full: 'Um profissional comprometido, aberto a sugestões, sempre disposto a aprender e com uma excelente relação com seus colegas de trabalho.',
+    name: 'Paula Honda',
+    link: 'https://www.linkedin.com/in/paulalaminhonda/',
+    role: 'Senior Director of Product Management, Gympass',
+    photo: '/testimonials/paula-honda.jpg',
+  },
 ]
