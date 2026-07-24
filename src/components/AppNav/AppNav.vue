@@ -3,9 +3,9 @@ import { computed, ref, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 import type { NavLink } from './AppNav.types'
 
-type Props = { links: NavLink[]; active?: string }
+type Props = { links: NavLink[]; active?: string; menuLabel?: string }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), { menuLabel: 'Menu' })
 
 const mobileOpen = ref(false)
 
@@ -57,7 +57,8 @@ const closeMobile = () => {
       type="button"
       class="inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center text-on-surface md:hidden"
       :aria-expanded="mobileOpen"
-      aria-label="Menu"
+      :aria-label="menuLabel"
+      aria-controls="app-nav-drawer"
       @click="toggleMobile"
     >
       <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
@@ -69,7 +70,7 @@ const closeMobile = () => {
     </button>
 
     <!-- Mobile/tablet drawer -->
-    <div v-if="mobileOpen" class="fixed inset-0 z-40 md:hidden">
+    <div v-if="mobileOpen" id="app-nav-drawer" class="fixed inset-0 z-40 md:hidden">
       <!-- Backdrop: tapping outside the links closes; kept separate so a link
            tap never bubbles into closeMobile mid-navigation. -->
       <div class="absolute inset-0 bg-surface/95 backdrop-blur-sm" aria-hidden="true" @click="closeMobile" />

@@ -7,7 +7,8 @@
     "home": "Inicio",
     "about": "Sobre mí",
     "projects": "Proyectos",
-    "testimonials": "Testimonios"
+    "testimonials": "Testimonios",
+    "menu": "Menú"
   },
   "actions": {
     "resume": "Descargar CV"
@@ -77,13 +78,26 @@
   "notFound": {
     "eyebrow": "¿Perdido?",
     "message": "La página que buscas no existe.",
-    "cta": "Volver al inicio"
+    "cta": "Volver al inicio",
+    "title": "Página no encontrada"
   },
   "state": {
     "loading": "Cargando…",
     "errorTitle": "Algo salió mal",
     "errorMessage": "No se pudo cargar este contenido. Inténtalo de nuevo.",
     "retry": "Reintentar",
-    "dismiss": "Descartar"
+    "dismiss": "Descartar",
+    "notifications": "Notificaciones"
+  },
+  "a11y": {
+    "skip": "Saltar al contenido"
+  },
+  "player": {
+    "dialog": "Reproductor de música",
+    "play": "Reproducir",
+    "pause": "Pausar",
+    "previous": "Pista anterior",
+    "next": "Pista siguiente",
+    "close": "Cerrar"
   }
 }

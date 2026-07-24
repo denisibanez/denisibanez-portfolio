@@ -3,9 +3,28 @@ import { ref, watch, nextTick, onMounted, onUnmounted } from "vue";
 import { useAudioPlayer } from "@/composables/useAudioPlayer/useAudioPlayer";
 import type { Track } from "@/types/track";
 
-type Props = { open: boolean; tracks: Track[]; label?: string };
+type ControlLabels = {
+  dialog: string;
+  play: string;
+  pause: string;
+  previous: string;
+  next: string;
+  close: string;
+};
 
-const props = withDefaults(defineProps<Props>(), { label: "Play" });
+type Props = { open: boolean; tracks: Track[]; label?: string; labels?: ControlLabels };
+
+const props = withDefaults(defineProps<Props>(), {
+  label: "Play",
+  labels: () => ({
+    dialog: "Music player",
+    play: "Play",
+    pause: "Pause",
+    previous: "Previous track",
+    next: "Next track",
+    close: "Close",
+  }),
+});
 const emit = defineEmits<{ open: []; close: [] }>();
 
 // Audio playback state + transport controls.
@@ -167,6 +186,7 @@ onUnmounted(() => {
       class="glass-card"
       :role="open ? 'dialog' : undefined"
       :aria-modal="open ? 'true' : undefined"
+      :aria-label="open ? labels.dialog : undefined"
     >
       <span class="glass-sheen" aria-hidden="true" />
 
@@ -209,7 +229,7 @@ onUnmounted(() => {
           <button
             type="button"
             class="close-btn"
-            aria-label="Close"
+            :aria-label="labels.close"
             :tabindex="open ? 0 : -1"
             @click="emit('close')"
           >
@@ -240,7 +260,7 @@ onUnmounted(() => {
           <button
             type="button"
             class="cursor-pointer text-on-surface transition-transform hover:scale-110 active:scale-95 disabled:opacity-30"
-            aria-label="Previous track"
+            :aria-label="labels.previous"
             :disabled="!hasPlaylist"
             :tabindex="open ? 0 : -1"
             @click="prevTrack"
@@ -252,7 +272,7 @@ onUnmounted(() => {
           <button
             type="button"
             class="inline-flex size-11 cursor-pointer items-center justify-center rounded-full bg-on-surface text-surface transition-transform hover:scale-105 active:scale-95"
-            :aria-label="playing ? 'Pause' : 'Play'"
+            :aria-label="playing ? labels.pause : labels.play"
             :tabindex="open ? 0 : -1"
             @click="toggle"
           >
@@ -266,7 +286,7 @@ onUnmounted(() => {
           <button
             type="button"
             class="cursor-pointer text-on-surface transition-transform hover:scale-110 active:scale-95 disabled:opacity-30"
-            aria-label="Next track"
+            :aria-label="labels.next"
             :disabled="!hasPlaylist"
             :tabindex="open ? 0 : -1"
             @click="nextTrack"
@@ -564,6 +584,13 @@ onUnmounted(() => {
   pointer-events: none;
 }
 
+/* `all: unset` strips the focus ring — restore it for keyboard users. */
+.play-hit:focus-visible {
+  outline: 2px solid var(--color-tertiary);
+  outline-offset: -4px;
+  border-radius: 999vw;
+}
+
 .play-glyph {
   width: 1.4rem;
   height: 1.4rem;
@@ -666,6 +693,12 @@ onUnmounted(() => {
 
 .close-btn:active {
   transform: scale(0.96);
+}
+
+/* `all: unset` strips the focus ring — restore it for keyboard users. */
+.close-btn:focus-visible {
+  outline: 2px solid var(--color-tertiary);
+  outline-offset: 2px;
 }
 
 .player-meta,

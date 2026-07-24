@@ -21,6 +21,10 @@ const router = useRouter()
 
 const goToProjects = () => router.push({ name: 'projects' })
 
+// Users who prefer reduced motion get the still banner only — no autoplaying video.
+const prefersReducedMotion =
+  typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches
+
 const videoReady = ref(false)
 const videoEnded = ref(false)
 
@@ -66,11 +70,13 @@ const { rise } = useRise()
     <!-- Banner is always painted underneath so the video→image swap never flickers -->
     <img :src="bannerHome" alt="" class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center" />
     <video
+      v-if="!prefersReducedMotion"
       :src="videoHome"
       autoplay
       muted
       playsinline
       preload="auto"
+      aria-hidden="true"
       class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-700 ease-out"
       :class="showVideo ? 'opacity-100' : 'opacity-0'"
       @canplay="onCanPlay"
@@ -110,6 +116,14 @@ const { rise } = useRise()
       :open="playerOpen"
       :tracks="tracks"
       :label="t('home.play')"
+      :labels="{
+        dialog: t('player.dialog'),
+        play: t('player.play'),
+        pause: t('player.pause'),
+        previous: t('player.previous'),
+        next: t('player.next'),
+        close: t('player.close'),
+      }"
       @open="playerOpen = true"
       @close="playerOpen = false"
     />

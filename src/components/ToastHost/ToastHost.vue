@@ -2,10 +2,10 @@
 import BaseToast from '@/components/BaseToast/BaseToast.vue'
 import { useToast } from '@/composables/useToast/useToast'
 
-// Renders the shared toast queue once (mount in the layout). The dismiss label
-// is passed in (i18n'd) so the component stays copy-free.
-type Props = { dismissLabel?: string }
-withDefaults(defineProps<Props>(), { dismissLabel: 'Dismiss' })
+// Renders the shared toast queue once (mount in the layout). Labels are passed
+// in (i18n'd) so the component stays copy-free.
+type Props = { dismissLabel?: string; regionLabel?: string }
+withDefaults(defineProps<Props>(), { dismissLabel: 'Dismiss', regionLabel: 'Notifications' })
 
 const { toasts, dismiss } = useToast()
 </script>
@@ -15,7 +15,7 @@ const { toasts, dismiss } = useToast()
     <div
       class="pointer-events-none fixed bottom-6 right-[5vw] z-[60] flex w-full max-w-sm flex-col items-stretch gap-3"
       role="region"
-      aria-label="Notifications"
+      :aria-label="regionLabel"
     >
       <TransitionGroup name="toast">
         <BaseToast

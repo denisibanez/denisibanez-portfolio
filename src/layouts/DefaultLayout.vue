@@ -46,10 +46,17 @@ const downloadResume = () => {
 
 <template>
   <div class="relative flex min-h-screen flex-col bg-surface text-on-surface">
+    <!-- Skip link: first tab stop, jumps keyboard/SR users past the chrome to content -->
+    <a
+      href="#main-content"
+      class="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:left-[5vw] focus-visible:top-4 focus-visible:z-50 focus-visible:bg-surface focus-visible:px-4 focus-visible:py-2 focus-visible:text-label-lg focus-visible:uppercase focus-visible:text-on-surface"
+    >
+      {{ t('a11y.skip') }}
+    </a>
     <!-- Chrome overlays the hero (transparent header/footer) -->
     <header class="absolute inset-x-0 top-0 z-20 flex items-center justify-between gap-4 px-[5vw] py-6">
       <div class="flex-1">
-        <AppNav :links="navLinks" :active="route.path" />
+        <AppNav :links="navLinks" :active="route.path" :menu-label="t('nav.menu')" />
       </div>
       <div class="flex items-center gap-3 sm:gap-4">
         <LanguageSelect :model-value="locale" :options="languages" @update:model-value="onLocaleChange" />
@@ -57,7 +64,7 @@ const downloadResume = () => {
       </div>
     </header>
 
-    <main class="flex-1">
+    <main id="main-content" tabindex="-1" class="flex-1 focus:outline-none">
       <RouterView />
     </main>
 
@@ -79,7 +86,7 @@ const downloadResume = () => {
       </div>
     </footer>
 
-    <ToastHost :dismiss-label="t('state.dismiss')" />
+    <ToastHost :dismiss-label="t('state.dismiss')" :region-label="t('state.notifications')" />
   </div>
 </template>
 

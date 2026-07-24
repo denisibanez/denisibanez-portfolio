@@ -7,7 +7,8 @@
     "home": "ホーム",
     "about": "自己紹介",
     "projects": "プロジェクト",
-    "testimonials": "お客様の声"
+    "testimonials": "お客様の声",
+    "menu": "メニュー"
   },
   "actions": {
     "resume": "履歴書をダウンロード"
@@ -77,13 +78,26 @@
   "notFound": {
     "eyebrow": "迷子？",
     "message": "お探しのページは存在しません。",
-    "cta": "ホームに戻る"
+    "cta": "ホームに戻る",
+    "title": "ページが見つかりません"
   },
   "state": {
     "loading": "読み込み中…",
     "errorTitle": "問題が発生しました",
     "errorMessage": "コンテンツを読み込めませんでした。もう一度お試しください。",
     "retry": "再試行",
-    "dismiss": "閉じる"
+    "dismiss": "閉じる",
+    "notifications": "通知"
+  },
+  "a11y": {
+    "skip": "コンテンツへスキップ"
+  },
+  "player": {
+    "dialog": "音楽プレーヤー",
+    "play": "再生",
+    "pause": "一時停止",
+    "previous": "前のトラック",
+    "next": "次のトラック",
+    "close": "閉じる"
   }
 }

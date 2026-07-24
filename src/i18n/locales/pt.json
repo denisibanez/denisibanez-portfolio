@@ -7,7 +7,8 @@
     "home": "Home",
     "about": "Sobre mim",
     "projects": "Projetos",
-    "testimonials": "Depoimentos"
+    "testimonials": "Depoimentos",
+    "menu": "Menu"
   },
   "actions": {
     "resume": "Baixar resume"
@@ -77,13 +78,26 @@
   "notFound": {
     "eyebrow": "Perdido?",
     "message": "A página que você procura não existe.",
-    "cta": "Voltar ao início"
+    "cta": "Voltar ao início",
+    "title": "Página não encontrada"
   },
   "state": {
     "loading": "A carregar…",
     "errorTitle": "Algo correu mal",
     "errorMessage": "Não foi possível carregar este conteúdo. Tenta novamente.",
     "retry": "Tentar novamente",
-    "dismiss": "Dispensar"
+    "dismiss": "Dispensar",
+    "notifications": "Notificações"
+  },
+  "a11y": {
+    "skip": "Saltar para o conteúdo"
+  },
+  "player": {
+    "dialog": "Leitor de música",
+    "play": "Reproduzir",
+    "pause": "Pausar",
+    "previous": "Faixa anterior",
+    "next": "Próxima faixa",
+    "close": "Fechar"
   }
 }

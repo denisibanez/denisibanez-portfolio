@@ -7,7 +7,8 @@
     "home": "Home",
     "about": "About Me",
     "projects": "Projects",
-    "testimonials": "Testimonials"
+    "testimonials": "Testimonials",
+    "menu": "Menu"
   },
   "actions": {
     "resume": "Download resume"
@@ -77,13 +78,26 @@
   "notFound": {
     "eyebrow": "Lost?",
     "message": "The page you're looking for doesn't exist.",
-    "cta": "Back to home"
+    "cta": "Back to home",
+    "title": "Page not found"
   },
   "state": {
     "loading": "Loading…",
     "errorTitle": "Something went wrong",
     "errorMessage": "We couldn't load this content. Please try again.",
     "retry": "Try again",
-    "dismiss": "Dismiss"
+    "dismiss": "Dismiss",
+    "notifications": "Notifications"
+  },
+  "a11y": {
+    "skip": "Skip to content"
+  },
+  "player": {
+    "dialog": "Music player",
+    "play": "Play",
+    "pause": "Pause",
+    "previous": "Previous track",
+    "next": "Next track",
+    "close": "Close"
   }
 }

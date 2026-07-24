@@ -7,7 +7,8 @@
     "home": "Accueil",
     "about": "À propos",
     "projects": "Projets",
-    "testimonials": "Témoignages"
+    "testimonials": "Témoignages",
+    "menu": "Menu"
   },
   "actions": {
     "resume": "Télécharger le CV"
@@ -77,13 +78,26 @@
   "notFound": {
     "eyebrow": "Perdu ?",
     "message": "La page que vous cherchez n'existe pas.",
-    "cta": "Retour à l'accueil"
+    "cta": "Retour à l'accueil",
+    "title": "Page introuvable"
   },
   "state": {
     "loading": "Chargement…",
     "errorTitle": "Une erreur est survenue",
     "errorMessage": "Impossible de charger ce contenu. Veuillez réessayer.",
     "retry": "Réessayer",
-    "dismiss": "Fermer"
+    "dismiss": "Fermer",
+    "notifications": "Notifications"
+  },
+  "a11y": {
+    "skip": "Aller au contenu"
+  },
+  "player": {
+    "dialog": "Lecteur de musique",
+    "play": "Lecture",
+    "pause": "Pause",
+    "previous": "Piste précédente",
+    "next": "Piste suivante",
+    "close": "Fermer"
   }
 }
