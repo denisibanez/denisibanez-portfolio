@@ -17,6 +17,7 @@ Expected files:
 - `dimi-vargas.jpg` — Dimi Antoni Vargas
 - `caroline-vitorino.jpg` — Caroline Vitorino
 - `danilo-sampaio.jpg` — Danilo Sampaio
+- `eymard-silva.jpg` — Eymard Silva
 - `paula-honda.jpg` — Paula Honda
 - `igor-vinicius.jpg` — Igor Vinicius
 - `glaudston.jpg` — Glaudston
