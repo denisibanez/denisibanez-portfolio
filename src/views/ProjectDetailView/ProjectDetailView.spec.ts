@@ -86,17 +86,20 @@ describe('ProjectDetailView', () => {
     expect(document.body.querySelector('[role="dialog"]')).toBeNull()
   })
 
-  it('leads the gallery with a video, played with controls in the lightbox', async () => {
-    // 'gamma' has a video → the small media box shows a play badge (poster, no
-    // <video>); the lightbox plays the real video source with controls.
+  it('plays the lead video inline and in the lightbox', async () => {
+    // 'gamma' has a video → it leads the gallery, playing inline in the media
+    // box (poster from the cover) and again in the lightbox, both with controls.
     const { wrapper } = await factory('gamma')
-    expect(wrapper.find('video').exists()).toBe(false)
+    const inline = wrapper.find('video')
+    expect(inline.exists()).toBe(true)
+    expect(inline.attributes('src')).toBe('/gamma.mp4')
+    expect(inline.attributes('controls')).toBeDefined()
+    expect(inline.attributes('poster')).toBe('/gamma-cover.png')
     await wrapper.find('button[aria-label="Expand image"]').trigger('click')
     await nextTick()
-    const video = document.body.querySelector<HTMLVideoElement>('[role="dialog"] video')
-    expect(video).not.toBeNull()
-    expect(video?.getAttribute('src')).toBe('/gamma.mp4')
-    expect(video?.hasAttribute('controls')).toBe(true)
+    const dialogVideo = document.body.querySelector<HTMLVideoElement>('[role="dialog"] video')
+    expect(dialogVideo).not.toBeNull()
+    expect(dialogVideo?.getAttribute('src')).toBe('/gamma.mp4')
   })
 
   it('changes the gallery frame when the media is dragged sideways', async () => {
@@ -111,9 +114,9 @@ describe('ProjectDetailView', () => {
     expect(wrapper.text()).toContain('— 02')
   })
 
-  it('shows a not-found fallback for an unknown slug', async () => {
+  it('renders no project content for an unknown slug (the router guard owns the 404)', async () => {
     const { wrapper } = await factory('does-not-exist')
-    expect(wrapper.get('h1').text()).toBe('Project not found')
+    expect(wrapper.find('h1').exists()).toBe(false)
   })
 
   it('honours the slug prop over the route param', async () => {

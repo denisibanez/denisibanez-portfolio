@@ -159,12 +159,6 @@ const { rise } = useRise()
           </div>
         </Motion>
       </div>
-
-      <!-- Unknown slug -->
-      <div v-else class="flex flex-col items-start gap-6">
-        <h1 class="text-headline-md md:text-headline-lg">{{ t('projectSpecs.notFound') }}</h1>
-        <BaseButton variant="outline" :to="{ name: 'projects' }">{{ t('projectSpecs.back') }}</BaseButton>
-      </div>
     </div>
   </MediaBackdrop>
 </template>

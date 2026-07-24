@@ -163,8 +163,22 @@ const { rise } = useRise()
           @keydown.enter="openLightbox"
           @keydown.space.prevent="openLightbox"
         >
+          <!-- Video slides play inline (own controls); stop propagation so the
+               container's drag/tap-to-zoom doesn't hijack playback. -->
+          <video
+            v-if="activeIsVideo"
+            :src="activeMedia?.src"
+            :poster="activePoster"
+            controls
+            playsinline
+            preload="metadata"
+            class="relative z-10 h-full w-full bg-surface-container-low object-contain"
+            @click.stop
+            @pointerdown.stop
+            @pointerup.stop
+          />
           <img
-            v-if="activePoster"
+            v-else-if="activePoster"
             :src="activePoster"
             :alt="project.title"
             draggable="false"
@@ -181,20 +195,8 @@ const { rise } = useRise()
             <span class="text-label-lg uppercase tracking-widest text-on-surface/30">{{ heroCode }}</span>
           </div>
 
-          <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-surface/50 to-transparent" />
-
-          <!-- Play badge — video slide leads the gallery; click opens it in the lightbox -->
-          <div
-            v-if="activeIsVideo"
-            class="pointer-events-none absolute inset-0 flex items-center justify-center"
-            aria-hidden="true"
-          >
-            <span class="inline-flex size-16 items-center justify-center rounded-full border border-white/20 bg-surface/50 text-on-surface backdrop-blur-md transition-transform duration-300 group-hover:scale-110">
-              <svg class="size-7 translate-x-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </span>
-          </div>
+          <!-- Legibility gradient — kept off video so it never dims the controls -->
+          <div v-if="!activeIsVideo" class="pointer-events-none absolute inset-0 bg-linear-to-t from-surface/50 to-transparent" />
 
           <!-- Maximize -->
           <button
@@ -298,12 +300,6 @@ const { rise } = useRise()
           </Motion>
         </div>
       </div>
-
-      <!-- Unknown slug -->
-      <div v-else class="flex flex-col items-start gap-6">
-        <h1 class="text-headline-md md:text-headline-lg">{{ t('projectDetail.notFound') }}</h1>
-        <BaseButton variant="outline" :to="{ name: 'projects' }">{{ t('projectDetail.back') }}</BaseButton>
-      </div>
     </div>
 
     <!-- Lightbox -->
@@ -319,7 +315,6 @@ const { rise } = useRise()
             :src="activeMedia?.src"
             :poster="activePoster"
             controls
-            autoplay
             playsinline
             class="h-full w-full object-contain"
             @click.stop

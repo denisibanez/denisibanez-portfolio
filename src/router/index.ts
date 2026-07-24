@@ -1,4 +1,14 @@
-import type { RouteRecordRaw } from 'vue-router'
+import type { RouteRecordRaw, RouteLocationNormalized } from 'vue-router'
+import { useProjects } from '@/composables/useProjects/useProjects'
+
+// Unknown project slugs land on the real 404 route (never an inline "not found"
+// panel) — one consistent not-found experience across the whole app.
+export const requireProject = (to: RouteLocationNormalized) => {
+  const { getBySlug } = useProjects()
+  if (getBySlug(String(to.params.slug))) return true
+  // Keep the typed URL; re-match it as the catch-all so NotFoundView renders.
+  return { name: 'not-found', params: { pathMatch: to.path.slice(1).split('/') } }
+}
 
 /**
  * Routes are nested under a layout. Each top-level area owns a layout and
@@ -26,11 +36,13 @@ export const routes: RouteRecordRaw[] = [
       {
         path: 'projects/:slug',
         name: 'project-detail',
+        beforeEnter: requireProject,
         component: () => import('@/views/ProjectDetailView/ProjectDetailView.vue'),
       },
       {
         path: 'projects/:slug/specs',
         name: 'project-specs',
+        beforeEnter: requireProject,
         component: () => import('@/views/ProjectSpecsView/ProjectSpecsView.vue'),
       },
       { path: 'testimonials', name: 'testimonials', component: () => import('@/views/TestimonialsView/TestimonialsView.vue') },

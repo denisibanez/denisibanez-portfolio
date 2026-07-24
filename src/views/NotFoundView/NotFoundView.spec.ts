@@ -22,10 +22,13 @@ const router = createRouter({
 const factory = () => mount(NotFoundView, { global: { plugins: [i18n, router] } })
 
 describe('NotFoundView', () => {
-  it('renders the heading, message and a back-home link', () => {
+  it('renders an accessible (sr-only) heading and a back-home link over the backdrop', () => {
     const wrapper = factory()
-    expect(wrapper.get('h1').text()).toBe('Page not found')
-    expect(wrapper.text()).toContain('That page does not exist.')
+    // The backdrop already reads "404 — Page not found", so the heading is
+    // visually hidden but kept for accessibility/SEO.
+    const heading = wrapper.get('h1')
+    expect(heading.text()).toBe('Page not found')
+    expect(heading.classes()).toContain('sr-only')
     const link = wrapper.get('a')
     expect(link.text()).toBe('Back home')
     expect(link.attributes('href')).toBe('/')

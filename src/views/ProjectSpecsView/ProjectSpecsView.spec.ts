@@ -80,9 +80,9 @@ describe('ProjectSpecsView', () => {
     expect(router.currentRoute.value.name).toBe('projects')
   })
 
-  it('shows a not-found fallback for an unknown slug', async () => {
+  it('renders no project content for an unknown slug (the router guard owns the 404)', async () => {
     const { wrapper } = await factory('does-not-exist')
-    expect(wrapper.get('h1').text()).toBe('Project not found')
+    expect(wrapper.find('h1').exists()).toBe(false)
   })
 
   it('honours the slug prop over the route param', async () => {

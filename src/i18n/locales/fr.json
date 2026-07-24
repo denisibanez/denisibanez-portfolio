@@ -51,7 +51,6 @@
     "next": "Projet suivant",
     "expand": "Agrandir l'image",
     "close": "Fermer",
-    "notFound": "Projet introuvable",
     "viewGithub": "Voir sur GitHub"
   },
   "projectSpecs": {
@@ -65,7 +64,6 @@
     "collaborators": "Collaborateurs",
     "viewLive": "Voir le projet en ligne",
     "back": "Retour au portfolio",
-    "notFound": "Projet introuvable",
     "viewGithub": "Voir sur GitHub"
   },
   "testimonials": {
@@ -78,8 +76,6 @@
     "close": "Fermer"
   },
   "notFound": {
-    "eyebrow": "Perdu ?",
-    "message": "La page que vous cherchez n'existe pas.",
     "cta": "Retour à l'accueil",
     "title": "Page introuvable"
   },
