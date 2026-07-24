@@ -72,4 +72,13 @@ export const testimonials: Testimonial[] = [
     role: 'Gerente Engenharia de Software, Cielo',
     photo: '/testimonials/everton-dario.jpg',
   },
+  {
+    quote:
+      'Sempre muito solícito, pró-ativo e bom comunicador entre desenvolvimento e design. Comprometido, responsável e ágil. Super recomendado!',
+    full: 'Tive o prazer de trabalhar com o Denis durante o período de implantação do novo site da CASACOR, em 2015. Ele foi sempre muito solícito, pró-ativo e bom comunicador entre o time de desenvolvimento e design do site, atendendo a todas as demandas e as executando plenamente bem. Comprometido, responsável e ágil, sempre se mostrando bom entendedor do assunto e sempre buscando o conhecimento quando desafiado. Além de tudo, um ótimo escritor. Super recomendado!',
+    name: 'Alex Alcantara',
+    link: 'https://www.linkedin.com/in/alex-alcantara/',
+    role: 'Estrategista de Conteúdo e Audiência, Grupo Abril',
+    photo: '/testimonials/alex-alcantara.jpg',
+  },
 ]

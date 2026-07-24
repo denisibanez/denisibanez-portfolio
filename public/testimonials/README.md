@@ -12,6 +12,7 @@ Expected files:
 - `caio-nardi.jpg` — Caio Marcelo Nardi
 - `fabio-gouveia.jpg` — Fabio Santos Goveia
 - `everton-dario.jpg` — Everton Dario
+- `alex-alcantara.jpg` — Alex Alcantara
 
 If a file is missing the Testimonials page falls back to the person's
 initials (no broken image), so it's safe to add photos incrementally.
