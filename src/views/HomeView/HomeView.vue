@@ -62,7 +62,7 @@ const { rise } = useRise()
 </script>
 
 <template>
-  <section class="relative min-h-screen w-full overflow-hidden">
+  <section class="relative min-h-dvh w-full overflow-hidden">
     <!-- Banner is always painted underneath so the video→image swap never flickers -->
     <img :src="bannerHome" alt="" class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center" />
     <video
@@ -79,7 +79,10 @@ const { rise } = useRise()
       @ended="onEnded"
     />
 
-    <div class="relative z-10 flex min-h-screen flex-col justify-center px-[5vw] pt-28 pb-28">
+    <!-- Subtle mobile-only dimming for legibility over the hero media -->
+    <div class="pointer-events-none absolute inset-0 bg-black/10 sm:hidden" aria-hidden="true" />
+
+    <div class="relative z-10 flex min-h-dvh flex-col justify-center px-[5vw] pt-28 pb-28">
       <div class="max-w-xl">
         <Motion
           as="p"

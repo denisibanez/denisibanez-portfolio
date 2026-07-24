@@ -21,7 +21,7 @@ const photoError = reactive<Record<string, boolean>>({})
 const hasPhoto = (item: Testimonial) => Boolean(item.photo) && !photoError[item.name]
 
 const testimonialCardClass =
-  'flex w-[72vw] flex-col border border-white/10 bg-white/5 backdrop-blur-xl transition-colors hover:border-white/20 sm:w-[360px]'
+  'flex w-[82vw] flex-col border border-white/10 bg-white/5 backdrop-blur-xl transition-colors hover:border-white/20 sm:w-[360px]'
 
 // Detail modal
 const selected = ref<Testimonial | null>(null)
@@ -35,7 +35,7 @@ const closeDetail = () => {
 
 <template>
   <MediaBackdrop :src="testimonialsBg">
-    <div class="relative z-10 flex min-h-screen flex-col justify-end px-[5vw] pt-24 pb-28 sm:justify-center sm:pt-20 sm:pb-20">
+    <div class="relative z-10 flex min-h-dvh flex-col justify-start px-[5vw] pt-28 pb-28 sm:justify-center sm:pt-20 sm:pb-20">
       <BaseCarousel
         :items="testimonials"
         :title="t('testimonials.title')"
@@ -48,7 +48,7 @@ const closeDetail = () => {
       >
         <template #card="{ item }">
           <!-- Media: portrait, or an initials placeholder (also the fallback if the photo fails) -->
-          <div class="h-28 w-full shrink-0 overflow-hidden sm:h-[22vh]">
+          <div class="aspect-square w-full shrink-0 overflow-hidden sm:aspect-auto sm:h-[22vh]">
             <img
               v-if="hasPhoto(item)"
               :src="item.photo"
