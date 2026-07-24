@@ -5,7 +5,7 @@
 export const site = {
   name: 'Denis Ibañez',
   role: 'Software Developer',
-  url: 'https://denisibanez.vercel.app',
+  url: 'https://denisibanez.dev',
   description:
     'Front-end developer specialised in Vue, React and Angular, with 14+ years of experience — strong in design systems and prototyping.',
   whatsapp: '351961488375',
