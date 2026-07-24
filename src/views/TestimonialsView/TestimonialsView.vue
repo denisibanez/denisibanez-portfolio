@@ -6,10 +6,15 @@ import BaseModal from '@/components/BaseModal/BaseModal.vue'
 import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
 import { getInitials } from '@/utils/getInitials/getInitials'
 import { testimonials } from '@/data/testimonials'
-import type { Testimonial } from '@/types/testimonial'
+import type { Testimonial, LocalizedText } from '@/types/testimonial'
+import type { Locale } from '@/i18n'
 import testimonialsBg from '@/assets/images/banner-portfolio.webp'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
+
+// Pick the quote/full in the active locale (fall back to English, then Portuguese).
+const localized = (text: LocalizedText) =>
+  text[locale.value as Locale] ?? text.en ?? text.pt
 
 // Photos degrade to initials if the file is missing/broken (keyed by name).
 const photoError = reactive<Record<string, boolean>>({})
@@ -61,7 +66,7 @@ const closeDetail = () => {
           </div>
           <!-- Copy -->
           <div class="flex flex-1 flex-col justify-between p-6 sm:p-8">
-            <p class="line-clamp-3 text-body-lg italic text-on-surface">&ldquo;{{ item.quote }}&rdquo;</p>
+            <p class="line-clamp-3 text-body-lg italic text-on-surface">&ldquo;{{ localized(item.quote) }}&rdquo;</p>
             <div class="mt-6">
               <h3 class="text-body-lg text-on-surface">{{ item.name }}</h3>
               <p class="mt-1 text-label-lg uppercase tracking-widest text-on-surface-variant">{{ item.role }}</p>
@@ -102,7 +107,7 @@ const closeDetail = () => {
           <!-- Copy -->
           <div class="flex flex-col overflow-y-auto p-8 sm:p-10">
             <span class="block text-6xl leading-none text-on-surface-variant/30" aria-hidden="true">&ldquo;</span>
-            <p class="mt-2 whitespace-pre-line text-body-lg italic text-on-surface">{{ selected.full }}</p>
+            <p class="mt-2 whitespace-pre-line text-body-lg italic text-on-surface">{{ localized(selected.full) }}</p>
             <div class="mt-8">
               <h3 class="text-body-lg text-on-surface">
                 <a
