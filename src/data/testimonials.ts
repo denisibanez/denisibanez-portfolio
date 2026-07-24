@@ -4,6 +4,24 @@ import type { Testimonial } from '@/types/testimonial'
 // there); a missing photo degrades gracefully to the person's initials.
 export const testimonials: Testimonial[] = [
   {
+    quote:
+      'Um profissional comprometido, aberto a sugestões, sempre disposto a aprender e com uma excelente relação com seus colegas de trabalho.',
+    full: 'Um profissional comprometido, aberto a sugestões, sempre disposto a aprender e com uma excelente relação com seus colegas de trabalho.',
+    name: 'Paula Honda',
+    link: 'https://www.linkedin.com/in/paulalaminhonda/',
+    role: 'Senior Director of Product Management, Gympass',
+    photo: '/testimonials/paula-honda.jpg',
+  },
+  {
+    quote:
+      'Sempre muito solícito, pró-ativo e bom comunicador entre desenvolvimento e design. Comprometido, responsável e ágil. Super recomendado!',
+    full: 'Tive o prazer de trabalhar com o Denis durante o período de implantação do novo site da CASACOR, em 2015. Ele foi sempre muito solícito, pró-ativo e bom comunicador entre o time de desenvolvimento e design do site, atendendo a todas as demandas e as executando plenamente bem. Comprometido, responsável e ágil, sempre se mostrando bom entendedor do assunto e sempre buscando o conhecimento quando desafiado. Além de tudo, um ótimo escritor. Super recomendado!',
+    name: 'Alex Alcantara',
+    link: 'https://www.linkedin.com/in/alex-alcantara/',
+    role: 'Estrategista de Conteúdo e Audiência, Grupo Abril',
+    photo: '/testimonials/alex-alcantara.jpg',
+  },
+  {
     quote: 'Profissional de elevado padrão, tanto de codificação quanto de análise.',
     full: 'Profissional de elevado padrão, tanto de codificação quanto de análise.',
     name: 'Nilson Rodrigo Carraro',
@@ -19,14 +37,6 @@ export const testimonials: Testimonial[] = [
     link: 'https://www.linkedin.com/in/joao-thenaisie-lucas/',
     role: 'Full Stack Developer, Bentley Systems',
     photo: '/testimonials/joao-lucas.jpg',
-  },
-  {
-    quote: 'Um profissional muito qualificado e com um vasto conhecimento em desenvolvimento.',
-    full: 'Um profissional muito qualificado e com um vasto conhecimento em desenvolvimento.',
-    name: 'Antonio Santos',
-    link: 'https://www.linkedin.com/in/tonhaosantos/',
-    role: 'Engenheiro Frontend Senior, Kovi',
-    photo: '/testimonials/antonio-santos.jpg',
   },
   {
     quote:
@@ -74,15 +84,6 @@ export const testimonials: Testimonial[] = [
   },
   {
     quote:
-      'Sempre muito solícito, pró-ativo e bom comunicador entre desenvolvimento e design. Comprometido, responsável e ágil. Super recomendado!',
-    full: 'Tive o prazer de trabalhar com o Denis durante o período de implantação do novo site da CASACOR, em 2015. Ele foi sempre muito solícito, pró-ativo e bom comunicador entre o time de desenvolvimento e design do site, atendendo a todas as demandas e as executando plenamente bem. Comprometido, responsável e ágil, sempre se mostrando bom entendedor do assunto e sempre buscando o conhecimento quando desafiado. Além de tudo, um ótimo escritor. Super recomendado!',
-    name: 'Alex Alcantara',
-    link: 'https://www.linkedin.com/in/alex-alcantara/',
-    role: 'Estrategista de Conteúdo e Audiência, Grupo Abril',
-    photo: '/testimonials/alex-alcantara.jpg',
-  },
-  {
-    quote:
       'O Denis assume enorme responsabilidade em suas tarefas, é muito dedicado e tem grande conhecimento sobre as principais tecnologias. Destaca-se também por ser ótimo de trabalho em equipe. Com certeza agrega bastante em qualquer time de desenvolvimento.',
     full: 'O Denis assume enorme responsabilidade em suas tarefas, é muito dedicado e tem grande conhecimento sobre as principais tecnologias. Destaca-se também por ser ótimo de trabalho em equipe. Com certeza agrega bastante em qualquer time de desenvolvimento.',
     name: 'Bruno Fernandes',
@@ -117,13 +118,12 @@ export const testimonials: Testimonial[] = [
     photo: '/testimonials/danilo-sampaio.jpg',
   },
   {
-    quote:
-      'Um profissional comprometido, aberto a sugestões, sempre disposto a aprender e com uma excelente relação com seus colegas de trabalho.',
-    full: 'Um profissional comprometido, aberto a sugestões, sempre disposto a aprender e com uma excelente relação com seus colegas de trabalho.',
-    name: 'Paula Honda',
-    link: 'https://www.linkedin.com/in/paulalaminhonda/',
-    role: 'Senior Director of Product Management, Gympass',
-    photo: '/testimonials/paula-honda.jpg',
+    quote: 'Um profissional muito qualificado e com um vasto conhecimento em desenvolvimento.',
+    full: 'Um profissional muito qualificado e com um vasto conhecimento em desenvolvimento.',
+    name: 'Antonio Santos',
+    link: 'https://www.linkedin.com/in/tonhaosantos/',
+    role: 'Engenheiro Frontend Senior, Kovi',
+    photo: '/testimonials/antonio-santos.jpg',
   },
   {
     quote:
