@@ -149,4 +149,13 @@ export const testimonials: Testimonial[] = [
     role: 'Senior Software Engineer, Ageas',
     photo: '/testimonials/roberto-borges.jpg',
   },
+  {
+    quote:
+      'Profissional proativo que sempre pensa na melhor experiência para o cliente. Questionador, humilde perante as críticas e destaca-se na capacidade de resolver problemas inesperados.',
+    full: 'Denis é um profissional proativo e sempre pensa na melhor experiência para o cliente. Trabalhamos juntos na Stelo, fazíamos parte da mesma equipe. O Denis é questionador, humilde perante as críticas e destaca-se na capacidade de resolver problemas inesperados. Tenho excelentes memórias dos tempos em que trabalhamos juntos e não hesito em recomendá-lo.',
+    name: 'Juliana Dala Costa',
+    link: 'https://www.linkedin.com/in/juliana-dala-costa-349b95107/',
+    role: 'Senior Product Manager, Cielo',
+    photo: '/testimonials/juliana-dala-costa.jpg',
+  },
 ]
