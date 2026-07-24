@@ -2,16 +2,14 @@ import type { Preview } from '@storybook/vue3-vite'
 import { setup } from '@storybook/vue3'
 import { createMemoryHistory, createRouter } from 'vue-router'
 import i18n from '../src/i18n'
+import { routes } from '../src/router'
 import '../src/assets/main.css'
 
+// Reuse the app's real routes so every named target a story links to
+// (projects, project-detail, project-specs, …) resolves in <RouterLink>.
 const storyRouter = createRouter({
   history: createMemoryHistory(),
-  routes: [
-    { path: '/', name: 'home', component: { template: '<div />' } },
-    { path: '/about', name: 'about', component: { template: '<div />' } },
-    { path: '/testimonials', name: 'testimonials', component: { template: '<div />' } },
-    { path: '/:pathMatch(.*)*', name: 'not-found', component: { template: '<div />' } },
-  ],
+  routes,
 })
 
 setup((app) => {
