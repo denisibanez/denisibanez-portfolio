@@ -39,7 +39,8 @@
     "view": "Projekt ansehen",
     "all": "Alle",
     "study": "Studie",
-    "client": "Kunde"
+    "client": "Kunde",
+    "hint": "Wische oder tippe ein Projekt an, um es zu öffnen"
   },
   "projectDetail": {
     "caseStudy": "Fallstudie",

@@ -39,7 +39,8 @@
     "view": "Ver projeto",
     "all": "Todos",
     "study": "Estudo",
-    "client": "Cliente"
+    "client": "Cliente",
+    "hint": "Arrasta ou toca num projeto para explorar"
   },
   "projectDetail": {
     "caseStudy": "Estudo de caso",

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import BaseCarousel from '@/components/BaseCarousel/BaseCarousel.vue'
@@ -24,7 +24,42 @@ const visibleProjects = computed(() =>
   activeTab.value === 'all' ? projects : projects.filter((p) => p.kind === activeTab.value),
 )
 
+// First-visit discovery hint. Touch devices only (no hover cue like desktop),
+// shown once (localStorage), auto-dismissed on interaction or after a few seconds.
+const HINT_KEY = 'di:projects-hint'
+const showHint = ref(false)
+let hintTimer: ReturnType<typeof setTimeout> | null = null
+
+const dismissHint = () => {
+  if (!showHint.value) return
+  showHint.value = false
+  if (hintTimer) clearTimeout(hintTimer)
+  hintTimer = null
+  try {
+    localStorage.setItem(HINT_KEY, '1')
+  } catch {
+    /* storage may be unavailable (private mode) — the hint just shows again */
+  }
+}
+
+onMounted(() => {
+  const noHover = typeof window !== 'undefined' && !!window.matchMedia?.('(hover: none)').matches
+  if (!noHover) return
+  try {
+    if (localStorage.getItem(HINT_KEY)) return
+  } catch {
+    return
+  }
+  showHint.value = true
+  hintTimer = setTimeout(dismissHint, 6000)
+})
+
+onBeforeUnmount(() => {
+  if (hintTimer) clearTimeout(hintTimer)
+})
+
 const openProject = (project: Project) => {
+  dismissHint()
   router.push({ name: 'project-detail', params: { slug: project.slug } })
 }
 
@@ -44,6 +79,7 @@ const posterClass =
         :card-class="posterClass"
         :item-key="(project) => project.slug"
         @select="openProject"
+        @pointerdown="dismissHint"
       >
         <template #card="{ item }">
           <!-- Media, or a gradient placeholder until real shots land -->
@@ -71,6 +107,34 @@ const posterClass =
           </div>
         </template>
       </BaseCarousel>
+
+      <!-- First-visit nudge (touch only) — fades out on interaction/timeout -->
+      <Transition name="hint">
+        <p
+          v-if="showHint"
+          role="status"
+          class="pointer-events-none mt-5 flex items-center justify-center gap-2 text-label-lg uppercase tracking-widest text-on-surface-variant/70"
+        >
+          <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path d="M7 12h10M7 12l3-3M7 12l3 3M17 12l-3-3M17 12l-3 3" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          {{ t('projects.hint') }}
+        </p>
+      </Transition>
     </div>
   </MediaBackdrop>
 </template>
+
+<style scoped>
+.hint-enter-active,
+.hint-leave-active {
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+.hint-enter-from,
+.hint-leave-to {
+  opacity: 0;
+  transform: translateY(6px);
+}
+</style>
