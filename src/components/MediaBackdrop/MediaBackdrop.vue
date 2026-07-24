@@ -13,8 +13,8 @@ defineProps<Props>()
       aria-hidden="true"
       class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
     />
-    <!-- Subtle mobile-only dimming for legibility over busy photos -->
-    <div class="pointer-events-none absolute inset-0 bg-black/10 sm:hidden" aria-hidden="true" />
+    <!-- Subtle dimming for legibility over busy photos (all viewports) -->
+    <div class="pointer-events-none absolute inset-0 bg-black/10" aria-hidden="true" />
     <slot name="scrim" />
     <slot />
   </section>

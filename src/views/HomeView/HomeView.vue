@@ -79,8 +79,8 @@ const { rise } = useRise()
       @ended="onEnded"
     />
 
-    <!-- Subtle mobile-only dimming for legibility over the hero media -->
-    <div class="pointer-events-none absolute inset-0 bg-black/10 sm:hidden" aria-hidden="true" />
+    <!-- Subtle dimming for legibility over the hero media (all viewports) -->
+    <div class="pointer-events-none absolute inset-0 bg-black/10" aria-hidden="true" />
 
     <div class="relative z-10 flex min-h-dvh flex-col justify-center px-[5vw] pt-28 pb-28">
       <div class="max-w-xl">
