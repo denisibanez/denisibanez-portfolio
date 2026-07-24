@@ -17,3 +17,18 @@ The project is hosted on **Vercel**, which auto-detects Vite (build `pnpm build`
 - **Env vars** (e.g. `VITE_API_BASE_URL`): Vercel → Project → Settings → Environment Variables.
 
 CI is for **tests only** — do not duplicate the Vercel build/deploy in CI.
+
+## Design system (Storybook) — a SEPARATE Vercel project
+
+The Storybook lives on its own project, `denisibanez-design-system`, at
+**design.denisibanez.dev** — distinct from the app (`denisibanez-portfolio`).
+
+- **Auto-publish:** `.github/workflows/publish-storybook.yml` builds Storybook and deploys the
+  static `storybook-static/` folder on push to `main`. Needs repo secrets `VERCEL_TOKEN`,
+  `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID` (the design-system project).
+- **Manual publish:** `pnpm build-storybook && cd storybook-static && pnpm dlx vercel --prod`.
+- **⚠️ Gotcha — never `vercel` from inside the repo to deploy Storybook.** The repo is
+  Git-linked to the *app* project (and has a root `vercel.json` SPA rewrite that breaks static
+  Storybook), so deploying from anywhere in the tree targets the app and rebuilds it from Git.
+  Always deploy the prebuilt `storybook-static/` folder from **outside** the repo (or via the
+  Action). If a bad deploy hits production, `vercel rollback <previous-prod-url>` restores it.

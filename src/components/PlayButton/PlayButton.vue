@@ -77,6 +77,12 @@ const emit = defineEmits<{ click: [] }>()
   transform: scale(0.975);
 }
 
+/* `all: unset` above strips the focus ring — restore a visible one for keyboards. */
+.lg-btn:focus-visible {
+  outline: 2px solid var(--color-tertiary);
+  outline-offset: 3px;
+}
+
 .lg-glyph {
   position: relative;
   z-index: 4;

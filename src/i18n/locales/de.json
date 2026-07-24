@@ -7,7 +7,8 @@
     "home": "Start",
     "about": "Über mich",
     "projects": "Projekte",
-    "testimonials": "Referenzen"
+    "testimonials": "Referenzen",
+    "menu": "Menü"
   },
   "actions": {
     "resume": "Lebenslauf"
@@ -23,10 +24,12 @@
   "about": {
     "eyebrow": "Freut mich",
     "title": "Über mich",
-    "lead": "Ich bin Denis Ibañez, Front-end-Entwickler mit über 14 Jahren Erfahrung darin, komplexe Produkte in klare, schnelle Interfaces mit Vue, React und Angular zu verwandeln.",
-    "body": "Am wichtigsten sind mir Design-Systeme und Prototyping – die Kunst, ein UI selbstverständlich, konsistent und mühelos erweiterbar zu machen. Ich arbeite eng mit Design und Produkt zusammen, um Beständiges zu liefern.",
+    "lead": "Ich bin Denis Ibañez – Senior-Front-End- und Full-Stack-Entwickler mit über 14 Jahren Erfahrung in der Gestaltung und Leitung stark frequentierter Produkte mit Vue, React, React Native und TypeScript.",
+    "body": "Ich arbeite eng mit Design-Ops-Teams zusammen, um Designsysteme aufzubauen und zu pflegen, die Marke und Nutzererlebnis auch bei großem Umfang konsistent halten – gemeinsam mit verteilten Teams in Spanien, Großbritannien, den Niederlanden und Deutschland.",
     "cta": "Meine Arbeit ansehen",
-    "roles": "Vue • React • Angular • Design Systems"
+    "roles": "Vue • React • Angular • TypeScript • Design Systems",
+    "certLabel": "Zertifizierung",
+    "certTitle": "AI-Empowered SAFe® Practitioner (SP)"
   },
   "projects": {
     "title": "Ausgewählte Arbeiten",
@@ -36,7 +39,8 @@
     "view": "Projekt ansehen",
     "all": "Alle",
     "study": "Studie",
-    "client": "Kunde"
+    "client": "Kunde",
+    "hint": "Wische oder tippe ein Projekt an, um es zu öffnen"
   },
   "projectDetail": {
     "caseStudy": "Fallstudie",
@@ -75,6 +79,26 @@
   "notFound": {
     "eyebrow": "Verirrt?",
     "message": "Die gesuchte Seite existiert nicht.",
-    "cta": "Zur Startseite"
+    "cta": "Zur Startseite",
+    "title": "Seite nicht gefunden"
+  },
+  "state": {
+    "loading": "Wird geladen…",
+    "errorTitle": "Etwas ist schiefgelaufen",
+    "errorMessage": "Dieser Inhalt konnte nicht geladen werden. Bitte versuche es erneut.",
+    "retry": "Erneut versuchen",
+    "dismiss": "Schließen",
+    "notifications": "Benachrichtigungen"
+  },
+  "a11y": {
+    "skip": "Zum Inhalt springen"
+  },
+  "player": {
+    "dialog": "Musikplayer",
+    "play": "Wiedergabe",
+    "pause": "Pause",
+    "previous": "Vorheriger Titel",
+    "next": "Nächster Titel",
+    "close": "Schließen"
   }
 }

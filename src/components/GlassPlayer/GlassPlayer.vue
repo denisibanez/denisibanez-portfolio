@@ -1,19 +1,57 @@
 <script setup lang="ts">
-import { ref, computed, watch, nextTick, onMounted, onUnmounted } from "vue";
+import { ref, watch, nextTick, onMounted, onUnmounted } from "vue";
+import { useAudioPlayer } from "@/composables/useAudioPlayer/useAudioPlayer";
 import type { Track } from "@/types/track";
 
-type Props = { open: boolean; tracks: Track[]; label?: string };
+type ControlLabels = {
+  dialog: string;
+  play: string;
+  pause: string;
+  previous: string;
+  next: string;
+  close: string;
+};
 
-const props = withDefaults(defineProps<Props>(), { label: "Play" });
+type Props = { open: boolean; tracks: Track[]; label?: string; labels?: ControlLabels };
+
+const props = withDefaults(defineProps<Props>(), {
+  label: "Play",
+  labels: () => ({
+    dialog: "Music player",
+    play: "Play",
+    pause: "Pause",
+    previous: "Previous track",
+    next: "Next track",
+    close: "Close",
+  }),
+});
 const emit = defineEmits<{ open: []; close: [] }>();
 
-const audio = ref<HTMLAudioElement | null>(null);
+// Audio playback state + transport controls.
+const {
+  audio,
+  playing,
+  currentTime,
+  duration,
+  trackIndex,
+  track,
+  hasPlaylist,
+  progress,
+  format,
+  toggle,
+  playCurrent,
+  prevTrack,
+  nextTrack,
+  scrub,
+  onTimeUpdate,
+  onLoaded,
+  onPlay,
+  onPause,
+  onEnded,
+} = useAudioPlayer(() => props.tracks);
+
 const wrapEl = ref<HTMLElement | null>(null);
 const bodyEl = ref<HTMLElement | null>(null);
-const playing = ref(false);
-const currentTime = ref(0);
-const duration = ref(0);
-const trackIndex = ref(0);
 /** Shell chrome (padding / radius) — lags behind `open` on close. */
 const expanded = ref(false);
 /** True while width/height are tweening — drops expensive filters. */
@@ -29,71 +67,8 @@ const MORPH_MS = 520;
 const OPEN_HEIGHT_FALLBACK = 480;
 
 let morphTimer: ReturnType<typeof setTimeout> | null = null;
-
-const track = computed((): Track => {
-  return (
-    props.tracks[trackIndex.value] ??
-    props.tracks[0] ?? { title: "", artist: "", src: "" }
-  );
-});
-const hasPlaylist = computed(() => props.tracks.length > 1);
-const progress = computed(() => (duration.value ? (currentTime.value / duration.value) * 100 : 0));
-
-const format = (seconds: number) => {
-  if (!Number.isFinite(seconds)) return "0:00";
-  const m = Math.floor(seconds / 60);
-  const s = Math.floor(seconds % 60);
-  return `${m}:${s.toString().padStart(2, "0")}`;
-};
-
-const toggle = () => {
-  const el = audio.value;
-  if (!el) return;
-  if (el.paused) el.play().catch(() => {});
-  else el.pause();
-};
-
-const playCurrent = async () => {
-  await nextTick();
-  const el = audio.value;
-  if (!el) return;
-  el.currentTime = 0;
-  currentTime.value = 0;
-  duration.value = 0;
-  try {
-    await el.play();
-  } catch {
-    /* autoplay / jsdom may reject */
-  }
-};
-
-const prevTrack = () => {
-  if (!hasPlaylist.value) return;
-  trackIndex.value = (trackIndex.value - 1 + props.tracks.length) % props.tracks.length;
-};
-
-const nextTrack = () => {
-  if (!hasPlaylist.value) return;
-  trackIndex.value = (trackIndex.value + 1) % props.tracks.length;
-};
-
-const scrub = (event: MouseEvent) => {
-  const el = audio.value;
-  if (!el || !duration.value) return;
-  const bar = event.currentTarget as HTMLElement;
-  const rect = bar.getBoundingClientRect();
-  const fraction = Math.min(Math.max(0, (event.clientX - rect.left) / rect.width), 1);
-  el.currentTime = fraction * duration.value;
-};
-
-const onTimeUpdate = () => (currentTime.value = audio.value?.currentTime ?? 0);
-const onLoaded = () => (duration.value = audio.value?.duration ?? 0);
-const onPlay = () => (playing.value = true);
-const onPause = () => (playing.value = false);
-const onEnded = () => {
-  if (hasPlaylist.value) nextTrack();
-  else playing.value = false;
-};
+// Restore focus to whatever opened the player (the play button) on close.
+let lastFocused: HTMLElement | null = null;
 
 const onKey = (event: KeyboardEvent) => {
   if (event.key === "Escape" && props.open) emit("close");
@@ -160,12 +135,18 @@ watch(
   () => props.open,
   async (open) => {
     if (open) {
+      lastFocused = document.activeElement as HTMLElement | null;
       await morphToOpen();
-      nextTick(() => audio.value?.play().catch(() => {}));
+      nextTick(() => {
+        audio.value?.play().catch(() => {});
+        wrapEl.value?.querySelector<HTMLElement>(".close-btn")?.focus();
+      });
     } else {
       audio.value?.pause();
       playing.value = false;
       await morphToClosed();
+      lastFocused?.focus();
+      lastFocused = null;
     }
   },
 );
@@ -213,6 +194,7 @@ onUnmounted(() => {
       class="glass-card"
       :role="open ? 'dialog' : undefined"
       :aria-modal="open ? 'true' : undefined"
+      :aria-label="open ? labels.dialog : undefined"
     >
       <span class="glass-sheen" aria-hidden="true" />
 
@@ -255,7 +237,7 @@ onUnmounted(() => {
           <button
             type="button"
             class="close-btn"
-            aria-label="Close"
+            :aria-label="labels.close"
             :tabindex="open ? 0 : -1"
             @click="emit('close')"
           >
@@ -286,7 +268,7 @@ onUnmounted(() => {
           <button
             type="button"
             class="cursor-pointer text-on-surface transition-transform hover:scale-110 active:scale-95 disabled:opacity-30"
-            aria-label="Previous track"
+            :aria-label="labels.previous"
             :disabled="!hasPlaylist"
             :tabindex="open ? 0 : -1"
             @click="prevTrack"
@@ -298,7 +280,7 @@ onUnmounted(() => {
           <button
             type="button"
             class="inline-flex size-11 cursor-pointer items-center justify-center rounded-full bg-on-surface text-surface transition-transform hover:scale-105 active:scale-95"
-            :aria-label="playing ? 'Pause' : 'Play'"
+            :aria-label="playing ? labels.pause : labels.play"
             :tabindex="open ? 0 : -1"
             @click="toggle"
           >
@@ -312,7 +294,7 @@ onUnmounted(() => {
           <button
             type="button"
             class="cursor-pointer text-on-surface transition-transform hover:scale-110 active:scale-95 disabled:opacity-30"
-            aria-label="Next track"
+            :aria-label="labels.next"
             :disabled="!hasPlaylist"
             :tabindex="open ? 0 : -1"
             @click="nextTrack"
@@ -610,6 +592,13 @@ onUnmounted(() => {
   pointer-events: none;
 }
 
+/* `all: unset` strips the focus ring — restore it for keyboard users. */
+.play-hit:focus-visible {
+  outline: 2px solid var(--color-tertiary);
+  outline-offset: -4px;
+  border-radius: 999vw;
+}
+
 .play-glyph {
   width: 1.4rem;
   height: 1.4rem;
@@ -712,6 +701,12 @@ onUnmounted(() => {
 
 .close-btn:active {
   transform: scale(0.96);
+}
+
+/* `all: unset` strips the focus ring — restore it for keyboard users. */
+.close-btn:focus-visible {
+  outline: 2px solid var(--color-tertiary);
+  outline-offset: 2px;
 }
 
 .player-meta,

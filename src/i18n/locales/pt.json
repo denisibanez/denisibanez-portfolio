@@ -7,7 +7,8 @@
     "home": "Home",
     "about": "Sobre mim",
     "projects": "Projetos",
-    "testimonials": "Depoimentos"
+    "testimonials": "Depoimentos",
+    "menu": "Menu"
   },
   "actions": {
     "resume": "Baixar resume"
@@ -23,10 +24,12 @@
   "about": {
     "eyebrow": "Prazer, sou eu",
     "title": "Sobre mim",
-    "lead": "Sou Denis Ibañez, desenvolvedor front-end com mais de 14 anos transformando produtos complexos em interfaces claras e rápidas em Vue, React e Angular.",
-    "body": "Meu forte são design systems e prototipação — a arte de fazer uma interface parecer inevitável, consistente e fácil de evoluir. Trabalho lado a lado com design e produto para entregar algo que dura.",
+    "lead": "Sou o Denis Ibañez — engenheiro front-end e full-stack sênior com mais de 14 anos criando e liderando produtos de alto tráfego em Vue, React, React Native e TypeScript.",
+    "body": "Trabalho lado a lado com times de Design Ops para construir e manter design systems que mantêm a identidade e a experiência consistentes em escala, colaborando com times distribuídos na Espanha, Reino Unido, Holanda e Alemanha.",
     "cta": "Ver meu trabalho",
-    "roles": "Vue • React • Angular • Design Systems"
+    "roles": "Vue • React • Angular • TypeScript • Design Systems",
+    "certLabel": "Certificação",
+    "certTitle": "AI-Empowered SAFe® Practitioner (SP)"
   },
   "projects": {
     "title": "Trabalhos Selecionados",
@@ -36,7 +39,8 @@
     "view": "Ver projeto",
     "all": "Todos",
     "study": "Estudo",
-    "client": "Cliente"
+    "client": "Cliente",
+    "hint": "Arrasta ou toca num projeto para explorar"
   },
   "projectDetail": {
     "caseStudy": "Estudo de caso",
@@ -75,6 +79,26 @@
   "notFound": {
     "eyebrow": "Perdido?",
     "message": "A página que você procura não existe.",
-    "cta": "Voltar ao início"
+    "cta": "Voltar ao início",
+    "title": "Página não encontrada"
+  },
+  "state": {
+    "loading": "A carregar…",
+    "errorTitle": "Algo correu mal",
+    "errorMessage": "Não foi possível carregar este conteúdo. Tenta novamente.",
+    "retry": "Tentar novamente",
+    "dismiss": "Dispensar",
+    "notifications": "Notificações"
+  },
+  "a11y": {
+    "skip": "Saltar para o conteúdo"
+  },
+  "player": {
+    "dialog": "Leitor de música",
+    "play": "Reproduzir",
+    "pause": "Pausar",
+    "previous": "Faixa anterior",
+    "next": "Próxima faixa",
+    "close": "Fechar"
   }
 }

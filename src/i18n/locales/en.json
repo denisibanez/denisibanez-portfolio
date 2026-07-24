@@ -7,7 +7,8 @@
     "home": "Home",
     "about": "About Me",
     "projects": "Projects",
-    "testimonials": "Testimonials"
+    "testimonials": "Testimonials",
+    "menu": "Menu"
   },
   "actions": {
     "resume": "Download resume"
@@ -23,10 +24,12 @@
   "about": {
     "eyebrow": "Get to know me",
     "title": "About me",
-    "lead": "I'm Denis Ibañez, a front-end developer with 14+ years turning complex products into clear, fast interfaces across Vue, React and Angular.",
-    "body": "What I care about most is design systems and prototyping — the craft of making a UI feel inevitable, consistent and effortless to build on. I work closely with design and product to ship work that lasts.",
+    "lead": "I'm Denis Ibañez — a senior front-end & full-stack engineer with 14+ years designing and leading high-traffic products across Vue, React, React Native and TypeScript.",
+    "body": "I partner closely with Design Ops to build and maintain design systems that keep brand and experience consistent at scale, collaborating with distributed teams across Spain, the UK, the Netherlands and Germany.",
     "cta": "See my work",
-    "roles": "Vue • React • Angular • Design Systems"
+    "roles": "Vue • React • Angular • TypeScript • Design Systems",
+    "certLabel": "Certification",
+    "certTitle": "AI-Empowered SAFe® Practitioner (SP)"
   },
   "projects": {
     "title": "Selected Works",
@@ -36,7 +39,8 @@
     "view": "View project",
     "all": "All",
     "study": "Study",
-    "client": "Client"
+    "client": "Client",
+    "hint": "Swipe or tap a project to explore"
   },
   "projectDetail": {
     "caseStudy": "Case Study",
@@ -75,6 +79,26 @@
   "notFound": {
     "eyebrow": "Lost?",
     "message": "The page you're looking for doesn't exist.",
-    "cta": "Back to home"
+    "cta": "Back to home",
+    "title": "Page not found"
+  },
+  "state": {
+    "loading": "Loading…",
+    "errorTitle": "Something went wrong",
+    "errorMessage": "We couldn't load this content. Please try again.",
+    "retry": "Try again",
+    "dismiss": "Dismiss",
+    "notifications": "Notifications"
+  },
+  "a11y": {
+    "skip": "Skip to content"
+  },
+  "player": {
+    "dialog": "Music player",
+    "play": "Play",
+    "pause": "Pause",
+    "previous": "Previous track",
+    "next": "Next track",
+    "close": "Close"
   }
 }

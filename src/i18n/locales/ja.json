@@ -7,7 +7,8 @@
     "home": "ホーム",
     "about": "自己紹介",
     "projects": "プロジェクト",
-    "testimonials": "お客様の声"
+    "testimonials": "お客様の声",
+    "menu": "メニュー"
   },
   "actions": {
     "resume": "履歴書をダウンロード"
@@ -23,10 +24,12 @@
   "about": {
     "eyebrow": "はじめまして",
     "title": "私について",
-    "lead": "デニス・イバニェスです。14年以上にわたり、Vue・React・Angular で複雑なプロダクトを明快で高速なインターフェースに変えてきたフロントエンド開発者です。",
-    "body": "最も大切にしているのはデザインシステムとプロトタイピング — UI を必然的で一貫性があり、拡張しやすいものにする技術です。デザインとプロダクトと密に連携し、長く使えるものを届けます。",
+    "lead": "デニス・イバニェスです。Vue・React・React Native・TypeScript を用いて、大規模トラフィックのプロダクトの設計とリードを14年以上手がけてきたシニア・フロントエンド／フルスタックエンジニアです。",
+    "body": "Design Ops チームと緊密に連携し、ブランドと体験を大規模でも一貫させるデザインシステムの構築・保守を行っています。スペイン、イギリス、オランダ、ドイツの分散チームと協働してきました。",
     "cta": "制作実績を見る",
-    "roles": "Vue • React • Angular • Design Systems"
+    "roles": "Vue • React • Angular • TypeScript • Design Systems",
+    "certLabel": "認定",
+    "certTitle": "AI-Empowered SAFe® Practitioner (SP)"
   },
   "projects": {
     "title": "選りすぐりの作品",
@@ -36,7 +39,8 @@
     "view": "プロジェクトを見る",
     "all": "すべて",
     "study": "スタディ",
-    "client": "クライアント"
+    "client": "クライアント",
+    "hint": "スワイプ、またはプロジェクトをタップして見る"
   },
   "projectDetail": {
     "caseStudy": "ケーススタディ",
@@ -75,6 +79,26 @@
   "notFound": {
     "eyebrow": "迷子？",
     "message": "お探しのページは存在しません。",
-    "cta": "ホームに戻る"
+    "cta": "ホームに戻る",
+    "title": "ページが見つかりません"
+  },
+  "state": {
+    "loading": "読み込み中…",
+    "errorTitle": "問題が発生しました",
+    "errorMessage": "コンテンツを読み込めませんでした。もう一度お試しください。",
+    "retry": "再試行",
+    "dismiss": "閉じる",
+    "notifications": "通知"
+  },
+  "a11y": {
+    "skip": "コンテンツへスキップ"
+  },
+  "player": {
+    "dialog": "音楽プレーヤー",
+    "play": "再生",
+    "pause": "一時停止",
+    "previous": "前のトラック",
+    "next": "次のトラック",
+    "close": "閉じる"
   }
 }

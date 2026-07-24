@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import bannerHome from '@/assets/images/banner-home-full.png'
+import bannerHome from '@/assets/images/banner-home-full.webp'
 
 type Props = { label?: string; hint?: string }
 

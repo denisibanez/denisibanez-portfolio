@@ -7,7 +7,8 @@
     "home": "Inicio",
     "about": "Sobre mí",
     "projects": "Proyectos",
-    "testimonials": "Testimonios"
+    "testimonials": "Testimonios",
+    "menu": "Menú"
   },
   "actions": {
     "resume": "Descargar CV"
@@ -23,10 +24,12 @@
   "about": {
     "eyebrow": "Encantado, soy yo",
     "title": "Sobre mí",
-    "lead": "Soy Denis Ibañez, desarrollador front-end con más de 14 años convirtiendo productos complejos en interfaces claras y rápidas en Vue, React y Angular.",
-    "body": "Lo que más me importa son los design systems y el prototipado: el oficio de hacer que una interfaz se sienta inevitable, coherente y fácil de evolucionar. Colaboro de cerca con diseño y producto para entregar trabajo que perdura.",
+    "lead": "Soy Denis Ibañez, ingeniero front-end y full-stack sénior con más de 14 años diseñando y liderando productos de alto tráfico en Vue, React, React Native y TypeScript.",
+    "body": "Colaboro estrechamente con equipos de Design Ops para construir y mantener design systems que conservan la identidad y la experiencia coherentes a escala, trabajando con equipos distribuidos en España, Reino Unido, Países Bajos y Alemania.",
     "cta": "Ver mi trabajo",
-    "roles": "Vue • React • Angular • Design Systems"
+    "roles": "Vue • React • Angular • TypeScript • Design Systems",
+    "certLabel": "Certificación",
+    "certTitle": "AI-Empowered SAFe® Practitioner (SP)"
   },
   "projects": {
     "title": "Trabajos Seleccionados",
@@ -36,7 +39,8 @@
     "view": "Ver proyecto",
     "all": "Todos",
     "study": "Estudio",
-    "client": "Cliente"
+    "client": "Cliente",
+    "hint": "Desliza o toca un proyecto para explorar"
   },
   "projectDetail": {
     "caseStudy": "Caso de estudio",
@@ -75,6 +79,26 @@
   "notFound": {
     "eyebrow": "¿Perdido?",
     "message": "La página que buscas no existe.",
-    "cta": "Volver al inicio"
+    "cta": "Volver al inicio",
+    "title": "Página no encontrada"
+  },
+  "state": {
+    "loading": "Cargando…",
+    "errorTitle": "Algo salió mal",
+    "errorMessage": "No se pudo cargar este contenido. Inténtalo de nuevo.",
+    "retry": "Reintentar",
+    "dismiss": "Descartar",
+    "notifications": "Notificaciones"
+  },
+  "a11y": {
+    "skip": "Saltar al contenido"
+  },
+  "player": {
+    "dialog": "Reproductor de música",
+    "play": "Reproducir",
+    "pause": "Pausar",
+    "previous": "Pista anterior",
+    "next": "Pista siguiente",
+    "close": "Cerrar"
   }
 }

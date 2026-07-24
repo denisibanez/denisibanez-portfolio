@@ -30,10 +30,20 @@ describe('AppNav', () => {
     expect(wrapper.find('.fixed.inset-0').exists()).toBe(true)
   })
 
-  it('closes the drawer when a link is tapped', async () => {
+  it('closes the drawer when navigation changes the active route', async () => {
+    const wrapper = mount(AppNav, { props: { links, active: '/' } })
+    await wrapper.find('button[aria-label="Menu"]').trigger('click')
+    expect(wrapper.find('.fixed.inset-0').exists()).toBe(true)
+    // The link tap itself must NOT close the drawer (that races the router);
+    // the drawer closes once the route lands.
+    await wrapper.setProps({ active: '/about' })
+    expect(wrapper.find('.fixed.inset-0').exists()).toBe(false)
+  })
+
+  it('closes the drawer when the backdrop is tapped', async () => {
     const wrapper = mount(AppNav, { props: { links } })
     await wrapper.find('button[aria-label="Menu"]').trigger('click')
-    await wrapper.find('.fixed.inset-0 a').trigger('click')
+    await wrapper.find('.fixed.inset-0 > div[aria-hidden="true"]').trigger('click')
     expect(wrapper.find('.fixed.inset-0').exists()).toBe(false)
   })
 

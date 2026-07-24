@@ -20,6 +20,11 @@
   --color-outline: #919191;
   /* Accent — used sparingly (e.g. case-study eyebrows) */
   --color-tertiary: #e9c349;
+  /* Semantic feedback (toasts) — muted to sit on the dark theme */
+  --color-success: #5cc98a;
+  --color-warning: #e9c349;
+  --color-error: #f0808a;
+  --color-info: #7fb0f5;
 
   /* Typography */
   --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
@@ -51,5 +56,26 @@
     color: var(--color-on-surface);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+  }
+
+  /* Visible keyboard focus everywhere (the near-black theme hides the UA default).
+     Gold ring reads clearly on the dark surface; only shows for keyboard users. */
+  :focus-visible {
+    outline: 2px solid var(--color-tertiary);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+/* Respect reduced-motion globally — covers hand-rolled CSS transitions/animations
+   (e.g. the glass player morph) that aren't gated individually. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

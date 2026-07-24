@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router'
 import AppNav from '@/components/AppNav/AppNav.vue'
 import LanguageSelect from '@/components/LanguageSelect/LanguageSelect.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
+import ToastHost from '@/components/ToastHost/ToastHost.vue'
 import { site } from '@/config/site'
 
 const { t, locale } = useI18n()
@@ -32,22 +33,38 @@ const year = new Date().getFullYear()
 const onLocaleChange = (value: string) => {
   locale.value = value
 }
+
+// Download the résumé PDF (served from public/) with a friendly filename.
+const downloadResume = () => {
+  const link = document.createElement('a')
+  link.href = `${import.meta.env.BASE_URL}${site.resumeUrl.replace(/^\//, '')}`
+  link.download = 'Denis Ibanez - CV.pdf'
+  link.rel = 'noopener'
+  link.click()
+}
 </script>
 
 <template>
   <div class="relative flex min-h-screen flex-col bg-surface text-on-surface">
+    <!-- Skip link: first tab stop, jumps keyboard/SR users past the chrome to content -->
+    <a
+      href="#main-content"
+      class="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:left-[5vw] focus-visible:top-4 focus-visible:z-50 focus-visible:bg-surface focus-visible:px-4 focus-visible:py-2 focus-visible:text-label-lg focus-visible:uppercase focus-visible:text-on-surface"
+    >
+      {{ t('a11y.skip') }}
+    </a>
     <!-- Chrome overlays the hero (transparent header/footer) -->
     <header class="absolute inset-x-0 top-0 z-20 flex items-center justify-between gap-4 px-[5vw] py-6">
       <div class="flex-1">
-        <AppNav :links="navLinks" :active="route.path" />
+        <AppNav :links="navLinks" :active="route.path" :menu-label="t('nav.menu')" />
       </div>
       <div class="flex items-center gap-3 sm:gap-4">
         <LanguageSelect :model-value="locale" :options="languages" @update:model-value="onLocaleChange" />
-        <BaseButton variant="outline">{{ t('actions.resume') }}</BaseButton>
+        <BaseButton variant="outline" @click="downloadResume">{{ t('actions.resume') }}</BaseButton>
       </div>
     </header>
 
-    <main class="flex-1">
+    <main id="main-content" tabindex="-1" class="flex-1 focus:outline-none">
       <RouterView />
     </main>
 
@@ -68,6 +85,8 @@ const onLocaleChange = (value: string) => {
         >
       </div>
     </footer>
+
+    <ToastHost :dismiss-label="t('state.dismiss')" :region-label="t('state.notifications')" />
   </div>
 </template>
 
