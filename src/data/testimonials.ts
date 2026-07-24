@@ -5,6 +5,24 @@ import type { Testimonial } from '@/types/testimonial'
 export const testimonials: Testimonial[] = [
   {
     quote:
+      'Strong expertise in software design patterns and modern front-end. He integrated a new front-end stack into an existing Umbraco project in record time — and served as Technical Lead.',
+    full: "He demonstrates strong expertise in software design patterns and modern front-end technologies. He successfully took on the challenging task of integrating a new front-end technology stack into an existing Umbraco-based project, delivering a high-quality solution in record time.\n\nIn addition to being responsible for the project's technical implementation, he also served as the Technical Lead, guiding architectural decisions, coordinating development efforts, and ensuring the solution followed solid engineering practices and maintainable design standards.",
+    name: 'Roberto Borges',
+    link: 'https://www.linkedin.com/in/borgestj/',
+    role: 'Senior Software Engineer, Ageas',
+    photo: '/testimonials/roberto-borges.jpg',
+  },
+  {
+    quote:
+      'Profissional proativo que sempre pensa na melhor experiência para o cliente. Questionador, humilde perante as críticas e destaca-se na capacidade de resolver problemas inesperados.',
+    full: 'Denis é um profissional proativo e sempre pensa na melhor experiência para o cliente. Trabalhamos juntos na Stelo, fazíamos parte da mesma equipe. O Denis é questionador, humilde perante as críticas e destaca-se na capacidade de resolver problemas inesperados. Tenho excelentes memórias dos tempos em que trabalhamos juntos e não hesito em recomendá-lo.',
+    name: 'Juliana Dala Costa',
+    link: 'https://www.linkedin.com/in/juliana-dala-costa-349b95107/',
+    role: 'Senior Product Manager, Cielo',
+    photo: '/testimonials/juliana-dala-costa.jpg',
+  },
+  {
+    quote:
       'Um profissional comprometido, aberto a sugestões, sempre disposto a aprender e com uma excelente relação com seus colegas de trabalho.',
     full: 'Um profissional comprometido, aberto a sugestões, sempre disposto a aprender e com uma excelente relação com seus colegas de trabalho.',
     name: 'Paula Honda',
@@ -139,23 +157,5 @@ export const testimonials: Testimonial[] = [
     name: 'Vania Pontes',
     role: 'Business Analyst, ALS Global',
     photo: '/testimonials/vania-pontes.jpg',
-  },
-  {
-    quote:
-      'Strong expertise in software design patterns and modern front-end. He integrated a new front-end stack into an existing Umbraco project in record time — and served as Technical Lead.',
-    full: "He demonstrates strong expertise in software design patterns and modern front-end technologies. He successfully took on the challenging task of integrating a new front-end technology stack into an existing Umbraco-based project, delivering a high-quality solution in record time.\n\nIn addition to being responsible for the project's technical implementation, he also served as the Technical Lead, guiding architectural decisions, coordinating development efforts, and ensuring the solution followed solid engineering practices and maintainable design standards.",
-    name: 'Roberto Borges',
-    link: 'https://www.linkedin.com/in/borgestj/',
-    role: 'Senior Software Engineer, Ageas',
-    photo: '/testimonials/roberto-borges.jpg',
-  },
-  {
-    quote:
-      'Profissional proativo que sempre pensa na melhor experiência para o cliente. Questionador, humilde perante as críticas e destaca-se na capacidade de resolver problemas inesperados.',
-    full: 'Denis é um profissional proativo e sempre pensa na melhor experiência para o cliente. Trabalhamos juntos na Stelo, fazíamos parte da mesma equipe. O Denis é questionador, humilde perante as críticas e destaca-se na capacidade de resolver problemas inesperados. Tenho excelentes memórias dos tempos em que trabalhamos juntos e não hesito em recomendá-lo.',
-    name: 'Juliana Dala Costa',
-    link: 'https://www.linkedin.com/in/juliana-dala-costa-349b95107/',
-    role: 'Senior Product Manager, Cielo',
-    photo: '/testimonials/juliana-dala-costa.jpg',
   },
 ]
