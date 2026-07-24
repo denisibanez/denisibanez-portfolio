@@ -149,7 +149,7 @@ const { rise } = useRise()
         :key="itemKey(item, i)"
         type="button"
         class="h-0.5 rounded-full transition-all duration-300"
-        :class="i === activeIndex ? 'w-8 bg-on-surface' : 'w-4 bg-on-surface-variant/40 hover:bg-on-surface-variant'"
+        :class="i === activeIndex ? 'w-8 bg-on-surface' : 'w-4 bg-on-surface-variant/60 hover:bg-on-surface-variant'"
         :aria-label="`${labels.goTo} ${i + 1}`"
         @click="scrollToCard(i)"
       />

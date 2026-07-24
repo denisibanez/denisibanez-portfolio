@@ -80,7 +80,7 @@ const badgeError = ref(false)
 
       <!-- Rotated role strip pinned to the right edge (xl+ only, to clear the copy column) -->
       <div class="pointer-events-none absolute inset-y-0 right-0 hidden w-[6vw] items-center justify-center xl:flex">
-        <span class="rotate-90 whitespace-nowrap text-label-lg uppercase tracking-[0.5em] text-on-surface-variant/40">
+        <span class="rotate-90 whitespace-nowrap text-label-lg uppercase tracking-[0.5em] text-on-surface-variant/70">
           {{ t('about.roles') }}
         </span>
       </div>
