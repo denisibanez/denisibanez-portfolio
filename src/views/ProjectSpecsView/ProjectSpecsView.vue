@@ -51,7 +51,7 @@ const { rise } = useRise()
       <div class="pointer-events-none absolute inset-0 bg-linear-to-b from-surface/70 via-surface/50 to-surface/85 lg:hidden" />
     </template>
 
-    <div class="relative z-10 flex min-h-screen items-start px-[5vw] pt-28 pb-28 lg:items-center lg:pt-24">
+    <div class="relative z-10 flex min-h-dvh items-start px-[5vw] pt-28 pb-28 lg:items-center lg:pt-24">
       <!-- Project -->
       <div v-if="project" class="grid w-full grid-cols-1 gap-10 lg:h-[78vh] lg:grid-cols-2 lg:gap-16">
         <!-- Narrative — no card, sits directly on the background -->

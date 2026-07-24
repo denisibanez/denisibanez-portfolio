@@ -92,7 +92,7 @@ const { rise } = useRise()
       <div class="pointer-events-none absolute inset-0 bg-linear-to-b from-surface/65 via-surface/45 to-surface/85 lg:hidden" />
     </template>
 
-    <div class="relative z-10 flex min-h-screen flex-col justify-start px-[5vw] pt-28 pb-36 lg:justify-center lg:pt-24 lg:pb-20">
+    <div class="relative z-10 flex min-h-dvh flex-col justify-start px-[5vw] pt-28 pb-36 lg:justify-center lg:pt-24 lg:pb-20">
       <!-- Project -->
       <div v-if="project" class="flex flex-col items-stretch gap-8 lg:flex-row lg:items-center lg:gap-10">
         <!-- Vertical prev/next controls (desktop) -->

@@ -51,6 +51,12 @@
 }
 
 @layer base {
+  /* Keep the surface colour behind everything so mobile overscroll / viewport-bar
+     gaps show the on-brand background, never a bare black/white flash. */
+  html {
+    background-color: var(--color-surface);
+  }
+
   body {
     background-color: var(--color-surface);
     color: var(--color-on-surface);

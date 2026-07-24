@@ -45,7 +45,7 @@ const downloadResume = () => {
 </script>
 
 <template>
-  <div class="relative flex min-h-screen flex-col bg-surface text-on-surface">
+  <div class="relative flex min-h-dvh flex-col bg-surface text-on-surface">
     <!-- Skip link: first tab stop, jumps keyboard/SR users past the chrome to content -->
     <a
       href="#main-content"

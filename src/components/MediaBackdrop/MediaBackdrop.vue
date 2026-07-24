@@ -6,13 +6,15 @@ defineProps<Props>()
 </script>
 
 <template>
-  <section class="relative min-h-screen w-full overflow-hidden">
+  <section class="relative min-h-dvh w-full overflow-hidden">
     <img
       :src="src"
       alt=""
       aria-hidden="true"
       class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
     />
+    <!-- Subtle dimming for legibility over busy photos (all viewports) -->
+    <div class="pointer-events-none absolute inset-0 bg-black/10" aria-hidden="true" />
     <slot name="scrim" />
     <slot />
   </section>

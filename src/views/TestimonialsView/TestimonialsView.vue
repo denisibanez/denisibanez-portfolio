@@ -1,18 +1,27 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { useI18n } from 'vue-i18n'
 import BaseCarousel from '@/components/BaseCarousel/BaseCarousel.vue'
 import BaseModal from '@/components/BaseModal/BaseModal.vue'
 import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
 import { getInitials } from '@/utils/getInitials/getInitials'
 import { testimonials } from '@/data/testimonials'
-import type { Testimonial } from '@/types/testimonial'
+import type { Testimonial, LocalizedText } from '@/types/testimonial'
+import type { Locale } from '@/i18n'
 import testimonialsBg from '@/assets/images/banner-portfolio.webp'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
+
+// Pick the quote/full in the active locale (fall back to English, then Portuguese).
+const localized = (text: LocalizedText) =>
+  text[locale.value as Locale] ?? text.en ?? text.pt
+
+// Photos degrade to initials if the file is missing/broken (keyed by name).
+const photoError = reactive<Record<string, boolean>>({})
+const hasPhoto = (item: Testimonial) => Boolean(item.photo) && !photoError[item.name]
 
 const testimonialCardClass =
-  'flex w-[72vw] flex-col border border-white/10 bg-white/5 backdrop-blur-xl transition-colors hover:border-white/20 sm:w-[360px]'
+  'flex w-[82vw] flex-col border border-white/10 bg-white/5 backdrop-blur-xl transition-colors hover:border-white/20 sm:w-[360px]'
 
 // Detail modal
 const selected = ref<Testimonial | null>(null)
@@ -26,7 +35,7 @@ const closeDetail = () => {
 
 <template>
   <MediaBackdrop :src="testimonialsBg">
-    <div class="relative z-10 flex min-h-screen flex-col justify-end px-[5vw] pt-24 pb-28 sm:justify-center sm:pt-20 sm:pb-20">
+    <div class="relative z-10 flex min-h-dvh flex-col justify-start px-[5vw] pt-28 pb-28 sm:justify-center sm:pt-20 sm:pb-20">
       <BaseCarousel
         :items="testimonials"
         :title="t('testimonials.title')"
@@ -38,9 +47,15 @@ const closeDetail = () => {
         @select="openDetail"
       >
         <template #card="{ item }">
-          <!-- Media: portrait, or an initials placeholder until real photos are added -->
-          <div class="h-28 w-full shrink-0 overflow-hidden sm:h-[22vh]">
-            <img v-if="item.photo" :src="item.photo" :alt="item.name" class="h-full w-full object-cover" />
+          <!-- Media: portrait, or an initials placeholder (also the fallback if the photo fails) -->
+          <div class="aspect-square w-full shrink-0 overflow-hidden sm:aspect-auto sm:h-[22vh]">
+            <img
+              v-if="hasPhoto(item)"
+              :src="item.photo"
+              :alt="item.name"
+              class="h-full w-full object-cover"
+              @error="photoError[item.name] = true"
+            />
             <div
               v-else
               class="flex h-full w-full items-center justify-center bg-linear-to-br from-white/10 to-transparent"
@@ -51,7 +66,7 @@ const closeDetail = () => {
           </div>
           <!-- Copy -->
           <div class="flex flex-1 flex-col justify-between p-6 sm:p-8">
-            <p class="line-clamp-3 text-body-lg italic text-on-surface">&ldquo;{{ item.quote }}&rdquo;</p>
+            <p class="line-clamp-3 text-body-lg italic text-on-surface">&ldquo;{{ localized(item.quote) }}&rdquo;</p>
             <div class="mt-6">
               <h3 class="text-body-lg text-on-surface">{{ item.name }}</h3>
               <p class="mt-1 text-label-lg uppercase tracking-widest text-on-surface-variant">{{ item.role }}</p>
@@ -73,7 +88,13 @@ const closeDetail = () => {
       >
           <!-- Media -->
           <div class="h-56 w-full shrink-0 overflow-hidden sm:h-auto sm:w-2/5">
-            <img v-if="selected.photo" :src="selected.photo" :alt="selected.name" class="h-full w-full object-cover" />
+            <img
+              v-if="hasPhoto(selected)"
+              :src="selected.photo"
+              :alt="selected.name"
+              class="h-full w-full object-cover"
+              @error="photoError[selected.name] = true"
+            />
             <div
               v-else
               class="flex h-full w-full items-center justify-center bg-linear-to-br from-white/12 to-transparent"
@@ -86,9 +107,23 @@ const closeDetail = () => {
           <!-- Copy -->
           <div class="flex flex-col overflow-y-auto p-8 sm:p-10">
             <span class="block text-6xl leading-none text-on-surface-variant/30" aria-hidden="true">&ldquo;</span>
-            <p class="mt-2 text-body-lg italic text-on-surface">{{ selected.full }}</p>
+            <p class="mt-2 whitespace-pre-line text-body-lg italic text-on-surface">{{ localized(selected.full) }}</p>
             <div class="mt-8">
-              <h3 class="text-body-lg text-on-surface">{{ selected.name }}</h3>
+              <h3 class="text-body-lg text-on-surface">
+                <a
+                  v-if="selected.link"
+                  :href="selected.link"
+                  target="_blank"
+                  rel="noopener"
+                  class="inline-flex items-center gap-1.5 transition-colors hover:text-primary"
+                >
+                  {{ selected.name }}
+                  <svg class="size-3.5 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                    <path d="M7 17L17 7M17 7H8M17 7v9" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </a>
+                <template v-else>{{ selected.name }}</template>
+              </h3>
               <p class="mt-1 text-label-lg uppercase tracking-widest text-on-surface-variant">{{ selected.role }}</p>
             </div>
           </div>
