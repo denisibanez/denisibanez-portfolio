@@ -48,10 +48,10 @@ describe('ProjectDetailView', () => {
     document.body.innerHTML = ''
   })
 
-  it('renders the project title and case-study meta for a known slug', async () => {
+  it('renders the project title and category/year meta for a known slug', async () => {
     const { wrapper } = await factory('aether-watch')
     expect(wrapper.get('h1').text()).toBe('Aether Watch Co.')
-    expect(wrapper.text()).toContain('Case Study')
+    expect(wrapper.text()).toContain('Product UI')
     expect(wrapper.text()).toContain('2024')
   })
 

@@ -40,7 +40,8 @@
     "all": "Tous",
     "study": "Étude",
     "client": "Client",
-    "hint": "Balaie ou touche un projet pour explorer"
+    "hint": "Balaie ou touche un projet pour explorer",
+    "draft": "Brouillon"
   },
   "projectDetail": {
     "caseStudy": "Étude de cas",

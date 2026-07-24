@@ -29,6 +29,7 @@ export const projects: Project[] = [
     techStack: ['React 19', 'React Native', 'TypeScript', 'Cloudflare Workers', 'Hono', 'Cloudflare KV', 'Vitest', 'Playwright'],
     role: 'Full-Stack & Mobile Engineer',
     collaborators: 'via ACT Digital · Flutter Group (Blip)',
+    url: 'https://predicts.betfair.com/',
   },
   {
     slug: 'aether-watch',

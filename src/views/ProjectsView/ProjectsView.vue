@@ -82,6 +82,14 @@ const posterClass =
         @pointerdown="dismissHint"
       >
         <template #card="{ item }">
+          <!-- Draft badge — dev-only projects, so it's clear they're unpublished -->
+          <span
+            v-if="item.status === 'draft'"
+            class="absolute left-3 top-3 z-10 border border-tertiary/60 bg-surface/80 px-2.5 py-1 text-label-lg uppercase tracking-widest text-tertiary backdrop-blur-sm"
+          >
+            {{ t('projects.draft') }}
+          </span>
+
           <!-- Media, or a gradient placeholder until real shots land -->
           <img v-if="item.image" :src="item.image" :alt="item.title" class="h-full w-full object-cover" />
           <div

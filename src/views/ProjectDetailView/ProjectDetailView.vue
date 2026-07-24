@@ -178,8 +178,14 @@ const { rise } = useRise()
         <!-- Content -->
         <div class="flex flex-1 flex-col justify-center gap-6 md:gap-8">
           <div class="space-y-3">
+            <span
+              v-if="project.status === 'draft'"
+              class="inline-block border border-tertiary/60 px-2.5 py-1 text-label-lg uppercase tracking-widest text-tertiary"
+            >
+              {{ t('projects.draft') }}
+            </span>
             <Motion as="span" v-bind="rise(0)" class="block text-label-lg uppercase tracking-widest text-tertiary">
-              {{ t('projectDetail.caseStudy') }} — {{ yearOf(project.endDate) }}
+              {{ project.category }} — {{ yearOf(project.endDate) }}
             </Motion>
             <Motion as="h1" v-bind="rise(0.1)" class="text-headline-md md:text-headline-lg">
               {{ project.title }}
