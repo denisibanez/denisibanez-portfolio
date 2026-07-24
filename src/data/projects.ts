@@ -3,6 +3,34 @@ import type { Project } from '@/types/project'
 // Sample works — swap real content/`image`/`url`/`repoUrl` in when ready.
 export const projects: Project[] = [
   {
+    slug: 'betfair-skybet',
+    title: 'Betfair & SkyBet',
+    category: 'Betting Platform',
+    kind: 'client',
+    status: 'draft',
+    startDate: '2025-12',
+    endDate: '2026-08',
+    summary:
+      'End-to-end full-stack work on high-traffic betting products — React & React Native interfaces, Cloudflare Workers services and real-time Betfair Exchange integrations.',
+    overview: [
+      'End-to-end full-stack development of high-traffic betting products for Betfair and SkyBet: interfaces in React and React Native, serverless services on Cloudflare Workers, and real-time integrations with the Betfair Exchange.',
+      'On the web (React 19 + TypeScript) I maintained and evolved core screens of the Betfair Predicts product — the MarketEventPage, HomePage, event carousels and the Stories system. On mobile (React Native, iOS/Android) I built and maintained accessible, high-performance cross-platform apps for both Betfair and SkyBet.',
+      'On the backend (Cloudflare Workers + Hono) I built market microservices with data normalization, integrated the Betfair APIs (ERO/LBR/CBR) and added edge caching with Cloudflare KV. Accessibility was a first-class concern throughout: strict WCAG compliance, full screen-reader support (VoiceOver/TalkBack), semantic labels, focus management and colour contrast.',
+    ],
+    features: [
+      'React 19 + TypeScript web: MarketEventPage, HomePage, event carousels and the Stories system in Betfair Predicts.',
+      'React Native apps (iOS/Android) for Betfair and SkyBet — accessible and high-performance.',
+      'Cloudflare Workers + Hono microservices: Betfair API integration (ERO/LBR/CBR), data normalization and edge caching with KV.',
+      'Strict WCAG accessibility: VoiceOver/TalkBack support, semantic labels, focus management and colour contrast.',
+      'Testing with Vitest (unit) and Playwright (E2E); led production incident investigations.',
+      '2nd largest contributor to the Predicts repo (~460 commits, 31k+ lines); built the first version of the real-time cash-out feature.',
+    ],
+    industry: 'Gambling',
+    techStack: ['React 19', 'React Native', 'TypeScript', 'Cloudflare Workers', 'Hono', 'Cloudflare KV', 'Vitest', 'Playwright'],
+    role: 'Full-Stack & Mobile Engineer',
+    collaborators: 'via ACT Digital · Flutter Group (Blip)',
+  },
+  {
     slug: 'aether-watch',
     title: 'Aether Watch Co.',
     category: 'Product UI',

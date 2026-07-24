@@ -1,7 +1,11 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { createI18n } from 'vue-i18n'
 import ProjectsView from './ProjectsView.vue'
+
+// Assert the production-visible set (published only); drafts are a dev-only preview.
+beforeEach(() => vi.stubEnv('DEV', false))
+afterEach(() => vi.unstubAllEnvs())
 
 const i18n = createI18n({
   legacy: false,
