@@ -37,4 +37,11 @@ export const testimonials: Testimonial[] = [
     role: 'Backend Developer, Zukkin',
     photo: '/testimonials/alex-costa.jpg',
   },
+  {
+    quote: 'O Denis é dedicado e resiliente. Dominava a área que atuava, front-end do credenciamento era com ele :)',
+    full: 'O Denis é dedicado e resiliente.\n\nDominava a área que atuava, front-end do credenciamento era com ele :)\nTrabalha muito bem em equipe e assumia de frente nossos desafios.',
+    name: 'Fernando Jesus',
+    role: 'Frontend Software Engineer, Cielo',
+    photo: '/testimonials/fernando-jesus.jpg',
+  },
 ]
