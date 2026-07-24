@@ -19,6 +19,7 @@ Expected files:
 - `danilo-sampaio.jpg` — Danilo Sampaio
 - `paula-honda.jpg` — Paula Honda
 - `glaudston.jpg` — Glaudston
+- `vania-pontes.jpg` — Vania Pontes
 
 If a file is missing the Testimonials page falls back to the person's
 initials (no broken image), so it's safe to add photos incrementally.

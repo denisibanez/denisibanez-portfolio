@@ -133,4 +133,11 @@ export const testimonials: Testimonial[] = [
     role: 'Senior Developer, Cielo',
     photo: '/testimonials/glaudston.jpg',
   },
+  {
+    quote: 'Gostei de trabalhar com o Denis: ele capta as ideias e as melhora, desenvolvendo um cenário ainda mais otimizado!',
+    full: 'Gostei de trabalhar com o Denis: ele capta as ideias e as melhora, desenvolvendo um cenário ainda mais otimizado!',
+    name: 'Vania Pontes',
+    role: 'Business Analyst, ALS Global',
+    photo: '/testimonials/vania-pontes.jpg',
+  },
 ]
