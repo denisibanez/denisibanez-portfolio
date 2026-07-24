@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import { useHead } from '@unhead/vue'
 import { site } from '@/config/site'
 import { useProjects } from '@/composables/useProjects/useProjects'
+import { useLocalize } from '@/composables/useLocalize/useLocalize'
 
 /**
  * Drives per-route <title>, description, canonical and social (OG/Twitter)
@@ -16,6 +17,7 @@ export const useSeo = () => {
   const { t, locale } = useI18n()
   const route = useRoute()
   const { getBySlug } = useProjects()
+  const { localized } = useLocalize()
 
   // Published-only lookup (drafts 404) for the dynamic project routes.
   const project = computed(() => {
@@ -28,7 +30,7 @@ export const useSeo = () => {
     const name = String(route.name)
     const p = project.value
     if ((name === 'project-detail' || name === 'project-specs') && p) {
-      return { title: p.title, description: p.summary }
+      return { title: p.title, description: localized(p.summary) }
     }
     const map: Record<string, { title: string; description: string }> = {
       home: { title: `${site.name} — ${t('home.role')}`, description: t('home.description') },

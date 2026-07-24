@@ -5,6 +5,7 @@ import { Motion } from 'motion-v'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
 import { useProjectRoute } from '@/composables/useProjectRoute/useProjectRoute'
+import { useLocalize } from '@/composables/useLocalize/useLocalize'
 import { useRise } from '@/composables/useRise/useRise'
 import { monthsBetween, formatRange } from '@/utils/timeline/timeline'
 import { site } from '@/config/site'
@@ -16,8 +17,9 @@ const props = defineProps<Props>()
 
 const { t } = useI18n()
 const { project } = useProjectRoute(() => props.slug)
+const { localized } = useLocalize()
 
-const paragraphs = computed(() => project.value?.overview ?? [])
+const paragraphs = computed(() => (project.value ? localized(project.value.overview) : []))
 
 // Custom scroll-progress indicator for the narrative box.
 const scrollArea = ref<HTMLElement | null>(null)
@@ -72,7 +74,7 @@ const { rise } = useRise()
                   {{ t('projectSpecs.keyFeatures') }}
                 </span>
                 <ul class="space-y-3">
-                  <li v-for="(feature, i) in project.features" :key="i" class="flex items-start gap-3 text-body-lg">
+                  <li v-for="(feature, i) in localized(project.features)" :key="i" class="flex items-start gap-3 text-body-lg">
                     <span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true" />
                     <span>{{ feature }}</span>
                   </li>
@@ -117,7 +119,7 @@ const { rise } = useRise()
           <!-- Industry -->
           <div :class="glass" class="col-span-1 flex aspect-square flex-col justify-between p-6">
             <span :class="metaLabel">{{ t('projectSpecs.industry') }}</span>
-            <p class="font-serif text-3xl leading-tight md:text-4xl">{{ project.industry }}</p>
+            <p class="font-serif text-3xl leading-tight md:text-4xl">{{ localized(project.industry) }}</p>
           </div>
 
           <!-- Timeline -->

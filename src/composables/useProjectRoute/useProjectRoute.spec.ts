@@ -1,8 +1,10 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { defineComponent } from 'vue'
 import { mount } from '@vue/test-utils'
 import { createRouter, createMemoryHistory } from 'vue-router'
 import { useProjectRoute } from './useProjectRoute'
+
+vi.mock('@/data/projects')
 
 type Resolved = ReturnType<typeof useProjectRoute>
 
@@ -30,14 +32,14 @@ const setup = async (path: string, slugProp?: string): Promise<Resolved> => {
 
 describe('useProjectRoute', () => {
   it('resolves the project from the route slug', async () => {
-    const { slug, project } = await setup('/projects/aether-watch')
-    expect(slug.value).toBe('aether-watch')
-    expect(project.value?.title).toBe('Aether Watch Co.')
+    const { slug, project } = await setup('/projects/alpha')
+    expect(slug.value).toBe('alpha')
+    expect(project.value?.title).toBe('Alpha')
   })
 
   it('honours the slug prop override', async () => {
-    const { project } = await setup('/projects/whatever', 'nexus-system')
-    expect(project.value?.title).toBe('Nexus System')
+    const { project } = await setup('/projects/whatever', 'gamma')
+    expect(project.value?.title).toBe('Gamma')
   })
 
   it('returns null for an unknown slug', async () => {

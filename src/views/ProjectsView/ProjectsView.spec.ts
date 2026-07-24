@@ -3,7 +3,10 @@ import { mount } from '@vue/test-utils'
 import { createI18n } from 'vue-i18n'
 import ProjectsView from './ProjectsView.vue'
 
+vi.mock('@/data/projects')
+
 // Assert the production-visible set (published only); drafts are a dev-only preview.
+// Fixture (src/data/__mocks__/projects) has 3 published (2 client, 1 study) + 1 draft.
 beforeEach(() => vi.stubEnv('DEV', false))
 afterEach(() => vi.unstubAllEnvs())
 
@@ -36,7 +39,7 @@ describe('ProjectsView', () => {
 
   it('renders a card per project with prev/next controls', () => {
     const wrapper = factory()
-    expect(wrapper.findAll('article').length).toBeGreaterThanOrEqual(4)
+    expect(wrapper.findAll('article').length).toBe(3)
     expect(wrapper.findAll('button[aria-label="Previous"], button[aria-label="Next"]').length).toBe(2)
   })
 
@@ -55,12 +58,12 @@ describe('ProjectsView', () => {
 
   it('filters the carousel by kind via the tabs', async () => {
     const wrapper = factory()
-    // Default "All" shows every published project.
-    expect(wrapper.findAll('article').length).toBe(5)
+    // Default "All" shows every published project (fixture: 3).
+    expect(wrapper.findAll('article').length).toBe(3)
     const tabs = wrapper.findAll('[role="tab"]')
     await tabs.find((t) => t.text() === 'Study')!.trigger('click')
-    expect(wrapper.findAll('article').length).toBe(2)
+    expect(wrapper.findAll('article').length).toBe(1)
     await tabs.find((t) => t.text() === 'Client')!.trigger('click')
-    expect(wrapper.findAll('article').length).toBe(3)
+    expect(wrapper.findAll('article').length).toBe(2)
   })
 })

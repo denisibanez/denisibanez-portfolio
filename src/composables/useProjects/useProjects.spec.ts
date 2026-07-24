@@ -1,6 +1,8 @@
 import { describe, it, expect, vi, afterEach } from 'vitest'
 import { useProjects } from './useProjects'
 
+vi.mock('@/data/projects')
+
 afterEach(() => vi.unstubAllEnvs())
 
 describe('useProjects', () => {
@@ -35,6 +37,6 @@ describe('useProjects', () => {
     vi.stubEnv('DEV', false)
     const prod = useProjects()
     expect(prod.projects.every((p) => p.status !== 'draft')).toBe(true)
-    expect(prod.getBySlug('titanium-pen')).toBeNull()
+    expect(prod.getBySlug('delta-draft')).toBeNull()
   })
 })

@@ -14,7 +14,7 @@ export default meta
 type Story = StoryObj<typeof ProjectSpecsView>
 
 export const Default: Story = {
-  args: { slug: 'aether-watch' },
+  args: { slug: 'betfair-skybet' },
 }
 
 export const NotFound: Story = {

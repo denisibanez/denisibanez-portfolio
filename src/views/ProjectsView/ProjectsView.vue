@@ -6,12 +6,14 @@ import BaseCarousel from '@/components/BaseCarousel/BaseCarousel.vue'
 import BaseTabs from '@/components/BaseTabs/BaseTabs.vue'
 import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
 import { useProjects } from '@/composables/useProjects/useProjects'
+import { useLocalize } from '@/composables/useLocalize/useLocalize'
 import type { Project } from '@/types/project'
 import projectsBg from '@/assets/images/testimonials-bg.jpg'
 
 const { t } = useI18n()
 const router = useRouter()
 const { projects } = useProjects()
+const { localized } = useLocalize()
 
 // Filter tabs — projects stay ordered newest-first within each kind.
 const activeTab = ref('all')
@@ -98,7 +100,7 @@ const posterClass =
             aria-hidden="true"
           >
             <span class="text-label-lg uppercase tracking-widest text-on-surface-variant/50">
-              {{ item.category }}
+              {{ localized(item.category) }}
             </span>
           </div>
 
@@ -106,7 +108,7 @@ const posterClass =
           <div
             class="absolute inset-0 flex flex-col justify-end bg-linear-to-t from-surface/80 via-transparent to-transparent p-6 opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100"
           >
-            <p class="text-label-lg uppercase tracking-widest text-on-surface-variant">{{ item.category }}</p>
+            <p class="text-label-lg uppercase tracking-widest text-on-surface-variant">{{ localized(item.category) }}</p>
             <h3 class="mt-1 text-body-lg text-on-surface">{{ item.title }}</h3>
             <span class="mt-3 inline-flex items-center gap-2 text-label-lg uppercase tracking-widest text-on-surface">
               {{ t('projects.view') }}

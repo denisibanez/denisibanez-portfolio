@@ -1,0 +1,73 @@
+import type { Project, LocalizedText, LocalizedList } from '@/types/project'
+
+// Stable fixture for the project views/composables specs — decoupled from the
+// real (single, draft) project so tests don't break as content changes.
+// Every locale gets the same string; tests assert on the English value.
+const L = (s: string): LocalizedText => ({ en: s, pt: s, es: s, de: s, fr: s, ja: s })
+const LL = (a: string[]): LocalizedList => ({ en: a, pt: a, es: a, de: a, fr: a, ja: a })
+
+export const projects: Project[] = [
+  {
+    slug: 'alpha',
+    title: 'Alpha',
+    category: L('Web App'),
+    kind: 'client',
+    startDate: '2024-01',
+    endDate: '2024-06',
+    summary: L('Alpha summary.'),
+    overview: LL(['Alpha overview paragraph.']),
+    features: LL(['Alpha feature.']),
+    industry: L('Fintech'),
+    techStack: ['Vue 3', 'TypeScript'],
+    role: 'Lead Engineer',
+    collaborators: 'Alpha Studio',
+    url: 'https://alpha.example.com',
+  },
+  {
+    slug: 'beta',
+    title: 'Beta',
+    category: L('Case Study'),
+    kind: 'study',
+    startDate: '2023-01',
+    endDate: '2023-06',
+    repoUrl: 'https://github.com/example/beta',
+    summary: L('Beta summary.'),
+    overview: LL(['Beta overview paragraph.']),
+    features: LL(['Beta feature.']),
+    industry: L('Architecture'),
+    techStack: ['Three.js'],
+    role: 'Front-end',
+    collaborators: 'Beta Lab',
+  },
+  {
+    slug: 'gamma',
+    title: 'Gamma',
+    category: L('Dashboard'),
+    kind: 'client',
+    startDate: '2022-01',
+    endDate: '2022-06',
+    summary: L('Gamma summary.'),
+    overview: LL(['Gamma overview paragraph.']),
+    features: LL(['Gamma feature.']),
+    industry: L('Mobility'),
+    techStack: ['Vue 3'],
+    role: 'Engineer',
+    collaborators: 'Gamma Inc',
+  },
+  {
+    slug: 'delta-draft',
+    title: 'Delta',
+    category: L('Prototype'),
+    kind: 'client',
+    status: 'draft',
+    startDate: '2021-01',
+    endDate: '2021-06',
+    summary: L('Delta summary.'),
+    overview: LL(['Delta overview paragraph.']),
+    features: LL(['Delta feature.']),
+    industry: L('Industrial'),
+    techStack: ['Vue 3'],
+    role: 'Engineer',
+    collaborators: 'Delta Co',
+  },
+]

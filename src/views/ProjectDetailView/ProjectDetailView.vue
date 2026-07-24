@@ -8,6 +8,7 @@ import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
 import { useProjects } from '@/composables/useProjects/useProjects'
 import { useProjectRoute } from '@/composables/useProjectRoute/useProjectRoute'
+import { useLocalize } from '@/composables/useLocalize/useLocalize'
 import { useRise } from '@/composables/useRise/useRise'
 import { getInitials } from '@/utils/getInitials/getInitials'
 import { yearOf } from '@/utils/timeline/timeline'
@@ -22,6 +23,7 @@ const { t } = useI18n()
 const router = useRouter()
 const { projects, getAdjacent } = useProjects()
 const { slug, project } = useProjectRoute(() => props.slug)
+const { localized } = useLocalize()
 const adjacent = computed(() => getAdjacent(slug.value))
 const currentIndex = computed(() => projects.findIndex((p) => p.slug === slug.value))
 
@@ -206,7 +208,7 @@ const { rise } = useRise()
               {{ t('projects.draft') }}
             </span>
             <Motion as="span" v-bind="rise(0)" class="block text-label-lg uppercase tracking-widest text-tertiary">
-              {{ project.category }} — {{ yearOf(project.endDate) }}
+              {{ localized(project.category) }} — {{ yearOf(project.endDate) }}
             </Motion>
             <Motion as="h1" v-bind="rise(0.1)" class="text-headline-md md:text-headline-lg">
               {{ project.title }}
@@ -214,7 +216,7 @@ const { rise } = useRise()
           </div>
 
           <Motion as="p" v-bind="rise(0.2)" class="max-w-xl text-body-lg text-on-surface-variant">
-            {{ project.summary }}
+            {{ localized(project.summary) }}
           </Motion>
 
           <Motion as="div" v-bind="rise(0.3)" class="flex flex-wrap gap-3 sm:gap-4">
