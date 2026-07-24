@@ -25,4 +25,12 @@ export const testimonials: Testimonial[] = [
     role: 'Engenheiro Frontend Senior, Kovi',
     photo: '/testimonials/antonio-santos.jpg',
   },
+  {
+    quote:
+      'Denis é um grande profissional, fez um trabalho de qualidade e trouxe muitas ideias e agilidade aos projetos, sempre disposto a ajudar e fazendo o melhor uso das ferramentas da sua área.',
+    full: 'Denis é um grande profissional, fez um trabalho de qualidade e trouxe muitas ideias e agilidade aos projetos, sempre disposto a ajudar e fazendo o melhor uso das ferramentas da sua área.',
+    name: 'Alex Costa',
+    role: 'Backend Developer, Zukkin',
+    photo: '/testimonials/alex-costa.jpg',
+  },
 ]

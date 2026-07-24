@@ -8,6 +8,7 @@ Expected files:
 - `joao-lucas.jpg` — João Lucas
 - `antonio-santos.jpg` — Antonio Santos (use a version **without** the LinkedIn
   `#OPENTOWORK` green frame)
+- `alex-costa.jpg` — Alex Costa
 
 If a file is missing the Testimonials page falls back to the person's
 initials (no broken image), so it's safe to add photos incrementally.
