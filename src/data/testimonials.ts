@@ -99,4 +99,12 @@ export const testimonials: Testimonial[] = [
     role: 'Senior Software Engineer, Kovi',
     photo: '/testimonials/dimi-vargas.jpg',
   },
+  {
+    quote: 'Profissional competente, pró-ativo e comprometido com o negócio!',
+    full: 'Profissional competente, pró-ativo e comprometido com o negócio!',
+    name: 'Caroline Vitorino',
+    link: 'https://www.linkedin.com/in/carolvitorino/',
+    role: 'Staff Product Manager, Cielo',
+    photo: '/testimonials/caroline-vitorino.jpg',
+  },
 ]
