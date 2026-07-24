@@ -81,4 +81,13 @@ export const testimonials: Testimonial[] = [
     role: 'Estrategista de Conteúdo e Audiência, Grupo Abril',
     photo: '/testimonials/alex-alcantara.jpg',
   },
+  {
+    quote:
+      'O Denis assume enorme responsabilidade em suas tarefas, é muito dedicado e tem grande conhecimento sobre as principais tecnologias. Destaca-se também por ser ótimo de trabalho em equipe. Com certeza agrega bastante em qualquer time de desenvolvimento.',
+    full: 'O Denis assume enorme responsabilidade em suas tarefas, é muito dedicado e tem grande conhecimento sobre as principais tecnologias. Destaca-se também por ser ótimo de trabalho em equipe. Com certeza agrega bastante em qualquer time de desenvolvimento.',
+    name: 'Bruno Fernandes',
+    link: 'https://www.linkedin.com/in/brunofern/',
+    role: 'Co-Founder, Zukkin',
+    photo: '/testimonials/bruno-fernandes.jpg',
+  },
 ]
