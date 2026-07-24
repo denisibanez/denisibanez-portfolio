@@ -31,9 +31,12 @@ const progress = computed(() => {
   return ((currentIndex.value + 1) / projects.length) * 100
 })
 
-// Image gallery — falls back to a few placeholder frames until real shots land.
-const gallery = computed(() => project.value?.image ? [project.value.image] : [])
-const slideCount = computed(() => Math.max(gallery.value.length, 3))
+// Image gallery — `images` when provided, else the single cover, else a few
+// placeholder frames until real shots land.
+const gallery = computed(
+  () => project.value?.images ?? (project.value?.image ? [project.value.image] : []),
+)
+const slideCount = computed(() => (gallery.value.length > 0 ? gallery.value.length : 3))
 const activeImage = ref(0)
 const activeSrc = computed(() => gallery.value[activeImage.value])
 
@@ -134,7 +137,7 @@ const { rise } = useRise()
             v-if="activeSrc"
             :src="activeSrc"
             :alt="project.title"
-            class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            class="h-full w-full object-contain transition-transform duration-700 group-hover:scale-105"
           />
           <div
             v-else

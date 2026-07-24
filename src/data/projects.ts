@@ -30,6 +30,15 @@ export const projects: Project[] = [
     role: 'Full-Stack & Mobile Engineer',
     collaborators: 'via ACT Digital · Flutter Group (Blip)',
     url: 'https://predicts.betfair.com/',
+    image: '/projects/betfair-skybet/story-atmosphere.png',
+    images: [
+      '/projects/betfair-skybet/story-atmosphere.png',
+      '/projects/betfair-skybet/story-countdown.png',
+      '/projects/betfair-skybet/story-most-read.png',
+      '/projects/betfair-skybet/market-mobile.png',
+      '/projects/betfair-skybet/home.png',
+      '/projects/betfair-skybet/markets.png',
+    ],
   },
   {
     slug: 'aether-watch',

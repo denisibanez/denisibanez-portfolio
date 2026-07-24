@@ -1,11 +1,43 @@
 # Project images
 
-Drop each project's image here, named after its `slug` in
-`src/data/projects.ts` (e.g. `betfair-skybet.jpg`). Then set that project's
-`image` field to `/projects/<slug>.jpg`.
+One folder per project, named after its `slug` in `src/data/projects.ts`:
 
-Landscape/wide shots work best for the card and detail hero. Until an image
-is added, the card shows a subtle gradient placeholder (no broken image).
+```
+public/projects/<slug>/
+  home.png            # curated, publish-safe images (committed)
+  markets.png
+  story-*.png
+  figma-export/       # raw source (Figma exports, etc.) — GITIGNORED, local only
+```
 
-Slugs:
-- `betfair-skybet.jpg` — Betfair & SkyBet (Blip)
+## Pattern
+
+- **Committed images** live directly under `public/projects/<slug>/` with clean,
+  URL-safe, descriptive names (`home.png`, `story-atmosphere.png`, …). These are
+  served publicly, so only include what's safe to publish.
+- **Source material** (raw Figma exports, screenshot dumps, anything internal or
+  bulky) goes under `public/projects/<slug>/figma-export/` — this path is
+  **gitignored**, so it stays on your machine and is never deployed or committed.
+  Copy the good frames out into the folder root (clean name) to feature them.
+
+## Wiring in the data
+
+In `src/data/projects.ts` each project references its images:
+
+```ts
+image: '/projects/<slug>/home.png',        // card + detail hero (cover)
+images: [                                  // detail-page gallery, in order
+  '/projects/<slug>/home.png',
+  '/projects/<slug>/story-atmosphere.png',
+],
+```
+
+`image` is the cover (portrait crops best for the card poster). `images` is the
+ordered gallery; if omitted it falls back to `[image]`. With no image at all, the
+card shows a gradient placeholder (no broken image).
+
+## Projects
+
+- `betfair-skybet/` — Betfair & SkyBet (Blip). Cover + gallery from the public
+  product plus a few Stories/FeaturedMarkets frames. Full Figma export kept local
+  under `figma-export/`.

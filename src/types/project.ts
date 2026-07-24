@@ -24,7 +24,10 @@ export type Project = {
   techStack: string[]
   role: string
   collaborators: string
+  /** Card/hero cover image (path under public/, e.g. /projects/<slug>/home.png). */
   image?: string
+  /** Detail-page gallery (ordered). Falls back to `[image]` when omitted. */
+  images?: string[]
   /** External live URL, when the project is published. */
   url?: string
   /** Repository URL — study projects surface a "View on GitHub" action. */

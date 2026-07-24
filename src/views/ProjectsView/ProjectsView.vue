@@ -91,7 +91,7 @@ const posterClass =
           </span>
 
           <!-- Media, or a gradient placeholder until real shots land -->
-          <img v-if="item.image" :src="item.image" :alt="item.title" class="h-full w-full object-cover" />
+          <img v-if="item.image" :src="item.image" :alt="item.title" class="h-full w-full object-contain" />
           <div
             v-else
             class="flex h-full w-full items-center justify-center bg-linear-to-br from-surface-bright/40 via-surface-container to-surface-container-lowest"
