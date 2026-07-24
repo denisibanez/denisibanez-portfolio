@@ -63,4 +63,13 @@ export const testimonials: Testimonial[] = [
     role: 'Consultor em Product Design & IA, Cielo',
     photo: '/testimonials/fabio-gouveia.jpg',
   },
+  {
+    quote:
+      'Excelente profissional, tem um conhecimento gigante em JavaScript, React, Vue e Angular… um profissional que gosta de desafios… sempre superando expectativas!',
+    full: 'Excelente profissional, tem um conhecimento gigante em JavaScript, React, Vue e Angular… um profissional que gosta de desafios… sempre superando expectativas!',
+    name: 'Everton Dario',
+    link: 'https://www.linkedin.com/in/everton-dario-1675756b/',
+    role: 'Gerente Engenharia de Software, Cielo',
+    photo: '/testimonials/everton-dario.jpg',
+  },
 ]
