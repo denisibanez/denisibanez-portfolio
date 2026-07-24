@@ -6,8 +6,7 @@ Drop each author's photo here, named to match the `photo` path in
 Expected files:
 - `nilson-carraro.jpg` — Nilson Rodrigo Carraro
 - `joao-lucas.jpg` — João Lucas
-- `antonio-santos.jpg` — Antonio Santos (use a version **without** the LinkedIn
-  `#OPENTOWORK` green frame)
+- `antonio-santos.jpg` — Antonio Santos
 - `alex-costa.jpg` — Alex Costa
 
 If a file is missing the Testimonials page falls back to the person's

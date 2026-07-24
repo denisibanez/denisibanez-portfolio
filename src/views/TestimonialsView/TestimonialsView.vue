@@ -104,7 +104,21 @@ const closeDetail = () => {
             <span class="block text-6xl leading-none text-on-surface-variant/30" aria-hidden="true">&ldquo;</span>
             <p class="mt-2 whitespace-pre-line text-body-lg italic text-on-surface">{{ selected.full }}</p>
             <div class="mt-8">
-              <h3 class="text-body-lg text-on-surface">{{ selected.name }}</h3>
+              <h3 class="text-body-lg text-on-surface">
+                <a
+                  v-if="selected.link"
+                  :href="selected.link"
+                  target="_blank"
+                  rel="noopener"
+                  class="inline-flex items-center gap-1.5 transition-colors hover:text-primary"
+                >
+                  {{ selected.name }}
+                  <svg class="size-3.5 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                    <path d="M7 17L17 7M17 7H8M17 7v9" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </a>
+                <template v-else>{{ selected.name }}</template>
+              </h3>
               <p class="mt-1 text-label-lg uppercase tracking-widest text-on-surface-variant">{{ selected.role }}</p>
             </div>
           </div>
