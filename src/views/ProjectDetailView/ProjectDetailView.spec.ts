@@ -88,7 +88,7 @@ describe('ProjectDetailView', () => {
     const { wrapper } = await factory('aether-watch')
     expect(wrapper.text()).toContain('AW — 01')
     // jsdom can't set clientX via VTU trigger, so dispatch native events.
-    const media = wrapper.find('.cursor-grab').element
+    const media = wrapper.find('.cursor-zoom-in').element
     media.dispatchEvent(new MouseEvent('pointerdown', { clientX: 220, bubbles: true }))
     media.dispatchEvent(new MouseEvent('pointerup', { clientX: 120, bubbles: true }))
     await wrapper.vm.$nextTick()

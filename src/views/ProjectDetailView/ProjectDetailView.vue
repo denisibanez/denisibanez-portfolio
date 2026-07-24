@@ -52,17 +52,28 @@ const cycleImage = (direction: number) => {
   activeImage.value = (activeImage.value + direction + count) % count
 }
 
-// Drag/swipe the media panel sideways to change image.
+// Swipe the media panel sideways to change image; a plain tap/click opens the
+// lightbox. `dragMoved` lets us tell a swipe apart from a click.
 let dragStartX: number | null = null
+const dragMoved = ref(false)
 const onDragStart = (event: PointerEvent) => {
   dragStartX = event.clientX
+  dragMoved.value = false
 }
 const onDragEnd = (event: PointerEvent) => {
   if (dragStartX === null) return
   const deltaX = event.clientX - dragStartX
   dragStartX = null
   if (Math.abs(deltaX) < 40) return
+  dragMoved.value = true
   cycleImage(deltaX < 0 ? 1 : -1)
+}
+const onMediaClick = () => {
+  if (dragMoved.value) {
+    dragMoved.value = false
+    return
+  }
+  openLightbox()
 }
 
 // Lightbox (Escape / backdrop close handled by BaseModal)
@@ -129,15 +140,22 @@ const { rise } = useRise()
         <Motion
           as="div"
           v-bind="rise(0.1)"
-          class="group relative h-[46vh] w-full shrink-0 cursor-grab touch-pan-y select-none overflow-hidden bg-surface-container-low shadow-2xl active:cursor-grabbing lg:h-[64vh] lg:w-[34%]"
+          role="button"
+          tabindex="0"
+          :aria-label="t('projectDetail.expand')"
+          class="group relative h-[46vh] w-full shrink-0 cursor-zoom-in touch-pan-y select-none overflow-hidden bg-surface-container-low shadow-2xl lg:h-[64vh] lg:w-[34%]"
           @pointerdown="onDragStart"
           @pointerup="onDragEnd"
+          @click="onMediaClick"
+          @keydown.enter="openLightbox"
+          @keydown.space.prevent="openLightbox"
         >
           <img
             v-if="activeSrc"
             :src="activeSrc"
             :alt="project.title"
-            class="h-full w-full object-contain transition-transform duration-700 group-hover:scale-105"
+            draggable="false"
+            class="pointer-events-none h-full w-full object-contain transition-transform duration-700 group-hover:scale-105"
           />
           <div
             v-else
@@ -157,7 +175,7 @@ const { rise } = useRise()
             type="button"
             class="absolute right-4 top-4 inline-flex size-11 cursor-pointer items-center justify-center border border-white/10 bg-surface/40 text-on-surface backdrop-blur-md transition-colors hover:bg-white/20"
             :aria-label="t('projectDetail.expand')"
-            @click="openLightbox"
+            @click.stop="openLightbox"
           >
             <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
               <path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5" stroke-linecap="round" stroke-linejoin="round" />
@@ -173,7 +191,7 @@ const { rise } = useRise()
               class="h-0.5 w-8 cursor-pointer transition-all duration-300"
               :class="i - 1 === activeImage ? 'bg-on-surface' : 'bg-on-surface/30 hover:bg-on-surface/60'"
               :aria-label="`${project.title} — ${i}`"
-              @click="setImage(i - 1)"
+              @click.stop="setImage(i - 1)"
             />
           </div>
         </Motion>
@@ -264,8 +282,19 @@ const { rise } = useRise()
 
     <!-- Lightbox -->
     <BaseModal :open="lightboxOpen && !!project" :label="project?.title" @close="closeLightbox">
-      <div v-if="project" class="relative h-[80vh] w-full max-w-5xl overflow-hidden bg-surface-container-low">
-          <img v-if="activeSrc" :src="activeSrc" :alt="project.title" class="h-full w-full object-contain" />
+      <div
+        v-if="project"
+        class="relative h-[80vh] w-full max-w-5xl select-none overflow-hidden bg-surface-container-low"
+        @pointerdown="onDragStart"
+        @pointerup="onDragEnd"
+      >
+          <img
+            v-if="activeSrc"
+            :src="activeSrc"
+            :alt="project.title"
+            draggable="false"
+            class="pointer-events-none h-full w-full object-contain"
+          />
           <div
             v-else
             class="flex h-full w-full flex-col items-center justify-center gap-4 bg-linear-to-br from-surface-bright/40 via-surface-container to-surface-container-lowest"
@@ -277,11 +306,46 @@ const { rise } = useRise()
             <span class="text-headline-md uppercase tracking-widest text-on-surface/30">{{ heroCode }}</span>
           </div>
 
+          <!-- Prev / next + indicators — same gallery as the page -->
+          <template v-if="slideCount > 1">
+            <button
+              type="button"
+              class="absolute left-4 top-1/2 inline-flex size-11 -translate-y-1/2 cursor-pointer items-center justify-center border border-white/15 bg-surface/40 text-on-surface backdrop-blur-md transition-colors hover:bg-on-surface hover:text-surface"
+              :aria-label="t('projectDetail.prev')"
+              @click.stop="cycleImage(-1)"
+            >
+              <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path d="M15 5l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              class="absolute right-4 top-1/2 inline-flex size-11 -translate-y-1/2 cursor-pointer items-center justify-center border border-white/15 bg-surface/40 text-on-surface backdrop-blur-md transition-colors hover:bg-on-surface hover:text-surface"
+              :aria-label="t('projectDetail.next')"
+              @click.stop="cycleImage(1)"
+            >
+              <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div class="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-2">
+              <button
+                v-for="i in slideCount"
+                :key="i"
+                type="button"
+                class="h-0.5 w-8 cursor-pointer transition-all duration-300"
+                :class="i - 1 === activeImage ? 'bg-on-surface' : 'bg-on-surface/30 hover:bg-on-surface/60'"
+                :aria-label="`${project.title} — ${i}`"
+                @click.stop="setImage(i - 1)"
+              />
+            </div>
+          </template>
+
           <button
             type="button"
             class="absolute right-4 top-4 inline-flex size-11 cursor-pointer items-center justify-center border border-white/15 bg-surface/40 text-on-surface backdrop-blur-md transition-colors hover:bg-on-surface hover:text-surface"
             :aria-label="t('projectDetail.close')"
-            @click="closeLightbox"
+            @click.stop="closeLightbox"
           >
             <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
               <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round" />
