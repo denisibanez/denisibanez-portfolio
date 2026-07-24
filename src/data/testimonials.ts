@@ -44,4 +44,12 @@ export const testimonials: Testimonial[] = [
     role: 'Frontend Software Engineer, Cielo',
     photo: '/testimonials/fernando-jesus.jpg',
   },
+  {
+    quote:
+      'Denis é bastante detalhista, e entrega tudo com bastante qualidade. Sempre se esforçou muito em todas as tarefas que se envolveu para ter o melhor resultado.',
+    full: 'Denis é bastante detalhista, e entrega tudo com bastante qualidade. Sempre se esforçou muito em todas as tarefas que se envolveu para ter o melhor resultado.',
+    name: 'Caio Marcelo Nardi',
+    role: 'Tech Lead, Zukkin',
+    photo: '/testimonials/caio-nardi.jpg',
+  },
 ]

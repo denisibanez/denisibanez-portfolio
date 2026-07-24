@@ -9,6 +9,7 @@ Expected files:
 - `antonio-santos.jpg` — Antonio Santos
 - `alex-costa.jpg` — Alex Costa
 - `fernando-jesus.jpg` — Fernando Jesus
+- `caio-nardi.jpg` — Caio Marcelo Nardi
 
 If a file is missing the Testimonials page falls back to the person's
 initials (no broken image), so it's safe to add photos incrementally.
