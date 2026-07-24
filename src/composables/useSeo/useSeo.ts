@@ -46,6 +46,34 @@ export const useSeo = () => {
   const description = computed(() => page.value.description)
   const url = computed(() => `${site.url}${route.path}`)
 
+  // Structured data (JSON-LD): a Person + WebSite on every page, plus a
+  // BreadcrumbList on the project routes for richer results.
+  const structuredData = computed(() => {
+    const graph: Record<string, unknown>[] = [
+      { '@type': 'WebSite', name: site.name, url: site.url },
+      {
+        '@type': 'Person',
+        name: site.name,
+        jobTitle: site.role,
+        url: site.url,
+        description: site.description,
+        sameAs: site.socials.map((s) => s.href),
+      },
+    ]
+    const p = project.value
+    if (p) {
+      graph.push({
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: site.name, item: site.url },
+          { '@type': 'ListItem', position: 2, name: 'Projects', item: `${site.url}/projects` },
+          { '@type': 'ListItem', position: 3, name: p.title, item: `${site.url}/projects/${p.slug}` },
+        ],
+      })
+    }
+    return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })
+  })
+
   useHead({
     title,
     meta: [
@@ -58,5 +86,6 @@ export const useSeo = () => {
       { name: 'twitter:description', content: description },
     ],
     link: [{ rel: 'canonical', href: url }],
+    script: [{ type: 'application/ld+json', innerHTML: structuredData, key: 'ld-json' }],
   })
 }
