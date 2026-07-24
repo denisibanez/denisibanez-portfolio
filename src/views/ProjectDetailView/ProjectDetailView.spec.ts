@@ -55,9 +55,11 @@ describe('ProjectDetailView', () => {
     expect(wrapper.text()).toContain('2024')
   })
 
-  it('drills into the specs page when "View details" is clicked', async () => {
+  it('drills into the specs page via the "View details" link', async () => {
     const { wrapper, router } = await factory('aether-watch')
-    await wrapper.findAll('button').find((b) => b.text() === 'View details')?.trigger('click')
+    const link = wrapper.findAll('a').find((a) => a.text() === 'View details')
+    expect(link?.attributes('href')).toBe('/projects/aether-watch/specs')
+    await link?.trigger('click')
     await flushPromises()
     expect(router.currentRoute.value.name).toBe('project-specs')
     expect(router.currentRoute.value.params.slug).toBe('aether-watch')

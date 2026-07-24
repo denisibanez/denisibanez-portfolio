@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import type { Tab } from './BaseTabs.types'
 
 type Props = { tabs: Tab[]; modelValue: string }
@@ -6,22 +7,32 @@ type Props = { tabs: Tab[]; modelValue: string }
 const props = defineProps<Props>()
 const emit = defineEmits<{ 'update:modelValue': [value: string] }>()
 
+const tablistEl = ref<HTMLElement | null>(null)
+
 const select = (value: string) => {
   if (value !== props.modelValue) emit('update:modelValue', value)
 }
 
-// Roving arrow-key navigation across the tabs.
+// Roving keyboard navigation: arrows + Home/End select AND move focus so the
+// focused tab is always the selected one (WAI-ARIA automatic-activation pattern).
 const onKey = (event: KeyboardEvent, index: number) => {
-  const direction = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0
-  if (!direction) return
+  const last = props.tabs.length - 1
+  const targets: Record<string, number> = {
+    ArrowRight: (index + 1) % props.tabs.length,
+    ArrowLeft: (index - 1 + props.tabs.length) % props.tabs.length,
+    Home: 0,
+    End: last,
+  }
+  const next = targets[event.key]
+  if (next === undefined) return
   event.preventDefault()
-  const next = (index + direction + props.tabs.length) % props.tabs.length
   select(props.tabs[next]!.value)
+  tablistEl.value?.querySelectorAll<HTMLElement>('[role="tab"]')[next]?.focus()
 }
 </script>
 
 <template>
-  <div role="tablist" class="flex flex-wrap gap-6 border-b border-outline-variant/30">
+  <div ref="tablistEl" role="tablist" class="flex flex-wrap gap-6 border-b border-outline-variant/30">
     <button
       v-for="(tab, i) in tabs"
       :key="tab.value"

@@ -1,23 +1,34 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { createI18n } from 'vue-i18n'
+import { createRouter, createMemoryHistory } from 'vue-router'
 import NotFoundView from './NotFoundView.vue'
 
 const i18n = createI18n({
   legacy: false,
   locale: 'en',
   messages: {
-    en: { notFound: { eyebrow: 'Lost?', message: 'That page does not exist.', cta: 'Back home' } },
+    en: {
+      notFound: { eyebrow: 'Lost?', title: 'Page not found', message: 'That page does not exist.', cta: 'Back home' },
+    },
   },
 })
 
-const factory = () => mount(NotFoundView, { global: { plugins: [i18n] } })
+const router = createRouter({
+  history: createMemoryHistory(),
+  routes: [{ path: '/', name: 'home', component: { template: '<div />' } }],
+})
+
+const factory = () => mount(NotFoundView, { global: { plugins: [i18n, router] } })
 
 describe('NotFoundView', () => {
-  it('renders the back-home button with the CTA label', () => {
+  it('renders the heading, message and a back-home link', () => {
     const wrapper = factory()
-    const button = wrapper.get('button')
-    expect(button.text()).toBe('Back home')
+    expect(wrapper.get('h1').text()).toBe('Page not found')
+    expect(wrapper.text()).toContain('That page does not exist.')
+    const link = wrapper.get('a')
+    expect(link.text()).toBe('Back home')
+    expect(link.attributes('href')).toBe('/')
   })
 
   it('shows the notfound background image', () => {

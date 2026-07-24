@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
 import { Motion } from 'motion-v'
 import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
 import { useRise } from '@/composables/useRise/useRise'
@@ -9,9 +8,6 @@ import aboutBg from '@/assets/images/about-bg.jpg'
 
 const { t } = useI18n()
 const { rise } = useRise()
-const router = useRouter()
-
-const goToProjects = () => router.push({ name: 'projects' })
 
 // SAFe® credential badge — drop the artwork at public/certifications/safe-sp.png.
 // If it's missing we degrade gracefully to the text-only credential.
@@ -70,15 +66,14 @@ const badgeError = ref(false)
             {{ t('about.body') }}
           </Motion>
           <Motion as="div" v-bind="rise(0.5)" class="mt-10">
-            <button
-              type="button"
+            <RouterLink
+              :to="{ name: 'projects' }"
               class="group inline-flex cursor-pointer items-center gap-4 text-label-lg uppercase tracking-widest text-on-surface transition-colors hover:text-primary"
-              @click="goToProjects"
             >
               <span class="h-px w-12 bg-on-surface transition-all group-hover:w-16" />
               {{ t('about.cta') }}
               <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">&rarr;</span>
-            </button>
+            </RouterLink>
           </Motion>
         </div>
       </div>
@@ -128,15 +123,14 @@ const badgeError = ref(false)
           {{ t('about.body') }}
         </Motion>
         <Motion as="div" v-bind="rise(0.5)" class="mt-2">
-          <button
-            type="button"
+          <RouterLink
+            :to="{ name: 'projects' }"
             class="group inline-flex cursor-pointer items-center gap-4 text-label-lg uppercase tracking-widest text-on-surface transition-colors hover:text-primary"
-            @click="goToProjects"
           >
             <span class="h-px w-12 bg-on-surface" />
             {{ t('about.cta') }}
             <span aria-hidden="true">&rarr;</span>
-          </button>
+          </RouterLink>
         </Motion>
       </div>
     </div>

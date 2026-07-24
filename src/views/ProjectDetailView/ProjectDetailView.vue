@@ -77,19 +77,9 @@ watch(slug, () => {
   lightboxOpen.value = false
 })
 
-const goToProjects = () => router.push({ name: 'projects' })
 const goToProject = (target: Project | null) => {
   if (!target) return
   router.push({ name: 'project-detail', params: { slug: target.slug } })
-}
-// "View details" drills into the full project specification page.
-const goToSpecs = () => {
-  const current = project.value
-  if (!current) return
-  router.push({ name: 'project-specs', params: { slug: current.slug } })
-}
-const openRepo = () => {
-  if (project.value?.repoUrl) window.open(project.value.repoUrl, '_blank', 'noopener')
 }
 
 const { rise } = useRise()
@@ -201,18 +191,28 @@ const { rise } = useRise()
           </Motion>
 
           <Motion as="div" v-bind="rise(0.3)" class="flex flex-wrap gap-3 sm:gap-4">
-            <BaseButton variant="primary" class="min-w-[45%] flex-1 text-center sm:min-w-0 sm:flex-none" @click="goToSpecs">
+            <BaseButton
+              variant="primary"
+              class="min-w-[45%] flex-1 text-center sm:min-w-0 sm:flex-none"
+              :to="{ name: 'project-specs', params: { slug: project.slug } }"
+            >
               {{ t('projectDetail.viewLive') }}
             </BaseButton>
             <BaseButton
               v-if="project.kind === 'study' && project.repoUrl"
               variant="outline"
               class="min-w-[45%] flex-1 text-center sm:min-w-0 sm:flex-none"
-              @click="openRepo"
+              :href="project.repoUrl"
+              target="_blank"
+              rel="noopener"
             >
               {{ t('projectDetail.viewGithub') }}
             </BaseButton>
-            <BaseButton variant="outline" class="min-w-[45%] flex-1 text-center sm:min-w-0 sm:flex-none" @click="goToProjects">
+            <BaseButton
+              variant="outline"
+              class="min-w-[45%] flex-1 text-center sm:min-w-0 sm:flex-none"
+              :to="{ name: 'projects' }"
+            >
               {{ t('projectDetail.back') }}
             </BaseButton>
           </Motion>
@@ -249,7 +249,7 @@ const { rise } = useRise()
       <!-- Unknown slug -->
       <div v-else class="flex flex-col items-start gap-6">
         <h1 class="text-headline-md md:text-headline-lg">{{ t('projectDetail.notFound') }}</h1>
-        <BaseButton variant="outline" @click="goToProjects">{{ t('projectDetail.back') }}</BaseButton>
+        <BaseButton variant="outline" :to="{ name: 'projects' }">{{ t('projectDetail.back') }}</BaseButton>
       </div>
     </div>
 

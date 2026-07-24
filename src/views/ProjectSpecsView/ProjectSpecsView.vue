@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
 import { Motion } from 'motion-v'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
@@ -16,7 +15,6 @@ type Props = { slug?: string }
 const props = defineProps<Props>()
 
 const { t } = useI18n()
-const router = useRouter()
 const { project } = useProjectRoute(() => props.slug)
 
 // Demo filler so the scroll + progress bar are visible; replace with real copy.
@@ -37,15 +35,6 @@ const onScroll = () => {
   if (!el) return
   const max = el.scrollHeight - el.clientHeight
   scrollProgress.value = max > 0 ? (el.scrollTop / max) * 100 : 0
-}
-
-const goToProjects = () => router.push({ name: 'projects' })
-const openLive = () => {
-  // Falls back to the portfolio site until projects carry real live URLs.
-  window.open(project.value?.url ?? site.url, '_blank', 'noopener')
-}
-const openRepo = () => {
-  if (project.value?.repoUrl) window.open(project.value.repoUrl, '_blank', 'noopener')
 }
 
 // Shared panel/label styles.
@@ -106,18 +95,26 @@ const { rise } = useRise()
           </div>
 
           <div class="mt-8 flex shrink-0 flex-wrap gap-3 sm:gap-4">
-            <BaseButton variant="primary" class="min-w-[45%] flex-1 text-center sm:min-w-0" @click="openLive">
+            <BaseButton
+              variant="primary"
+              class="min-w-[45%] flex-1 text-center sm:min-w-0"
+              :href="project.url ?? site.url"
+              target="_blank"
+              rel="noopener"
+            >
               {{ t('projectSpecs.viewLive') }}
             </BaseButton>
             <BaseButton
               v-if="project.kind === 'study' && project.repoUrl"
               variant="outline"
               class="min-w-[45%] flex-1 text-center sm:min-w-0"
-              @click="openRepo"
+              :href="project.repoUrl"
+              target="_blank"
+              rel="noopener"
             >
               {{ t('projectSpecs.viewGithub') }}
             </BaseButton>
-            <BaseButton variant="outline" class="min-w-[45%] flex-1 text-center sm:min-w-0" @click="goToProjects">
+            <BaseButton variant="outline" class="min-w-[45%] flex-1 text-center sm:min-w-0" :to="{ name: 'projects' }">
               {{ t('projectSpecs.back') }}
             </BaseButton>
           </div>
@@ -172,7 +169,7 @@ const { rise } = useRise()
       <!-- Unknown slug -->
       <div v-else class="flex flex-col items-start gap-6">
         <h1 class="text-headline-md md:text-headline-lg">{{ t('projectSpecs.notFound') }}</h1>
-        <BaseButton variant="outline" @click="goToProjects">{{ t('projectSpecs.back') }}</BaseButton>
+        <BaseButton variant="outline" :to="{ name: 'projects' }">{{ t('projectSpecs.back') }}</BaseButton>
       </div>
     </div>
   </MediaBackdrop>

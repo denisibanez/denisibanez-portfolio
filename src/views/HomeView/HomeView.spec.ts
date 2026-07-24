@@ -1,7 +1,16 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { createI18n } from 'vue-i18n'
+import { createRouter, createMemoryHistory } from 'vue-router'
 import HomeView from './HomeView.vue'
+
+const router = createRouter({
+  history: createMemoryHistory(),
+  routes: [
+    { path: '/', name: 'home', component: { template: '<div />' } },
+    { path: '/projects', name: 'projects', component: { template: '<div />' } },
+  ],
+})
 
 const i18n = createI18n({
   legacy: false,
@@ -20,7 +29,7 @@ const i18n = createI18n({
   },
 })
 
-const factory = () => mount(HomeView, { global: { plugins: [i18n] } })
+const factory = () => mount(HomeView, { global: { plugins: [i18n, router] } })
 
 describe('HomeView', () => {
   it('renders the hero heading with the name and role', () => {

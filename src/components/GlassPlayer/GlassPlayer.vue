@@ -67,6 +67,8 @@ const MORPH_MS = 520;
 const OPEN_HEIGHT_FALLBACK = 480;
 
 let morphTimer: ReturnType<typeof setTimeout> | null = null;
+// Restore focus to whatever opened the player (the play button) on close.
+let lastFocused: HTMLElement | null = null;
 
 const onKey = (event: KeyboardEvent) => {
   if (event.key === "Escape" && props.open) emit("close");
@@ -133,12 +135,18 @@ watch(
   () => props.open,
   async (open) => {
     if (open) {
+      lastFocused = document.activeElement as HTMLElement | null;
       await morphToOpen();
-      nextTick(() => audio.value?.play().catch(() => {}));
+      nextTick(() => {
+        audio.value?.play().catch(() => {});
+        wrapEl.value?.querySelector<HTMLElement>(".close-btn")?.focus();
+      });
     } else {
       audio.value?.pause();
       playing.value = false;
       await morphToClosed();
+      lastFocused?.focus();
+      lastFocused = null;
     }
   },
 );

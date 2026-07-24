@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { RouterLink, type RouteLocationRaw } from 'vue-router'
 
 type Variant = 'primary' | 'outline'
 
@@ -9,6 +10,10 @@ type Props = {
   disabled?: boolean
   /** Full width on mobile, auto from `sm` up. */
   block?: boolean
+  /** Render as a router link (internal navigation) — keeps link semantics. */
+  to?: RouteLocationRaw
+  /** Render as an anchor (external link). Pair with target/rel via attrs. */
+  href?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -16,9 +21,22 @@ const props = withDefaults(defineProps<Props>(), {
   type: 'button',
   disabled: false,
   block: false,
+  to: undefined,
+  href: undefined,
 })
 
 const emit = defineEmits<{ click: [event: MouseEvent] }>()
+
+// A CTA that navigates must be a link (crawlable, Cmd/middle-click, SR "link").
+const tag = computed(() => (props.to ? RouterLink : props.href ? 'a' : 'button'))
+
+// Bind only the props for the chosen element — passing an explicit (even
+// undefined) `href` to RouterLink would clobber the href it generates.
+const elementProps = computed(() => {
+  if (props.to) return { to: props.to }
+  if (props.href) return { href: props.href }
+  return { type: props.type, disabled: props.disabled }
+})
 
 // Lookup map instead of branching on the variant.
 const variantClass: Record<Variant, string> = {
@@ -43,8 +61,8 @@ const onClick = (event: MouseEvent) => {
 </script>
 
 <template>
-  <button :type="type" :disabled="disabled" :class="classes" @click="onClick">
+  <component :is="tag" v-bind="elementProps" :class="classes" @click="onClick">
     <slot />
     <slot name="trailing" />
-  </button>
+  </component>
 </template>

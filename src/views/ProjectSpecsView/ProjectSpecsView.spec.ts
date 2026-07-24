@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import { createI18n } from 'vue-i18n'
 import { createRouter, createMemoryHistory, type Router } from 'vue-router'
@@ -61,19 +61,19 @@ describe('ProjectSpecsView', () => {
     expect(text).toContain('Three.js') // tech pill
   })
 
-  it('opens a live URL when "View live project" is clicked', async () => {
+  it('exposes the live project as an external link', async () => {
     const { wrapper } = await factory('aether-watch')
-    const openSpy = vi.spyOn(window, 'open').mockImplementation(() => null)
-    const live = wrapper.findAll('button').find((b) => b.text() === 'View live project')
-    expect(live?.attributes('disabled')).toBeUndefined()
-    await live?.trigger('click')
-    expect(openSpy).toHaveBeenCalledOnce()
-    openSpy.mockRestore()
+    const live = wrapper.findAll('a').find((a) => a.text() === 'View live project')
+    expect(live?.attributes('href')).toBeTruthy()
+    expect(live?.attributes('target')).toBe('_blank')
+    expect(live?.attributes('rel')).toContain('noopener')
   })
 
-  it('navigates back to the projects list', async () => {
+  it('links back to the projects list', async () => {
     const { wrapper, router } = await factory('aether-watch')
-    await wrapper.findAll('button').find((b) => b.text() === 'Back to Portfolio')?.trigger('click')
+    const back = wrapper.findAll('a').find((a) => a.text() === 'Back to Portfolio')
+    expect(back?.attributes('href')).toBe('/projects')
+    await back?.trigger('click')
     await flushPromises()
     expect(router.currentRoute.value.name).toBe('projects')
   })

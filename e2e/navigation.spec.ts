@@ -33,9 +33,9 @@ test('switches the interface language', async ({ page }) => {
     .catch(() => {})
   await expect(page.getByRole('button', { name: /download resume/i })).toBeVisible()
 
-  // The language trigger is the listbox button in the header.
-  await page.locator('button[aria-haspopup="listbox"]').click()
-  await page.getByRole('option', { name: 'PT' }).click()
+  // The language trigger is the menu button in the header.
+  await page.locator('button[aria-haspopup="menu"]').click()
+  await page.getByRole('menuitem', { name: 'PT' }).click()
 
   await expect(page.getByRole('button', { name: /baixar resume/i })).toBeVisible()
 })
