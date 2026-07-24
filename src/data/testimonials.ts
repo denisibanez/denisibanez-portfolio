@@ -107,4 +107,13 @@ export const testimonials: Testimonial[] = [
     role: 'Staff Product Manager, Cielo',
     photo: '/testimonials/caroline-vitorino.jpg',
   },
+  {
+    quote:
+      'Dos melhores front-ends com que já trabalhei. Muito competente, com uma entrega absurda e sempre pronto a compartilhar conhecimento com todos.',
+    full: 'O Denis é dos melhores front-ends com que já trabalhei. Muito competente, com uma entrega absurda e sempre pronto a compartilhar conhecimento com todos. Uma honra trabalhar com você, meu brother!',
+    name: 'Danilo Sampaio',
+    link: 'https://www.linkedin.com/in/arpesam/',
+    role: 'Sr. Software Engineer, Kovi',
+    photo: '/testimonials/danilo-sampaio.jpg',
+  },
 ]
