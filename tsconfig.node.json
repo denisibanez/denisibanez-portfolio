@@ -14,6 +14,12 @@
     "module": "preserve",
     "moduleResolution": "bundler",
 
+    // vite.config imports project data (src/data, src/config) to derive the
+    // prerender route list + sitemap, so it needs the `@` alias too.
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
     // Include Node.js types and avoid accidentally including other `@types/*` packages.
     "types": ["node"],
 

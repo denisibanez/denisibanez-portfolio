@@ -55,10 +55,12 @@ Nested routes under layouts, so page chrome lives in the layout, not the page:
   HTML (real content + per-route `<title>`/meta/OG/JSON-LD from `useSeo`), then the
   client hydrates into a normal SPA. `main.ts` exports `createApp = ViteSSG(...)`;
   `router/index.ts` exports the `routes` array (vite-ssg owns the router + head).
-  - Routes to prerender are listed in `vite.config.ts` → `ssgOptions.includedRoutes`
-    (static pages + published project detail/specs). Project pages aren't reachable
-    via crawlable `<a>` links, so they must be listed explicitly — keep in sync with
-    `sitemap.xml` when published projects change.
+  - **Single source of truth**: `vite.config.ts` derives both the prerender list
+    (`ssgOptions.includedRoutes`) and `sitemap.xml` from `src/data/projects`
+    (published projects only — drafts are excluded from both). The sitemap is
+    generated into `dist/` by `ssgOptions.onFinished`, so it never drifts. Project
+    pages aren't reachable via crawlable `<a>` links (carousel cards are buttons),
+    which is why they're listed explicitly rather than discovered by crawling.
   - **`@unhead/vue` is pinned to v2** to match vite-ssg (v3 uses a different head
     instance and its tags won't render into the prerendered HTML).
   - Vercel serves the prerendered files (`cleanUrls`); the `/(.*) → /index.html`

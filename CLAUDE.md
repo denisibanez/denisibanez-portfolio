@@ -65,3 +65,9 @@ Husky pre-commit runs `lint:eslint` + `type-check`. Use the **`open-pr`** skill 
    the prebuilt `storybook-static/` folder from *outside* the repo (no root `vercel.json`).
 5. **PR auth.** SSH pushes as `denisibanez`; the `gh` CLI is `ibanezdenis2886` (not a
    collaborator) so `gh pr create` fails — open PRs via the web URL.
+6. **SSG build + `@unhead/vue` is pinned to v2.** `pnpm build` runs `vite-ssg build`
+   (prerenders every route to HTML). vite-ssg depends on unhead **v2**, so `@unhead/vue`
+   is pinned to `^2` on purpose — upgrading to v3 gives a *different* head instance and
+   `useSeo`'s title/meta/JSON-LD silently stop rendering into the prerendered HTML. Don't
+   bump it without bumping vite-ssg to match. Prerendered routes + `sitemap.xml` are both
+   derived from `src/data/projects` in `vite.config.ts` (no manual list to keep in sync).
