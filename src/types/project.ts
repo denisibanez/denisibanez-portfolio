@@ -34,6 +34,9 @@ export type Project = {
   image?: string
   /** Detail-page gallery (ordered). Falls back to `[image]` when omitted. */
   images?: string[]
+  /** Optional showcase video (path under public/). Leads the gallery, using
+   *  `image` as its poster; plays with controls in the lightbox. */
+  video?: string
   /** External live URL, when the project is published. */
   url?: string
   /** Repository URL — study projects surface a "View on GitHub" action. */

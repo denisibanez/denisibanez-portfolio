@@ -33,14 +33,25 @@ const progress = computed(() => {
   return ((currentIndex.value + 1) / projects.length) * 100
 })
 
-// Image gallery — `images` when provided, else the single cover, else a few
-// placeholder frames until real shots land.
-const gallery = computed(
-  () => project.value?.images ?? (project.value?.image ? [project.value.image] : []),
-)
+// Gallery media — an optional lead video (poster = cover image) followed by the
+// image gallery (`images`, else the single cover). Empty until real shots land.
+type Media = { type: 'image'; src: string } | { type: 'video'; src: string; poster?: string }
+const gallery = computed<Media[]>(() => {
+  const p = project.value
+  if (!p) return []
+  const images: Media[] = (p.images ?? (p.image ? [p.image] : [])).map((src) => ({ type: 'image', src }))
+  return p.video ? [{ type: 'video', src: p.video, poster: p.image }, ...images] : images
+})
 const slideCount = computed(() => (gallery.value.length > 0 ? gallery.value.length : 3))
 const activeImage = ref(0)
-const activeSrc = computed(() => gallery.value[activeImage.value])
+const activeMedia = computed(() => gallery.value[activeImage.value])
+const activeIsVideo = computed(() => activeMedia.value?.type === 'video')
+// Still shown in the small media box — video slides show their poster there.
+const activePoster = computed(() => {
+  const m = activeMedia.value
+  if (!m) return undefined
+  return m.type === 'video' ? m.poster : m.src
+})
 
 const initials = computed(() => (project.value ? getInitials(project.value.title) : ''))
 const heroCode = computed(() => `${initials.value} — ${String(activeImage.value + 1).padStart(2, '0')}`)
@@ -153,8 +164,8 @@ const { rise } = useRise()
           @keydown.space.prevent="openLightbox"
         >
           <img
-            v-if="activeSrc"
-            :src="activeSrc"
+            v-if="activePoster"
+            :src="activePoster"
             :alt="project.title"
             draggable="false"
             class="pointer-events-none h-full w-full object-contain transition-transform duration-700 group-hover:scale-105"
@@ -171,6 +182,19 @@ const { rise } = useRise()
           </div>
 
           <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-surface/50 to-transparent" />
+
+          <!-- Play badge — video slide leads the gallery; click opens it in the lightbox -->
+          <div
+            v-if="activeIsVideo"
+            class="pointer-events-none absolute inset-0 flex items-center justify-center"
+            aria-hidden="true"
+          >
+            <span class="inline-flex size-16 items-center justify-center rounded-full border border-white/20 bg-surface/50 text-on-surface backdrop-blur-md transition-transform duration-300 group-hover:scale-110">
+              <svg class="size-7 translate-x-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </span>
+          </div>
 
           <!-- Maximize -->
           <button
@@ -290,9 +314,21 @@ const { rise } = useRise()
         @pointerdown="onDragStart"
         @pointerup="onDragEnd"
       >
+          <video
+            v-if="activeIsVideo"
+            :src="activeMedia?.src"
+            :poster="activePoster"
+            controls
+            autoplay
+            playsinline
+            class="h-full w-full object-contain"
+            @click.stop
+            @pointerdown.stop
+            @pointerup.stop
+          />
           <img
-            v-if="activeSrc"
-            :src="activeSrc"
+            v-else-if="activePoster"
+            :src="activePoster"
             :alt="project.title"
             draggable="false"
             class="pointer-events-none h-full w-full object-contain"

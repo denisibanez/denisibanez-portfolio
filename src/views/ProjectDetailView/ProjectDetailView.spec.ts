@@ -86,6 +86,19 @@ describe('ProjectDetailView', () => {
     expect(document.body.querySelector('[role="dialog"]')).toBeNull()
   })
 
+  it('leads the gallery with a video, played with controls in the lightbox', async () => {
+    // 'gamma' has a video → the small media box shows a play badge (poster, no
+    // <video>); the lightbox plays the real video source with controls.
+    const { wrapper } = await factory('gamma')
+    expect(wrapper.find('video').exists()).toBe(false)
+    await wrapper.find('button[aria-label="Expand image"]').trigger('click')
+    await nextTick()
+    const video = document.body.querySelector<HTMLVideoElement>('[role="dialog"] video')
+    expect(video).not.toBeNull()
+    expect(video?.getAttribute('src')).toBe('/gamma.mp4')
+    expect(video?.hasAttribute('controls')).toBe(true)
+  })
+
   it('changes the gallery frame when the media is dragged sideways', async () => {
     // 'alpha' has no image, so the placeholder heroCode shows the frame index.
     const { wrapper } = await factory('alpha')

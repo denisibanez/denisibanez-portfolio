@@ -36,6 +36,11 @@ images: [                                  // detail-page gallery, in order
 ordered gallery; if omitted it falls back to `[image]`. With no image at all, the
 card shows a gradient placeholder (no broken image).
 
+An optional `video: '/projects/<slug>/home.mp4'` leads the gallery: the detail
+media box shows the play badge over `image` (its poster), and the lightbox plays
+the video with controls. Keep videos web-friendly (H.264 MP4); they are committed
+and served, so only include what's safe to publish.
+
 Bulky raw captures (e.g. full-page screenshots) go under `<slug>/_source/`, which
 is also gitignored — crop the hero/gallery frames out of them into the folder root.
 
@@ -44,5 +49,9 @@ is also gitignored — crop the hero/gallery frames out of them into the folder 
 - `betfair-skybet/` — Betfair & SkyBet (Blip). Cover + gallery from the public
   product plus a few Stories/FeaturedMarkets frames. Full Figma export kept local
   under `figma-export/`.
-- `eurowings/` — Eurowings (Aubay). `home.png` + `section.png` cropped from the
-  public site; the full-page capture is kept local under `_source/`.
+- `eurowings/` — Eurowings (Aubay). `mobile.png` (card cover) + `home.png` +
+  `section.png` cropped from the public site; the full-page capture is kept local
+  under `_source/`.
+- `noatum/` — Noatum (Amaris). `home.png` (cover + video poster) cropped from the
+  public site, plus `home.mp4` (showcase video). Raw full-page capture kept local
+  under `_source/`.

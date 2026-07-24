@@ -53,6 +53,8 @@ export const projects: Project[] = [
     techStack: ['Vue 3'],
     role: 'Engineer',
     collaborators: 'Gamma Inc',
+    image: '/gamma-cover.png',
+    video: '/gamma.mp4',
   },
   {
     slug: 'delta-draft',
