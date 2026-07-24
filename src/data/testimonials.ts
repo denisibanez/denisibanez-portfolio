@@ -61,6 +61,6 @@ export const testimonials: Testimonial[] = [
     name: 'Fabio Santos Goveia',
     link: 'https://www.linkedin.com/in/fabiogoveia-product-ai/',
     role: 'Consultor em Product Design & IA, Cielo',
-    photo: '/testimonials/fabio-goveia.jpg',
+    photo: '/testimonials/fabio-gouveia.jpg',
   },
 ]
