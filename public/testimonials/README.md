@@ -14,6 +14,7 @@ Expected files:
 - `everton-dario.jpg` — Everton Dario
 - `alex-alcantara.jpg` — Alex Alcantara
 - `bruno-fernandes.jpg` — Bruno Fernandes
+- `dimi-vargas.jpg` — Dimi Antoni Vargas
 
 If a file is missing the Testimonials page falls back to the person's
 initials (no broken image), so it's safe to add photos incrementally.

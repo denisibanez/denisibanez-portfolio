@@ -90,4 +90,13 @@ export const testimonials: Testimonial[] = [
     role: 'Co-Founder, Zukkin',
     photo: '/testimonials/bruno-fernandes.jpg',
   },
+  {
+    quote:
+      'Experiência absurda com Front-end, destaque para as habilidades em codar layouts, além da grande experiência com Vue.js.',
+    full: 'Trabalhei com o Denis na Kovi por uns 5 meses. Além de ser uma pessoa sensacional para compartilhar o ambiente de trabalho, tem uma experiência absurda com Front-end, destaque para as habilidades em codar layouts, além da grande experiência com Vue.js.',
+    name: 'Dimi Antoni Vargas',
+    link: 'https://www.linkedin.com/in/dimiantoni/',
+    role: 'Senior Software Engineer, Kovi',
+    photo: '/testimonials/dimi-vargas.jpg',
+  },
 ]
