@@ -41,6 +41,7 @@ export const testimonials: Testimonial[] = [
     quote: 'O Denis é dedicado e resiliente. Dominava a área que atuava, front-end do credenciamento era com ele :)',
     full: 'O Denis é dedicado e resiliente.\n\nDominava a área que atuava, front-end do credenciamento era com ele :)\nTrabalha muito bem em equipe e assumia de frente nossos desafios.',
     name: 'Fernando Jesus',
+    link: 'https://www.linkedin.com/in/fernandorjesus/',
     role: 'Frontend Software Engineer, Cielo',
     photo: '/testimonials/fernando-jesus.jpg',
   },
@@ -49,7 +50,17 @@ export const testimonials: Testimonial[] = [
       'Denis é bastante detalhista, e entrega tudo com bastante qualidade. Sempre se esforçou muito em todas as tarefas que se envolveu para ter o melhor resultado.',
     full: 'Denis é bastante detalhista, e entrega tudo com bastante qualidade. Sempre se esforçou muito em todas as tarefas que se envolveu para ter o melhor resultado.',
     name: 'Caio Marcelo Nardi',
+    link: 'https://www.linkedin.com/in/cmnardi/',
     role: 'Tech Lead, Zukkin',
     photo: '/testimonials/caio-nardi.jpg',
+  },
+  {
+    quote:
+      'Denis é um excelente profissional, com muitas habilidades técnicas. Está sempre em busca de novos conhecimentos que agregue na sua vida profissional. Também tem um lado comportamental ótimo e muita paciência para ensinar pessoas.',
+    full: 'Denis é um excelente profissional, com muitas habilidades técnicas. Está sempre em busca de novos conhecimentos que agregue na sua vida profissional. Também tem um lado comportamental ótimo e muita paciência para ensinar pessoas.',
+    name: 'Fabio Santos Goveia',
+    link: 'https://www.linkedin.com/in/fabiogoveia-product-ai/',
+    role: 'Consultor em Product Design & IA, Cielo',
+    photo: '/testimonials/fabio-goveia.jpg',
   },
 ]
