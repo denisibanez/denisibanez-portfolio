@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { useI18n } from 'vue-i18n'
 import BaseCarousel from '@/components/BaseCarousel/BaseCarousel.vue'
 import BaseModal from '@/components/BaseModal/BaseModal.vue'
@@ -10,6 +10,10 @@ import type { Testimonial } from '@/types/testimonial'
 import testimonialsBg from '@/assets/images/banner-portfolio.webp'
 
 const { t } = useI18n()
+
+// Photos degrade to initials if the file is missing/broken (keyed by name).
+const photoError = reactive<Record<string, boolean>>({})
+const hasPhoto = (item: Testimonial) => Boolean(item.photo) && !photoError[item.name]
 
 const testimonialCardClass =
   'flex w-[72vw] flex-col border border-white/10 bg-white/5 backdrop-blur-xl transition-colors hover:border-white/20 sm:w-[360px]'
@@ -38,9 +42,15 @@ const closeDetail = () => {
         @select="openDetail"
       >
         <template #card="{ item }">
-          <!-- Media: portrait, or an initials placeholder until real photos are added -->
+          <!-- Media: portrait, or an initials placeholder (also the fallback if the photo fails) -->
           <div class="h-28 w-full shrink-0 overflow-hidden sm:h-[22vh]">
-            <img v-if="item.photo" :src="item.photo" :alt="item.name" class="h-full w-full object-cover" />
+            <img
+              v-if="hasPhoto(item)"
+              :src="item.photo"
+              :alt="item.name"
+              class="h-full w-full object-cover"
+              @error="photoError[item.name] = true"
+            />
             <div
               v-else
               class="flex h-full w-full items-center justify-center bg-linear-to-br from-white/10 to-transparent"
@@ -73,7 +83,13 @@ const closeDetail = () => {
       >
           <!-- Media -->
           <div class="h-56 w-full shrink-0 overflow-hidden sm:h-auto sm:w-2/5">
-            <img v-if="selected.photo" :src="selected.photo" :alt="selected.name" class="h-full w-full object-cover" />
+            <img
+              v-if="hasPhoto(selected)"
+              :src="selected.photo"
+              :alt="selected.name"
+              class="h-full w-full object-cover"
+              @error="photoError[selected.name] = true"
+            />
             <div
               v-else
               class="flex h-full w-full items-center justify-center bg-linear-to-br from-white/12 to-transparent"
@@ -86,7 +102,7 @@ const closeDetail = () => {
           <!-- Copy -->
           <div class="flex flex-col overflow-y-auto p-8 sm:p-10">
             <span class="block text-6xl leading-none text-on-surface-variant/30" aria-hidden="true">&ldquo;</span>
-            <p class="mt-2 text-body-lg italic text-on-surface">{{ selected.full }}</p>
+            <p class="mt-2 whitespace-pre-line text-body-lg italic text-on-surface">{{ selected.full }}</p>
             <div class="mt-8">
               <h3 class="text-body-lg text-on-surface">{{ selected.name }}</h3>
               <p class="mt-1 text-label-lg uppercase tracking-widest text-on-surface-variant">{{ selected.role }}</p>
