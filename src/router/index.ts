@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
 
 /**
  * Routes are nested under a layout. Each top-level area owns a layout and
@@ -15,7 +15,7 @@ import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
  * The catch-all (404) is a top-level route that reuses DefaultLayout so the
  * standard header/footer still wrap the NotFound view.
  */
-const routes: RouteRecordRaw[] = [
+export const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('@/layouts/DefaultLayout.vue'),
@@ -42,10 +42,3 @@ const routes: RouteRecordRaw[] = [
     children: [{ path: '', name: 'not-found', component: () => import('@/views/NotFoundView/NotFoundView.vue') }],
   },
 ]
-
-const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes,
-})
-
-export default router

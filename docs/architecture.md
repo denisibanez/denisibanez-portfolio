@@ -51,6 +51,17 @@ Nested routes under layouts, so page chrome lives in the layout, not the page:
 
 ## Rendering & motion
 
-- SPA (history mode); Vercel rewrites all paths to `index.html`.
+- **Prerendered (SSG) via `vite-ssg`**: `pnpm build` renders every route to static
+  HTML (real content + per-route `<title>`/meta/OG/JSON-LD from `useSeo`), then the
+  client hydrates into a normal SPA. `main.ts` exports `createApp = ViteSSG(...)`;
+  `router/index.ts` exports the `routes` array (vite-ssg owns the router + head).
+  - Routes to prerender are listed in `vite.config.ts` → `ssgOptions.includedRoutes`
+    (static pages + published project detail/specs). Project pages aren't reachable
+    via crawlable `<a>` links, so they must be listed explicitly — keep in sync with
+    `sitemap.xml` when published projects change.
+  - **`@unhead/vue` is pinned to v2** to match vite-ssg (v3 uses a different head
+    instance and its tags won't render into the prerendered HTML).
+  - Vercel serves the prerendered files (`cleanUrls`); the `/(.*) → /index.html`
+    rewrite is the SPA fallback for non-prerendered paths (drafts, unknown slugs).
 - Entrance/interaction animation via **motion-v** (`<Motion>` + `useRise`), kept subtle and
   reduced-motion aware. No hand-rolled timers for entrances.

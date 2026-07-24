@@ -1,18 +1,15 @@
 import './assets/main.css'
 
-import { createApp } from 'vue'
+import { ViteSSG } from 'vite-ssg'
 import { createPinia } from 'pinia'
-import { createHead } from '@unhead/vue/client'
 
 import App from './App.vue'
-import router from './router'
+import { routes } from './router'
 import i18n from './i18n'
 
-const app = createApp(App)
-
-app.use(createPinia())
-app.use(router)
-app.use(i18n)
-app.use(createHead())
-
-app.mount('#app')
+// ViteSSG owns the app/router/head (head is installed by vite-ssg itself, so we
+// don't add unhead here). Plugins that carry state go in the setup callback.
+export const createApp = ViteSSG(App, { routes, base: import.meta.env.BASE_URL }, ({ app }) => {
+  app.use(createPinia())
+  app.use(i18n)
+})
