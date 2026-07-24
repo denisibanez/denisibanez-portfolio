@@ -36,8 +36,13 @@ images: [                                  // detail-page gallery, in order
 ordered gallery; if omitted it falls back to `[image]`. With no image at all, the
 card shows a gradient placeholder (no broken image).
 
+Bulky raw captures (e.g. full-page screenshots) go under `<slug>/_source/`, which
+is also gitignored — crop the hero/gallery frames out of them into the folder root.
+
 ## Projects
 
 - `betfair-skybet/` — Betfair & SkyBet (Blip). Cover + gallery from the public
   product plus a few Stories/FeaturedMarkets frames. Full Figma export kept local
   under `figma-export/`.
+- `eurowings/` — Eurowings (Aubay). `home.png` + `section.png` cropped from the
+  public site; the full-page capture is kept local under `_source/`.
