@@ -140,4 +140,13 @@ export const testimonials: Testimonial[] = [
     role: 'Business Analyst, ALS Global',
     photo: '/testimonials/vania-pontes.jpg',
   },
+  {
+    quote:
+      'Strong expertise in software design patterns and modern front-end. He integrated a new front-end stack into an existing Umbraco project in record time — and served as Technical Lead.',
+    full: "He demonstrates strong expertise in software design patterns and modern front-end technologies. He successfully took on the challenging task of integrating a new front-end technology stack into an existing Umbraco-based project, delivering a high-quality solution in record time.\n\nIn addition to being responsible for the project's technical implementation, he also served as the Technical Lead, guiding architectural decisions, coordinating development efforts, and ensuring the solution followed solid engineering practices and maintainable design standards.",
+    name: 'Roberto Borges',
+    link: 'https://www.linkedin.com/in/borgestj/',
+    role: 'Senior Software Engineer, Ageas',
+    photo: '/testimonials/roberto-borges.jpg',
+  },
 ]
