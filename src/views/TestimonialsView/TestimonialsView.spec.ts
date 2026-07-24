@@ -3,6 +3,7 @@ import { nextTick } from 'vue'
 import { mount, flushPromises } from '@vue/test-utils'
 import { createI18n } from 'vue-i18n'
 import TestimonialsView from './TestimonialsView.vue'
+import { testimonials } from '@/data/testimonials'
 
 const i18n = createI18n({
   legacy: false,
@@ -37,7 +38,7 @@ describe('TestimonialsView', () => {
 
   it('renders a card per testimonial with prev/next controls', () => {
     const wrapper = factory()
-    expect(wrapper.findAll('article').length).toBeGreaterThanOrEqual(4)
+    expect(wrapper.findAll('article').length).toBe(testimonials.length)
     expect(wrapper.findAll('button[aria-label="Previous"], button[aria-label="Next"]').length).toBe(2)
   })
 

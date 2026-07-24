@@ -22,9 +22,9 @@ const badgeError = ref(false)
       <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-surface/75 via-surface/35 to-transparent lg:hidden" />
     </template>
 
-    <div class="relative z-10 min-h-screen px-[5vw] pt-28 pb-28">
+    <div class="relative z-10 min-h-dvh px-[5vw] pt-28 pb-28">
       <!-- Desktop / tablet: two text columns flanking the centred portrait -->
-      <div class="hidden min-h-[calc(100vh-14rem)] grid-cols-12 items-center gap-8 lg:grid">
+      <div class="hidden min-h-[calc(100dvh-14rem)] grid-cols-12 items-center gap-8 lg:grid">
         <div class="col-span-4">
           <Motion
             as="p"
@@ -86,7 +86,7 @@ const badgeError = ref(false)
       </div>
 
       <!-- Mobile: single column anchored to the bottom over the portrait -->
-      <div class="flex min-h-[calc(100vh-14rem)] flex-col justify-end gap-5 lg:hidden">
+      <div class="flex min-h-[calc(100dvh-14rem)] flex-col justify-end gap-5 lg:hidden">
         <Motion
           as="p"
           v-bind="rise(0)"
