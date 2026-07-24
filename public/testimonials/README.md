@@ -18,6 +18,7 @@ Expected files:
 - `caroline-vitorino.jpg` — Caroline Vitorino
 - `danilo-sampaio.jpg` — Danilo Sampaio
 - `paula-honda.jpg` — Paula Honda
+- `igor-vinicius.jpg` — Igor Vinicius
 - `glaudston.jpg` — Glaudston
 - `vania-pontes.jpg` — Vania Pontes
 - `roberto-borges.jpg` — Roberto Borges

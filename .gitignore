@@ -50,3 +50,6 @@ storybook-static
 # they'd otherwise be publicly served from public/ and bloat the repo. Only the
 # curated, publish-safe images under public/projects/<slug>/ are committed.
 public/projects/**/figma-export/
+
+# Throwaway scripts
+_*.mjs
