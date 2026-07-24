@@ -125,4 +125,12 @@ export const testimonials: Testimonial[] = [
     role: 'Senior Director of Product Management, Gympass',
     photo: '/testimonials/paula-honda.jpg',
   },
+  {
+    quote:
+      'Um dom raro: transformar esforço em entrega, todos os dias. Foco na execução e saber pedir ajuda na hora certa fazia uma diferença enorme no ritmo do time inteiro.',
+    full: 'Trabalhei com uma pessoa que tinha um dom raro: transformar esforço em entrega, todos os dias.\n\nEnquanto o time (eu incluso) às vezes levava dias discutindo um desafio técnico, essa pessoa já tinha movido o ticket. Não uma vez, várias vezes por daily. Quando travava em algo técnico, não ficava sozinha remoendo o problema — puxava quem podia ajudar, resolvia junto, e seguia em frente.\n\nEssa combinação de foco em entrega + saber pedir ajuda na hora certa fazia uma diferença enorme no ritmo do time inteiro. E não era só sobre números: dava segurança pra gestão, porque sempre havia progresso visível e previsível.\n\nTenho certeza que muita gente nesse time cresceu tecnicamente aprendendo com quem gostava de resolver o desafio em si — mas também aprendi muito com quem tinha esse olhar cirúrgico pra execução. Times fortes precisam dos dois perfis.\n\nFicam o reconhecimento e o obrigado por tudo que essa parceria ensinou.',
+    name: 'Glaudston',
+    role: 'Senior Developer, Cielo',
+    photo: '/testimonials/glaudston.jpg',
+  },
 ]
