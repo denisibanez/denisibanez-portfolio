@@ -56,3 +56,12 @@ is also gitignored — crop the hero/gallery frames out of them into the folder 
 - `noatum/` — Noatum (Amaris). `home.png` (cover + video poster) cropped from the
   public site, plus `home.mp4` (showcase video). Raw full-page capture kept local
   under `_source/`.
+- `bentley/` — Bentley Systems (Jobbex). `home.png` (Cohesive renewables / wind
+  turbines) + `corporate.png` + `mobile.png`.
+- `ageas/` — Ageas Seguros (Askblue). `home.png` (dental-insurance landing) + `mobile.png`.
+- `pricefy/` — Pricefy / Selbetti. `home.png` + `mobile.png` + `team-*.jpg` (team photos).
+- `tempo/` — Tempo Assist. `home.png` + `mobile.png`.
+- `dock/` — Dock (BaaS). `home.png` + `mobile.png`.
+
+All cropped from the companies' public sites; raw full-page captures kept local
+under each `_source/`.
