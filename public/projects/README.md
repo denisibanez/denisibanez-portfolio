@@ -62,6 +62,13 @@ is also gitignored — crop the hero/gallery frames out of them into the folder 
 - `pricefy/` — Pricefy / Selbetti. `home.png` + `mobile.png` + `team-*.jpg` (team photos).
 - `tempo/` — Tempo Assist. `home.png` + `mobile.png`.
 - `dock/` — Dock (BaaS). `home.png` + `mobile.png`.
+- `kovi/` — Kovi (car subscription). `home.png` + `mobile.png` + `team.jpg`.
+- `cielo/` — Cielo · Stelo (payments). `home.png` + `mobile.png` + `team-*.jpg`.
+- `corebiz/` — CoreBiz (VTEX e-commerce). `home.png` (Boticário) + `semparar.png` +
+  `mobile.png` + `team.jpg`.
+- `rio2016/` — Microsoft · Rio 2016 (Isobar). `home.png` (olympics.com) + `mobile.png` +
+  `team-*.jpg` (on-site team photos).
+- `casacor/` — CASACOR / Grupo Abril. `home.png` + `mobile.png`.
 
-All cropped from the companies' public sites; raw full-page captures kept local
-under each `_source/`.
+All cropped from the companies' public sites; raw full-page captures and personal
+photos kept local under each `_source/`.
