@@ -78,7 +78,8 @@
   },
   "notFound": {
     "cta": "Zur Startseite",
-    "title": "Seite nicht gefunden"
+    "title": "Seite nicht gefunden",
+    "message": "Die gesuchte Seite existiert nicht."
   },
   "state": {
     "loading": "Wird geladen…",
