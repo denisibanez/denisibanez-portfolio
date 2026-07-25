@@ -30,8 +30,11 @@ export type Project = {
   techStack: string[]
   role: string
   collaborators: string
-  /** Card/hero cover image (path under public/, e.g. /projects/<slug>/home.png). */
+  /** Detail hero / video poster / SEO image (path under public/). */
   image?: string
+  /** Portrait card poster for the carousel (fills the 2:3 card). Falls back to
+   *  `image`. Use a mobile/portrait shot so the card isn't letterboxed. */
+  cover?: string
   /** Detail-page gallery (ordered). Falls back to `[image]` when omitted. */
   images?: string[]
   /** Optional showcase video (path under public/). Leads the gallery, using

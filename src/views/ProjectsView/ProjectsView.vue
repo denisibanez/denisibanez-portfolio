@@ -92,8 +92,15 @@ const posterClass =
             {{ t('projects.draft') }}
           </span>
 
-          <!-- Media, or a gradient placeholder until real shots land -->
-          <img v-if="item.image" :src="item.image" :alt="item.title" class="h-full w-full object-contain" />
+          <!-- Media, or a gradient placeholder until real shots land. The card is
+               a 2:3 poster — prefer the portrait `cover` and fill it (object-cover)
+               so it's never letterboxed; anchor to the top to keep the header/hero. -->
+          <img
+            v-if="item.cover ?? item.image"
+            :src="item.cover ?? item.image"
+            :alt="item.title"
+            class="h-full w-full object-cover object-top"
+          />
           <div
             v-else
             class="flex h-full w-full items-center justify-center bg-linear-to-br from-surface-bright/40 via-surface-container to-surface-container-lowest"
