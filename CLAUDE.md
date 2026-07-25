@@ -34,7 +34,9 @@ truth — read it before creating any UI. In short:
   types (co-located `*.types.ts` for component-only ones).
 - **Types:** shared → `src/types/*.ts`; component/page-only → co-located `*.types.ts`.
 - `i18n/`, `router/` (nested routes under layouts), `config/site.ts` (identity/socials).
-- Sample content (e.g. projects) currently lives in `composables/useProjects.ts`.
+- **Projects** live in `src/data/projects.ts` (localized `Record<Locale>` copy, per-project
+  media under `public/projects/<slug>/`). For any project work — adding, editing, drafting,
+  wiring images/video — use the **`new-project`** skill.
 
 ## Commands
 
@@ -71,3 +73,9 @@ Husky pre-commit runs `lint:eslint` + `type-check`. Use the **`open-pr`** skill 
    `useSeo`'s title/meta/JSON-LD silently stop rendering into the prerendered HTML. Don't
    bump it without bumping vite-ssg to match. Prerendered routes + `sitemap.xml` are both
    derived from `src/data/projects` in `vite.config.ts` (no manual list to keep in sync).
+   `status: 'draft'` projects are excluded from both (and 404 in prod via the router guard).
+7. **Never `git add -A` for project media.** The user drops raw captures/videos straight into
+   `public/projects/` (often for *future* projects). A broad add commits source material into
+   the public deploy — stage explicitly (`git add public/projects/<slug>/<clean>.png`) and
+   leave `_source/`/`figma-export/` and unrelated raw files untracked. Crop frames with **PIL,
+   not `sips`** (`sips -c` crops centred, missing the top hero). See the **`new-project`** skill.
