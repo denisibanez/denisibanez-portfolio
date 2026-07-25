@@ -15,6 +15,7 @@ export const projects: Project[] = [
       ja: "ベッティングプラットフォーム",
     },
     kind: 'client',
+    status: 'draft',
     startDate: '2025-12',
     endDate: '2026-08',
     summary: {
@@ -59,6 +60,8 @@ export const projects: Project[] = [
       '/projects/betfair-skybet/story-countdown.png',
       '/projects/betfair-skybet/story-most-read.png',
       '/projects/betfair-skybet/market-mobile.png',
+      '/projects/betfair-skybet/market-event.png',
+      '/projects/betfair-skybet/market-lineups.png',
       '/projects/betfair-skybet/home.png',
       '/projects/betfair-skybet/markets.png',
     ],

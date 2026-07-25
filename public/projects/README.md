@@ -46,9 +46,10 @@ is also gitignored — crop the hero/gallery frames out of them into the folder 
 
 ## Projects
 
-- `betfair-skybet/` — Betfair & SkyBet (Blip). Cover + gallery from the public
-  product plus a few Stories/FeaturedMarkets frames. Full Figma export kept local
-  under `figma-export/`.
+- `betfair-skybet/` — Betfair & SkyBet (Blip). **Draft** for now. Cover + gallery
+  from the public product: Stories frames, MarketEventPage frames
+  (`market-event`, `market-lineups`, `market-mobile`) and `home`/`markets`. Full
+  Figma export kept local under `figma-export/`; raw captures under `_source/`.
 - `eurowings/` — Eurowings (Aubay). `mobile.png` (card cover) + `home.png` +
   `section.png` cropped from the public site; the full-page capture is kept local
   under `_source/`.
