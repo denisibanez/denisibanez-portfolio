@@ -11,9 +11,14 @@ const { t } = useI18n()
   <MediaBackdrop :src="notFoundBg">
     <!-- The backdrop already reads "404 — Page not found", so the overlay is a
          single action; the heading stays sr-only for accessibility/SEO. -->
-    <div class="relative z-10 flex min-h-dvh flex-col items-start justify-end px-[5vw] pt-28 pb-24">
-      <h1 class="sr-only">{{ t('notFound.title') }}</h1>
-      <BaseButton variant="outline" :to="{ name: 'home' }">{{ t('notFound.cta') }}</BaseButton>
-    </div>
+    <h1 class="sr-only">{{ t('notFound.title') }}</h1>
+    <!-- Centered, in the gap between the mug and the "404" text on the hoodie. -->
+    <BaseButton
+      variant="outline"
+      :to="{ name: 'home' }"
+      class="absolute left-1/2 top-[70%] z-10 -translate-x-1/2"
+    >
+      {{ t('notFound.cta') }}
+    </BaseButton>
   </MediaBackdrop>
 </template>
