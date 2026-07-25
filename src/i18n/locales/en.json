@@ -40,7 +40,9 @@
     "all": "All",
     "study": "Study",
     "client": "Client",
-    "hint": "Swipe or tap a project to explore"
+    "hint": "Swipe or tap a project to explore",
+    "draft": "Draft",
+    "caseStudy": "Case Study"
   },
   "projectDetail": {
     "caseStudy": "Case Study",
@@ -50,7 +52,6 @@
     "next": "Next project",
     "expand": "Expand image",
     "close": "Close",
-    "notFound": "Project not found",
     "viewGithub": "View on GitHub"
   },
   "projectSpecs": {
@@ -64,7 +65,6 @@
     "collaborators": "Collaborators",
     "viewLive": "View live project",
     "back": "Back to Portfolio",
-    "notFound": "Project not found",
     "viewGithub": "View on GitHub"
   },
   "testimonials": {
@@ -77,8 +77,6 @@
     "close": "Close"
   },
   "notFound": {
-    "eyebrow": "Lost?",
-    "message": "The page you're looking for doesn't exist.",
     "cta": "Back to home",
     "title": "Page not found"
   },

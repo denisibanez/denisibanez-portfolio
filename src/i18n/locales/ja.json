@@ -40,7 +40,9 @@
     "all": "すべて",
     "study": "スタディ",
     "client": "クライアント",
-    "hint": "スワイプ、またはプロジェクトをタップして見る"
+    "hint": "スワイプ、またはプロジェクトをタップして見る",
+    "draft": "下書き",
+    "caseStudy": "ケーススタディ"
   },
   "projectDetail": {
     "caseStudy": "ケーススタディ",
@@ -50,7 +52,6 @@
     "next": "次のプロジェクト",
     "expand": "画像を拡大",
     "close": "閉じる",
-    "notFound": "プロジェクトが見つかりません",
     "viewGithub": "GitHubで見る"
   },
   "projectSpecs": {
@@ -64,7 +65,6 @@
     "collaborators": "協力",
     "viewLive": "ライブプロジェクトを見る",
     "back": "ポートフォリオに戻る",
-    "notFound": "プロジェクトが見つかりません",
     "viewGithub": "GitHubで見る"
   },
   "testimonials": {
@@ -77,8 +77,6 @@
     "close": "閉じる"
   },
   "notFound": {
-    "eyebrow": "迷子？",
-    "message": "お探しのページは存在しません。",
     "cta": "ホームに戻る",
     "title": "ページが見つかりません"
   },

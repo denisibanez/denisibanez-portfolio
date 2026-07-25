@@ -1,5 +1,9 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi, afterEach } from 'vitest'
 import { useProjects } from './useProjects'
+
+vi.mock('@/data/projects')
+
+afterEach(() => vi.unstubAllEnvs())
 
 describe('useProjects', () => {
   const { projects, getBySlug, getAdjacent } = useProjects()
@@ -26,10 +30,13 @@ describe('useProjects', () => {
     expect(getAdjacent('nope')).toEqual({ prev: null, next: null })
   })
 
-  it('hides drafts from the list and does not resolve them by slug', () => {
-    expect(projects.every((p) => p.status !== 'draft')).toBe(true)
-    expect(projects.some((p) => p.slug === 'titanium-pen')).toBe(false)
-    // Draft is not resolvable — its detail/specs pages fall back to not-found.
-    expect(getBySlug('titanium-pen')).toBeNull()
+  it('shows drafts in dev but hides them (and 404s) in production', () => {
+    vi.stubEnv('DEV', true)
+    expect(useProjects().projects.some((p) => p.status === 'draft')).toBe(true)
+
+    vi.stubEnv('DEV', false)
+    const prod = useProjects()
+    expect(prod.projects.every((p) => p.status !== 'draft')).toBe(true)
+    expect(prod.getBySlug('delta-draft')).toBeNull()
   })
 })

@@ -7,6 +7,8 @@ import en from '@/i18n/locales/en.json'
 
 // Capture what useSeo feeds to unhead so we can assert the resolved values
 // without depending on unhead's async DOM flush (verified in-browser separately).
+vi.mock('@/data/projects')
+
 let captured: Record<string, unknown> = {}
 vi.mock('@unhead/vue', () => ({
   useHead: (input: Record<string, unknown>) => {
@@ -58,8 +60,9 @@ describe('useSeo', () => {
   })
 
   it('derives title and description from the project on detail routes', async () => {
-    await mountAt('/projects/aether-watch')
-    expect(unref(captured.title)).toBe('Aether Watch Co. — Denis Ibañez')
-    expect(metaContent('property', 'og:title')).toBe('Aether Watch Co. — Denis Ibañez')
+    await mountAt('/projects/alpha')
+    expect(unref(captured.title)).toBe('Alpha — Denis Ibañez')
+    expect(metaContent('property', 'og:title')).toBe('Alpha — Denis Ibañez')
+    expect(metaContent('name', 'description')).toBe('Alpha summary.')
   })
 })

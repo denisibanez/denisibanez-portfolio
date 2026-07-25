@@ -5,6 +5,7 @@ import { Motion } from 'motion-v'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
 import { useProjectRoute } from '@/composables/useProjectRoute/useProjectRoute'
+import { useLocalize } from '@/composables/useLocalize/useLocalize'
 import { useRise } from '@/composables/useRise/useRise'
 import { monthsBetween, formatRange } from '@/utils/timeline/timeline'
 import { site } from '@/config/site'
@@ -16,16 +17,9 @@ const props = defineProps<Props>()
 
 const { t } = useI18n()
 const { project } = useProjectRoute(() => props.slug)
+const { localized } = useLocalize()
 
-// Demo filler so the scroll + progress bar are visible; replace with real copy.
-const LOREM = [
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
-  'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet consectetur.',
-  'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa.',
-]
-const paragraphs = computed(() => [...(project.value?.overview ?? []), ...LOREM])
+const paragraphs = computed(() => (project.value ? localized(project.value.overview) : []))
 
 // Custom scroll-progress indicator for the narrative box.
 const scrollArea = ref<HTMLElement | null>(null)
@@ -80,7 +74,7 @@ const { rise } = useRise()
                   {{ t('projectSpecs.keyFeatures') }}
                 </span>
                 <ul class="space-y-3">
-                  <li v-for="(feature, i) in project.features" :key="i" class="flex items-start gap-3 text-body-lg">
+                  <li v-for="(feature, i) in localized(project.features)" :key="i" class="flex items-start gap-3 text-body-lg">
                     <span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true" />
                     <span>{{ feature }}</span>
                   </li>
@@ -125,7 +119,7 @@ const { rise } = useRise()
           <!-- Industry -->
           <div :class="glass" class="col-span-1 flex aspect-square flex-col justify-between p-6">
             <span :class="metaLabel">{{ t('projectSpecs.industry') }}</span>
-            <p class="font-serif text-3xl leading-tight md:text-4xl">{{ project.industry }}</p>
+            <p class="font-serif text-3xl leading-tight md:text-4xl">{{ localized(project.industry) }}</p>
           </div>
 
           <!-- Timeline -->
@@ -164,12 +158,6 @@ const { rise } = useRise()
             </div>
           </div>
         </Motion>
-      </div>
-
-      <!-- Unknown slug -->
-      <div v-else class="flex flex-col items-start gap-6">
-        <h1 class="text-headline-md md:text-headline-lg">{{ t('projectSpecs.notFound') }}</h1>
-        <BaseButton variant="outline" :to="{ name: 'projects' }">{{ t('projectSpecs.back') }}</BaseButton>
       </div>
     </div>
   </MediaBackdrop>

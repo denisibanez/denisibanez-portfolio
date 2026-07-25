@@ -2,16 +2,19 @@
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
+import BaseBadge from '@/components/BaseBadge/BaseBadge.vue'
 import BaseCarousel from '@/components/BaseCarousel/BaseCarousel.vue'
 import BaseTabs from '@/components/BaseTabs/BaseTabs.vue'
 import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
 import { useProjects } from '@/composables/useProjects/useProjects'
+import { useLocalize } from '@/composables/useLocalize/useLocalize'
 import type { Project } from '@/types/project'
 import projectsBg from '@/assets/images/testimonials-bg.jpg'
 
 const { t } = useI18n()
 const router = useRouter()
 const { projects } = useProjects()
+const { localized } = useLocalize()
 
 // Filter tabs — projects stay ordered newest-first within each kind.
 const activeTab = ref('all')
@@ -82,15 +85,30 @@ const posterClass =
         @pointerdown="dismissHint"
       >
         <template #card="{ item }">
-          <!-- Media, or a gradient placeholder until real shots land -->
-          <img v-if="item.image" :src="item.image" :alt="item.title" class="h-full w-full object-cover" />
+          <!-- Status badge — draft (dev-only) or a self-driven case study -->
+          <BaseBadge v-if="item.status === 'draft'" floating class="absolute left-3 top-3 z-10">
+            {{ t('projects.draft') }}
+          </BaseBadge>
+          <BaseBadge v-else-if="item.kind === 'study'" floating class="absolute left-3 top-3 z-10">
+            {{ t('projects.caseStudy') }}
+          </BaseBadge>
+
+          <!-- Media, or a gradient placeholder until real shots land. The card is
+               a 2:3 poster — prefer the portrait `cover` and fill it (object-cover)
+               so it's never letterboxed; anchor to the top to keep the header/hero. -->
+          <img
+            v-if="item.cover ?? item.image"
+            :src="item.cover ?? item.image"
+            :alt="item.title"
+            class="h-full w-full object-cover object-top"
+          />
           <div
             v-else
             class="flex h-full w-full items-center justify-center bg-linear-to-br from-surface-bright/40 via-surface-container to-surface-container-lowest"
             aria-hidden="true"
           >
             <span class="text-label-lg uppercase tracking-widest text-on-surface-variant/50">
-              {{ item.category }}
+              {{ localized(item.category) }}
             </span>
           </div>
 
@@ -98,7 +116,7 @@ const posterClass =
           <div
             class="absolute inset-0 flex flex-col justify-end bg-linear-to-t from-surface/80 via-transparent to-transparent p-6 opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100"
           >
-            <p class="text-label-lg uppercase tracking-widest text-on-surface-variant">{{ item.category }}</p>
+            <p class="text-label-lg uppercase tracking-widest text-on-surface-variant">{{ localized(item.category) }}</p>
             <h3 class="mt-1 text-body-lg text-on-surface">{{ item.title }}</h3>
             <span class="mt-3 inline-flex items-center gap-2 text-label-lg uppercase tracking-widest text-on-surface">
               {{ t('projects.view') }}

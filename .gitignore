@@ -45,3 +45,12 @@ playwright-report/
 storybook-static
 .vercel
 .env*
+
+# Project image source material — raw exports (e.g. Figma) stay local only:
+# they'd otherwise be publicly served from public/ and bloat the repo. Only the
+# curated, publish-safe images under public/projects/<slug>/ are committed.
+public/projects/**/figma-export/
+public/projects/**/_source/
+
+# Throwaway scripts
+_*.mjs

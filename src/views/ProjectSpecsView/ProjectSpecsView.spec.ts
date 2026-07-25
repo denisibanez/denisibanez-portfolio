@@ -1,8 +1,10 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import { createI18n } from 'vue-i18n'
 import { createRouter, createMemoryHistory, type Router } from 'vue-router'
 import ProjectSpecsView from './ProjectSpecsView.vue'
+
+vi.mock('@/data/projects')
 
 const i18n = createI18n({
   legacy: false,
@@ -45,24 +47,24 @@ const factory = async (slug?: string) => {
 
 describe('ProjectSpecsView', () => {
   it('renders the title and specification sections for a known slug', async () => {
-    const { wrapper } = await factory('aether-watch')
-    expect(wrapper.get('h1').text()).toBe('Aether Watch Co.')
+    const { wrapper } = await factory('alpha')
+    expect(wrapper.get('h1').text()).toBe('Alpha')
     const text = wrapper.text()
     expect(text).toContain('Project Specifications')
     expect(text).toContain('Key Features & Milestones')
   })
 
   it('renders the metadata panels (industry, timeline, role, tech)', async () => {
-    const { wrapper } = await factory('aether-watch')
+    const { wrapper } = await factory('alpha')
     const text = wrapper.text()
-    expect(text).toContain('Product Design') // industry
+    expect(text).toContain('Fintech') // industry
     expect(text).toContain('Months') // timeline label
-    expect(text).toContain('Lead Front-end & Motion') // role
-    expect(text).toContain('Three.js') // tech pill
+    expect(text).toContain('Lead Engineer') // role
+    expect(text).toContain('TypeScript') // tech pill
   })
 
   it('exposes the live project as an external link', async () => {
-    const { wrapper } = await factory('aether-watch')
+    const { wrapper } = await factory('alpha')
     const live = wrapper.findAll('a').find((a) => a.text() === 'View live project')
     expect(live?.attributes('href')).toBeTruthy()
     expect(live?.attributes('target')).toBe('_blank')
@@ -70,7 +72,7 @@ describe('ProjectSpecsView', () => {
   })
 
   it('links back to the projects list', async () => {
-    const { wrapper, router } = await factory('aether-watch')
+    const { wrapper, router } = await factory('alpha')
     const back = wrapper.findAll('a').find((a) => a.text() === 'Back to Portfolio')
     expect(back?.attributes('href')).toBe('/projects')
     await back?.trigger('click')
@@ -78,9 +80,9 @@ describe('ProjectSpecsView', () => {
     expect(router.currentRoute.value.name).toBe('projects')
   })
 
-  it('shows a not-found fallback for an unknown slug', async () => {
+  it('renders no project content for an unknown slug (the router guard owns the 404)', async () => {
     const { wrapper } = await factory('does-not-exist')
-    expect(wrapper.get('h1').text()).toBe('Project not found')
+    expect(wrapper.find('h1').exists()).toBe(false)
   })
 
   it('honours the slug prop over the route param', async () => {
@@ -88,9 +90,9 @@ describe('ProjectSpecsView', () => {
     await router.push('/projects/unknown-slug/specs')
     await router.isReady()
     const wrapper = mount(ProjectSpecsView, {
-      props: { slug: 'nexus-system' },
+      props: { slug: 'gamma' },
       global: { plugins: [i18n, router] },
     })
-    expect(wrapper.get('h1').text()).toBe('Nexus System')
+    expect(wrapper.get('h1').text()).toBe('Gamma')
   })
 })

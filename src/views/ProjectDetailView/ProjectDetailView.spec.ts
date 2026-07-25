@@ -1,17 +1,19 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { mount, flushPromises } from '@vue/test-utils'
 import { createI18n } from 'vue-i18n'
 import { createRouter, createMemoryHistory, type Router } from 'vue-router'
 import ProjectDetailView from './ProjectDetailView.vue'
 
+vi.mock('@/data/projects')
+
 const i18n = createI18n({
   legacy: false,
   locale: 'en',
   messages: {
     en: {
+      projects: { draft: 'Draft', caseStudy: 'Case Study' },
       projectDetail: {
-        caseStudy: 'Case Study',
         viewLive: 'View details',
         back: 'Back to Portfolio',
         prev: 'Previous project',
@@ -48,33 +50,33 @@ describe('ProjectDetailView', () => {
     document.body.innerHTML = ''
   })
 
-  it('renders the project title and case-study meta for a known slug', async () => {
-    const { wrapper } = await factory('aether-watch')
-    expect(wrapper.get('h1').text()).toBe('Aether Watch Co.')
-    expect(wrapper.text()).toContain('Case Study')
+  it('renders the project title and category/year meta for a known slug', async () => {
+    const { wrapper } = await factory('alpha')
+    expect(wrapper.get('h1').text()).toBe('Alpha')
+    expect(wrapper.text()).toContain('Web App')
     expect(wrapper.text()).toContain('2024')
   })
 
   it('drills into the specs page via the "View details" link', async () => {
-    const { wrapper, router } = await factory('aether-watch')
+    const { wrapper, router } = await factory('alpha')
     const link = wrapper.findAll('a').find((a) => a.text() === 'View details')
-    expect(link?.attributes('href')).toBe('/projects/aether-watch/specs')
+    expect(link?.attributes('href')).toBe('/projects/alpha/specs')
     await link?.trigger('click')
     await flushPromises()
     expect(router.currentRoute.value.name).toBe('project-specs')
-    expect(router.currentRoute.value.params.slug).toBe('aether-watch')
+    expect(router.currentRoute.value.params.slug).toBe('alpha')
   })
 
   it('navigates to the adjacent project via the next control', async () => {
-    const { wrapper, router } = await factory('aether-watch')
+    const { wrapper, router } = await factory('alpha')
     await wrapper.find('button[aria-label="Next project"]').trigger('click')
     await flushPromises()
-    // Projects are ordered newest-first, so aether-watch (2024-09) → metallic-forms (2024-08).
-    expect(router.currentRoute.value.params.slug).toBe('metallic-forms')
+    // Newest-first order: alpha (2024-06) → beta (2023-06).
+    expect(router.currentRoute.value.params.slug).toBe('beta')
   })
 
   it('opens and closes the image lightbox via the maximize control', async () => {
-    const { wrapper } = await factory('aether-watch')
+    const { wrapper } = await factory('alpha')
     expect(document.body.querySelector('[role="dialog"]')).toBeNull()
     await wrapper.find('button[aria-label="Expand image"]').trigger('click')
     await nextTick()
@@ -84,20 +86,37 @@ describe('ProjectDetailView', () => {
     expect(document.body.querySelector('[role="dialog"]')).toBeNull()
   })
 
+  it('plays the lead video inline and in the lightbox', async () => {
+    // 'gamma' has a video → it leads the gallery, playing inline in the media
+    // box (poster from the cover) and again in the lightbox, both with controls.
+    const { wrapper } = await factory('gamma')
+    const inline = wrapper.find('video')
+    expect(inline.exists()).toBe(true)
+    expect(inline.attributes('src')).toBe('/gamma.mp4')
+    expect(inline.attributes('controls')).toBeDefined()
+    expect(inline.attributes('poster')).toBe('/gamma-cover.png')
+    await wrapper.find('button[aria-label="Expand image"]').trigger('click')
+    await nextTick()
+    const dialogVideo = document.body.querySelector<HTMLVideoElement>('[role="dialog"] video')
+    expect(dialogVideo).not.toBeNull()
+    expect(dialogVideo?.getAttribute('src')).toBe('/gamma.mp4')
+  })
+
   it('changes the gallery frame when the media is dragged sideways', async () => {
-    const { wrapper } = await factory('aether-watch')
-    expect(wrapper.text()).toContain('AW — 01')
+    // 'alpha' has no image, so the placeholder heroCode shows the frame index.
+    const { wrapper } = await factory('alpha')
+    expect(wrapper.text()).toContain('— 01')
     // jsdom can't set clientX via VTU trigger, so dispatch native events.
-    const media = wrapper.find('.cursor-grab').element
+    const media = wrapper.find('.cursor-zoom-in').element
     media.dispatchEvent(new MouseEvent('pointerdown', { clientX: 220, bubbles: true }))
     media.dispatchEvent(new MouseEvent('pointerup', { clientX: 120, bubbles: true }))
     await wrapper.vm.$nextTick()
-    expect(wrapper.text()).toContain('AW — 02')
+    expect(wrapper.text()).toContain('— 02')
   })
 
-  it('shows a not-found fallback for an unknown slug', async () => {
+  it('renders no project content for an unknown slug (the router guard owns the 404)', async () => {
     const { wrapper } = await factory('does-not-exist')
-    expect(wrapper.get('h1').text()).toBe('Project not found')
+    expect(wrapper.find('h1').exists()).toBe(false)
   })
 
   it('honours the slug prop over the route param', async () => {
@@ -105,9 +124,9 @@ describe('ProjectDetailView', () => {
     await router.push('/projects/unknown-slug')
     await router.isReady()
     const wrapper = mount(ProjectDetailView, {
-      props: { slug: 'nexus-system' },
+      props: { slug: 'gamma' },
       global: { plugins: [i18n, router] },
     })
-    expect(wrapper.get('h1').text()).toBe('Nexus System')
+    expect(wrapper.get('h1').text()).toBe('Gamma')
   })
 })
