@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
+import BaseBadge from '@/components/BaseBadge/BaseBadge.vue'
 import BaseCarousel from '@/components/BaseCarousel/BaseCarousel.vue'
 import BaseTabs from '@/components/BaseTabs/BaseTabs.vue'
 import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
@@ -84,20 +85,13 @@ const posterClass =
         @pointerdown="dismissHint"
       >
         <template #card="{ item }">
-          <!-- Draft badge — dev-only projects, so it's clear they're unpublished -->
-          <span
-            v-if="item.status === 'draft'"
-            class="absolute left-3 top-3 z-10 border border-tertiary/60 bg-surface/80 px-2.5 py-1 text-label-lg uppercase tracking-widest text-tertiary backdrop-blur-sm"
-          >
+          <!-- Status badge — draft (dev-only) or a self-driven case study -->
+          <BaseBadge v-if="item.status === 'draft'" floating class="absolute left-3 top-3 z-10">
             {{ t('projects.draft') }}
-          </span>
-          <!-- Case-study badge — self-driven study projects -->
-          <span
-            v-else-if="item.kind === 'study'"
-            class="absolute left-3 top-3 z-10 border border-primary/60 bg-surface/80 px-2.5 py-1 text-label-lg uppercase tracking-widest text-primary backdrop-blur-sm"
-          >
+          </BaseBadge>
+          <BaseBadge v-else-if="item.kind === 'study'" floating class="absolute left-3 top-3 z-10">
             {{ t('projects.caseStudy') }}
-          </span>
+          </BaseBadge>
 
           <!-- Media, or a gradient placeholder until real shots land. The card is
                a 2:3 poster — prefer the portrait `cover` and fill it (object-cover)
