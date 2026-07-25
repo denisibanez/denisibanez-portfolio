@@ -78,7 +78,8 @@
   },
   "notFound": {
     "cta": "Retour à l'accueil",
-    "title": "Page introuvable"
+    "title": "Page introuvable",
+    "message": "La page que vous recherchez n'existe pas."
   },
   "state": {
     "loading": "Chargement…",

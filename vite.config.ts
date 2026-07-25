@@ -57,7 +57,10 @@ const config: UserConfig & { ssgOptions?: Record<string, unknown> } = {
   },
   ssgOptions: {
     formatting: 'minify',
-    includedRoutes: () => prerenderRoutes,
+    // Prerender the content routes, plus `/404` → `dist/404.html` which Vercel
+    // serves (with a real 404 status) for any unmatched path. `/404` is kept out
+    // of the sitemap (writeSitemap only walks prerenderRoutes).
+    includedRoutes: () => [...prerenderRoutes, '/404'],
     // Runs once after all pages are rendered (dist exists) — emit the sitemap.
     onFinished: writeSitemap,
   },

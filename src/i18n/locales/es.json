@@ -78,7 +78,8 @@
   },
   "notFound": {
     "cta": "Volver al inicio",
-    "title": "Página no encontrada"
+    "title": "Página no encontrada",
+    "message": "La página que buscas no existe."
   },
   "state": {
     "loading": "Cargando…",

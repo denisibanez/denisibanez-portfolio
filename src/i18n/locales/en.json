@@ -78,7 +78,8 @@
   },
   "notFound": {
     "cta": "Back to home",
-    "title": "Page not found"
+    "title": "Page not found",
+    "message": "The page you're looking for doesn't exist."
   },
   "state": {
     "loading": "Loading…",

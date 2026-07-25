@@ -1,4 +1,15 @@
+import process from 'node:process'
 import { test, expect } from '@playwright/test'
+import { projects } from '../src/data/projects'
+
+// Counts are derived from the real data so the suite survives new projects.
+// Mirror useProjects' visibility rule: drafts show only in dev. CI runs the
+// production preview (drafts hidden); local runs the dev server (drafts shown) —
+// the webServer command switches on the same `CI` flag.
+const visible = projects.filter((p) => !process.env.CI || p.status !== 'draft')
+const allCount = visible.length
+const studyCount = visible.filter((p) => p.kind === 'study').length
+const clientCount = visible.filter((p) => p.kind === 'client').length
 
 // A taller viewport so the vertically-centred tabs + carousel aren't clipped
 // under the fixed header on short screens.
@@ -11,8 +22,8 @@ test('navigates to Projects from the nav and shows the carousel', async ({ page 
   await expect(page).toHaveURL(/\/projects$/)
 
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
-  // Only published projects render (drafts are hidden from the list).
-  await expect(page.locator('article')).toHaveCount(5)
+  // Only published projects render (drafts are hidden from the list in prod).
+  await expect(page.locator('article')).toHaveCount(allCount)
 })
 
 test('opens a project detail page when a card is clicked', async ({ page }) => {
@@ -38,11 +49,11 @@ test('drills from the detail page into the project specs', async ({ page }) => {
 
 test('filters the carousel by kind via the tabs', async ({ page }) => {
   await page.goto('/projects')
-  await expect(page.locator('article')).toHaveCount(5)
+  await expect(page.locator('article')).toHaveCount(allCount)
 
   await page.getByRole('tab', { name: 'Study' }).click()
-  await expect(page.locator('article')).toHaveCount(2)
+  await expect(page.locator('article')).toHaveCount(studyCount)
 
   await page.getByRole('tab', { name: 'Client' }).click()
-  await expect(page.locator('article')).toHaveCount(3)
+  await expect(page.locator('article')).toHaveCount(clientCount)
 })
