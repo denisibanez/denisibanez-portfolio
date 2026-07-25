@@ -91,6 +91,13 @@ const posterClass =
           >
             {{ t('projects.draft') }}
           </span>
+          <!-- Case-study badge — self-driven study projects -->
+          <span
+            v-else-if="item.kind === 'study'"
+            class="absolute left-3 top-3 z-10 border border-primary/60 bg-surface/80 px-2.5 py-1 text-label-lg uppercase tracking-widest text-primary backdrop-blur-sm"
+          >
+            {{ t('projects.caseStudy') }}
+          </span>
 
           <!-- Media, or a gradient placeholder until real shots land. The card is
                a 2:3 poster — prefer the portrait `cover` and fill it (object-cover)

@@ -41,7 +41,8 @@
     "study": "Studie",
     "client": "Kunde",
     "hint": "Wische oder tippe ein Projekt an, um es zu öffnen",
-    "draft": "Entwurf"
+    "draft": "Entwurf",
+    "caseStudy": "Fallstudie"
   },
   "projectDetail": {
     "caseStudy": "Fallstudie",

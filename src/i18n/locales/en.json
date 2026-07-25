@@ -41,7 +41,8 @@
     "study": "Study",
     "client": "Client",
     "hint": "Swipe or tap a project to explore",
-    "draft": "Draft"
+    "draft": "Draft",
+    "caseStudy": "Case Study"
   },
   "projectDetail": {
     "caseStudy": "Case Study",

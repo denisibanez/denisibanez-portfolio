@@ -24,6 +24,7 @@ const i18n = createI18n({
         all: 'All',
         study: 'Study',
         client: 'Client',
+        caseStudy: 'Case Study',
       },
     },
   },

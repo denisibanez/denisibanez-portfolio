@@ -233,6 +233,12 @@ const { rise } = useRise()
             >
               {{ t('projects.draft') }}
             </span>
+            <span
+              v-else-if="project.kind === 'study'"
+              class="inline-block border border-primary/60 px-2.5 py-1 text-label-lg uppercase tracking-widest text-primary"
+            >
+              {{ t('projects.caseStudy') }}
+            </span>
             <Motion as="span" v-bind="rise(0)" class="block text-label-lg uppercase tracking-widest text-tertiary">
               {{ localized(project.category) }} — {{ yearOf(project.endDate) }}
             </Motion>

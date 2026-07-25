@@ -12,7 +12,7 @@ const i18n = createI18n({
   locale: 'en',
   messages: {
     en: {
-      projects: { draft: 'Draft' },
+      projects: { draft: 'Draft', caseStudy: 'Case Study' },
       projectDetail: {
         viewLive: 'View details',
         back: 'Back to Portfolio',

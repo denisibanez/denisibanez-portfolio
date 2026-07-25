@@ -41,7 +41,8 @@
     "study": "スタディ",
     "client": "クライアント",
     "hint": "スワイプ、またはプロジェクトをタップして見る",
-    "draft": "下書き"
+    "draft": "下書き",
+    "caseStudy": "ケーススタディ"
   },
   "projectDetail": {
     "caseStudy": "ケーススタディ",
