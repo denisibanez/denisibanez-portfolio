@@ -22,10 +22,17 @@ const tabs = computed(() => [
   { label: t('projects.all'), value: 'all' },
   { label: t('projects.study'), value: 'study' },
   { label: t('projects.client'), value: 'client' },
+  { label: t('projects.national'), value: 'national' },
+  { label: t('projects.nearshore'), value: 'nearshore' },
 ])
-const visibleProjects = computed(() =>
-  activeTab.value === 'all' ? projects : projects.filter((p) => p.kind === activeTab.value),
-)
+// `study`/`client` filter by kind; `national`/`nearshore` by region (studies have
+// no region, so they're excluded from those two — case studies stay under Study).
+const visibleProjects = computed(() => {
+  const tab = activeTab.value
+  if (tab === 'all') return projects
+  if (tab === 'study' || tab === 'client') return projects.filter((p) => p.kind === tab)
+  return projects.filter((p) => p.region === tab)
+})
 
 // First-visit discovery hint. Touch devices only (no hover cue like desktop),
 // shown once (localStorage), auto-dismissed on interaction or after a few seconds.

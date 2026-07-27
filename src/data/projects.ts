@@ -15,6 +15,7 @@ export const projects: Project[] = [
       ja: "ベッティングプラットフォーム",
     },
     kind: 'client',
+    region: 'nearshore',
     status: 'draft',
     startDate: '2025-12',
     endDate: '2026-08',
@@ -80,6 +81,7 @@ export const projects: Project[] = [
       ja: "航空プラットフォーム",
     },
     kind: 'client',
+    region: 'nearshore',
     startDate: '2025-03',
     endDate: '2025-11',
     summary: {
@@ -134,6 +136,7 @@ export const projects: Project[] = [
       ja: "物流プラットフォーム",
     },
     kind: 'client',
+    region: 'nearshore',
     startDate: '2024-09',
     endDate: '2025-03',
     summary: {
@@ -189,6 +192,7 @@ export const projects: Project[] = [
       ja: "クリーンエネルギー・ソフトウェア",
     },
     kind: 'client',
+    region: 'nearshore',
     startDate: '2024-04',
     endDate: '2024-09',
     summary: {
@@ -243,6 +247,7 @@ export const projects: Project[] = [
       ja: "保険ポータル",
     },
     kind: 'client',
+    region: 'nearshore',
     startDate: '2023-05',
     endDate: '2024-04',
     summary: {
@@ -297,6 +302,7 @@ export const projects: Project[] = [
       ja: "小売プライシング・プラットフォーム",
     },
     kind: 'client',
+    region: 'national',
     startDate: '2022-05',
     endDate: '2023-05',
     summary: {
@@ -351,6 +357,7 @@ export const projects: Project[] = [
       ja: "アシスタンス・サービス",
     },
     kind: 'client',
+    region: 'national',
     startDate: '2021-08',
     endDate: '2022-05',
     summary: {
@@ -405,6 +412,7 @@ export const projects: Project[] = [
       ja: "Banking as a Service",
     },
     kind: 'client',
+    region: 'national',
     startDate: '2020-09',
     endDate: '2021-08',
     summary: {
@@ -459,6 +467,7 @@ export const projects: Project[] = [
       ja: "カーサブスク・プラットフォーム",
     },
     kind: 'client',
+    region: 'national',
     startDate: '2019-10',
     endDate: '2020-09',
     summary: {
@@ -513,6 +522,7 @@ export const projects: Project[] = [
       ja: "決済プラットフォーム",
     },
     kind: 'client',
+    region: 'national',
     startDate: '2017-12',
     endDate: '2019-10',
     summary: {
@@ -568,6 +578,7 @@ export const projects: Project[] = [
       ja: "Eコマース（VTEX）",
     },
     kind: 'client',
+    region: 'national',
     startDate: '2017-01',
     endDate: '2017-12',
     summary: {
@@ -622,6 +633,7 @@ export const projects: Project[] = [
       ja: "オリンピック公式サイト",
     },
     kind: 'client',
+    region: 'national',
     startDate: '2016-01',
     endDate: '2016-12',
     summary: {
@@ -676,6 +688,7 @@ export const projects: Project[] = [
       ja: "デザイン・建築ブランド",
     },
     kind: 'client',
+    region: 'national',
     startDate: '2012-01',
     endDate: '2016-12',
     summary: {
@@ -730,6 +743,7 @@ export const projects: Project[] = [
       ja: "物流プラットフォーム",
     },
     kind: 'client',
+    region: 'nearshore',
     startDate: '2021-01',
     endDate: '2026-01',
     summary: {
@@ -784,6 +798,7 @@ export const projects: Project[] = [
       ja: "保険アプリ",
     },
     kind: 'client',
+    region: 'nearshore',
     startDate: '2026-01',
     endDate: '2026-04',
     summary: {
