@@ -554,7 +554,7 @@ export const projects: Project[] = [
     cover: '/projects/cielo/mobile.png',
     image: '/projects/cielo/home.png',
     video: '/projects/cielo/stelo-voucher.mp4',
-    images: ['/projects/cielo/home.png', '/projects/cielo/mobile.png', '/projects/cielo/team-1.jpg', '/projects/cielo/team-2.jpg'],
+    images: ['/projects/cielo/home.png', '/projects/cielo/mobile.png', '/projects/cielo/team-1.jpg', '/projects/cielo/team-2.jpg', '/projects/cielo/team-3.jpg'],
   },
   {
     slug: 'corebiz',
