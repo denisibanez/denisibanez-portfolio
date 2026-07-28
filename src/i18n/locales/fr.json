@@ -44,7 +44,8 @@
     "draft": "Brouillon",
     "caseStudy": "Étude de cas",
     "national": "National",
-    "nearshore": "Nearshore"
+    "nearshore": "Nearshore",
+    "favorites": "Favoris"
   },
   "projectDetail": {
     "caseStudy": "Étude de cas",

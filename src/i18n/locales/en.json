@@ -44,7 +44,8 @@
     "draft": "Draft",
     "caseStudy": "Case Study",
     "national": "National",
-    "nearshore": "Nearshore"
+    "nearshore": "Nearshore",
+    "favorites": "Favorites"
   },
   "projectDetail": {
     "caseStudy": "Case Study",
