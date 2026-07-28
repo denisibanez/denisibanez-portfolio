@@ -35,13 +35,18 @@ const progress = computed(() => {
 })
 
 // Gallery media — an optional lead video (poster = cover image) followed by the
-// image gallery (`images`, else the single cover). Empty until real shots land.
+// image gallery (`images`, else the single cover). A gallery entry ending in a
+// video extension renders as an inline video; its poster is the sibling `.jpg`
+// generated alongside it. Empty until real shots land.
 type Media = { type: 'image'; src: string } | { type: 'video'; src: string; poster?: string }
+const VIDEO_RE = /\.(mp4|webm|mov)$/i
+const toMedia = (src: string): Media =>
+  VIDEO_RE.test(src) ? { type: 'video', src, poster: src.replace(VIDEO_RE, '.jpg') } : { type: 'image', src }
 const gallery = computed<Media[]>(() => {
   const p = project.value
   if (!p) return []
-  const images: Media[] = (p.images ?? (p.image ? [p.image] : [])).map((src) => ({ type: 'image', src }))
-  return p.video ? [{ type: 'video', src: p.video, poster: p.image }, ...images] : images
+  const items = (p.images ?? (p.image ? [p.image] : [])).map(toMedia)
+  return p.video ? [{ type: 'video', src: p.video, poster: p.image }, ...items] : items
 })
 const slideCount = computed(() => (gallery.value.length > 0 ? gallery.value.length : 3))
 const activeImage = ref(0)
