@@ -8,7 +8,8 @@
     "about": "Sobre mim",
     "projects": "Projetos",
     "testimonials": "Depoimentos",
-    "menu": "Menu"
+    "menu": "Menu",
+    "blog": "Blog"
   },
   "actions": {
     "resume": "Baixar resume"
@@ -102,5 +103,14 @@
     "previous": "Faixa anterior",
     "next": "Próxima faixa",
     "close": "Fechar"
+  },
+  "blog": {
+    "eyebrow": "Arquivo Criativo",
+    "title": "O Diário",
+    "subtitle": "Ensaios sobre design systems, ofício de frontend e construir entre fronteiras.",
+    "featured": "Destaque",
+    "readTime": "{min} min de leitura",
+    "readMore": "Ler artigo",
+    "back": "Voltar ao blog"
   }
 }

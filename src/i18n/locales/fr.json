@@ -8,7 +8,8 @@
     "about": "À propos",
     "projects": "Projets",
     "testimonials": "Témoignages",
-    "menu": "Menu"
+    "menu": "Menu",
+    "blog": "Blog"
   },
   "actions": {
     "resume": "Télécharger le CV"
@@ -102,5 +103,14 @@
     "previous": "Piste précédente",
     "next": "Piste suivante",
     "close": "Fermer"
+  },
+  "blog": {
+    "eyebrow": "Archive créative",
+    "title": "Le Journal",
+    "subtitle": "Essais sur les design systems, l'artisanat frontend et la construction par-delà les frontières.",
+    "featured": "À la une",
+    "readTime": "{min} min de lecture",
+    "readMore": "Lire l'article",
+    "back": "Retour au blog"
   }
 }

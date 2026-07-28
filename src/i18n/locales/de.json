@@ -8,7 +8,8 @@
     "about": "Über mich",
     "projects": "Projekte",
     "testimonials": "Referenzen",
-    "menu": "Menü"
+    "menu": "Menü",
+    "blog": "Blog"
   },
   "actions": {
     "resume": "Lebenslauf"
@@ -102,5 +103,14 @@
     "previous": "Vorheriger Titel",
     "next": "Nächster Titel",
     "close": "Schließen"
+  },
+  "blog": {
+    "eyebrow": "Kreativarchiv",
+    "title": "Das Journal",
+    "subtitle": "Essays über Design-Systeme, Frontend-Handwerk und das Bauen über Grenzen hinweg.",
+    "featured": "Empfohlen",
+    "readTime": "{min} Min. Lesezeit",
+    "readMore": "Artikel lesen",
+    "back": "Zurück zum Blog"
   }
 }

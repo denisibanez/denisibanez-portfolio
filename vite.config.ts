@@ -7,19 +7,22 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import tailwindcss from '@tailwindcss/vite'
 
 import { projects } from './src/data/projects'
+import { posts } from './src/data/blog'
 import { site } from './src/config/site'
 
 // Single source of truth: prerendered routes AND the sitemap are derived from
-// the published projects, so they can never drift. Project detail/specs pages
-// aren't reachable via crawlable <a> links (carousel cards are buttons), so
-// they must be listed explicitly here — vite-ssg won't discover them.
+// the published projects and blog posts, so they can never drift. Detail pages
+// aren't reachable via crawlable <a> links from the index in all cases, so they
+// must be listed explicitly here — vite-ssg won't discover them.
 const publishedSlugs = projects.filter((p) => p.status !== 'draft').map((p) => p.slug)
 const prerenderRoutes = [
   '/',
   '/about',
   '/projects',
   '/testimonials',
+  '/blog',
   ...publishedSlugs.flatMap((slug) => [`/projects/${slug}`, `/projects/${slug}/specs`]),
+  ...posts.map((p) => `/blog/${p.slug}`),
 ]
 
 const sitemapPriority = (path: string) => {
@@ -27,6 +30,8 @@ const sitemapPriority = (path: string) => {
   if (path.endsWith('/specs')) return '0.5'
   if (path.startsWith('/projects/')) return '0.6'
   if (path === '/projects') return '0.9'
+  if (path === '/blog') return '0.8'
+  if (path.startsWith('/blog/')) return '0.6'
   return '0.8'
 }
 
