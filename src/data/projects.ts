@@ -58,6 +58,7 @@ export const projects: Project[] = [
     url: 'https://predicts.betfair.com/',
     cover: '/projects/betfair-skybet/cover.png',
     image: '/projects/betfair-skybet/blip.png',
+    video: '/projects/betfair-skybet/promo.mp4',
     images: [
       '/projects/betfair-skybet/blip.png',
       '/projects/betfair-skybet/story-atmosphere.png',
