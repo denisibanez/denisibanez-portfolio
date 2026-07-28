@@ -44,7 +44,8 @@
     "draft": "Borrador",
     "caseStudy": "Caso de Estudio",
     "national": "Nacionales",
-    "nearshore": "Nearshore"
+    "nearshore": "Nearshore",
+    "favorites": "Favoritos"
   },
   "projectDetail": {
     "caseStudy": "Caso de estudio",

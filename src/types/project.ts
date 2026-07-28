@@ -21,6 +21,9 @@ export type Project = {
   kind: ProjectKind
   /** National (Brazil) vs nearshore engagement. Omitted for studies. */
   region?: ProjectRegion
+  /** Curated "Favorites" rank (1 = first). Present only on featured projects;
+   *  drives the Favorites tab order. */
+  featured?: number
   /** Defaults to published when omitted. */
   status?: ProjectStatus
   /** Build window as `YYYY-MM` — drives ordering and the timeline display. */

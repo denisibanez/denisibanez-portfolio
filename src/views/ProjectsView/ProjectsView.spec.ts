@@ -22,6 +22,7 @@ const i18n = createI18n({
         next: 'Next',
         view: 'View project',
         all: 'All',
+        favorites: 'Favorites',
         study: 'Study',
         client: 'Client',
         national: 'National',
@@ -73,5 +74,11 @@ describe('ProjectsView', () => {
     expect(wrapper.findAll('article').length).toBe(1)
     await tabs.find((t) => t.text() === 'Nearshore')!.trigger('click')
     expect(wrapper.findAll('article').length).toBe(1)
+    // Favorites: only featured projects, in featured-rank order (gamma=1, alpha=2).
+    await tabs.find((t) => t.text() === 'Favorites')!.trigger('click')
+    const favs = wrapper.findAll('article')
+    expect(favs.length).toBe(2)
+    expect(favs[0]!.text()).toContain('Gamma')
+    expect(favs[1]!.text()).toContain('Alpha')
   })
 })

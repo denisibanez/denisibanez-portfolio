@@ -5,6 +5,7 @@ import type { Project } from '@/types/project'
 export const projects: Project[] = [
   {
     slug: 'betfair-skybet',
+    featured: 1,
     title: 'Betfair & SkyBet',
     category: {
       en: "Betting Platform",
@@ -71,6 +72,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'eurowings',
+    featured: 3,
     title: 'Eurowings',
     category: {
       en: "Airline Platform",
@@ -182,6 +184,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'bentley',
+    featured: 2,
     title: 'Bentley Systems',
     category: {
       en: "Clean-Energy Software",
@@ -237,6 +240,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'ageas',
+    featured: 4,
     title: 'Ageas Seguros',
     category: {
       en: "Insurance Portal",
@@ -512,6 +516,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'cielo',
+    featured: 8,
     title: 'Cielo · Stelo',
     category: {
       en: "Payments Platform",
@@ -623,6 +628,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'rio2016',
+    featured: 9,
     title: 'Microsoft · Rio 2016',
     category: {
       en: "Olympic Games Website",
@@ -733,6 +739,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'martin-brower',
+    featured: 5,
     title: 'Martin Brower',
     category: {
       en: "Logistics Platform",
@@ -953,6 +960,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'superviz',
+    featured: 7,
     title: 'SuperViz',
     category: {
       en: "Immersive Meetings Platform",
@@ -963,7 +971,7 @@ export const projects: Project[] = [
       ja: "没入型ミーティング・プラットフォーム",
     },
     kind: 'client',
-    region: 'national',
+    region: 'nearshore',
     startDate: '2023-01',
     endDate: '2023-04',
     summary: {
@@ -998,7 +1006,7 @@ export const projects: Project[] = [
       fr: "Collaboration immersive",
       ja: "没入型コラボレーション",
     },
-    techStack: ['TypeScript', 'React', 'Three.js', 'WebGL'],
+    techStack: ['TypeScript', 'Vue 3', 'Three.js', 'WebGL'],
     role: 'Frontend Engineer',
     collaborators: 'Avatar & 3D squad',
     url: 'https://www.superviz.com/',
@@ -1008,6 +1016,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'multidrop',
+    featured: 6,
     title: 'Multidrop',
     category: {
       en: "Creator Course Platform",

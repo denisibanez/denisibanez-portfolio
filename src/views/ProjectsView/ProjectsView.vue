@@ -20,16 +20,20 @@ const { localized } = useLocalize()
 const activeTab = ref('all')
 const tabs = computed(() => [
   { label: t('projects.all'), value: 'all' },
+  { label: t('projects.favorites'), value: 'favorites' },
   { label: t('projects.study'), value: 'study' },
   { label: t('projects.client'), value: 'client' },
   { label: t('projects.national'), value: 'national' },
   { label: t('projects.nearshore'), value: 'nearshore' },
 ])
-// `study`/`client` filter by kind; `national`/`nearshore` by region (studies have
-// no region, so they're excluded from those two — case studies stay under Study).
+// `favorites` = curated set, shown in `featured` rank order; `study`/`client`
+// filter by kind; `national`/`nearshore` by region (studies have no region, so
+// they're excluded from those two — case studies stay under Study).
 const visibleProjects = computed(() => {
   const tab = activeTab.value
   if (tab === 'all') return projects
+  if (tab === 'favorites')
+    return projects.filter((p) => p.featured != null).sort((a, b) => (a.featured ?? 0) - (b.featured ?? 0))
   if (tab === 'study' || tab === 'client') return projects.filter((p) => p.kind === tab)
   return projects.filter((p) => p.region === tab)
 })
