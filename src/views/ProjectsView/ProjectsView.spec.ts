@@ -24,6 +24,8 @@ const i18n = createI18n({
         all: 'All',
         study: 'Study',
         client: 'Client',
+        national: 'National',
+        nearshore: 'Nearshore',
         caseStudy: 'Case Study',
       },
     },
@@ -66,5 +68,10 @@ describe('ProjectsView', () => {
     expect(wrapper.findAll('article').length).toBe(1)
     await tabs.find((t) => t.text() === 'Client')!.trigger('click')
     expect(wrapper.findAll('article').length).toBe(2)
+    // Region tabs filter by region (studies excluded): alpha=national, gamma=nearshore.
+    await tabs.find((t) => t.text() === 'National')!.trigger('click')
+    expect(wrapper.findAll('article').length).toBe(1)
+    await tabs.find((t) => t.text() === 'Nearshore')!.trigger('click')
+    expect(wrapper.findAll('article').length).toBe(1)
   })
 })

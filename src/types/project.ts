@@ -4,6 +4,9 @@ export type ProjectStatus = 'published' | 'draft'
 /** Whether the work was a self-driven study or client engagement. */
 export type ProjectKind = 'study' | 'client'
 
+/** Engagement market — national (Brazil) or nearshore. Studies have none. */
+export type ProjectRegion = 'national' | 'nearshore'
+
 import type { Locale } from '@/i18n'
 
 /** Copy provided per supported locale. */
@@ -16,6 +19,8 @@ export type Project = {
   title: string
   category: LocalizedText
   kind: ProjectKind
+  /** National (Brazil) vs nearshore engagement. Omitted for studies. */
+  region?: ProjectRegion
   /** Defaults to published when omitted. */
   status?: ProjectStatus
   /** Build window as `YYYY-MM` — drives ordering and the timeline display. */

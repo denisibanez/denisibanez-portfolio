@@ -42,7 +42,9 @@
     "client": "クライアント",
     "hint": "スワイプ、またはプロジェクトをタップして見る",
     "draft": "下書き",
-    "caseStudy": "ケーススタディ"
+    "caseStudy": "ケーススタディ",
+    "national": "国内",
+    "nearshore": "ニアショア"
   },
   "projectDetail": {
     "caseStudy": "ケーススタディ",

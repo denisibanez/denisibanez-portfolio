@@ -42,7 +42,9 @@
     "client": "Client",
     "hint": "Swipe or tap a project to explore",
     "draft": "Draft",
-    "caseStudy": "Case Study"
+    "caseStudy": "Case Study",
+    "national": "National",
+    "nearshore": "Nearshore"
   },
   "projectDetail": {
     "caseStudy": "Case Study",

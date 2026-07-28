@@ -173,7 +173,7 @@ const { rise } = useRise()
             controls
             playsinline
             preload="metadata"
-            class="relative z-10 h-full w-full bg-surface-container-low object-contain"
+            class="h-full w-full bg-surface-container-low object-contain"
             @click.stop
             @pointerdown.stop
             @pointerup.stop
@@ -202,7 +202,7 @@ const { rise } = useRise()
           <!-- Maximize -->
           <button
             type="button"
-            class="absolute right-4 top-4 inline-flex size-11 cursor-pointer items-center justify-center border border-white/10 bg-surface/40 text-on-surface backdrop-blur-md transition-colors hover:bg-white/20"
+            class="absolute right-4 top-4 z-20 inline-flex size-11 cursor-pointer items-center justify-center border border-white/10 bg-surface/40 text-on-surface backdrop-blur-md transition-colors hover:bg-white/20"
             :aria-label="t('projectDetail.expand')"
             @click.stop="openLightbox"
           >
@@ -211,8 +211,32 @@ const { rise } = useRise()
             </svg>
           </button>
 
-          <!-- Gallery indicators -->
-          <div class="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-2">
+          <!-- Prev / next — reliable gallery nav even over a video's own controls -->
+          <template v-if="slideCount > 1">
+            <button
+              type="button"
+              class="absolute left-3 top-1/2 z-20 inline-flex size-10 -translate-y-1/2 cursor-pointer items-center justify-center border border-white/15 bg-surface/40 text-on-surface opacity-0 backdrop-blur-md transition-all hover:bg-on-surface hover:text-surface focus-visible:opacity-100 group-hover:opacity-100"
+              :aria-label="t('projectDetail.prev')"
+              @click.stop="cycleImage(-1)"
+            >
+              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path d="M15 5l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              class="absolute right-3 top-1/2 z-20 inline-flex size-10 -translate-y-1/2 cursor-pointer items-center justify-center border border-white/15 bg-surface/40 text-on-surface opacity-0 backdrop-blur-md transition-all hover:bg-on-surface hover:text-surface focus-visible:opacity-100 group-hover:opacity-100"
+              :aria-label="t('projectDetail.next')"
+              @click.stop="cycleImage(1)"
+            >
+              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </template>
+
+          <!-- Gallery indicators — lifted above a video's control bar so both stay tappable -->
+          <div class="absolute left-1/2 z-20 flex -translate-x-1/2 gap-2" :class="activeIsVideo ? 'bottom-16' : 'bottom-6'">
             <button
               v-for="i in slideCount"
               :key="i"
