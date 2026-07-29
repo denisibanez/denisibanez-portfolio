@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { Motion } from 'motion-v'
@@ -26,6 +26,17 @@ const paragraphs = computed(() => (post.value ? localized(post.value.body) : [])
 
 const formatDate = (iso: string) =>
   new Date(`${iso}T00:00:00`).toLocaleDateString(locale.value, { year: 'numeric', month: 'long', day: 'numeric' })
+
+// Custom scroll indicator for the article panel (same pattern as ProjectSpecs):
+// native scrollbar hidden, a thin track + fill tracks progress.
+const scrollArea = ref<HTMLElement | null>(null)
+const scrollProgress = ref(0)
+const onScroll = () => {
+  const el = scrollArea.value
+  if (!el) return
+  const max = el.scrollHeight - el.clientHeight
+  scrollProgress.value = max > 0 ? (el.scrollTop / max) * 100 : 0
+}
 </script>
 
 <template>
@@ -75,29 +86,36 @@ const formatDate = (iso: string) =>
           </figure>
         </div>
 
-        <!-- Article panel -->
-        <div class="custom-scrollbar overflow-y-auto bg-surface-container-lowest/20 p-8 md:w-2/3 md:p-14">
-          <p
-            v-for="(paragraph, i) in paragraphs"
-            :key="i"
-            class="mb-6 text-body-lg leading-relaxed text-on-surface-variant"
-            :class="i === 0 ? 'first-letter:float-left first-letter:mr-3 first-letter:text-6xl first-letter:font-semibold first-letter:leading-none first-letter:text-tertiary' : ''"
-          >
-            {{ paragraph }}
-          </p>
-
-          <div class="mt-10 flex flex-wrap gap-2">
-            <span
-              v-for="tag in post.tags"
-              :key="tag"
-              class="border border-outline-variant/40 px-3 py-1.5 text-xs uppercase tracking-wider text-on-surface-variant"
+        <!-- Article panel — native scrollbar hidden, custom progress bar alongside -->
+        <div class="flex min-h-0 bg-surface-container-lowest/20 md:w-2/3">
+          <div ref="scrollArea" class="no-scrollbar flex-1 overflow-y-auto p-8 md:p-14" @scroll="onScroll">
+            <p
+              v-for="(paragraph, i) in paragraphs"
+              :key="i"
+              class="mb-6 text-body-lg leading-relaxed text-on-surface-variant"
+              :class="i === 0 ? 'first-letter:float-left first-letter:mr-3 first-letter:text-6xl first-letter:font-semibold first-letter:leading-none first-letter:text-tertiary' : ''"
             >
-              {{ tag }}
-            </span>
+              {{ paragraph }}
+            </p>
+
+            <div class="mt-10 flex flex-wrap gap-2">
+              <span
+                v-for="tag in post.tags"
+                :key="tag"
+                class="border border-outline-variant/40 px-3 py-1.5 text-xs uppercase tracking-wider text-on-surface-variant"
+              >
+                {{ tag }}
+              </span>
+            </div>
+
+            <div class="mt-12 md:hidden">
+              <BaseButton variant="outline" class="w-full text-center" :to="{ name: 'blog' }">{{ t('blog.back') }}</BaseButton>
+            </div>
           </div>
 
-          <div class="mt-12 md:hidden">
-            <BaseButton variant="outline" class="w-full text-center" :to="{ name: 'blog' }">{{ t('blog.back') }}</BaseButton>
+          <!-- Scroll progress (desktop, where the panel scrolls internally) -->
+          <div class="my-8 hidden w-0.5 shrink-0 bg-on-surface/20 lg:block" aria-hidden="true">
+            <div class="w-full bg-tertiary transition-[height] duration-150" :style="{ height: `${scrollProgress}%` }" />
           </div>
         </div>
       </Motion>
@@ -106,14 +124,11 @@ const formatDate = (iso: string) =>
 </template>
 
 <style scoped>
-.custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: color-mix(in srgb, var(--color-tertiary) 30%, transparent);
-  border-radius: 2px;
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 </style>
