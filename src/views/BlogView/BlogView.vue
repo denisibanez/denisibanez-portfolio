@@ -65,7 +65,25 @@ const linkTo = (post: BlogPost) => ({ name: 'blog-post', params: { slug: post.sl
           <BaseBadge v-if="post.status === 'draft'" floating class="absolute right-3 top-3 z-10">
             {{ t('projects.draft') }}
           </BaseBadge>
-          <RouterLink :to="linkTo(post)" class="flex h-full flex-col p-8">
+          <RouterLink :to="linkTo(post)" class="flex h-full flex-col">
+            <div v-if="post.image" class="relative aspect-video overflow-hidden border-b border-white/10">
+              <img
+                :src="post.image"
+                :alt="localized(post.title)"
+                loading="lazy"
+                class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <span
+                v-if="post.video"
+                class="absolute inset-0 grid place-items-center text-on-surface/90"
+                aria-hidden="true"
+              >
+                <span class="grid size-12 place-items-center rounded-full bg-surface/60 backdrop-blur-sm">
+                  <svg class="size-5 translate-x-px" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+                </span>
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col p-8">
             <div class="flex items-center justify-between text-label-lg uppercase tracking-widest">
               <span class="text-on-surface-variant/70">{{ localized(post.category) }}</span>
               <span class="text-on-surface-variant/50">{{ t('blog.readTime', { min: post.readingMinutes }) }}</span>
@@ -77,6 +95,7 @@ const linkTo = (post: BlogPost) => ({ name: 'blog-post', params: { slug: post.sl
             <div class="mt-6 flex items-center justify-between border-t border-outline-variant/20 pt-4">
               <span class="text-sm text-on-surface-variant">{{ formatDate(post.date) }}</span>
               <span class="text-tertiary transition-transform group-hover:translate-x-1" aria-hidden="true">&rarr;</span>
+            </div>
             </div>
           </RouterLink>
         </Motion>

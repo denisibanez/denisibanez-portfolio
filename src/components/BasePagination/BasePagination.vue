@@ -22,7 +22,7 @@ const items = computed<Item[]>(() => {
     .sort((a, b) => a - b)
   const out: Item[] = []
   let prev = 0
-  for (const p of [...new Set(wanted)]) {
+  for (const p of new Set(wanted)) {
     if (p - prev > 1) out.push('ellipsis')
     out.push(p)
     prev = p

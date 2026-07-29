@@ -20,4 +20,8 @@ export type BlogPost = {
   tags: string[]
   /** Highlights the lead post at the top of the index. */
   featured?: boolean
+  /** Optional cover image (card thumbnail + article hero). Also the video poster. */
+  image?: string
+  /** Optional video — plays inline at the top of the article (poster = `image`). */
+  video?: string
 }

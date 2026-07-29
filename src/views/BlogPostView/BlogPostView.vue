@@ -89,6 +89,21 @@ const onScroll = () => {
         <!-- Article panel — native scrollbar hidden, custom progress bar alongside -->
         <div class="flex min-h-0 bg-surface-container-lowest/20 md:w-2/3">
           <div ref="scrollArea" class="no-scrollbar flex-1 overflow-y-auto p-8 md:p-14" @scroll="onScroll">
+            <video
+              v-if="post.video"
+              :src="post.video"
+              :poster="post.image"
+              controls
+              playsinline
+              preload="metadata"
+              class="mb-10 w-full border border-white/10 bg-black"
+            />
+            <img
+              v-else-if="post.image"
+              :src="post.image"
+              :alt="localized(post.title)"
+              class="mb-10 max-h-[420px] w-full border border-white/10 object-contain"
+            />
             <p
               v-for="(paragraph, i) in paragraphs"
               :key="i"
