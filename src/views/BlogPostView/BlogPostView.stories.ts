@@ -5,7 +5,7 @@ const meta: Meta<typeof BlogPostView> = {
   title: 'Views/BlogPostView',
   component: BlogPostView,
   parameters: { layout: 'fullscreen' },
-  args: { slug: 'mastering-design-systems' },
+  args: { slug: 'hollow-knight-silksong-lean-teams' },
 }
 
 export default meta
