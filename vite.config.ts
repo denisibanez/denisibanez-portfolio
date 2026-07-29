@@ -22,7 +22,7 @@ const prerenderRoutes = [
   '/testimonials',
   '/blog',
   ...publishedSlugs.flatMap((slug) => [`/projects/${slug}`, `/projects/${slug}/specs`]),
-  ...posts.map((p) => `/blog/${p.slug}`),
+  ...posts.filter((p) => p.status !== 'draft').map((p) => `/blog/${p.slug}`),
 ]
 
 const sitemapPriority = (path: string) => {

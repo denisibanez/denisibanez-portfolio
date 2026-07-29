@@ -111,6 +111,10 @@
     "featured": "Featured",
     "readTime": "{min} min read",
     "readMore": "Read article",
-    "back": "Back to the blog"
+    "back": "Back to the blog",
+    "prev": "Previous",
+    "next": "Next",
+    "pagination": "Blog pagination",
+    "page": "Page"
   }
 }

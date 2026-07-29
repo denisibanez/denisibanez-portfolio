@@ -1,21 +1,27 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, afterEach } from 'vitest'
 import { useBlog } from './useBlog'
 
 vi.mock('@/data/blog')
 
+afterEach(() => vi.unstubAllEnvs())
+
 describe('useBlog', () => {
-  it('orders posts newest-first', () => {
+  it('orders visible posts newest-first', () => {
+    // Dev (default) shows the draft too: beta 2025-01, delta 2025-06... → newest first.
+    vi.stubEnv('DEV', true)
     const { posts } = useBlog()
-    expect(posts.map((p) => p.slug)).toEqual(['beta', 'alpha', 'gamma'])
+    expect(posts.map((p) => p.slug)).toEqual(['delta-draft', 'beta', 'alpha', 'gamma'])
   })
 
-  it('exposes the featured post and the rest (featured excluded)', () => {
-    const { featured, rest } = useBlog()
-    expect(featured?.slug).toBe('alpha')
-    expect(rest.map((p) => p.slug)).toEqual(['beta', 'gamma'])
+  it('hides drafts in production', () => {
+    vi.stubEnv('DEV', false)
+    const { posts, getBySlug } = useBlog()
+    expect(posts.map((p) => p.slug)).toEqual(['beta', 'alpha', 'gamma'])
+    expect(getBySlug('delta-draft')).toBeNull()
   })
 
   it('looks a post up by slug', () => {
+    vi.stubEnv('DEV', false)
     const { getBySlug } = useBlog()
     expect(getBySlug('beta')?.title.en).toBe('Beta')
     expect(getBySlug('nope')).toBeNull()

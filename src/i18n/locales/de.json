@@ -111,6 +111,10 @@
     "featured": "Empfohlen",
     "readTime": "{min} Min. Lesezeit",
     "readMore": "Artikel lesen",
-    "back": "Zurück zum Blog"
+    "back": "Zurück zum Blog",
+    "prev": "Zurück",
+    "next": "Weiter",
+    "pagination": "Blog-Seitennavigation",
+    "page": "Seite"
   }
 }

@@ -111,6 +111,10 @@
     "featured": "注目",
     "readTime": "{min}分で読めます",
     "readMore": "記事を読む",
-    "back": "ブログに戻る"
+    "back": "ブログに戻る",
+    "prev": "前へ",
+    "next": "次へ",
+    "pagination": "ブログのページ送り",
+    "page": "ページ"
   }
 }

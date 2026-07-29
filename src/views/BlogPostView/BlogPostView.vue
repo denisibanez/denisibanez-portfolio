@@ -4,9 +4,11 @@ import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { Motion } from 'motion-v'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
+import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
 import { useBlog } from '@/composables/useBlog/useBlog'
 import { useLocalize } from '@/composables/useLocalize/useLocalize'
 import { useRise } from '@/composables/useRise/useRise'
+import blogBg from '@/assets/images/banner-blog.png'
 
 // `slug` prop overrides the route param (handy for stories/tests).
 type Props = { slug?: string }
@@ -27,57 +29,91 @@ const formatDate = (iso: string) =>
 </script>
 
 <template>
-  <section class="relative min-h-dvh overflow-hidden bg-surface">
-    <div
-      class="pointer-events-none absolute -top-40 right-0 h-[32rem] w-[32rem] rounded-full bg-tertiary/10 blur-[140px]"
-      aria-hidden="true"
-    />
+  <MediaBackdrop :src="blogBg">
+    <div v-if="post" class="relative z-10 flex min-h-dvh items-center justify-center px-[5vw] pt-28 pb-24">
+      <Motion
+        as="article"
+        v-bind="rise(0)"
+        class="flex w-full max-w-5xl flex-col overflow-hidden border border-white/10 bg-surface/40 shadow-2xl backdrop-blur-2xl md:flex-row lg:h-[calc(100dvh-13rem)]"
+      >
+        <!-- Meta panel -->
+        <div class="flex flex-col justify-between border-b border-white/10 p-10 md:w-1/3 md:border-b-0 md:border-r md:p-12">
+          <div>
+            <RouterLink
+              :to="{ name: 'blog' }"
+              class="inline-flex items-center gap-2 text-label-lg uppercase tracking-widest text-tertiary transition-all hover:gap-4"
+            >
+              <span aria-hidden="true">&larr;</span>
+              {{ t('blog.back') }}
+            </RouterLink>
 
-    <div v-if="post" class="relative z-10 mx-auto flex min-h-dvh w-full max-w-6xl flex-col gap-12 px-[5vw] pt-32 pb-32 lg:flex-row lg:gap-16">
-      <!-- Meta -->
-      <Motion as="aside" v-bind="rise(0)" class="lg:sticky lg:top-32 lg:h-fit lg:w-1/3 lg:shrink-0">
-        <RouterLink
-          :to="{ name: 'blog' }"
-          class="inline-flex items-center gap-2 text-label-lg uppercase tracking-widest text-tertiary transition-all hover:gap-4"
-        >
-          <span aria-hidden="true">&larr;</span>
-          {{ t('blog.back') }}
-        </RouterLink>
+            <div class="mt-14">
+              <span class="block text-label-lg uppercase tracking-widest text-tertiary">{{ localized(post.category) }}</span>
+              <h1 class="mt-4 text-headline-md leading-tight">{{ localized(post.title) }}</h1>
 
-        <span class="mt-14 block text-label-lg uppercase tracking-widest text-tertiary">{{ localized(post.category) }}</span>
-        <h1 class="mt-4 font-serif text-headline-md leading-tight">{{ localized(post.title) }}</h1>
+              <div class="mt-6 flex flex-col gap-2 text-sm text-on-surface-variant">
+                <span class="inline-flex items-center gap-2">
+                  <svg class="size-4 text-tertiary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                    <rect x="3" y="4.5" width="18" height="16" rx="2" /><path d="M3 9h18M8 2.5v4M16 2.5v4" stroke-linecap="round" />
+                  </svg>
+                  {{ formatDate(post.date) }}
+                </span>
+                <span class="inline-flex items-center gap-2">
+                  <svg class="size-4 text-tertiary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  {{ t('blog.readTime', { min: post.readingMinutes }) }}
+                </span>
+              </div>
+            </div>
+          </div>
 
-        <div class="mt-6 flex flex-col gap-2 text-body-sm text-on-surface-variant">
-          <span>{{ formatDate(post.date) }}</span>
-          <span>{{ t('blog.readTime', { min: post.readingMinutes }) }}</span>
+          <!-- Pull-quote pinned to the bottom (desktop) -->
+          <figure v-if="post.quote" class="mt-10 hidden md:block">
+            <div class="mb-5 h-px w-12 bg-tertiary" aria-hidden="true" />
+            <blockquote class="text-body-lg italic text-on-surface-variant/70">“{{ localized(post.quote) }}”</blockquote>
+          </figure>
         </div>
 
-        <div class="mt-8 flex flex-wrap gap-2">
-          <span
-            v-for="tag in post.tags"
-            :key="tag"
-            class="border border-outline-variant/30 px-3 py-1 text-label-lg uppercase tracking-widest text-on-surface-variant"
+        <!-- Article panel -->
+        <div class="custom-scrollbar overflow-y-auto bg-surface-container-lowest/20 p-8 md:w-2/3 md:p-14">
+          <p
+            v-for="(paragraph, i) in paragraphs"
+            :key="i"
+            class="mb-6 text-body-lg leading-relaxed text-on-surface-variant"
+            :class="i === 0 ? 'first-letter:float-left first-letter:mr-3 first-letter:text-6xl first-letter:font-semibold first-letter:leading-none first-letter:text-tertiary' : ''"
           >
-            {{ tag }}
-          </span>
-        </div>
-      </Motion>
+            {{ paragraph }}
+          </p>
 
-      <!-- Article -->
-      <Motion as="article" v-bind="rise(0.15)" class="lg:w-2/3">
-        <p
-          v-for="(paragraph, i) in paragraphs"
-          :key="i"
-          class="mb-6 text-body-lg leading-relaxed text-on-surface-variant"
-          :class="i === 0 ? 'first-letter:float-left first-letter:mr-3 first-letter:font-serif first-letter:text-6xl first-letter:leading-none first-letter:text-tertiary' : ''"
-        >
-          {{ paragraph }}
-        </p>
+          <div class="mt-10 flex flex-wrap gap-2">
+            <span
+              v-for="tag in post.tags"
+              :key="tag"
+              class="border border-outline-variant/40 px-3 py-1.5 text-xs uppercase tracking-wider text-on-surface-variant"
+            >
+              {{ tag }}
+            </span>
+          </div>
 
-        <div class="mt-12 lg:hidden">
-          <BaseButton variant="outline" :to="{ name: 'blog' }">{{ t('blog.back') }}</BaseButton>
+          <div class="mt-12 md:hidden">
+            <BaseButton variant="outline" class="w-full text-center" :to="{ name: 'blog' }">{{ t('blog.back') }}</BaseButton>
+          </div>
         </div>
       </Motion>
     </div>
-  </section>
+  </MediaBackdrop>
 </template>
+
+<style scoped>
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--color-tertiary) 30%, transparent);
+  border-radius: 2px;
+}
+</style>

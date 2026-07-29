@@ -1,10 +1,14 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { createI18n } from 'vue-i18n'
 import { createRouter, createMemoryHistory } from 'vue-router'
 import BlogView from './BlogView.vue'
 
 vi.mock('@/data/blog')
+
+// Assert the production-visible set (published only); drafts are a dev preview.
+beforeEach(() => vi.stubEnv('DEV', false))
+afterEach(() => vi.unstubAllEnvs())
 
 const i18n = createI18n({
   legacy: false,
@@ -15,9 +19,11 @@ const i18n = createI18n({
         eyebrow: 'Creative Archive',
         title: 'The Journal',
         subtitle: 'Essays.',
-        featured: 'Featured',
         readTime: '{min} min read',
-        readMore: 'Read article',
+        prev: 'Previous',
+        next: 'Next',
+        pagination: 'Blog pagination',
+        page: 'Page',
       },
     },
   },
