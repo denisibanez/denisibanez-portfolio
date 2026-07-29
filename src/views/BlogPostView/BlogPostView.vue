@@ -96,7 +96,7 @@ const onScroll = () => {
               controls
               playsinline
               preload="metadata"
-              class="mb-10 w-full border border-white/10 bg-black"
+              class="mb-10 max-h-[70vh] w-full border border-white/10 bg-black object-contain"
             />
             <img
               v-else-if="post.image"
