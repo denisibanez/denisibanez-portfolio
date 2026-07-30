@@ -711,6 +711,498 @@ npm publish` },
     ],
   },
   {
+    slug: 'a-complete-vue3-setup-part-4',
+    date: '2023-03-31',
+    readingMinutes: 13,
+    tags: ['Vue', 'Vue Router', 'Quasar', 'Design System'],
+    image: '/blog/vue3-part4-cover.jpg',
+    category: { en: 'Engineering', pt: 'Engenharia', es: 'Ingeniería', de: 'Engineering', fr: 'Ingénierie', ja: 'エンジニアリング' },
+    title: {
+      en: 'A Complete Vue 3 Setup — Part IV',
+      pt: 'Um Setup Completo com Vue 3 — Parte IV',
+      es: 'Un Setup Completo con Vue 3 — Parte IV',
+      de: 'Ein komplettes Vue-3-Setup — Teil IV',
+      fr: 'Un setup complet avec Vue 3 — Partie IV',
+      ja: '完全な Vue 3 セットアップ — Part IV',
+    },
+    excerpt: {
+      en: 'Building a project structure from scratch: Vite + TypeScript + ESLint + Prettier + Husky + Vue Router + quasar Design System.',
+      pt: 'Criando uma estrutura de projeto do zero: Vite + TypeScript + ESLint + Prettier + Husky + Vue Router + Design System quasar.',
+      es: 'Creando una estructura de proyecto desde cero: Vite + TypeScript + ESLint + Prettier + Husky + Vue Router + Design System quasar.',
+      de: 'Eine Projektstruktur von Grund auf: Vite + TypeScript + ESLint + Prettier + Husky + Vue Router + quasar Design-System.',
+      fr: 'Créer une structure de projet de zéro : Vite + TypeScript + ESLint + Prettier + Husky + Vue Router + Design System quasar.',
+      ja: 'プロジェクト構成をゼロから：Vite + TypeScript + ESLint + Prettier + Husky + Vue Router + quasar デザインシステム。',
+    },
+    quote: {
+      en: '“Well begun is half done.” — Aristotle',
+      pt: '“Começar bem é ter metade do trabalho feito.” — Aristóteles',
+      es: '“Bien empezado es la mitad del trabajo.” — Aristóteles',
+      de: '“Gut begonnen ist halb gewonnen.” — Aristoteles',
+      fr: '“Bien commencer, c’est à moitié réussir.” — Aristote',
+      ja: '「よい始まりは、仕事の半分を成す。」— アリストテレス',
+    },
+    blocks: [
+      { type: 'p', text: { en: 'Just like Gandalf the Grey marked Bilbo Baggins’ door with a shining rune, signaling the start of his unexpected journey, I invite you to mark in your hearts the beginning of a beautiful modern structure for projects using Vue3.', pt: 'Assim como Gandalf, o Cinzento, marcou a porta de Bilbo Bolseiro com uma runa brilhante, sinalizando o início de sua jornada inesperada, eu te convido a marcar no coração o começo de uma bela estrutura moderna para projetos usando Vue3.' } },
+      { type: 'p', text: { en: 'In the last post we finished our shareable components structure, using Vue3 + quasar + Typescript + Jest + Prettier + ESLint + Husky (phew…), and on top of that we set up Npm + Github packages to distribute our library.', pt: 'No último post terminamos nossa estrutura de componentes compartilháveis, usando Vue3 + quasar + Typescript + Jest + Prettier + ESLint + Husky (ufa…), e por cima disso configuramos Npm + Github packages para distribuir nossa biblioteca.' } },
+      { type: 'p', text: { en: 'Now, we’ll create a parent project structure (we’ll call it Scaffolding), which will use our shareable components alongside other libraries and patterns.', pt: 'Agora, vamos criar uma estrutura de projeto pai (vamos chamá-la de Scaffolding), que vai usar nossos componentes compartilháveis junto com outras bibliotecas e padrões.' } },
+      { type: 'code', code: `// List of what we will use in the project
+Vue3
+Typescript
+Eslint
+Prettier
+Husky
+Vitest (Unit tests)
+Pinia (Global state management)
+Axios (Consuming RestApis)
+VueI18n (Translation)
+quasar (Design System)
+Vue router (Routing)` },
+      { type: 'h2', text: { en: 'Creating a Vue3 project with Vite', pt: 'Criando um projeto Vue3 com Vite' } },
+      { type: 'p', text: { en: 'Note: We already went through this process in the first tutorial, but I’ll repeat it here for those who missed it or didn’t quite catch the idea.', pt: 'Nota: já passamos por esse processo no primeiro tutorial, mas vou repetir aqui para quem perdeu ou não pegou bem a ideia.' } },
+      { type: 'code', code: `yarn create vite` },
+      { type: 'img', src: '/blog/vue3-part4-vite-create.png', alt: { en: 'Creating the project with Vite', pt: 'Criando o projeto com Vite' } },
+      { type: 'p', text: { en: 'In our case we chose to work with Typescript, but you can opt for Javascript if you prefer. Right after the creation, we’ll go into the project folder, install the dependencies and run our project.', pt: 'No nosso caso escolhemos trabalhar com Typescript, mas você pode optar por Javascript se preferir. Logo depois da criação, entramos na pasta do projeto, instalamos as dependências e rodamos o projeto.' } },
+      { type: 'code', code: `cd design-system
+yarn
+yarn dev` },
+      { type: 'p', text: { en: 'Once that’s done you’ll have an app running on localhost similar to this one:', pt: 'Feito isso, você terá um app rodando no localhost parecido com este:' } },
+      { type: 'img', src: '/blog/vue3-part4-vite-app.png', alt: { en: 'The default Vite + Vue app running', pt: 'O app padrão Vite + Vue rodando' } },
+      { type: 'h2', text: { en: 'Installing ESLint, Prettier, Husky and quasar', pt: 'Instalando ESLint, Prettier, Husky e quasar' } },
+      { type: 'p', text: { en: 'The installation of ESLint, Prettier and Husky you can follow along using Part II of this series. The installation of quasar can also be done the same way as taught in Part I.', pt: 'A instalação de ESLint, Prettier e Husky você pode acompanhar pela Parte II desta série. A instalação do quasar também pode ser feita da mesma forma ensinada na Parte I.' } },
+      { type: 'h2', text: { en: 'Installing and configuring the routes', pt: 'Instalando e configurando as rotas' } },
+      { type: 'p', text: { en: 'Now that we’ve followed the previous tutorials, you already have a Vue3 structure, created with Vite, and with Typescript, Prettier, ESLint and Husky installed. The steps up until now were identical to what we did in the Design System app, but now we’ll install a new library, Vue Router!', pt: 'Agora que seguimos os tutoriais anteriores, você já tem uma estrutura Vue3, criada com Vite, e com Typescript, Prettier, ESLint e Husky instalados. Os passos até aqui foram idênticos ao que fizemos no app do Design System, mas agora vamos instalar uma nova biblioteca, o Vue Router!' } },
+      { type: 'p', text: { en: '“Vue Router handles all the management of which content should be shown on the screen based on the url the user is accessing, and this control, when well built, gives the application great dynamism.” — Google, Cupcom Website.', pt: '“O Vue Router cuida de todo o gerenciamento de qual conteúdo deve ser mostrado na tela com base na url que o usuário está acessando, e esse controle, quando bem construído, dá à aplicação um grande dinamismo.” — Google, Site da Cupcom.' } },
+      { type: 'p', text: { en: 'In short, in a SPA (Single Page Application) web app, instead of redirecting the user to links (an <a href> tag), as is done on static sites, all the “route” control is managed by the router — in Vue3, we use Vue Router.', pt: 'Resumindo, numa web app SPA (Single Page Application), em vez de redirecionar o usuário para links (a tag <a href>), como se faz em sites estáticos, todo o controle de “rotas” é gerenciado pelo router — no Vue3, usamos o Vue Router.' } },
+      { type: 'p', text: { en: 'First things first — let’s set up a basic project structure, meaning we’ll just create the folders that will hold our components, routes, services, etc. Create the folders in your app as shown in the image below; you can also remove the HelloWorld.vue component, styles and html eventually created by Vite.', pt: 'Primeiro o primeiro — vamos montar uma estrutura básica de projeto, ou seja, criar as pastas que vão guardar nossos componentes, rotas, serviços, etc. Crie as pastas no seu app como mostra a imagem abaixo; você também pode remover o componente HelloWorld.vue, os estilos e o html que o Vite eventualmente cria.' } },
+      { type: 'img', src: '/blog/vue3-part4-folders.png', alt: { en: 'The /src folder structure after cleanup', pt: 'A estrutura da pasta /src após a limpeza' } },
+      { type: 'p', text: { en: 'Now let’s run the command to install Vue Router.', pt: 'Agora vamos rodar o comando para instalar o Vue Router.' } },
+      { type: 'code', code: `yarn add vue-router@4` },
+      { type: 'p', text: { en: 'Inside the router folder, we’ll create a routes.js file, where we’ll build the routes we’ll have in the basic structure.', pt: 'Dentro da pasta router, vamos criar um arquivo routes.js, onde vamos construir as rotas que teremos na estrutura básica.' } },
+      { type: 'code', code: `// src/router/routes.js
+import { createRouter, createWebHistory } from 'vue-router';
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    {
+      path: '/',
+      component: () => import('@/views/layout/Layout.vue'),
+      children: [
+        {
+          path: '',
+          component: () => import('@/views/home/Home.vue'),
+        },
+      ],
+    },
+    {
+      path: '/login',
+      component: () => import('@/views/login/Login.vue'),
+    },
+    // Always leave this as the last one, but you can also remove it
+    {
+      path: '/:catchAll(.*)*',
+      component: () => import('@/views/notFound/ErrorNotFound.vue'),
+    },
+  ],
+});
+
+export default router;` },
+      { type: 'p', text: { en: 'Notice that in the routes file we have four components: Layout, Home, Login and ErrorNotFound. We can create these files in their respective folders. The “@” alias might not be configured in your vite.config.js — you’ll need to change this configuration:', pt: 'Repare que no arquivo de rotas temos quatro componentes: Layout, Home, Login e ErrorNotFound. Podemos criar esses arquivos nas respectivas pastas. O alias “@” pode não estar configurado no seu vite.config.js — você vai precisar mudar essa configuração:' } },
+      { type: 'code', code: `import { fileURLToPath, URL } from "url";
+// vite.config.js
+export default defineConfig(({ mode }) => {
+  return {
+    resolve: {
+      alias: {
+        "@": fileURLToPath(new URL("./src", import.meta.url)),
+      },
+    },
+    ...
+    // rest of the file
+  }
+})` },
+      { type: 'p', text: { en: 'After creating the components, we need to import and use our routes file in the project’s main.ts.', pt: 'Depois de criar os componentes, precisamos importar e usar nosso arquivo de rotas no main.ts do projeto.' } },
+      { type: 'code', code: `// src/main.ts
+import { createApp } from 'vue';
+import router from './router/routes';
+...
+// Rest of the file
+import App from './App.vue';
+
+const myApp = createApp(App);
+
+myApp.use(router);
+
+// Assumes you have a <div id="app"></div> in your index.html
+myApp.mount('#app');` },
+      { type: 'p', text: { en: 'Now inside the App.vue and Layout.vue files you’ll add the following code.', pt: 'Agora dentro dos arquivos App.vue e Layout.vue você vai adicionar o seguinte código.' } },
+      { type: 'code', code: `<template>
+  <router-view />
+</template>` },
+      { type: 'p', text: { en: 'Once that’s done, if you’re running your app with yarn run dev, when accessing the urls http://localhost:5173/ or http://localhost:5173/login (the port number is subjective), you should see the content of each component that was created (if the components are empty, write a “Hello World” just to confirm it’s working).', pt: 'Feito isso, se você estiver rodando seu app com yarn run dev, ao acessar as urls http://localhost:5173/ ou http://localhost:5173/login (o número da porta é subjetivo), você deve ver o conteúdo de cada componente criado (se os componentes estiverem vazios, escreva um “Hello World” só pra confirmar que está funcionando).' } },
+      { type: 'h2', text: { en: 'Installing our Design System and creating basic components', pt: 'Instalando nosso Design System e criando componentes básicos' } },
+      { type: 'p', text: { en: 'Now that we already have our basic routes, let’s install the Design System we created in the last post to build a basic app structure. Create a .npmrc file at the root of your project and paste the following code.', pt: 'Agora que já temos nossas rotas básicas, vamos instalar o Design System que criamos no último post para montar uma estrutura básica de app. Crie um arquivo .npmrc na raiz do projeto e cole o código a seguir.' } },
+      { type: 'code', code: `@denisibanez:registry=https://npm.pkg.github.com/
+//npm.pkg.github.com/:_authToken=\${GITHUBTOKEN}` },
+      { type: 'p', text: { en: 'Again, we’ve already gone through this in a previous post. I “placed” the ${GITHUBTOKEN} variable directly in the system variables — in my case macOS, the commands are as follows:', pt: 'De novo, já passamos por isso num post anterior. Eu “coloquei” a variável ${GITHUBTOKEN} diretamente nas variáveis de sistema — no meu caso macOS, os comandos são os seguintes:' } },
+      { type: 'code', code: `export GITHUBTOKEN="text_with_the_token_value"` },
+      { type: 'p', text: { en: 'To check if your variable is configured, run:', pt: 'Para verificar se sua variável está configurada, rode:' } },
+      { type: 'code', code: `echo $GITHUBTOKEN` },
+      { type: 'p', text: { en: 'NOTE: I’m assuming you already have the token created, since you did it in the previous lessons. Now we’ll install our Design System with the command below:', pt: 'NOTA: estou assumindo que você já tem o token criado, já que fez isso nas lições anteriores. Agora vamos instalar nosso Design System com o comando abaixo:' } },
+      { type: 'code', code: `yarn add @denisibanez/design-system-ui@latest` },
+      { type: 'p', text: { en: 'NOTE: Both in the .npmrc file and in the command above, we have “@denisibanez” as the prefix; remember that this prefix must be the same one you configured in your Design System project.', pt: 'NOTA: tanto no arquivo .npmrc quanto no comando acima temos “@denisibanez” como prefixo; lembre-se de que esse prefixo deve ser o mesmo que você configurou no seu projeto de Design System.' } },
+      { type: 'p', text: { en: 'After performing the process above, we’ll go to the Layout.vue file and add the library’s css.', pt: 'Depois de fazer o processo acima, vamos ao arquivo Layout.vue e adicionamos o css da biblioteca.' } },
+      { type: 'code', code: `// src/views/layout/Layout.vue
+<style lang="scss">
+// Design system css components
+@import '../../../node_modules/@denisibanez/design-system-ui/dist/index.css';
+</style>` },
+      { type: 'p', text: { en: 'With this, we can import our QcButton.vue anywhere in the application and it will work normally.', pt: 'Com isso, podemos importar nosso QcButton.vue em qualquer lugar da aplicação e ele vai funcionar normalmente.' } },
+      { type: 'code', code: `<template>
+  <QcButton
+    label="Botao do Design System"
+    color="primary"
+    size="md"
+    :loading="loadingBtn"
+    @click.capture="loadingBtn = !loadingBtn"
+  />
+</template>
+
+<script lang="ts" setup>
+// DESIGN SYSTEM
+import { QcButton } from '@denisibanez/design-system-ui';
+
+// VARIABLES
+const loadingBtn: Ref<boolean> = ref(false);
+</script>` },
+      { type: 'p', text: { en: 'With this we already have the Design System working in our structure 🤷. Now let’s go back to the components repository (Design System) and create four basic components: QcTextField, QcLayout, QcLoading and QcSnackbar.', pt: 'Com isso já temos o Design System funcionando na nossa estrutura 🤷. Agora vamos voltar ao repositório de componentes (Design System) e criar quatro componentes básicos: QcTextField, QcLayout, QcLoading e QcSnackbar.' } },
+      { type: 'p', text: { en: 'We’ll use these components to build our Scaffolding structure. We could create them inside Scaffolding itself, but since the idea is to componentize and reuse, we’ll place them inside the Design System — so that, in a real scenario, “other teams” at our company could use them without needing to replicate code.', pt: 'Vamos usar esses componentes para construir nossa estrutura de Scaffolding. Poderíamos criá-los dentro do próprio Scaffolding, mas como a ideia é componentizar e reusar, vamos colocá-los dentro do Design System — para que, num cenário real, “outros times” da nossa empresa pudessem usá-los sem precisar replicar código.' } },
+      { type: 'code', code: `// Design System project — src/components/form/QcTextfield.vue
+<template>
+  <div class="QcTextfield__wrapper">
+    <q-input
+      outlined
+      lazy-rules
+      :label="label"
+      :rules="rules"
+      :type="types"
+      :model-value="value"
+      @update:model-value="onInput($event)"
+    />
+  </div>
+</template>
+
+<script lang="ts" setup>
+export interface QcTextfieldInterface {
+  label: string;
+  value: string | null | number;
+  types:
+    | 'number' | 'text' | 'password' | 'textarea' | 'email'
+    | 'search' | 'tel' | 'file' | 'url' | 'time' | 'date' | undefined;
+  rules: Array<any>;
+}
+const props = withDefaults(defineProps<QcTextfieldInterface>(), {
+  label: 'Label',
+  types: 'text',
+  value: '',
+});
+const $emit = defineEmits(['onInputChange']);
+function onInput(text: string | null | number) {
+  $emit('onInputChange', text);
+}
+</script>` },
+      { type: 'code', code: `// Design System project — src/components/loading/QcLoading.vue
+<template>
+  <div class="QcLoading__wrapper" v-if="loading">
+    <q-spinner-puff :color="color" :size="size" />
+    <h3>{{ text }}</h3>
+  </div>
+</template>
+
+<script setup lang="ts">
+export interface QcLoadingInterface {
+  color: string;
+  size: string;
+  loading: boolean;
+  text: string;
+}
+const props = withDefaults(defineProps<QcLoadingInterface>(), {
+  color: 'primary',
+  size: 'lg',
+  loading: false,
+  text: 'Carregando',
+});
+</script>
+
+<style lang="scss" scoped>
+.QcLoading {
+  &__wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+</style>` },
+      { type: 'code', code: `// Design System project — src/components/snackbar/QcSnackbar.vue
+<script setup lang="ts">
+import { useQuasar } from 'quasar';
+import { watchEffect } from 'vue';
+export interface QcSnackbarInterface {
+  model: boolean;
+  bgColor: string;
+  text: string;
+  icon: string;
+  actionLabelColor: string;
+  textColor: string;
+}
+const props = withDefaults(defineProps<QcSnackbarInterface>(), {
+  model: false,
+  bgColor: 'primary',
+  text: 'Esse é um alerta!',
+  icon: 'warning',
+  actionLabelColor: 'white',
+  textColor: 'white',
+});
+const $q = useQuasar();
+function showNotifs() {
+  $q.notify({
+    progress: true,
+    message: props.text,
+    color: props.bgColor,
+    multiLine: false,
+    textColor: props.textColor,
+    icon: props.icon,
+    actions: [
+      { label: 'Fechar', color: props.actionLabelColor, handler: () => {} },
+    ],
+  });
+}
+watchEffect(() => {
+  if (props.model) {
+    showNotifs();
+  }
+});
+</script>` },
+      { type: 'code', code: `// Design System project — src/components/layout/QcLayout.vue
+<template>
+  <div class="Qclayout__wrapper">
+    <q-layout>
+      <q-header elevated>
+        <q-toolbar>
+          <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
+          <q-toolbar-title>{{ appName }}</q-toolbar-title>
+          <div @click="logoff" style="cursor: pointer">{{ logoffLabel }}</div>
+        </q-toolbar>
+      </q-header>
+
+      <q-drawer v-model="leftDrawerOpen.value" show-if-above bordered>
+        <q-list>
+          <q-item-label header v-for="item in menu" @click="navigate(item)">
+            {{ item.label }}
+          </q-item-label>
+        </q-list>
+      </q-drawer>
+
+      <q-page-container>
+        <slot></slot>
+      </q-page-container>
+    </q-layout>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { reactive } from 'vue';
+export interface MenuInterface {
+  label: string;
+  route: string;
+}
+export interface QclayoutInterface {
+  appName?: string;
+  logoffLabel?: string;
+  menu?: any;
+}
+const props = withDefaults(defineProps<QclayoutInterface>(), {
+  appName: 'Nome da app',
+  logoffLabel: 'Sair',
+  menu: [{ label: 'menu item', route: '/' }],
+});
+// VARIABLES
+let leftDrawerOpen = reactive({ value: false });
+const $emit = defineEmits(['logoff', 'navigate']);
+// METHODS
+function toggleLeftDrawer() {
+  leftDrawerOpen.value = !leftDrawerOpen.value;
+}
+function navigate(item: any) {
+  $emit('navigate', item);
+}
+function logoff() {
+  $emit('logoff');
+}
+</script>` },
+      { type: 'p', text: { en: 'Components created — it’s time to document them with Storybook. Each component gets a .stories.js file (I’ll show QcTextfield’s; the others follow the same pattern).', pt: 'Componentes criados — hora de documentá-los com Storybook. Cada componente ganha um arquivo .stories.js (vou mostrar o do QcTextfield; os outros seguem o mesmo padrão).' } },
+      { type: 'code', code: `// src/components/form/QcTextfield.stories.js
+import QcTextfield from './QcTextfield.vue';
+
+export default {
+  title: 'Components/form/textfield',
+  component: QcTextfield,
+  argTypes: {
+    onInput: { action: 'clicked' },
+    types: {
+      control: { type: 'select' },
+      options: ['number','text','password','textarea','email','search','tel','file','url','time','date', undefined],
+    },
+  },
+};
+
+const Template = (args) => ({
+  components: { QcTextfield },
+  setup() {
+    return { args };
+  },
+  template: '<QcTextfield v-bind="args" @onInputChange="value = $event" />',
+});
+
+export const Primary = Template.bind({});
+Primary.args = {
+  label: 'label',
+  types: 'text',
+  rules: [(val) => (val !== null && val !== '') || 'Campo obrigatório'],
+  value: '',
+};` },
+      { type: 'p', text: { en: 'Also, we need to make a small adjustment to the project settings to use quasar’s snackbar.', pt: 'Também precisamos fazer um pequeno ajuste nas configurações do projeto para usar o snackbar do quasar.' } },
+      { type: 'code', code: `// src/main.ts
+import { Notify } from 'quasar';
+// rest of the file
+...
+myApp.use(Quasar, {
+  plugins: {
+    Notify,
+  }, // import Quasar plugins here
+});` },
+      { type: 'p', text: { en: 'We can’t forget to create the index files, one for each component, and then update the index.ts inside the src folder to export everything.', pt: 'Não podemos esquecer de criar os arquivos index, um para cada componente, e então atualizar o index.ts dentro da pasta src para exportar tudo.' } },
+      { type: 'code', code: `// one index.ts per component, e.g. src/components/loading/index.ts
+export { default as QcLoading } from './QcLoading.vue';
+
+// src/index.ts
+import type { App } from 'vue';
+import QcButton from '@/components/buttons/QcButton.vue';
+import QcLoading from '@/components/loading/QcLoading.vue';
+import QcSnackbar from '@/components/snackbar/QcSnackbar.vue';
+import QcTextfield from '@/components/form/textField/QcTextfield.vue';
+import QcLayout from '@/components/layout/QcLayout.vue';
+
+export default {
+  install: (app: App) => {
+    app.component('QcButton', QcButton);
+    app.component('QcLoading', QcLoading);
+    app.component('QcSnackbar', QcSnackbar);
+    app.component('QcTextfield', QcTextfield);
+    app.component('QcLayout', QcLayout);
+  },
+};
+
+export { QcButton, QcTextfield, QcSnackbar, QcLoading, QcLayout };` },
+      { type: 'p', text: { en: 'Now yes! Everything’s ready. You’ll probably get this screen when running yarn run storybook:', pt: 'Agora sim! Tudo pronto. Você provavelmente vai ter esta tela ao rodar yarn run storybook:' } },
+      { type: 'img', src: '/blog/vue3-part4-storybook.png', alt: { en: 'The components running in Storybook', pt: 'Os componentes rodando no Storybook' } },
+      { type: 'p', text: { en: 'Remember I mentioned in previous posts that a single button didn’t make clear the power this kind of reusable structure could bring? In this example we start to see things taking shape. Below is the component tree I made for a project using this same concept — the speed increases a lot when developing, besides standardizing the structure.', pt: 'Lembra que comentei em posts anteriores que um único botão não deixava claro o poder que esse tipo de estrutura reutilizável poderia trazer? Neste exemplo começamos a ver as coisas tomando forma. Abaixo está a árvore de componentes que fiz para um projeto usando esse mesmo conceito — a velocidade aumenta muito no desenvolvimento, além de padronizar a estrutura.' } },
+      { type: 'img', src: '/blog/vue3-part4-tree.png', alt: { en: 'A large component tree (there was even more — the screenshot came out small)', pt: 'Uma grande árvore de componentes (tinha ainda mais — a captura saiu pequena)' } },
+      { type: 'p', text: { en: 'Now we can change our project’s version in package.json and run the commands below to build and publish our changes.', pt: 'Agora podemos mudar a versão do nosso projeto no package.json e rodar os comandos abaixo para buildar e publicar nossas mudanças.' } },
+      { type: 'code', code: `yarn run build
+npm publish` },
+      { type: 'img', src: '/blog/vue3-part4-npm-publish.png', alt: { en: 'The npm publish output', pt: 'A saída do npm publish' } },
+      { type: 'p', text: { en: 'Going back to our Scaffolding app, we can install the components update from the Design System by running the command below. (Remember that “@denisibanez” is the name of our library.)', pt: 'Voltando ao nosso app Scaffolding, podemos instalar a atualização dos componentes do Design System rodando o comando abaixo. (Lembre que “@denisibanez” é o nome da nossa biblioteca.)' } },
+      { type: 'code', code: `yarn add @denisibanez/design-system@latest` },
+      { type: 'p', text: { en: 'Let’s use the components created in the Design System to build our layout structure in the Scaffolding project, modifying the Layout.vue and Login files.', pt: 'Vamos usar os componentes criados no Design System para montar nossa estrutura de layout no projeto Scaffolding, modificando os arquivos Layout.vue e Login.' } },
+      { type: 'code', code: `// src/views/layout/Layout.vue
+<template>
+  <div>
+    <QcLayout @logoff="onLogoff" @navigate="onNavigate($event)">
+      <RouterView></RouterView>
+      <!-- <QcLoading :loading="LOADING_STATE" size="xl" text="Aguarde" /> -->
+      <!-- <QcSnackbar :model="SNACKBAR_STATE.model" ... /> -->
+    </QcLayout>
+  </div>
+</template>
+
+<script setup lang="ts">
+// import { QcLoading, QcSnackbar, QcLayout } from '@denisibanez/design-system-ui';
+function onLogoff() {
+  // let's leave it empty for now
+}
+function onNavigate(item: any) {
+  router.push(item.route);
+}
+</script>
+
+<style lang="scss">
+@import '../../../node_modules/@denisibanez/design-system-ui/dist/index.css';
+</style>` },
+      { type: 'p', text: { en: 'NOTE: For now, our application will display an error, since SNACKBAR_STATE and LOADING_STATE haven’t been defined. You can create temporary variables or just comment out the loading and snackbar components — we’ll install global state management in the future to provide these variables.', pt: 'NOTA: por enquanto, nossa aplicação vai mostrar um erro, já que SNACKBAR_STATE e LOADING_STATE não foram definidos. Você pode criar variáveis temporárias ou simplesmente comentar os componentes de loading e snackbar — vamos instalar gerenciamento de estado global no futuro para fornecer essas variáveis.' } },
+      { type: 'code', code: `// src/views/login/Login.vue
+<template>
+  <div class="fullscreen bg-blue text-white text-center q-pa-md flex flex-center">
+    <div class="q-pa-md bg-white rounded-borders" style="max-width: 400px">
+      <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md" ref="myForm">
+        <QcTextfield
+          :value="user"
+          :rules="[(val: any) => (val !== null && val !== '') || 'Campo obrigatório']"
+          label="Usuário"
+          types="text"
+          @onInputChange="user = $event"
+        />
+        <QcTextfield
+          :value="password"
+          :rules="[(val: any) => (val !== null && val !== '') || 'Campo obrigatório']"
+          label="Senha"
+          types="password"
+          @onInputChange="password = $event"
+        />
+        <div class="row">
+          <QcButton size="md" label="Entrar" type="submit" color="primary" :loading="loading" />
+          <QcButton size="md" label="Cancelar" type="reset" color="primary" flat class="q-ml-sm" />
+        </div>
+      </q-form>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { onMounted, ref } from 'vue';
+import { QcSnackbar, QcTextfield, QcButton } from '@denisibanez/design-system-ui';
+import { useRouter, useRoute } from 'vue-router';
+
+let user = ref(null);
+let password = ref(null);
+const myForm = ref();
+let loading = ref(false);
+const router = useRouter();
+const route = useRoute();
+
+function onSubmit() {
+  loading = ref(true);
+  myForm.value.validate().then((success: any) => {
+    if (success) {
+      loading = ref(false);
+      router.push('/');
+    }
+  });
+}
+function onReset() {
+  user.value = null;
+  password.value = null;
+}
+</script>` },
+      { type: 'p', text: { en: 'With this we’ll have a functional Login screen at the /login route, where upon “logging in” with any username and password, we’ll be redirected to home (which is empty for now).', pt: 'Com isso teremos uma tela de Login funcional na rota /login, onde ao “logar” com qualquer usuário e senha, seremos redirecionados para a home (que está vazia por enquanto).' } },
+      { type: 'img', src: '/blog/vue3-part4-login.png', alt: { en: 'The functional Login screen', pt: 'A tela de Login funcional' } },
+      { type: 'h2', text: { en: 'Conclusion', pt: 'Conclusão' } },
+      { type: 'p', text: { en: 'This post turned out a bit bigger than I expected — I’ll leave the rest for the next tutorial. We’ll install Pinia 🍍 to control the loading and snackbar state of any component in our application, we’ll also install Axios and set up a structure of services, router guard and interceptor, besides starting to write tests for our Scaffolding app (now using Vitest), and we’ll install the VueI18n plugin to handle translations. I hope you’re enjoying it! See you in the next post.', pt: 'Este post acabou ficando um pouco maior do que eu esperava — vou deixar o resto para o próximo tutorial. Vamos instalar o Pinia 🍍 para controlar o estado de loading e snackbar de qualquer componente da nossa aplicação, também vamos instalar o Axios e montar uma estrutura de services, router guard e interceptor, além de começar a escrever testes para nosso app Scaffolding (agora usando Vitest), e vamos instalar o plugin VueI18n para lidar com traduções. Espero que esteja curtindo! Até o próximo post.' } },
+    ],
+  },
+  {
     slug: 'blip-flutter-group',
     date: '2026-07-29',
     readingMinutes: 2,
