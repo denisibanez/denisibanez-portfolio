@@ -9,6 +9,8 @@ import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
 import { useBlog } from '@/composables/useBlog/useBlog'
 import { useLocalize } from '@/composables/useLocalize/useLocalize'
 import { useRise } from '@/composables/useRise/useRise'
+import type { BlogText } from '@/types/blog'
+import type { Locale } from '@/i18n'
 import blogBg from '@/assets/images/banner-blog.png'
 
 // `slug` prop overrides the route param (handy for stories/tests).
@@ -23,7 +25,18 @@ const { rise } = useRise()
 
 const slug = computed(() => props.slug ?? String(route.params.slug ?? ''))
 const post = computed(() => getBySlug(slug.value))
-const paragraphs = computed(() => (post.value ? localized(post.value.body) : []))
+const paragraphs = computed(() => (post.value?.body ? localized(post.value.body) : []))
+
+// Rich blocks (long-form imported posts). Text resolves to a plain string here
+// (English fallback) so the template stays free of union narrowing.
+const pickText = (text: BlogText) => text[locale.value as Locale] ?? text.en ?? text.pt ?? ''
+const blocks = computed(() =>
+  (post.value?.blocks ?? []).map((block) => {
+    if (block.type === 'code') return { type: 'code', code: block.code, text: '', src: '' }
+    if (block.type === 'img') return { type: 'img', src: block.src, text: block.alt ? pickText(block.alt) : '', code: '' }
+    return { type: block.type, text: pickText(block.text), code: '', src: '' }
+  }),
+)
 
 const formatDate = (iso: string) =>
   new Date(`${iso}T00:00:00`).toLocaleDateString(locale.value, { year: 'numeric', month: 'long', day: 'numeric' })
@@ -123,14 +136,35 @@ const onScroll = () => {
               :alt="localized(post.title)"
               class="mb-10 max-h-[420px] w-full border border-white/10 object-contain"
             />
-            <p
-              v-for="(paragraph, i) in paragraphs"
-              :key="i"
-              class="mb-6 text-body-lg leading-relaxed text-on-surface-variant"
-              :class="i === 0 ? 'first-letter:float-left first-letter:mr-3 first-letter:text-6xl first-letter:font-semibold first-letter:leading-none first-letter:text-tertiary' : ''"
-            >
-              {{ paragraph }}
-            </p>
+            <!-- Rich blocks (long-form imported posts) -->
+            <template v-for="(block, i) in blocks" :key="`block-${i}`">
+              <h2 v-if="block.type === 'h2'" class="mb-3 mt-10 text-body-lg font-semibold text-on-surface">{{ block.text }}</h2>
+              <h3 v-else-if="block.type === 'h3'" class="mb-2 mt-8 text-body-lg font-semibold text-on-surface">{{ block.text }}</h3>
+              <pre
+                v-else-if="block.type === 'code'"
+                class="mb-6 overflow-x-auto rounded-sm border border-white/10 bg-black/40 p-4"
+              ><code class="whitespace-pre font-mono text-sm leading-relaxed text-on-surface-variant">{{ block.code }}</code></pre>
+              <img
+                v-else-if="block.type === 'img'"
+                :src="block.src"
+                :alt="block.text"
+                loading="lazy"
+                class="mb-8 w-full rounded-sm border border-white/10 object-contain"
+              />
+              <p v-else class="mb-6 text-body-lg leading-relaxed text-on-surface-variant">{{ block.text }}</p>
+            </template>
+
+            <!-- Simple paragraph body -->
+            <template v-if="!blocks.length">
+              <p
+                v-for="(paragraph, i) in paragraphs"
+                :key="i"
+                class="mb-6 text-body-lg leading-relaxed text-on-surface-variant"
+                :class="i === 0 ? 'first-letter:float-left first-letter:mr-3 first-letter:text-6xl first-letter:font-semibold first-letter:leading-none first-letter:text-tertiary' : ''"
+              >
+                {{ paragraph }}
+              </p>
+            </template>
 
             <div class="mt-10 flex flex-wrap gap-2">
               <span

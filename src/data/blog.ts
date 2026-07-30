@@ -3,6 +3,308 @@ import type { BlogPost } from '@/types/blog'
 // Blog posts. Text fields are localized (Record<Locale>) — read via useLocalize.
 export const posts: BlogPost[] = [
   {
+    slug: 'a-complete-vue3-setup-part-1',
+    date: '2023-03-25',
+    readingMinutes: 9,
+    tags: ['Vue', 'Design System', 'Quasar', 'Storybook'],
+    image: '/blog/vue3-part1-cover.jpg',
+    category: { en: 'Engineering', pt: 'Engenharia', es: 'Ingeniería', de: 'Engineering', fr: 'Ingénierie', ja: 'エンジニアリング' },
+    title: {
+      en: 'A Complete Vue 3 Setup — Part I',
+      pt: 'Um Setup Completo com Vue 3 — Parte I',
+      es: 'Un Setup Completo con Vue 3 — Parte I',
+      de: 'Ein komplettes Vue-3-Setup — Teil I',
+      fr: 'Un setup complet avec Vue 3 — Partie I',
+      ja: '完全な Vue 3 セットアップ — Part I',
+    },
+    excerpt: {
+      en: 'Building a design system with quasar + Storybook — the first step of a complete Vue 3 setup.',
+      pt: 'Construindo um design system com quasar + Storybook — o primeiro passo de um setup completo com Vue 3.',
+      es: 'Construyendo un design system con quasar + Storybook — el primer paso de un setup completo con Vue 3.',
+      de: 'Ein Design-System mit quasar + Storybook bauen — der erste Schritt eines kompletten Vue-3-Setups.',
+      fr: "Construire un design system avec quasar + Storybook — la première étape d'un setup complet avec Vue 3.",
+      ja: 'quasar + Storybook でデザインシステムを構築——完全な Vue 3 セットアップの第一歩。',
+    },
+    quote: {
+      en: "Frontend isn't a 100-meter dash — it's a marathon; consistency matters more than speed.",
+      pt: 'Frontend não é uma corrida de 100 metros — é uma maratona; consistência importa mais que velocidade.',
+      es: 'El frontend no es una carrera de 100 metros — es un maratón; la consistencia importa más que la velocidad.',
+      de: 'Frontend ist kein 100-Meter-Lauf — es ist ein Marathon; Beständigkeit zählt mehr als Tempo.',
+      fr: "Le frontend n'est pas un 100 mètres — c'est un marathon ; la constance compte plus que la vitesse.",
+      ja: 'フロントエンドは100メートル走ではなくマラソン。速さより一貫性が大切だ。',
+    },
+    blocks: [
+      { type: 'h3', text: { en: 'Hey, do you have a moment to talk about the new Tekpix?', pt: 'Ei, você tem um minuto pra falar sobre o novo Tekpix?' } },
+      { type: 'p', text: { en: 'Joking aside, I’d like to talk a little about the “new” Vue3 — “new” in quotes — because the update to this beloved framework for Frontend developers has been dragging on since 2020, but after December 2022, when the development team announced it would stop supporting version 2, that’s when it actually became a reality.', pt: 'Brincadeiras à parte, gostaria de falar um pouco sobre o “novo” Vue3 — “novo” entre aspas — porque a atualização desse framework tão querido pelos desenvolvedores Frontend se arrasta desde 2020, mas foi depois de dezembro de 2022, quando o time de desenvolvimento anunciou que deixaria de dar suporte à versão 2, que isso de fato virou realidade.' } },
+      { type: 'p', text: { en: 'Since it’s such a recent version, it’s a bit harder to find complete resources about features, patterns, and libraries.', pt: 'Por ser uma versão tão recente, é um pouco mais difícil encontrar materiais completos sobre features, padrões e bibliotecas.' } },
+      { type: 'p', text: { en: 'At this very moment, the biggest Material library for Vue just came out of beta, and they haven’t even released a functional data-table yet.', pt: 'Neste exato momento, a maior biblioteca Material para Vue acabou de sair do beta, e eles ainda nem lançaram um data-table funcional.' } },
+      { type: 'p', text: { en: 'So I decided to put together a complete setup using Vue3 and a few cositas más (extra bits), to help out my fellow devs.', pt: 'Então decidi montar um setup completo usando Vue3 e umas cositas más, pra ajudar os colegas devs.' } },
+      { type: 'h2', text: { en: 'Quick summary of what’s coming up next…', pt: 'Resumo rápido do que vem por aí…' } },
+      { type: 'p', text: { en: 'In this post, we’ll build a reusable component structure based on quasar (the best-structured Material library for Vue3 so far), using Vite to create our project and GitHub Packages to distribute our library.', pt: 'Neste post, vamos construir uma estrutura de componentes reutilizáveis baseada em quasar (a biblioteca Material mais bem estruturada para Vue3 até agora), usando Vite pra criar o projeto e GitHub Packages pra distribuir nossa biblioteca.' } },
+      { type: 'p', text: { en: 'Besides that, we’ll also create a Scaffolding, a base structure meant to define some patterns and development best practices.', pt: 'Além disso, também vamos criar um Scaffolding, uma estrutura base pra definir alguns padrões e boas práticas de desenvolvimento.' } },
+      { type: 'h2', text: { en: 'Reusable components', pt: 'Componentes reutilizáveis' } },
+      { type: 'p', text: { en: 'It’s no secret that in many companies — whether because delivery speed is prioritized or because of the technical level of their developers — Frontend applications often evolve in a disorganized, non-reusable way. This can become a serious problem as the product grows, especially for whoever has to maintain and scale it.', pt: 'Não é segredo que em muitas empresas — seja por priorizarem a velocidade de entrega, seja pelo nível técnico dos desenvolvedores — as aplicações Frontend costumam evoluir de forma desorganizada e sem reuso. Isso pode virar um problema sério à medida que o produto cresce, principalmente pra quem precisa manter e escalar.' } },
+      { type: 'p', text: { en: 'So let’s show, in a simple way, how to create a repository/library to provide our components.', pt: 'Então vamos mostrar, de forma simples, como criar um repositório/biblioteca pra fornecer nossos componentes.' } },
+      { type: 'p', text: { en: 'Let’s start by creating a project with Vite!', pt: 'Vamos começar criando um projeto com Vite!' } },
+      { type: 'code', code: `yarn create vite` },
+      { type: 'img', src: '/blog/vue3-part1-vite.png', alt: { en: 'Creating the project with Vite', pt: 'Criando o projeto com Vite' } },
+      { type: 'p', text: { en: 'In our case we chose to work with Typescript, but you can opt for Javascript if you prefer.', pt: 'No nosso caso escolhemos trabalhar com Typescript, mas você pode optar por Javascript se preferir.' } },
+      { type: 'p', text: { en: 'Right after creating it, we’ll go into the project folder, install the dependencies, and run our project.', pt: 'Logo depois de criar, entramos na pasta do projeto, instalamos as dependências e rodamos o projeto.' } },
+      { type: 'code', code: `cd design-system
+yarn
+yarn dev` },
+      { type: 'p', text: { en: 'Once that’s done, you’ll have an app running on localhost similar to this one:', pt: 'Feito isso, você terá um app rodando no localhost parecido com este:' } },
+      { type: 'img', src: '/blog/vue3-part1-app.png', alt: { en: 'The default Vite app running', pt: 'O app padrão do Vite rodando' } },
+      { type: 'p', text: { en: 'With the project created, it’s time to install a few tools that will help us build our Design System. The first one will be quasar, the Material library that will help us save time developing components.', pt: 'Com o projeto criado, é hora de instalar algumas ferramentas que vão nos ajudar a construir nosso Design System. A primeira será o quasar, a biblioteca Material que vai nos ajudar a ganhar tempo no desenvolvimento dos componentes.' } },
+      { type: 'p', text: { en: 'Note: As we can see in the image above, it’s recommended to have the Volar and TS Volar extensions in your VSCode. (Yes, Vetur is a thing of the past)', pt: 'Nota: Como dá pra ver na imagem acima, é recomendável ter as extensões Volar e TS Volar no seu VSCode. (Sim, o Vetur é coisa do passado)' } },
+      { type: 'h3', text: { en: 'Installing quasar', pt: 'Instalando o quasar' } },
+      { type: 'code', code: `yarn add quasar @quasar/extras
+yarn add -D @quasar/vite-plugin sass@1.32.12` },
+      { type: 'p', text: { en: 'These commands are for manually installing quasar; since we’re using Vite to start the project, they’re necessary.', pt: 'Esses comandos são pra instalar o quasar manualmente; como estamos usando Vite pra iniciar o projeto, eles são necessários.' } },
+      { type: 'p', text: { en: 'You can choose to use quasar-cli to create your structure, but I ran into a lot of problems getting things to work with their pre-built structure.', pt: 'Você pode optar por usar o quasar-cli pra criar sua estrutura, mas eu tive bastante problema pra fazer as coisas funcionarem com a estrutura pré-montada deles.' } },
+      { type: 'p', text: { en: 'After running the quasar installation commands, we need to configure our project’s main.ts file.', pt: 'Depois de rodar os comandos de instalação do quasar, precisamos configurar o arquivo main.ts do projeto.' } },
+      { type: 'code', code: `// src/main.ts
+import { createApp } from 'vue'
+import { Quasar } from 'quasar'
+
+// Import icon libraries
+import '@quasar/extras/roboto-font/roboto-font.css'
+import '@quasar/extras/material-icons/material-icons.css'
+import '@quasar/extras/material-icons-outlined/material-icons-outlined.css'
+import '@quasar/extras/material-icons-round/material-icons-round.css'
+import '@quasar/extras/material-icons-sharp/material-icons-sharp.css'
+import '@quasar/extras/material-symbols-outlined/material-symbols-outlined.css'
+import '@quasar/extras/material-symbols-rounded/material-symbols-rounded.css'
+import '@quasar/extras/material-symbols-sharp/material-symbols-sharp.css'
+import '@quasar/extras/fontawesome-v6/fontawesome-v6.css'
+import '@quasar/extras/themify/themify.css'
+import '@quasar/extras/line-awesome/line-awesome.css'
+
+// Import Quasar css
+import 'quasar/src/css/index.sass'
+
+// Assumes your root component is App.vue
+// and placed in same folder as main.js
+import App from './App.vue'
+
+const myApp = createApp(App)
+
+myApp.use(Quasar, {
+  plugins: {}, // import Quasar plugins and add here
+})
+
+// Assumes you have a <div id="app"></div> in your index.html
+myApp.mount('#app')` },
+      { type: 'p', text: { en: 'Not all of these imports are mandatory — it really depends on what you’re going to use.', pt: 'Nem todos esses imports são obrigatórios — depende bastante do que você vai usar.' } },
+      { type: 'p', text: { en: 'Now let’s go to our Vite configuration file; you should leave it like the code below:', pt: 'Agora vamos ao arquivo de configuração do Vite; deixe ele assim como no código abaixo:' } },
+      { type: 'code', code: `// vite.config.js
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    vue({
+      template: { transformAssetUrls }
+    }),
+    quasar({
+      sassVariables: 'src/quasar-variables.sass'
+    })
+  ]
+})` },
+      { type: 'p', text: { en: 'Notice that we have a src/quasar-variables.sass file being imported in the Vite configuration; our next step will be to create it, since that’s where we’ll configure the variables that control the components’ color palette.', pt: 'Repare que temos um arquivo src/quasar-variables.sass sendo importado na configuração do Vite; nosso próximo passo será criá-lo, já que é ali que vamos configurar as variáveis que controlam a paleta de cores dos componentes.' } },
+      { type: 'code', code: `// src/quasar-variables.scss
+$primary   : #1976D2
+$secondary : #26A69A
+$accent    : #9C27B0
+
+$dark      : #1D1D1D
+
+$positive  : #21BA45
+$negative  : #C10015
+$info      : #31CCEC
+$warning   : #F2C037` },
+      { type: 'p', text: { en: 'Now that we have quasar installed, we can run a quick test by instantiating any component in our template — you’ll see that everything is working as expected.', pt: 'Agora que temos o quasar instalado, podemos fazer um teste rápido instanciando qualquer componente no template — você vai ver que está tudo funcionando como esperado.' } },
+      { type: 'p', text: { en: 'Also, at this point, you can delete the HelloWorld component along with the css, images, and assets created in Vite’s default project — give the structure a good cleanup, since we’ll be creating our own components.', pt: 'Aproveitando, a esta altura você já pode apagar o componente HelloWorld junto com o css, imagens e assets criados no projeto padrão do Vite — dê uma boa limpada na estrutura, já que vamos criar nossos próprios componentes.' } },
+      { type: 'p', text: { en: 'But first, let’s install Storybook. For those who’ve never used it, it’s a very powerful tool that lets us view our components in real time, letting us change their props and observe their behavior without actually having to install our library in a real application — it’s a huge help when documenting components.', pt: 'Mas antes, vamos instalar o Storybook. Pra quem nunca usou, é uma ferramenta muito poderosa que permite visualizar nossos componentes em tempo real, mudando suas props e observando o comportamento sem precisar instalar a biblioteca numa aplicação real — ajuda demais na hora de documentar componentes.' } },
+      { type: 'h3', text: { en: 'Installing Storybook', pt: 'Instalando o Storybook' } },
+      { type: 'p', text: { en: 'Installing Storybook is always an adventure of its own; it depends a lot on which libraries and technology (Angular, React, Vue, Svelte, etc.) you’re using, and the versions of Node and Storybook itself that you chose also affect the process. So you may well run into problems that I won’t cover here.', pt: 'Instalar o Storybook é sempre uma aventura à parte; depende muito de quais bibliotecas e tecnologia (Angular, React, Vue, Svelte, etc.) você usa, e as versões do Node e do próprio Storybook que você escolheu também afetam o processo. Então é bem possível que você esbarre em problemas que não vou cobrir aqui.' } },
+      { type: 'p', text: { en: 'My tip in these cases is: don’t give up. Like everything in our beloved field of technology, someone has already been through this struggle before — as master Yoda would say, “If search you desire, find it you will!”', pt: 'Minha dica nesses casos é: não desista. Como tudo na nossa amada área de tecnologia, alguém já passou por essa luta antes — como diria o mestre Yoda: “Se procurar você deseja, encontrar você irá!”' } },
+      { type: 'code', code: `npx storybook init` },
+      { type: 'p', text: { en: 'After installing it, you need to configure quasar to work together with Storybook.', pt: 'Depois de instalar, você precisa configurar o quasar pra funcionar junto com o Storybook.' } },
+      { type: 'p', text: { en: 'Inside the project, a .storybook folder was created; in it you’ll find a preview.js or .cjs file — leave it like this:', pt: 'Dentro do projeto, foi criada uma pasta .storybook; nela você vai encontrar um arquivo preview.js ou .cjs — deixe ele assim:' } },
+      { type: 'code', code: `// .storybook/preview.js
+import '@quasar/extras/roboto-font/roboto-font.css';
+// These are optional
+import '@quasar/extras/material-icons/material-icons.css';
+import '@quasar/extras/animate/fadeInUp.css';
+import '@quasar/extras/animate/fadeOutDown.css';
+import '@quasar/extras/animate/fadeInRight.css';
+import '@quasar/extras/animate/fadeOutRight.css';
+import { Notify } from "quasar";
+
+// Loads the quasar styles and registers quasar functionality with storybook
+import 'quasar/dist/quasar.css';
+import { setup } from '@storybook/vue3';
+import { Quasar } from 'quasar';
+
+setup((app) => {
+  app.use(Quasar, {
+    plugins: {
+      Notify,
+    }, // import Quasar plugins and add here
+    config: {
+      brand: {
+        primary: '#1976d2',
+        secondary: '#26A69A',
+        accent: '#9C27B0',
+        dark: '#1d1d1d',
+        'dark-page': '#121212',
+        positive: '#21BA45',
+        negative: '#C10015',
+        info: '#31CCEC',
+        warning: '#F2C037'
+      }
+    }
+  });
+});
+
+export const parameters = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
+  controls: {
+    matchers: {
+      color: /(background|color)$/i,
+      date: /Date$/,
+    },
+  },
+};` },
+      { type: 'p', text: { en: 'Also, if you want to set up a custom theme, you can create these files:', pt: 'Além disso, se quiser configurar um tema personalizado, você pode criar estes arquivos:' } },
+      { type: 'code', code: `// .storybook/manager.js
+import { addons } from '@storybook/addons';
+import theme from './theme';
+
+addons.setConfig({
+  theme: theme,
+});
+
+// .storybook/theme.js
+import { create } from '@storybook/theming';
+
+export default create({
+  base: 'light',
+  brandTitle: 'Design System Components',
+  brandUrl: 'URL_REPOSITORIO',
+  brandImage: 'URL_LOGO_EMPRESA',
+});` },
+      { type: 'p', text: { en: 'Now you can create your “.stories.js” files, importing the components and documenting their props and events. I won’t go into much detail about how to use Storybook — the concept to keep in mind is how Storybook works, so it’s worth reading their docs on writing Stories.', pt: 'Agora você pode criar seus arquivos “.stories.js”, importando os componentes e documentando suas props e eventos. Não vou entrar em muitos detalhes sobre como usar o Storybook — o conceito a ter em mente é como o Storybook funciona, então vale a pena ler a documentação deles sobre escrever Stories.' } },
+      { type: 'p', text: { en: 'Now that we have Storybook installed and ready to receive our components, I’ll create a basic button component with quasar+Vue3 and a Storybook file as an example.', pt: 'Agora que temos o Storybook instalado e pronto pra receber nossos componentes, vou criar um componente de botão básico com quasar+Vue3 e um arquivo de Storybook como exemplo.' } },
+      { type: 'p', text: { en: 'Inside the components folder, I’ll create a buttons folder, and inside the buttons folder, I’ll create a QcButton.vue file.', pt: 'Dentro da pasta components, vou criar uma pasta buttons, e dentro da pasta buttons, vou criar um arquivo QcButton.vue.' } },
+      { type: 'code', code: `<template>
+  <div class="QcButton__wrapper">
+    <q-btn
+      :color="color"
+      :label="label"
+      :icon="icon"
+      :outline="outline"
+      :round="round"
+      :size="size"
+      :loading="loading"
+      :flat="flat"
+      :type="type"
+    >
+      <template v-slot:loading>
+        <q-spinner-facebook />
+      </template>
+    </q-btn>
+  </div>
+</template>
+
+<script setup lang="ts">
+export interface QcButtonInterface {
+  color?: string;
+  label?: string;
+  outline?: boolean;
+  icon?: string;
+  round?: boolean;
+  size?: string;
+  loading?: boolean;
+  flat?: boolean;
+  type?: string;
+}
+const props = withDefaults(defineProps<QcButtonInterface>(), {
+  color: 'primary',
+  label: 'Label',
+  outline: false,
+  round: false,
+  size: 'lg',
+  loading: false,
+  flat: false,
+});
+</script>
+
+<style lang="scss" scoped></style>` },
+      { type: 'p', text: { en: 'Notice that I’m using Vue3’s composition API and Typescript interfaces, in addition to the <q-btn>, which is a quasar component.', pt: 'Repare que estou usando a composition API do Vue3 e interfaces do Typescript, além do <q-btn>, que é um componente do quasar.' } },
+      { type: 'p', text: { en: 'Nothing stops you from creating the button however you find most convenient.', pt: 'Nada te impede de criar o botão da forma que achar mais conveniente.' } },
+      { type: 'p', text: { en: 'Now, in the same button folder, I’ll create the QcButton.stories.js file. It’s important that Storybook’s configuration is set up to look inside your project folder, since the default setup keeps .stories.js files inside a stories folder that’s automatically created by the library.', pt: 'Agora, na mesma pasta button, vou criar o arquivo QcButton.stories.js. É importante que a configuração do Storybook esteja preparada pra procurar dentro da pasta do seu projeto, já que o setup padrão mantém os arquivos .stories.js dentro de uma pasta stories criada automaticamente pela biblioteca.' } },
+      { type: 'p', text: { en: 'If that’s not the case, you can fix it in the .storybook/main.js file.', pt: 'Se não for o caso, você pode ajustar isso no arquivo .storybook/main.js.' } },
+      { type: 'code', code: `// .storybook/main.js
+module.exports = {
+  "stories": ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
+  ... // rest of the file
+}` },
+      { type: 'p', text: { en: 'Now let’s go to our QcButton.stories.js file:', pt: 'Agora vamos ao nosso arquivo QcButton.stories.js:' } },
+      { type: 'code', code: `// src/components/buttons/QcButton.stories.js
+import QcButton from './QcButton.vue';
+
+export default {
+  title: 'Components/Button',
+  component: QcButton,
+  argTypes: {
+    onClick: {},
+    size: {
+      control: { type: 'select' },
+      options: ['xs', 'sm', 'md', 'lg', 'xl'],
+    },
+    icon: {
+      control: { type: 'select' },
+      options: ['navigation', 'add_a_photo', 'camera', 'camera_front', 'my_location'],
+    },
+    color: {
+      control: { type: 'select' },
+      options: ['primary', 'secondary', 'amber', 'brown-5', 'deep-orange', 'purple', 'black'],
+    },
+  },
+};
+
+const Template = (args) => ({
+  components: { QcButton },
+  setup() {
+    return { args };
+  },
+  template: '<QcButton v-bind="args" @click.capture="onClick" />',
+});
+
+export const Primary = Template.bind({});
+Primary.args = {
+  label: 'Button',
+  loading: false,
+  round: false,
+  outline: false,
+  color: 'primary',
+  type: 'submit',
+};` },
+      { type: 'p', text: { en: 'Finally, after running the yarn run storybook command, you’ll get something like this:', pt: 'Por fim, depois de rodar o comando yarn run storybook, você vai ter algo assim:' } },
+      { type: 'img', src: '/blog/vue3-part1-storybook.jpg', alt: { en: 'The button component in Storybook', pt: 'O componente de botão no Storybook' } },
+      { type: 'p', text: { en: 'With that, we have our Storybook and our first Vue3 + quasar + Typescript component!', pt: 'Com isso, temos nosso Storybook e nosso primeiro componente Vue3 + quasar + Typescript!' } },
+      { type: 'p', text: { en: 'Of course, this is a pretty simple component, and you’re probably wondering: why go through all this trouble just to wrap a quasar component inside another .vue component?', pt: 'Claro, este é um componente bem simples, e você provavelmente está se perguntando: por que todo esse trabalho só pra envelopar um componente do quasar dentro de outro componente .vue?' } },
+      { type: 'p', text: { en: 'The answer is simple: the way we’re doing it, all the work of building the component is handled by a dev or a team with more technical expertise, encapsulating all the complexity inside that component. For the rest of the squads or tribes, all that’s left is to “copy” and “paste” — just start using a ready-made component, already matching the client’s visual identity.', pt: 'A resposta é simples: do jeito que estamos fazendo, todo o trabalho de construir o componente fica a cargo de um dev ou de um time com mais domínio técnico, encapsulando toda a complexidade dentro daquele componente. Pro resto das squads ou tribos, resta só “copiar” e “colar” — é só começar a usar um componente pronto, já alinhado com a identidade visual do cliente.' } },
+      { type: 'p', text: { en: 'Besides, a simple button doesn’t show off the full power this concept can offer — imagine a complex data-table, with date formatting, menu actions, and method after method, ready to use instantly, or a text-field with built-in document, value, zip code formatting and validations.', pt: 'Além disso, um botão simples não mostra todo o poder que esse conceito pode oferecer — imagine um data-table complexo, com formatação de datas, ações de menu e método após método, pronto pra usar na hora, ou um text-field com formatação de documento, valor, CEP e validações embutidas.' } },
+      { type: 'p', text: { en: 'Or maybe a video/image upload component built on top of quasar, with its logic and visual identity fully encapsulated, simply receiving props and emitting events once the process is done. The possibilities are huge!', pt: 'Ou quem sabe um componente de upload de vídeo/imagem construído em cima do quasar, com sua lógica e identidade visual totalmente encapsuladas, simplesmente recebendo props e emitindo eventos quando o processo termina. As possibilidades são enormes!' } },
+      { type: 'p', text: { en: 'Well, now that we have a basic structure for our components, it’s time to move our project forward a bit. In the next post we’ll talk a little about unit testing with Jest, and setting up Eslint, Prettier, and Husky. One step at a time — remember that Frontend development isn’t a 100-meter dash, it’s a marathon; consistency matters more than speed, and that’s how we go far!', pt: 'Bom, agora que temos uma estrutura básica pros nossos componentes, é hora de avançar um pouco o projeto. No próximo post vamos falar um pouco sobre testes unitários com Jest e sobre configurar Eslint, Prettier e Husky. Um passo de cada vez — lembre-se de que o desenvolvimento Frontend não é uma corrida de 100 metros, é uma maratona; consistência importa mais que velocidade, e é assim que a gente vai longe!' } },
+    ],
+  },
+  {
     slug: 'blip-flutter-group',
     date: '2026-07-29',
     readingMinutes: 2,
