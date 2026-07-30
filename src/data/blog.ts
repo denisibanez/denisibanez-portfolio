@@ -1203,6 +1203,564 @@ function onReset() {
     ],
   },
   {
+    slug: 'a-complete-vue3-setup-part-5',
+    date: '2023-04-04',
+    readingMinutes: 14,
+    tags: ['Vue', 'Pinia', 'Axios', 'Vitest', 'VueI18n'],
+    image: '/blog/vue3-part5-cover.jpg',
+    category: { en: 'Engineering', pt: 'Engenharia', es: 'Ingeniería', de: 'Engineering', fr: 'Ingénierie', ja: 'エンジニアリング' },
+    title: {
+      en: 'A Complete Vue 3 Setup — Part V',
+      pt: 'Um Setup Completo com Vue 3 — Parte V',
+      es: 'Un Setup Completo con Vue 3 — Parte V',
+      de: 'Ein komplettes Vue-3-Setup — Teil V',
+      fr: 'Un setup complet avec Vue 3 — Partie V',
+      ja: '完全な Vue 3 セットアップ — Part V',
+    },
+    excerpt: {
+      en: 'The final part: global state with Pinia, Axios services, router guard, unit tests with Vitest and translations with VueI18n.',
+      pt: 'A parte final: estado global com Pinia, services com Axios, router guard, testes com Vitest e traduções com VueI18n.',
+      es: 'La parte final: estado global con Pinia, services con Axios, router guard, pruebas con Vitest y traducciones con VueI18n.',
+      de: 'Der letzte Teil: globaler State mit Pinia, Axios-Services, Router-Guard, Unit-Tests mit Vitest und Übersetzungen mit VueI18n.',
+      fr: 'La dernière partie : état global avec Pinia, services Axios, router guard, tests avec Vitest et traductions avec VueI18n.',
+      ja: '最終回：Pinia でのグローバル状態、Axios サービス、ルーターガード、Vitest でのテスト、VueI18n での翻訳。',
+    },
+    quote: {
+      en: 'My dear Padawans, our path was arduous — may the force be with you!',
+      pt: 'Meus caros Padawans, nosso caminho foi árduo — que a força esteja com você!',
+      es: 'Mis queridos Padawans, nuestro camino fue arduo — ¡que la fuerza te acompañe!',
+      de: 'Meine lieben Padawans, unser Weg war beschwerlich — möge die Macht mit dir sein!',
+      fr: 'Mes chers Padawans, notre chemin fut ardu — que la force soit avec toi !',
+      ja: '親愛なるパダワンたちよ、道は険しかった——フォースと共にあれ！',
+    },
+    blocks: [
+      { type: 'p', text: { en: 'We can draw a parallel between our project and the gif above — but don’t worry, if we don’t stir the cement it hardens! The good news is that we’ve reached the last part of our tutorial and will finally have a complete Vue3 setup.', pt: 'Podemos traçar um paralelo entre nosso projeto e o gif acima — mas não se preocupe, se não mexermos o cimento ele endurece! A boa notícia é que chegamos à última parte do nosso tutorial e finalmente teremos um setup completo com Vue3.' } },
+      { type: 'p', text: { en: 'In this chapter we’ll talk a bit about global state management with Pinia 🍍, consuming Rest APIs with Axios, structuring services, router guard and interceptors, unit testing with Vitest, and finally, translations with VueI18n.', pt: 'Neste capítulo vamos falar um pouco sobre gerenciamento de estado global com Pinia 🍍, consumo de Rest APIs com Axios, estruturação de services, router guard e interceptors, testes unitários com Vitest e, por fim, traduções com VueI18n.' } },
+      { type: 'h2', text: { en: 'Installing and configuring Pinia', pt: 'Instalando e configurando o Pinia' } },
+      { type: 'p', text: { en: 'And wouldn’t you know it — “abacaxizin” came to dethrone our beloved VueX in global state management for Vue3? Both work well, so it’s up to you to decide which one you’ll use. First, let’s install Pinia.', pt: 'E não é que o “abacaxizin” veio destronar nosso amado VueX no gerenciamento de estado global do Vue3? Os dois funcionam bem, então cabe a você decidir qual vai usar. Primeiro, vamos instalar o Pinia.' } },
+      { type: 'code', code: `yarn add pinia` },
+      { type: 'p', text: { en: 'Then we need to configure a few things in our main.ts', pt: 'Depois precisamos configurar algumas coisas no nosso main.ts' } },
+      { type: 'code', code: `// src/main.ts
+...
+import { createPinia } from 'pinia'
+
+const pinia = createPinia()
+
+app.use(pinia)
+...
+// Rest of the file` },
+      { type: 'p', text: { en: 'Simple as that! Now let’s show some examples of how to work with global state using Pinia and the Snackbar and Loading components. Inside the stores folder, create the stores/loading and stores/snackbar folders, each with a store file.', pt: 'Simples assim! Agora vamos mostrar alguns exemplos de como trabalhar com estado global usando Pinia e os componentes Snackbar e Loading. Dentro da pasta stores, crie as pastas stores/loading e stores/snackbar, cada uma com um arquivo de store.' } },
+      { type: 'code', code: `// stores/loading/loading.store.ts
+import { defineStore } from 'pinia';
+
+export const useLoadingStore = defineStore('loading', {
+  state: () => {
+    return { LOADING_STATE: false as boolean };
+  },
+  actions: {
+    LOADING_DISPATCH(payload: boolean) {
+      this.LOADING_STATE = payload;
+    },
+  },
+});` },
+      { type: 'code', code: `// stores/snackbar/snackbar.store.ts
+import { defineStore } from 'pinia';
+import QcSnackbarInterface from './snackbar';
+
+export const useSnackbarStore = defineStore('snackbar', {
+  state: () => ({
+    SNACKBAR_STATE: {
+      model: false,
+      bgColor: 'primary',
+      text: 'Alerta!',
+      icon: 'warning',
+      actionLabelColor: 'white',
+      textColor: 'white',
+    } as QcSnackbarInterface,
+  }),
+  actions: {
+    SNACKBAR_DISPATCH(payload: QcSnackbarInterface) {
+      this.SNACKBAR_STATE = payload;
+    },
+  },
+});` },
+      { type: 'p', text: { en: 'In addition, we’ll create a file to type our snackbar:', pt: 'Além disso, vamos criar um arquivo para tipar nosso snackbar:' } },
+      { type: 'code', code: `// stores/snackbar/snackbar.d.ts
+export default interface QcSnackbarInterface {
+  model: boolean;
+  bgColor: string;
+  text: string;
+  icon: string;
+  actionLabelColor: string;
+  textColor: string;
+}` },
+      { type: 'p', text: { en: 'Done — with this we have a boolean controlling our loading and a global object controlling the snackbar, plus a “dispatch” method to change the state when necessary. Remember we left the code commented out inside our Layout.vue? Now we’ll wire state management into it (importing the stores and reading them with storeToRefs), and we can uncomment the QcLoading and QcSnackbar components on the login page too.', pt: 'Pronto — com isso temos um boolean controlando nosso loading e um objeto global controlando o snackbar, além de um método “dispatch” para mudar o estado quando necessário. Lembra que deixamos o código comentado dentro do nosso Layout.vue? Agora vamos ligar o gerenciamento de estado nele (importando as stores e lendo com storeToRefs), e podemos descomentar os componentes QcLoading e QcSnackbar na página de login também.' } },
+      { type: 'code', code: `// src/views/layout/Layout.vue — <script setup lang="ts">
+import { QcLoading, QcSnackbar, QcLayout } from '@denisibanez/design-system-ui';
+
+// STORE
+import { storeToRefs } from 'pinia';
+import { useLoadingStore } from '@/stores/loading/loading.store';
+import { useSnackbarStore } from '@/stores/snackbar/snackbar.store';
+
+// VARIABLES (bind the store to variables)
+const { LOADING_STATE } = storeToRefs(useLoadingStore());
+const { SNACKBAR_STATE } = storeToRefs(useSnackbarStore());` },
+      { type: 'p', text: { en: 'By doing this, our components are ready to be triggered from anywhere in the application. Here’s an example using the Home.vue file — note we use LOADING_STATE to control the visibility of the content.', pt: 'Fazendo isso, nossos componentes ficam prontos para serem acionados de qualquer lugar da aplicação. Aqui vai um exemplo usando o arquivo Home.vue — repare que usamos LOADING_STATE para controlar a visibilidade do conteúdo.' } },
+      { type: 'code', code: `// src/views/home/Home.vue
+<template>
+  <div class="home__wrapper q-pa-md" v-if="!LOADING_STATE">
+    <div class="row">
+      <div class="col q-pa-md">conteudo</div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useLoadingStore } from '@/stores/loading/loading.store';
+
+const { LOADING_DISPATCH } = useLoadingStore();
+const { LOADING_STATE } = storeToRefs(useLoadingStore());
+
+onMounted(() => {
+  LOADING_DISPATCH(false);
+});
+</script>` },
+      { type: 'p', text: { en: 'It’s actually so simple that it’s almost funny! With this we have our global state management working.', pt: 'É tão simples que chega a ser engraçado! Com isso temos nosso gerenciamento de estado global funcionando.' } },
+      { type: 'h2', text: { en: 'Installing Axios, services, interceptor and router guard', pt: 'Instalando Axios, services, interceptor e router guard' } },
+      { type: 'p', text: { en: 'In this step we’ll install Axios to consume Rest APIs, configure a services structure, and get the interceptor and router guard ready. Let’s install Axios:', pt: 'Nesta etapa vamos instalar o Axios para consumir Rest APIs, configurar uma estrutura de services, e deixar prontos o interceptor e o router guard. Vamos instalar o Axios:' } },
+      { type: 'code', code: `yarn add axios vue-axios` },
+      { type: 'p', text: { en: 'In the main.ts file we’ll make the following change.', pt: 'No arquivo main.ts vamos fazer a seguinte mudança.' } },
+      { type: 'code', code: `// src/main.ts
+import VueAxios from 'vue-axios';
+import axios from 'axios';
+
+myApp.use(VueAxios, axios);
+...
+// rest of the file` },
+      { type: 'p', text: { en: 'Inside the services folder, we’ll create services/template/example.service.js, services/plugins/request.js, services/index.js and services/interceptor.js.', pt: 'Dentro da pasta services, vamos criar services/template/example.service.js, services/plugins/request.js, services/index.js e services/interceptor.js.' } },
+      { type: 'code', code: `// services/interceptor.js
+import { useSnackbarStore } from '@/stores/snackbar/snackbar.store';
+const { SNACKBAR_DISPATCH } = useSnackbarStore();
+import axios from 'axios';
+
+const axiosApiInstance = axios.create();
+
+// Request interceptor for API calls
+axiosApiInstance.interceptors.request.use(
+  async (config) => {
+    const ACCESS_TOKEN = localStorage.getItem('ACCESS_TOKEN');
+    if (ACCESS_TOKEN) {
+      config.headers.Authorization = \`Bearer \${ACCESS_TOKEN}\`;
+    }
+    return config;
+  },
+  (error) => {
+    Promise.reject(error);
+  }
+);
+
+// Response interceptor for API calls
+axiosApiInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.log(error, 'statusCode error');
+    if (error.response.status === 403 || error.response.status === 401) {
+      SNACKBAR_DISPATCH({
+        model: true,
+        bgColor: 'negative',
+        text: 'Ocorreu um erro!',
+        icon: 'check_circle',
+        actionLabelColor: 'white',
+        textColor: 'white',
+      });
+      localStorage.removeItem('ACCESS_TOKEN');
+      window.location.replace('/login')
+    }
+    return Promise.reject(error);
+  }
+);
+
+export default axiosApiInstance;` },
+      { type: 'code', code: `// services/plugins/request.js
+import axiosApiInstance from '@/services/interceptor';
+
+export default async (
+  { method, url, body, headers },
+  success,
+  error,
+  done = () => {}
+) => {
+  try {
+    const res = await axiosApiInstance[method](url, body, { headers });
+    return await success(res);
+  } catch (e) {
+    return await error(e);
+  } finally {
+    done();
+  }
+};` },
+      { type: 'code', code: `// services/template/example.service.js
+import request from '@/services/plugins/request';
+
+export default {
+  async getExample(payload, success, error, done) {
+    return await request(
+      { method: 'get', url: \`\${process.env.VITE__BASE_PATH_EXAMPLE}/api/v1/test\` },
+      success, error, done
+    );
+  },
+  async postExample(payload, success, error, done) {
+    return await request(
+      { method: 'post', url: \`\${process.env.VITE__BASE_PATH_EXAMPLE}/api/v1/test\`, body: payload },
+      success, error, done
+    );
+  },
+};
+
+// services/index.js
+import example from './template/example.service';
+export { example };` },
+      { type: 'p', text: { en: 'Note that in the example.service.js file we use process.env (which isn’t native to Vue 3 — I customized it because import.meta would cause issues with testing later) alongside the VITE__BASE_PATH_EXAMPLE variable. To do this, we’ll make a few changes to vite.config.js and create a .env file at the project root.', pt: 'Repare que no arquivo example.service.js usamos process.env (que não é nativo do Vue 3 — customizei porque import.meta causaria problemas com os testes mais adiante) junto com a variável VITE__BASE_PATH_EXAMPLE. Para isso, vamos fazer algumas mudanças no vite.config.js e criar um arquivo .env na raiz do projeto.' } },
+      { type: 'code', code: `// vite.config.js
+import { defineConfig, loadEnv } from 'vite'
+import vue from '@vitejs/plugin-vue'
+
+// https://vitejs.dev/config/
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd())
+  // expose .env as process.env instead of import.meta (jest does not import.meta)
+  const envWithProcessPrefix = Object.entries(env).reduce(
+    (prev, [key, val]) => {
+      return {
+        ...prev,
+        ['process.env.' + key]: \`"\${val}"\`,
+      }
+    },
+    {},
+  )
+
+  return {
+    define: envWithProcessPrefix,
+  }
+  ...
+  // Rest of the file
+})` },
+      { type: 'code', code: `// .env
+VITE__BASE_PATH_EXAMPLE=https://601062cd7a0b4e0017255829.mockapi.io
+// You can use any url you want here.` },
+      { type: 'p', text: { en: 'Piece by piece: the Interceptor intercepts all axios calls and, on success, adds a token (provided at login) to the request header — useful for authenticated environments. request.js is a “plugin” I created to encapsulate the request’s promise logic, so we reuse code and make it easy to trigger the error, success and finally callbacks. example.service.js shows how to build our services layer, using request.js, process.env and variables to store our paths.', pt: 'Peça por peça: o Interceptor intercepta todas as chamadas axios e, no sucesso, adiciona um token (provisionado no login) ao header da requisição — útil para ambientes autenticados. O request.js é um “plugin” que criei para encapsular a lógica de promise da requisição, assim reusamos código e fica fácil disparar os callbacks de error, success e finally. O example.service.js mostra como construir nossa camada de services, usando o request.js, process.env e variáveis para guardar nossos paths.' } },
+      { type: 'p', text: { en: 'Now let’s use it. First, our login request that provides the token for the other calls — note that here we don’t use the custom services structure, but the plain axios instance, since we don’t want the interceptor to influence this call.', pt: 'Agora vamos usar. Primeiro, nossa requisição de login que fornece o token para as outras chamadas — repare que aqui não usamos a estrutura de services customizada, e sim a instância axios pura, já que não queremos que o interceptor influencie esta chamada.' } },
+      { type: 'code', code: `// src/views/login/Login.vue — onSubmit (script)
+function onSubmit() {
+  loading = ref(true);
+  myForm.value.validate().then((success: any) => {
+    if (success) {
+      const payload = { user: user.value, password: password.value };
+      axios.post(\`\${process.env.VITE__BASE_PATH_EXAMPLE}/api/v1/test\`, payload)
+        .then(function (response) {
+          console.log(response);
+          // A fake token here; in the real world an auth service would provision it
+          localStorage.setItem('ACCESS_TOKEN', 'teste');
+          router.push('/');
+        })
+        .catch(function (error) {
+          console.log(error);
+          SNACKBAR_DISPATCH({
+            model: true,
+            bgColor: 'negative',
+            text: 'Erro no request!',
+            icon: 'warning',
+            actionLabelColor: 'white',
+            textColor: 'white',
+          } as QcSnackbarInterface);
+        })
+        .finally(function () {
+          loading = ref(false);
+        });
+    }
+  });
+}` },
+      { type: 'p', text: { en: 'With our login service configured, here’s an example of using services in src/views/home/Home.vue.', pt: 'Com nosso service de login configurado, aqui vai um exemplo de uso de services em src/views/home/Home.vue.' } },
+      { type: 'code', code: `// src/views/home/Home.vue — getExample (script)
+import { example } from '@/services/index';
+
+async function getExample() {
+  const payload = {};
+  LOADING_DISPATCH(true);
+  await example.getExample(
+    payload,
+    (response: any) => {
+      console.log(response.data, 'SUCCESS');
+      SNACKBAR_DISPATCH({
+        model: true, bgColor: 'positive', text: 'Sucesso no request!',
+        icon: 'check_circle', actionLabelColor: 'white', textColor: 'white',
+      } as QcSnackbarInterface);
+    },
+    (e: any) => {
+      console.log(e, 'ERROR');
+      SNACKBAR_DISPATCH({
+        model: true, bgColor: 'negative', text: 'Erro no request!',
+        icon: 'warning', actionLabelColor: 'white', textColor: 'white',
+      } as QcSnackbarInterface);
+    },
+    () => {
+      console.log('DONE');
+      LOADING_DISPATCH(false);
+    }
+  );
+}` },
+      { type: 'p', text: { en: 'Now let’s change our logoff method in Layout.vue to clear the token and send the user back to /login.', pt: 'Agora vamos mudar nosso método de logoff no Layout.vue para limpar o token e mandar o usuário de volta para /login.' } },
+      { type: 'code', code: `// src/views/layout/Layout.vue — methods
+function onLogoff() {
+  localStorage.removeItem('ACCESS_TOKEN');
+  router.push('/login');
+}
+function onNavigate(item: any) {
+  router.push(item.route);
+}` },
+      { type: 'p', text: { en: 'Now, to finish the services part, let’s configure our router guard so no logged-out user can access our application’s internal routes. Inside our router file we’ll add meta options.', pt: 'Agora, para finalizar a parte de services, vamos configurar nosso router guard para que nenhum usuário deslogado acesse as rotas internas da aplicação. Dentro do nosso arquivo de rotas vamos adicionar opções de meta.' } },
+      { type: 'code', code: `// src/router/router.js
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    {
+      path: '/',
+      component: () => import('@/views/layout/Layout.vue'),
+      meta: { requiresAuth: true }, // Note this line
+      children: [
+        {
+          path: '',
+          component: () => import('@/views/home/Home.vue'),
+          meta: { requiresAuth: true },
+        },
+      ],
+    },
+    {
+      path: '/login',
+      component: () => import('@/views/login/Login.vue'),
+      meta: { requiresVisitor: true }, // Note this line
+    },
+    {
+      path: '/:catchAll(.*)*',
+      component: () => import('@/views/notFound/ErrorNotFound.vue'),
+      meta: { requiresAuth: true },
+    },
+  ],
+});` },
+      { type: 'p', text: { en: 'requiresAuth marks protected routes; requiresVisitor does not. Now in src/main.ts we add the guard (you could also separate it into a src/router/guard.js file).', pt: 'requiresAuth marca as rotas protegidas; requiresVisitor não. Agora no src/main.ts adicionamos o guard (você também pode separá-lo num arquivo src/router/guard.js).' } },
+      { type: 'code', code: `// src/main.ts — router and Guard
+router.beforeEach((to: any, from: any, next: any) => {
+  const authVerificate = to.matched.some((record: any) => record.meta.requiresAuth);
+  const visitorsVeficate = to.matched.some((record: any) => record.meta.requiresVisitor);
+  const loggedIn = localStorage.getItem('ACCESS_TOKEN');
+  if (authVerificate) {
+    if (!loggedIn) {
+      window.location.replace(\`\${process.env.VITE__BASE_APP}login\`);
+    } else {
+      next();
+    }
+  } else if (visitorsVeficate) {
+    if (loggedIn) {
+      window.location.replace('/');
+    } else {
+      next();
+    }
+  } else {
+    next(); // make sure to always call next()!
+  }
+});
+
+myApp.use(router);` },
+      { type: 'p', text: { en: 'Done! Now if you’re logged out you won’t be able to access the “/” route; if you’re logged in you won’t be able to access “/login”.', pt: 'Pronto! Agora se você estiver deslogado não conseguirá acessar a rota “/”; se estiver logado não conseguirá acessar “/login”.' } },
+      { type: 'h2', text: { en: 'Installing, configuring and using Vitest', pt: 'Instalando, configurando e usando o Vitest' } },
+      { type: 'p', text: { en: 'In this project we’ll use Vitest to test our components, since Jest still doesn’t work very well together with Pinia. First, install the library.', pt: 'Neste projeto vamos usar o Vitest para testar nossos componentes, já que o Jest ainda não funciona muito bem junto com o Pinia. Primeiro, instale a biblioteca.' } },
+      { type: 'code', code: `yarn add -D vitest` },
+      { type: 'p', text: { en: 'Now let’s add these scripts to package.json, add the test config to vite.config.js, and install jsdom.', pt: 'Agora vamos adicionar estes scripts ao package.json, adicionar a config de test ao vite.config.js e instalar o jsdom.' } },
+      { type: 'code', code: `// package.json
+"test": "vitest",
+"coverage": "vitest run --coverage"
+
+// vite.config.js
+export default defineConfig(({ mode }) => {
+  ...
+  return {
+    test: {
+      environment: "jsdom"
+    },
+    ...
+  }
+})
+
+// then:
+yarn add jsdom` },
+      { type: 'p', text: { en: 'Now, if we run “yarn run test:coverage”, a coverage/index.html folder is created at the project root; opening the index, we’ll see something like this:', pt: 'Agora, se rodarmos “yarn run test:coverage”, uma pasta coverage/index.html é criada na raiz do projeto; abrindo o index, veremos algo assim:' } },
+      { type: 'img', src: '/blog/vue3-part5-coverage-summary.png', alt: { en: 'The Vitest coverage summary', pt: 'O resumo de cobertura do Vitest' } },
+      { type: 'p', text: { en: 'This summary shows the percentage of test coverage in your application, and if we click any of the links, we’ll see in green the lines covered by tests and in red what we still need to test.', pt: 'Esse resumo mostra a porcentagem de cobertura de testes da sua aplicação e, se clicarmos em qualquer um dos links, veremos em verde as linhas cobertas por testes e em vermelho o que ainda precisamos testar.' } },
+      { type: 'img', src: '/blog/vue3-part5-coverage-detail.png', alt: { en: 'Line-by-line coverage detail', pt: 'Detalhe de cobertura linha a linha' } },
+      { type: 'p', text: { en: 'There are countless helpers that assist you during test development. Below is a basic testing example with Vitest.', pt: 'Existem inúmeros helpers que ajudam durante o desenvolvimento dos testes. Abaixo, um exemplo básico de teste com Vitest.' } },
+      { type: 'code', code: `// src/views/home/Home.test.js
+import Home from './Home.vue';
+import { shallowMount } from '@vue/test-utils';
+import { describe, it, vi, beforeEach, test, expect } from 'vitest';
+
+// A lib we'll need to install to mock pinia
+import { createTestingPinia } from '@pinia/testing';
+
+// A translation lib we'll install next
+import { useI18n } from 'vue-i18n';
+
+vi.mock('vue-i18n');
+
+useI18n.mockReturnValue({
+  t: (tKey) => tKey,
+});
+
+describe('Home Component', () => {
+  let wrapper = null;
+
+  beforeEach(() => {
+    wrapper = shallowMount(Home, {
+      global: {
+        plugins: [
+          createTestingPinia({
+            initialState: {},
+            stubActions: false,
+            createSpy: vi.fn,
+          }),
+        ],
+      },
+    });
+  });
+
+  test('Home Component renders', () => {
+    expect(wrapper).toBeTruthy();
+  });
+});` },
+      { type: 'h2', text: { en: 'Installing, configuring and using VueI18n', pt: 'Instalando, configurando e usando o VueI18n' } },
+      { type: 'p', text: { en: '“The book is on the table.” — Any Brazilian', pt: '“The book is on the table.” — Qualquer brasileiro' } },
+      { type: 'img', src: '/blog/vue3-part5-book-meme.jpg', alt: { en: 'The book is on the table', pt: 'The book is on the table' } },
+      { type: 'p', text: { en: 'In this last but not least section, we’ll install VueI18n, giving our application support for multiple languages! Let’s install the library.', pt: 'Nesta última seção (mas não menos importante), vamos instalar o VueI18n, dando à nossa aplicação suporte a múltiplos idiomas! Vamos instalar a biblioteca.' } },
+      { type: 'code', code: `yarn add vue-i18n@8` },
+      { type: 'p', text: { en: 'We’ll create some files inside the locales folder: src/locales/pt/pt-BR.json, src/locales/en/en.json and src/locales/index.js.', pt: 'Vamos criar alguns arquivos dentro da pasta locales: src/locales/pt/pt-BR.json, src/locales/en/en.json e src/locales/index.js.' } },
+      { type: 'code', code: `// src/locales/pt/pt-BR.json
+{
+  "test": "Esse é um teste!"
+}
+
+// src/locales/en/en.json
+{
+  "test": "This is a test!"
+}
+
+// src/locales/index.js
+import { createI18n } from 'vue-i18n';
+import en from './en/en.json';
+import pt from './pt/pt-BR.json';
+
+export default createI18n({
+  legacy: false,
+  globalInjection: true,
+  locale: 'pt',
+  fallbackLocale: 'en',
+  silentTranslationWarn: true,
+  fallbackWarn: false,
+  missingWarn: false,
+  messages: {
+    en: en,
+    pt: pt,
+  },
+});` },
+      { type: 'p', text: { en: 'Now import src/locales/index.js into src/main.ts, and configure vite.config.js with the i18n plugin.', pt: 'Agora importe src/locales/index.js no src/main.ts e configure o vite.config.js com o plugin do i18n.' } },
+      { type: 'code', code: `// src/main.ts
+import i18n from './locales';
+myApp.use(i18n);
+
+// vite.config.js
+import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite";
+
+export default defineConfig(({ mode }) => {
+  return {
+    plugins: [
+      ...
+      VueI18nPlugin({
+        include: resolve(dirname(fileURLToPath(import.meta.url)), './src/locales/**'),
+      }),
+    ],
+  }
+})
+
+// install the helper libs:
+yarn add @intlify/eslint-plugin-vue-i18n @intlify/unplugin-vue-i18n` },
+      { type: 'p', text: { en: 'As the last step of this configuration, we’ll modify the .eslintrc.cjs file to add the i18n plugin and its rules.', pt: 'Como último passo desta configuração, vamos modificar o arquivo .eslintrc.cjs para adicionar o plugin do i18n e suas regras.' } },
+      { type: 'code', code: `// .eslintrc.cjs
+module.exports = {
+  ...
+  "extends": [
+    ...
+    'plugin:@intlify/vue-i18n/recommended'
+  ],
+  "rules": {
+    '@intlify/vue-i18n/no-dynamic-keys': 'error',
+    '@intlify/vue-i18n/no-unused-keys': ['error', { extensions: ['.js', '.vue'] }],
+    "@intlify/vue-i18n/no-missing-keys-in-other-locales": ["error", { "ignoreLocales": ['en', 'pt-BR'] }],
+  },
+  "settings": {
+    'vue-i18n': {
+      localeDir: './src/locales/*.{json,json5,yaml,yml}',
+    }
+  }
+}` },
+      { type: 'p', text: { en: 'We’re done, phew! It took me a while to gather information to get this translations part working with Vue3 and Vite, so there may be unnecessary settings, especially in the lint part — it’s worth testing and removing whatever is unnecessary. Now let’s actually use our translation with an example on the home page.', pt: 'Terminamos, ufa! Levei um tempo reunindo informação para fazer essa parte de traduções funcionar com Vue3 e Vite, então pode haver configurações desnecessárias, principalmente na parte de lint — vale testar e remover o que não for necessário. Agora vamos de fato usar nossa tradução com um exemplo na home.' } },
+      { type: 'code', code: `<template>
+  <div class="home__wrapper q-pa-md" v-if="!LOADING_STATE">
+    <div class="row">
+      <!-- language selector -->
+      <div class="col q-pa-md">
+        <q-select
+          outlined
+          v-model="selected"
+          :options="languages"
+          :option-value="'language'"
+          :option-label="'title'"
+          @update:model-value="changeLocale()"
+          label="Selecione a linguagem desejada"
+        />
+      </div>
+      <div class="col q-pa-md">
+        <!-- the translated text -->
+        {{ t('test') }}
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+import i18n from '@/locales';
+
+const { t } = useI18n({ inheritLocale: true, useScope: 'local' });
+const selected = ref();
+const languages = ref([
+  { language: 'en', title: 'English' },
+  { language: 'pt-BR', title: 'Portugues' },
+]);
+
+function changeLocale() {
+  i18n.global.locale.value = selected.value.language;
+}
+</script>` },
+      { type: 'p', text: { en: 'With this, you’ll see something like this on the screen.', pt: 'Com isso, você verá algo assim na tela.' } },
+      { type: 'img', src: '/blog/vue3-part5-i18n.png', alt: { en: 'The language selector and translated text', pt: 'O seletor de idioma e o texto traduzido' } },
+      { type: 'h2', text: { en: 'Conclusion', pt: 'Conclusão' } },
+      { type: 'p', text: { en: 'My dear Padawans, it is with great emotion that I declare our tutorial concluded. Our path was arduous, but I thank everyone who followed along, and I hope you enjoyed the tips and that I managed to help you in some way on your journey. May the force be with you!', pt: 'Meus caros Padawans, é com grande emoção que declaro nosso tutorial concluído. Nosso caminho foi árduo, mas agradeço a todos que acompanharam, e espero que tenham curtido as dicas e que eu tenha conseguido ajudar de alguma forma na sua jornada. Que a força esteja com você!' } },
+      { type: 'p', text: { en: 'UPDATE: When using the project created with Vite, you may get an error when trying to use lang=“scss” in your styles; fix this by installing sass. And the idea is to keep evolving the structure, so I upload changes to the repository whenever possible.', pt: 'ATUALIZAÇÃO: ao usar o projeto criado com Vite, você pode receber um erro ao tentar usar lang=“scss” nos seus estilos; resolva instalando o sass. E a ideia é continuar evoluindo a estrutura, então subo mudanças para o repositório sempre que possível.' } },
+    ],
+  },
+  {
     slug: 'blip-flutter-group',
     date: '2026-07-29',
     readingMinutes: 2,
