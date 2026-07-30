@@ -26,4 +26,6 @@ export type BlogPost = {
   images?: string[]
   /** Optional video — plays inline at the top of the article (poster = `image`). */
   video?: string
+  /** Optional YouTube video id — embeds an inline player at the top of the article. */
+  youtube?: string
 }

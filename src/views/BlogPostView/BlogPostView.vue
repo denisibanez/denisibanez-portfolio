@@ -90,8 +90,19 @@ const onScroll = () => {
         <!-- Article panel — native scrollbar hidden, custom progress bar alongside -->
         <div class="flex min-h-0 bg-surface-container-lowest/20 md:w-2/3">
           <div ref="scrollArea" class="no-scrollbar flex-1 overflow-y-auto p-8 md:p-14" @scroll="onScroll">
+            <div v-if="post.youtube" class="mb-10 aspect-video w-full overflow-hidden border border-white/10 bg-black">
+              <iframe
+                :src="`https://www.youtube-nocookie.com/embed/${post.youtube}`"
+                :title="localized(post.title)"
+                class="size-full"
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              />
+            </div>
             <video
-              v-if="post.video"
+              v-else-if="post.video"
               :src="post.video"
               :poster="post.image"
               controls

@@ -1192,6 +1192,7 @@ export const posts: BlogPost[] = [
     readingMinutes: 1,
     tags: ['Vue', 'YouTube', 'Frontend'],
     image: '/blog/youtube-channel.jpg',
+    youtube: 'AB3G7vmEX9o',
     category: { en: 'Engineering', pt: 'Engenharia', es: 'Ingeniería', de: 'Engineering', fr: 'Ingénierie', ja: 'エンジニアリング' },
     title: {
       en: 'I Started a YouTube Channel',
@@ -1221,32 +1222,26 @@ export const posts: BlogPost[] = [
       en: [
         "I've started a channel — still a little shyly — to talk about front-end topics in general.",
         "If you'd like to learn a bit about Vue 3, follow along; I'll be releasing more content soon.",
-        "Watch on YouTube: https://www.youtube.com/watch?v=AB3G7vmEX9o",
       ],
       pt: [
         "Comecei um canal — ainda de forma tímida — para falar sobre assuntos voltados ao front-end no geral.",
         "Quem quiser aprender um pouco sobre Vue 3, acompanhe por lá; em breve lançarei mais conteúdos.",
-        "Assista no YouTube: https://www.youtube.com/watch?v=AB3G7vmEX9o",
       ],
       es: [
         "Empecé un canal — todavía de forma tímida — para hablar sobre temas de front-end en general.",
         "Quien quiera aprender un poco sobre Vue 3, que acompañe por allí; pronto lanzaré más contenidos.",
-        "Míralo en YouTube: https://www.youtube.com/watch?v=AB3G7vmEX9o",
       ],
       de: [
         "Ich habe einen Kanal gestartet — noch etwas schüchtern — um allgemein über Frontend-Themen zu sprechen.",
         "Wer ein wenig über Vue 3 lernen möchte, bleibt dort dran; bald veröffentliche ich mehr Inhalte.",
-        "Auf YouTube ansehen: https://www.youtube.com/watch?v=AB3G7vmEX9o",
       ],
       fr: [
         "J'ai lancé une chaîne — encore un peu timidement — pour parler de sujets front-end en général.",
         "Si vous voulez apprendre un peu sur Vue 3, suivez ça ; je publierai bientôt plus de contenu.",
-        "À regarder sur YouTube : https://www.youtube.com/watch?v=AB3G7vmEX9o",
       ],
       ja: [
         "フロントエンド全般について話すチャンネルを——まだ控えめにですが——始めました。",
         "Vue 3 を少し学びたい方は、ぜひあちらでフォローを。近いうちにもっとコンテンツを出します。",
-        "YouTube で見る：https://www.youtube.com/watch?v=AB3G7vmEX9o",
       ],
     },
   },
@@ -1256,6 +1251,7 @@ export const posts: BlogPost[] = [
     readingMinutes: 1,
     tags: ['Vue', 'Routing', 'YouTube'],
     image: '/blog/vue-routes-video.jpg',
+    youtube: '592GPE8uxcI',
     category: { en: 'Engineering', pt: 'Engenharia', es: 'Ingeniería', de: 'Engineering', fr: 'Ingénierie', ja: 'エンジニアリング' },
     title: {
       en: 'Vue 3 Routing, in a Short Video',
@@ -1285,32 +1281,26 @@ export const posts: BlogPost[] = [
       en: [
         "Another one is out!",
         "In this video we talk a little about routing in Vue 3.",
-        "Watch on YouTube: https://www.youtube.com/watch?v=592GPE8uxcI",
       ],
       pt: [
         "Saiu mais um!",
         "Nesse vídeo falamos um pouco sobre rotas no Vue 3.",
-        "Assista no YouTube: https://www.youtube.com/watch?v=592GPE8uxcI",
       ],
       es: [
         "¡Salió uno más!",
         "En este vídeo hablamos un poco sobre las rutas en Vue 3.",
-        "Míralo en YouTube: https://www.youtube.com/watch?v=592GPE8uxcI",
       ],
       de: [
         "Noch eines ist da!",
         "In diesem Video sprechen wir ein wenig über Routing in Vue 3.",
-        "Auf YouTube ansehen: https://www.youtube.com/watch?v=592GPE8uxcI",
       ],
       fr: [
         "Encore une qui sort !",
         "Dans cette vidéo, nous parlons un peu du routing dans Vue 3.",
-        "À regarder sur YouTube : https://www.youtube.com/watch?v=592GPE8uxcI",
       ],
       ja: [
         "また一本公開しました！",
         "この動画では、Vue 3 のルーティングについて少し話しています。",
-        "YouTube で見る：https://www.youtube.com/watch?v=592GPE8uxcI",
       ],
     },
   },
