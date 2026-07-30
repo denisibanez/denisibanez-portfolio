@@ -118,5 +118,12 @@
     "page": "ページ",
     "enlarge": "画像を拡大",
     "close": "閉じる"
+  },
+  "stories": {
+    "portfolio": "ポートフォリオ",
+    "blog": "ブログ",
+    "testimonials": "推薦の声",
+    "open": "ストーリーを開く",
+    "view": "見る"
   }
 }

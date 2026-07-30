@@ -4,6 +4,9 @@ import { useI18n } from 'vue-i18n'
 import { Motion } from 'motion-v'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import GlassPlayer from '@/components/GlassPlayer/GlassPlayer.vue'
+import StoryRings from '@/components/StoryRings/StoryRings.vue'
+import StoryViewer from '@/components/StoryViewer/StoryViewer.vue'
+import { useStories } from '@/composables/useStories/useStories'
 import { useRise } from '@/composables/useRise/useRise'
 import type { Track } from '@/types/track'
 import bannerHome from '@/assets/images/banner-home-full.webp'
@@ -59,6 +62,15 @@ const onEnded = () => {
 
 // Staggered rise-in — reused per element with an increasing delay.
 const { rise } = useRise()
+
+// Instagram-style stories built from the site's own portfolio/blog/testimonials.
+const { groups: storyGroups } = useStories()
+const storyOpen = ref(false)
+const storyStart = ref(0)
+const openStory = (index: number) => {
+  storyStart.value = index
+  storyOpen.value = true
+}
 </script>
 
 <template>
@@ -83,6 +95,10 @@ const { rise } = useRise()
     <div class="pointer-events-none absolute inset-0 bg-black/10" aria-hidden="true" />
 
     <div class="relative z-10 flex min-h-dvh flex-col justify-center px-[5vw] pt-28 pb-28">
+      <Motion v-if="storyGroups.length" as="div" v-bind="rise(0)" class="mb-10">
+        <StoryRings :groups="storyGroups" :open-label="t('stories.open')" @open="openStory" />
+      </Motion>
+
       <div class="max-w-xl">
         <Motion
           as="p"
@@ -125,6 +141,15 @@ const { rise } = useRise()
       }"
       @open="playerOpen = true"
       @close="playerOpen = false"
+    />
+
+    <!-- Full-screen Instagram-style story viewer -->
+    <StoryViewer
+      :groups="storyGroups"
+      :open="storyOpen"
+      :start-group="storyStart"
+      :labels="{ close: t('blog.close'), next: t('blog.next'), prev: t('blog.prev'), view: t('stories.view') }"
+      @close="storyOpen = false"
     />
   </section>
 </template>
