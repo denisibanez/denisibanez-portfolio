@@ -8,7 +8,8 @@
     "about": "About Me",
     "projects": "Projects",
     "testimonials": "Testimonials",
-    "menu": "Menu"
+    "menu": "Menu",
+    "blog": "Blog"
   },
   "actions": {
     "resume": "Download resume"
@@ -101,6 +102,21 @@
     "pause": "Pause",
     "previous": "Previous track",
     "next": "Next track",
+    "close": "Close"
+  },
+  "blog": {
+    "eyebrow": "Creative Archive",
+    "title": "The Journal",
+    "subtitle": "Essays on design systems, frontend craft and building across borders.",
+    "featured": "Featured",
+    "readTime": "{min} min read",
+    "readMore": "Read article",
+    "back": "Back to the blog",
+    "prev": "Previous",
+    "next": "Next",
+    "pagination": "Blog pagination",
+    "page": "Page",
+    "enlarge": "Enlarge image",
     "close": "Close"
   }
 }

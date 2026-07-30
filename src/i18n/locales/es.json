@@ -8,7 +8,8 @@
     "about": "Sobre mí",
     "projects": "Proyectos",
     "testimonials": "Testimonios",
-    "menu": "Menú"
+    "menu": "Menú",
+    "blog": "Blog"
   },
   "actions": {
     "resume": "Descargar CV"
@@ -101,6 +102,21 @@
     "pause": "Pausar",
     "previous": "Pista anterior",
     "next": "Pista siguiente",
+    "close": "Cerrar"
+  },
+  "blog": {
+    "eyebrow": "Archivo Creativo",
+    "title": "El Diario",
+    "subtitle": "Ensayos sobre design systems, oficio de frontend y construir entre fronteras.",
+    "featured": "Destacado",
+    "readTime": "{min} min de lectura",
+    "readMore": "Leer artículo",
+    "back": "Volver al blog",
+    "prev": "Anterior",
+    "next": "Siguiente",
+    "pagination": "Paginación del blog",
+    "page": "Página",
+    "enlarge": "Ampliar imagen",
     "close": "Cerrar"
   }
 }
