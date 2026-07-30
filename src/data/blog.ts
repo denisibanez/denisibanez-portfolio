@@ -481,6 +481,236 @@ npx husky add .husky/pre-commit "npm run format"` },
     ],
   },
   {
+    slug: 'a-complete-vue3-setup-part-3',
+    date: '2023-03-30',
+    readingMinutes: 6,
+    tags: ['Vue', 'NPM', 'GitHub Packages', 'Vite'],
+    image: '/blog/vue3-part3-cover.jpg',
+    category: { en: 'Engineering', pt: 'Engenharia', es: 'Ingeniería', de: 'Engineering', fr: 'Ingénierie', ja: 'エンジニアリング' },
+    title: {
+      en: 'A Complete Vue 3 Setup — Part III',
+      pt: 'Um Setup Completo com Vue 3 — Parte III',
+      es: 'Un Setup Completo con Vue 3 — Parte III',
+      de: 'Ein komplettes Vue-3-Setup — Teil III',
+      fr: 'Un setup complet avec Vue 3 — Partie III',
+      ja: '完全な Vue 3 セットアップ — Part III',
+    },
+    excerpt: {
+      en: 'Sharing your components with NPM and Github Packages.',
+      pt: 'Compartilhando seus componentes com NPM e Github Packages.',
+      es: 'Compartiendo tus componentes con NPM y Github Packages.',
+      de: 'Deine Komponenten mit NPM und Github Packages teilen.',
+      fr: 'Partager vos composants avec NPM et Github Packages.',
+      ja: 'NPM と Github Packages でコンポーネントを共有する。',
+    },
+    quote: {
+      en: 'There’s no point having all this if we can’t share our components with the rest of the team.',
+      pt: 'Não adianta ter tudo isso se não podemos compartilhar nossos componentes com o resto da equipe.',
+      es: 'De nada sirve tener todo esto si no podemos compartir nuestros componentes con el resto del equipo.',
+      de: 'All das nützt nichts, wenn wir unsere Komponenten nicht mit dem Rest des Teams teilen können.',
+      fr: 'À quoi bon tout cela si l’on ne peut pas partager nos composants avec le reste de l’équipe.',
+      ja: 'これだけ揃えても、チームの他のメンバーとコンポーネントを共有できなければ意味がない。',
+    },
+    blocks: [
+      { type: 'p', text: { en: 'We have a beefy setup, full of tools, tests, quasar, Typescript — a real trunk full of little lego pieces. But now what, José?', pt: 'Temos um setup parrudo, cheio de ferramentas, testes, quasar, Typescript — um verdadeiro baú cheio de pecinhas de lego. Mas e agora, José?' } },
+      { type: 'p', text: { en: 'There’s no point having all this if we can’t share our components with the rest of our coworkers at the company.', pt: 'Não adianta ter tudo isso se não podemos compartilhar nossos componentes com o resto dos colegas de trabalho na empresa.' } },
+      { type: 'p', text: { en: 'So, stick around — in this post I’ll show you how to provide our components via npm and github packages!', pt: 'Então, fica por aqui — neste post vou te mostrar como disponibilizar nossos componentes via npm e github packages!' } },
+      { type: 'h2', text: { en: 'Setting up the project for sharing', pt: 'Preparando o projeto para compartilhar' } },
+      { type: 'p', text: { en: 'First, we need to make some adjustments to the project to turn it into a lib. Let’s install some necessary dependencies.', pt: 'Primeiro, precisamos fazer alguns ajustes no projeto para transformá-lo numa lib. Vamos instalar algumas dependências necessárias.' } },
+      { type: 'code', code: `yarn add -D rollup-plugin-typescript2 path vite-plugin-dts` },
+      { type: 'p', text: { en: 'Since we’re using Typescript, we’ll need to add some settings to our tsconfig.json', pt: 'Como estamos usando Typescript, vamos precisar adicionar algumas configurações ao nosso tsconfig.json' } },
+      { type: 'code', code: `// tsconfig.json
+{
+  "compilerOptions": {
+    //...
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "declaration": true,
+    "outDir": "dist",
+    "declarationDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue"
+  ]
+}` },
+      { type: 'p', text: { en: 'Also, we need to change our vite.config.ts too.', pt: 'Também precisamos mudar nosso vite.config.ts.' } },
+      { type: 'p', text: { en: 'Note: Some of the settings below are from the previous tutorials (this is part 3 of the series); if you haven’t followed along since the first post, I suggest going back to my profile and checking out the rest of the project, or removing the parts that aren’t relevant to the library-sharing setup (quasar).', pt: 'Nota: algumas das configurações abaixo vêm dos tutoriais anteriores (esta é a parte 3 da série); se você não acompanhou desde o primeiro post, sugiro voltar ao meu perfil e conferir o resto do projeto, ou remover as partes que não são relevantes para a configuração de compartilhamento da biblioteca (quasar).' } },
+      { type: 'code', code: `// vite.config.ts
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import * as path from 'path'
+import typescript2 from 'rollup-plugin-typescript2';
+import dts from "vite-plugin-dts";
+import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    vue({
+      template: { transformAssetUrls }
+    }),
+    quasar({
+      sassVariables: 'src/quasar-variables.sass'
+    }),
+    dts({
+      insertTypesEntry: true,
+    }),
+    typescript2({
+      check: false,
+      include: ["src/components/**/*.vue"],
+      tsconfigOverride: {
+        compilerOptions: {
+          outDir: "dist",
+          sourceMap: true,
+          declaration: true,
+          declarationMap: true,
+        },
+      },
+      exclude: ["vite.config.ts"]
+    })
+  ],
+  build: {
+    cssCodeSplit: true,
+    lib: {
+      // Could also be a dictionary or array of multiple entry points
+      entry: "src/index.ts",
+      name: 'myLibraryVueTs',
+      formats: ["es", "cjs", "umd"],
+      fileName: format => \`design-system-ui.\${format}.js\`
+    },
+    rollupOptions: {
+      // make sure to externalize deps that should not be bundled into your library
+      input: {
+        main: path.resolve(__dirname, "src/index.ts")
+      },
+      external: ['vue'],
+      output: {
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name === 'main.css') return 'design-system-ui.css';
+          return assetInfo.name;
+        },
+        exports: "named",
+        globals: {
+          vue: 'Vue',
+        },
+      },
+    },
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+  },
+})` },
+      { type: 'p', text: { en: 'We’ll also create a src/vite-env.d.ts file in the src folder.', pt: 'Também vamos criar um arquivo src/vite-env.d.ts na pasta src.' } },
+      { type: 'code', code: `// src/vite-env.d.ts
+declare module '*.vue' {
+  import type { DefineComponent } from 'vue'
+  const component: DefineComponent<{}, {}, any>
+  export default component
+}` },
+      { type: 'p', text: { en: 'Now we’ll go into the button folder created in the previous tutorials, src/components/buttons, and create an index.ts, which will be responsible for exporting our component.', pt: 'Agora vamos entrar na pasta button criada nos tutoriais anteriores, src/components/buttons, e criar um index.ts, que será responsável por exportar nosso componente.' } },
+      { type: 'code', code: `// src/components/buttons/index.ts
+export { default as QcButton } from './QcButton.vue';` },
+      { type: 'p', text: { en: 'Right after that, we’ll create an index.ts file in the src folder, which will be responsible for exporting all the components (right now we only have the button, but the idea is that you’ll create as many as needed and keep adding them to this file).', pt: 'Logo depois, vamos criar um arquivo index.ts na pasta src, que será responsável por exportar todos os componentes (por enquanto só temos o botão, mas a ideia é que você crie quantos precisar e vá adicionando neste arquivo).' } },
+      { type: 'code', code: `// src/index.ts
+import type { App } from 'vue';
+import { QcButton } from "@/components/buttons/QcButton";
+
+export default {
+  install: (app: App) => {
+    app.component('QcButton', QcButton);
+  }
+};
+
+export { QcButton };` },
+      { type: 'p', text: { en: 'Now let’s set up our project’s package.json.', pt: 'Agora vamos configurar o package.json do nosso projeto.' } },
+      { type: 'code', code: `// package.json
+{
+  "name": "project-name", // careful, the name is related to the settings in .npmrc
+  "private": false,
+  "version": "0.0.1", // careful, every time you publish changes this number must go up
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/my-library-vue-ts.umd.js",
+  "module": "./dist/my-library-vue-ts.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/my-library-vue-ts.es.js",
+      "require": "./dist/my-library-vue-ts.umd.js"
+    },
+    "./dist/my-library-vue-ts.css": {
+      "import": "./dist/my-library-vue-ts.css",
+      "require": "./dist/my-library-vue-ts.css"
+    }
+  },
+  "types": "./dist/main.d.ts",
+  // ...
+}` },
+      { type: 'p', text: { en: 'With that done, our project is now ready to be shared; now we need to connect our npm and set up github packages.', pt: 'Feito isso, nosso projeto já está pronto para ser compartilhado; agora precisamos conectar nosso npm e configurar o github packages.' } },
+      { type: 'h2', text: { en: 'Npm and Github packages', pt: 'Npm e Github packages' } },
+      { type: 'p', text: { en: 'The first step is to create a .npmrc file at the root of the project. An important detail is the initial part of the code, which must match the package.json name (as mentioned in the comment above) — in our case it would be “@denisibanez”.', pt: 'O primeiro passo é criar um arquivo .npmrc na raiz do projeto. Um detalhe importante é a parte inicial do código, que deve bater com o nome no package.json (como mencionado no comentário acima) — no nosso caso seria “@denisibanez”.' } },
+      { type: 'p', text: { en: 'Also, I’m creating a variable named ${GITHUBTOKEN}; further ahead I’ll show you how to set it up as a system variable on my operating system (macOS) — if you’re using Windows or Linux the process might differ, and if you can’t find anything about it online you can just substitute ${GITHUBTOKEN} with the actual token directly, which also works.', pt: 'Além disso, estou criando uma variável chamada ${GITHUBTOKEN}; mais adiante mostro como configurá-la como variável de sistema no meu sistema operacional (macOS) — se você usa Windows ou Linux o processo pode ser diferente, e se não encontrar nada sobre isso online, dá pra simplesmente substituir ${GITHUBTOKEN} pelo token de verdade, que também funciona.' } },
+      { type: 'code', code: `// .npmrc
+@denisibanez:registry=https://npm.pkg.github.com/
+//npm.pkg.github.com/:_authToken=\${GITHUBTOKEN}` },
+      { type: 'p', text: { en: 'Now we need to work a bit more on our package.json.', pt: 'Agora precisamos mexer mais um pouco no nosso package.json.' } },
+      { type: 'code', code: `// package.json
+{
+  "name": "@denisibanez/design-system", // @denisibanez references our .npmrc
+  .... // rest of the file
+  // Add the lines below
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/denisibanez/design-system-ui"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}` },
+      { type: 'p', text: { en: 'Let’s head over to Github — we need to create a personal token to manage our package.', pt: 'Vamos até o Github — precisamos criar um token pessoal para gerenciar nosso pacote.' } },
+      { type: 'p', text: { en: 'In the upper-right corner of any page, click your profile photo and then Settings.', pt: 'No canto superior direito de qualquer página, clique na sua foto de perfil e depois em Settings.' } },
+      { type: 'img', src: '/blog/vue3-part3-gh-menu.png', alt: { en: 'GitHub profile menu', pt: 'Menu do perfil no GitHub' } },
+      { type: 'p', text: { en: '1. In the left sidebar, click Developer settings.', pt: '1. Na barra lateral esquerda, clique em Developer settings.' } },
+      { type: 'p', text: { en: '2. Under Personal access tokens, click Tokens (classic). Then select Generate new token and click Generate new token (classic).', pt: '2. Em Personal access tokens, clique em Tokens (classic). Depois selecione Generate new token e clique em Generate new token (classic).' } },
+      { type: 'p', text: { en: '3. Give your token a descriptive name.', pt: '3. Dê um nome descritivo ao seu token.' } },
+      { type: 'p', text: { en: '4. To give the token an expiration, select the Expiration dropdown and click a default or use the calendar picker.', pt: '4. Para definir uma expiração, selecione o dropdown Expiration e escolha um padrão ou use o calendário.' } },
+      { type: 'p', text: { en: '5. Select the scopes or permissions you’d like to grant this token. To use the token to access repositories from the command line, select repo. A token with no assigned scopes can only access public information.', pt: '5. Selecione os escopos ou permissões que quer conceder a este token. Para usar o token para acessar repositórios pela linha de comando, selecione repo. Um token sem escopos só acessa informações públicas.' } },
+      { type: 'img', src: '/blog/vue3-part3-token-scopes.png', alt: { en: 'Selecting token scopes', pt: 'Selecionando os escopos do token' } },
+      { type: 'p', text: { en: 'Note: I always select everything 😯.', pt: 'Nota: eu sempre seleciono tudo 😯.' } },
+      { type: 'p', text: { en: '6. Click Generate token. A token will be generated and you’ll see a screen like the one below. Attention! Save this code because it won’t be shown again — if you lose it you’ll have to generate another one.', pt: '6. Clique em Generate token. Um token será gerado e você verá uma tela como a de baixo. Atenção! Salve esse código porque ele não será mostrado de novo — se você perder, vai ter que gerar outro.' } },
+      { type: 'img', src: '/blog/vue3-part3-token.png', alt: { en: 'The generated personal access token', pt: 'O token de acesso pessoal gerado' } },
+      { type: 'p', text: { en: 'With the github token in hand, let’s create the system variable as mentioned above. I’m using macOS; if your system is different you’ll have to do some googling.', pt: 'Com o token do github em mãos, vamos criar a variável de sistema mencionada acima. Estou usando macOS; se o seu sistema for diferente, vai ter que dar uma googlada.' } },
+      { type: 'code', code: `export GITHUBTOKEN="text_with_the_token_value"` },
+      { type: 'p', text: { en: 'To check if your variable is set, run:', pt: 'Para verificar se sua variável está definida, rode:' } },
+      { type: 'code', code: `echo $GITHUBTOKEN` },
+      { type: 'p', text: { en: 'If everything goes as expected, now it’s just a matter of building your components application and publishing it.', pt: 'Se tudo correr como esperado, agora é só buildar sua aplicação de componentes e publicá-la.' } },
+      { type: 'code', code: `yarn run build
+npm publish` },
+      { type: 'img', src: '/blog/vue3-part3-npm-publish.png', alt: { en: 'The npm publish output (yes, I got it from the web)', pt: 'A saída do npm publish (sim, peguei da internet)' } },
+      { type: 'p', text: { en: 'If we look at the Github repository, we’ll see that a package now appears in the packages section:', pt: 'Se olharmos o repositório no Github, veremos que agora aparece um pacote na seção packages:' } },
+      { type: 'img', src: '/blog/vue3-part3-repo-packages.png', alt: { en: 'The package listed in the GitHub repository', pt: 'O pacote listado no repositório do GitHub' } },
+      { type: 'p', text: { en: 'By clicking on the package name, we’ll be taken to the screen where the package’s installation information is.', pt: 'Ao clicar no nome do pacote, vamos para a tela onde ficam as informações de instalação do pacote.' } },
+      { type: 'img', src: '/blog/vue3-part3-package.png', alt: { en: 'The package installation screen', pt: 'A tela de instalação do pacote' } },
+      { type: 'h2', text: { en: 'Conclusion', pt: 'Conclusão' } },
+      { type: 'p', text: { en: 'It’s worth remembering that to install the package, the project that will use our lib needs to have quasar installed, since it’s a dependency of the project.', pt: 'Vale lembrar que, para instalar o pacote, o projeto que vai usar nossa lib precisa ter o quasar instalado, já que é uma dependência do projeto.' } },
+      { type: 'p', text: { en: 'Also, we need to have the .npmrc in the parent project as well, but we’ll talk more about that in the next post, where we’ll start the structure of the project that will consume our components library!', pt: 'Além disso, precisamos ter o .npmrc no projeto pai também, mas vamos falar mais sobre isso no próximo post, onde vamos começar a estrutura do projeto que vai consumir nossa biblioteca de componentes!' } },
+    ],
+  },
+  {
     slug: 'blip-flutter-group',
     date: '2026-07-29',
     readingMinutes: 2,
