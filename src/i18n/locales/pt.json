@@ -115,6 +115,8 @@
     "prev": "Anterior",
     "next": "Seguinte",
     "pagination": "Paginação do blog",
-    "page": "Página"
+    "page": "Página",
+    "enlarge": "Ampliar imagem",
+    "close": "Fechar"
   }
 }

@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { Motion } from 'motion-v'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
+import BlogGallery from '@/components/BlogGallery/BlogGallery.vue'
 import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
 import { useBlog } from '@/composables/useBlog/useBlog'
 import { useLocalize } from '@/composables/useLocalize/useLocalize'
@@ -97,6 +98,13 @@ const onScroll = () => {
               playsinline
               preload="metadata"
               class="mb-10 max-h-[70vh] w-full border border-white/10 bg-black object-contain"
+            />
+            <BlogGallery
+              v-else-if="post.images?.length"
+              :images="post.images"
+              :alt="localized(post.title)"
+              :labels="{ prev: t('blog.prev'), next: t('blog.next'), enlarge: t('blog.enlarge'), close: t('blog.close') }"
+              class="mb-10"
             />
             <img
               v-else-if="post.image"

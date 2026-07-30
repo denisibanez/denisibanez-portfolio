@@ -22,6 +22,8 @@ export type BlogPost = {
   featured?: boolean
   /** Optional cover image (card thumbnail + article hero). Also the video poster. */
   image?: string
+  /** Optional extra images — when present, the post page shows a gallery carousel (with lightbox). */
+  images?: string[]
   /** Optional video — plays inline at the top of the article (poster = `image`). */
   video?: string
 }

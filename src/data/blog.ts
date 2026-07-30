@@ -3,8 +3,78 @@ import type { BlogPost } from '@/types/blog'
 // Blog posts. Text fields are localized (Record<Locale>) — read via useLocalize.
 export const posts: BlogPost[] = [
   {
+    slug: 'blip-flutter-group',
+    date: '2026-07-29',
+    readingMinutes: 2,
+    tags: ['Life', 'Career', 'Blip', 'Flutter'],
+    image: '/blog/blip-team.jpg',
+    images: ['/blog/blip-team.jpg', '/blog/blip-bowling.jpg', '/blog/blip-snack.jpg'],
+    category: { en: 'Career', pt: 'Carreira', es: 'Carrera', de: 'Karriere', fr: 'Carrière', ja: 'キャリア' },
+    title: {
+      en: 'Blip Flutter Group: Short Time, Deep Mark',
+      pt: 'Blip Flutter Group: Pouco Tempo, Marca Profunda',
+      es: 'Blip Flutter Group: Poco Tiempo, Huella Profunda',
+      de: 'Blip Flutter Group: kurze Zeit, tiefe Spur',
+      fr: 'Blip Flutter Group : peu de temps, une empreinte profonde',
+      ja: 'Blip Flutter Group：短い時間、深い刻印',
+    },
+    excerpt: {
+      en: "My time with the Blip Flutter Group wasn't long — but it was deeply enriching. On how much I learned, and the incredible people I'll always carry with me.",
+      pt: "O tempo que passei no Blip Flutter Group não foi tão longo — mas foi muito enriquecedor. Sobre o quanto aprendi e as pessoas incríveis que levarei sempre comigo.",
+      es: "El tiempo que pasé en el Blip Flutter Group no fue tan largo — pero fue muy enriquecedor. Sobre lo mucho que aprendí y las personas increíbles que llevaré siempre conmigo.",
+      de: "Meine Zeit bei der Blip Flutter Group war nicht lang — aber zutiefst bereichernd. Darüber, wie viel ich gelernt habe, und über die unglaublichen Menschen, die ich immer bei mir tragen werde.",
+      fr: "Mon passage au sein du Blip Flutter Group n'a pas été long — mais profondément enrichissant. Sur tout ce que j'ai appris et les personnes incroyables que je garderai toujours avec moi.",
+      ja: "Blip Flutter Group で過ごした時間は長くはなかった——けれど、とても豊かなものでした。どれだけ学んだか、そしていつも心に留めておく素晴らしい人々について。",
+    },
+    quote: {
+      en: "An incredible group I'll always keep in my heart.",
+      pt: "Um grupo incrível que guardarei sempre no meu coração.",
+      es: "Un grupo increíble que guardaré siempre en mi corazón.",
+      de: "Eine unglaubliche Gruppe, die ich für immer in meinem Herzen bewahre.",
+      fr: "Un groupe incroyable que je garderai toujours dans mon cœur.",
+      ja: "いつまでも心に留めておく、素晴らしいグループ。",
+    },
+    body: {
+      en: [
+        "My time with the Blip Flutter Group wasn't especially long — but it was tremendously enriching.",
+        "I learned an enormous amount: about Flutter and the craft of building mobile, yes, but also about how a healthy, high-trust team actually works, day to day.",
+        "Most of all, I got to work alongside incredible people. A special thank-you goes to my manager, Luís Rocha — always willing to help, and deeply human in the way he leads.",
+        "And to the whole team: what an incredible group you are. The kind of people I'll always keep in my heart. Thank you.",
+      ],
+      pt: [
+        "O tempo que passei no Blip Flutter Group não foi tão longo — mas foi muito enriquecedor.",
+        "Aprendi imensamente: sobre Flutter e o ofício de construir para mobile, sim, mas também sobre como um time saudável e de alta confiança realmente funciona no dia a dia.",
+        "Acima de tudo, pude trabalhar ao lado de pessoas incríveis. Um agradecimento especial ao meu manager, Luís Rocha — sempre disposto a ajudar e muito humano na forma como lidera.",
+        "E a todo o time: que grupo incrível vocês são. O tipo de pessoas que guardarei sempre no meu coração. Obrigado.",
+      ],
+      es: [
+        "El tiempo que pasé en el Blip Flutter Group no fue tan largo — pero fue muy enriquecedor.",
+        "Aprendí muchísimo: sobre Flutter y el oficio de construir para mobile, sí, pero también sobre cómo un equipo sano y de alta confianza funciona de verdad, día a día.",
+        "Por encima de todo, pude trabajar junto a personas increíbles. Un agradecimiento especial a mi manager, Luís Rocha — siempre dispuesto a ayudar y muy humano en su forma de liderar.",
+        "Y a todo el equipo: qué grupo tan increíble sois. El tipo de personas que guardaré siempre en mi corazón. Gracias.",
+      ],
+      de: [
+        "Meine Zeit bei der Blip Flutter Group war nicht besonders lang — aber ungemein bereichernd.",
+        "Ich habe enorm viel gelernt: über Flutter und das Handwerk der Mobile-Entwicklung, ja, aber auch darüber, wie ein gesundes Team mit hohem Vertrauen tatsächlich Tag für Tag funktioniert.",
+        "Vor allem durfte ich an der Seite unglaublicher Menschen arbeiten. Ein besonderer Dank geht an meinen Manager, Luís Rocha — stets hilfsbereit und zutiefst menschlich in seiner Art zu führen.",
+        "Und an das ganze Team: was für eine unglaubliche Gruppe ihr seid. Die Art von Menschen, die ich für immer in meinem Herzen bewahre. Danke.",
+      ],
+      fr: [
+        "Mon passage au sein du Blip Flutter Group n'a pas été particulièrement long — mais il a été extrêmement enrichissant.",
+        "J'ai énormément appris : sur Flutter et le métier du développement mobile, oui, mais aussi sur la façon dont une équipe saine, fondée sur la confiance, fonctionne réellement au quotidien.",
+        "Par-dessus tout, j'ai eu la chance de travailler aux côtés de personnes incroyables. Un merci tout particulier à mon manager, Luís Rocha — toujours prêt à aider et profondément humain dans sa manière de diriger.",
+        "Et à toute l'équipe : quel groupe incroyable vous êtes. Le genre de personnes que je garderai toujours dans mon cœur. Merci.",
+      ],
+      ja: [
+        "Blip Flutter Group で過ごした時間は、とりわけ長くはありませんでした——けれど、この上なく豊かなものでした。",
+        "学んだことは計り知れません。Flutter やモバイル開発の技についてはもちろん、健全で信頼の厚いチームが日々どう機能するのかについても。",
+        "何よりも、素晴らしい人々と共に働けました。とりわけ、マネージャーの Luís Rocha に特別な感謝を——いつでも力を貸してくれ、その導き方はとても人間味にあふれていました。",
+        "そしてチームのみんなへ。あなたたちは本当に素晴らしいグループです。いつまでも心に留めておく人たち。ありがとう。",
+      ],
+    },
+  },
+  {
     slug: 'ewor-operators-day',
-    status: 'draft',
     date: '2025-11-20',
     readingMinutes: 3,
     tags: ['Events', 'Startups', 'Networking'],
@@ -87,7 +157,6 @@ export const posts: BlogPost[] = [
   },
   {
     slug: 'vue-computed-watch-onmounted',
-    status: 'draft',
     date: '2025-10-22',
     readingMinutes: 4,
     tags: ['Vue', 'Reactivity', 'Frontend'],
@@ -164,7 +233,6 @@ export const posts: BlogPost[] = [
   },
   {
     slug: 'hollow-knight-silksong-lean-teams',
-    status: 'draft',
     date: '2025-10-15',
     readingMinutes: 5,
     tags: ['Teams', 'Craft', 'Product'],
@@ -260,7 +328,6 @@ export const posts: BlogPost[] = [
   },
   {
     slug: 'rebuilding-airbnb-design-system',
-    status: 'draft',
     date: '2025-10-10',
     readingMinutes: 4,
     tags: ['Design System', 'AI', 'React'],
@@ -337,7 +404,6 @@ export const posts: BlogPost[] = [
   },
   {
     slug: 'vuelynx-vue-native',
-    status: 'draft',
     date: '2025-03-12',
     readingMinutes: 3,
     tags: ['Vue', 'Lynx', 'Mobile'],
@@ -414,7 +480,6 @@ export const posts: BlogPost[] = [
   },
   {
     slug: 'vue-lynx-mobile-future',
-    status: 'draft',
     date: '2025-07-10',
     readingMinutes: 3,
     tags: ['Vue', 'Lynx', 'Mobile', 'React Native'],
@@ -485,7 +550,6 @@ export const posts: BlogPost[] = [
   },
   {
     slug: 'vueflix-netflix-clone',
-    status: 'draft',
     date: '2025-06-20',
     readingMinutes: 2,
     tags: ['Vue', 'TypeScript', 'Vite', 'Pinia'],
@@ -550,11 +614,18 @@ export const posts: BlogPost[] = [
   },
   {
     slug: 'leiria-run-pushing-limits',
-    status: 'draft',
     date: '2024-08-15',
     readingMinutes: 4,
     tags: ['Life', 'Mindset', 'Running'],
     image: '/blog/run-leiria.jpeg',
+    images: [
+      '/blog/run-leiria.jpeg',
+      '/blog/run-leiria-2.jpeg',
+      '/blog/run-leiria-3.jpeg',
+      '/blog/run-leiria-4.jpeg',
+      '/blog/run-leiria-5.jpeg',
+      '/blog/run-leiria-6.jpeg',
+    ],
     category: { en: 'Life', pt: 'Vida', es: 'Vida', de: 'Leben', fr: 'Vie', ja: '人生' },
     title: {
       en: 'Leiria Run: Aiming at the Impossible',
@@ -645,11 +716,11 @@ export const posts: BlogPost[] = [
   },
   {
     slug: 'the-javascript-that-gave-me',
-    status: 'draft',
     date: '2024-07-25',
     readingMinutes: 4,
     tags: ['Life', 'Career', 'Journey'],
     image: '/blog/2022.jpeg',
+    images: ['/blog/2017.jpeg', '/blog/2022.jpeg'],
     category: { en: 'Life', pt: 'Vida', es: 'Vida', de: 'Leben', fr: 'Vie', ja: '人生' },
     title: {
       en: 'The JavaScript That Gave Me',
@@ -734,7 +805,6 @@ export const posts: BlogPost[] = [
   },
   {
     slug: 'the-end-of-emit',
-    status: 'draft',
     date: '2024-07-10',
     readingMinutes: 3,
     tags: ['Vue', 'defineModel', 'Frontend'],
@@ -799,7 +869,6 @@ export const posts: BlogPost[] = [
   },
   {
     slug: 'from-zero-to-senior',
-    status: 'draft',
     date: '2024-06-20',
     readingMinutes: 2,
     tags: ['Career', 'Podcast', 'Beginners'],
@@ -864,7 +933,6 @@ export const posts: BlogPost[] = [
   },
   {
     slug: 'why-become-a-programmer',
-    status: 'draft',
     date: '2024-06-05',
     readingMinutes: 2,
     tags: ['Career', 'Podcast', 'Story'],
@@ -929,7 +997,6 @@ export const posts: BlogPost[] = [
   },
   {
     slug: 'dreamfly-team-day',
-    status: 'draft',
     date: '2023-07-15',
     readingMinutes: 1,
     tags: ['Life', 'Team', 'Mindset'],
@@ -995,7 +1062,6 @@ export const posts: BlogPost[] = [
   },
   {
     slug: 'sons-of-fire-fantasy',
-    status: 'draft',
     date: '2023-05-05',
     readingMinutes: 2,
     tags: ['Life', 'Writing', 'Fantasy'],
@@ -1065,7 +1131,6 @@ export const posts: BlogPost[] = [
   },
   {
     slug: 'speaking-in-public',
-    status: 'draft',
     date: '2023-04-20',
     readingMinutes: 2,
     tags: ['Communication', 'Career', 'Remote'],
@@ -1118,6 +1183,134 @@ export const posts: BlogPost[] = [
       ja: [
         "人前で話すことは、とりわけ難しい挑戦になり得ます。特に、市場も専門家も新しい現実に適応している今——『対面』がもはや当たり前ではなくなり、私たちはますます画面やさまざまなデバイスだけを通じてつながるようになっています。",
         "新しいメディア、新しいコミュニケーションやチームワークの形、そして次々と現れる新しい人工知能ツールという渦の中でも、私は今なお信じています。どの形を選ぼうとも、最も重要な目的は、人と人との関わり合いであり、知識と情報を分かち合うことだ、と。",
+      ],
+    },
+  },
+  {
+    slug: 'i-started-a-youtube-channel',
+    date: '2022-09-15',
+    readingMinutes: 1,
+    tags: ['Vue', 'YouTube', 'Frontend'],
+    image: '/blog/youtube-channel.jpg',
+    category: { en: 'Engineering', pt: 'Engenharia', es: 'Ingeniería', de: 'Engineering', fr: 'Ingénierie', ja: 'エンジニアリング' },
+    title: {
+      en: 'I Started a YouTube Channel',
+      pt: 'Comecei um Canal no YouTube',
+      es: 'Empecé un Canal de YouTube',
+      de: 'Ich habe einen YouTube-Kanal gestartet',
+      fr: "J'ai lancé une chaîne YouTube",
+      ja: 'YouTube チャンネルを始めました',
+    },
+    excerpt: {
+      en: "I've started a channel — still a little shyly — to talk about front-end topics, with a focus on Vue 3.",
+      pt: "Comecei um canal — ainda de forma tímida — para falar sobre temas de front-end, com foco em Vue 3.",
+      es: "Empecé un canal — todavía de forma tímida — para hablar sobre temas de front-end, con foco en Vue 3.",
+      de: "Ich habe einen Kanal gestartet — noch etwas schüchtern — um über Frontend-Themen zu sprechen, mit Fokus auf Vue 3.",
+      fr: "J'ai lancé une chaîne — encore un peu timidement — pour parler de sujets front-end, avec un accent sur Vue 3.",
+      ja: "フロントエンド全般、とくに Vue 3 について話すチャンネルを——まだ控えめにですが——始めました。",
+    },
+    quote: {
+      en: "More content coming soon — follow along.",
+      pt: "Em breve, mais conteúdos — acompanhe por lá.",
+      es: "Pronto, más contenidos — acompaña por allí.",
+      de: "Bald kommt mehr — bleib dran.",
+      fr: "Bientôt plus de contenu — suivez ça.",
+      ja: "近いうちにもっと投稿します——ぜひフォローを。",
+    },
+    body: {
+      en: [
+        "I've started a channel — still a little shyly — to talk about front-end topics in general.",
+        "If you'd like to learn a bit about Vue 3, follow along; I'll be releasing more content soon.",
+        "Watch on YouTube: https://www.youtube.com/watch?v=AB3G7vmEX9o",
+      ],
+      pt: [
+        "Comecei um canal — ainda de forma tímida — para falar sobre assuntos voltados ao front-end no geral.",
+        "Quem quiser aprender um pouco sobre Vue 3, acompanhe por lá; em breve lançarei mais conteúdos.",
+        "Assista no YouTube: https://www.youtube.com/watch?v=AB3G7vmEX9o",
+      ],
+      es: [
+        "Empecé un canal — todavía de forma tímida — para hablar sobre temas de front-end en general.",
+        "Quien quiera aprender un poco sobre Vue 3, que acompañe por allí; pronto lanzaré más contenidos.",
+        "Míralo en YouTube: https://www.youtube.com/watch?v=AB3G7vmEX9o",
+      ],
+      de: [
+        "Ich habe einen Kanal gestartet — noch etwas schüchtern — um allgemein über Frontend-Themen zu sprechen.",
+        "Wer ein wenig über Vue 3 lernen möchte, bleibt dort dran; bald veröffentliche ich mehr Inhalte.",
+        "Auf YouTube ansehen: https://www.youtube.com/watch?v=AB3G7vmEX9o",
+      ],
+      fr: [
+        "J'ai lancé une chaîne — encore un peu timidement — pour parler de sujets front-end en général.",
+        "Si vous voulez apprendre un peu sur Vue 3, suivez ça ; je publierai bientôt plus de contenu.",
+        "À regarder sur YouTube : https://www.youtube.com/watch?v=AB3G7vmEX9o",
+      ],
+      ja: [
+        "フロントエンド全般について話すチャンネルを——まだ控えめにですが——始めました。",
+        "Vue 3 を少し学びたい方は、ぜひあちらでフォローを。近いうちにもっとコンテンツを出します。",
+        "YouTube で見る：https://www.youtube.com/watch?v=AB3G7vmEX9o",
+      ],
+    },
+  },
+  {
+    slug: 'vue-3-routing-video',
+    date: '2022-11-10',
+    readingMinutes: 1,
+    tags: ['Vue', 'Routing', 'YouTube'],
+    image: '/blog/vue-routes-video.jpg',
+    category: { en: 'Engineering', pt: 'Engenharia', es: 'Ingeniería', de: 'Engineering', fr: 'Ingénierie', ja: 'エンジニアリング' },
+    title: {
+      en: 'Vue 3 Routing, in a Short Video',
+      pt: 'Rotas no Vue 3, em um Vídeo Rápido',
+      es: 'Rutas en Vue 3, en un Vídeo Corto',
+      de: 'Routing in Vue 3, in einem kurzen Video',
+      fr: 'Le routing dans Vue 3, en une courte vidéo',
+      ja: 'Vue 3 のルーティングを短い動画で',
+    },
+    excerpt: {
+      en: "A new video is out — a short walk through routing in Vue 3.",
+      pt: "Saiu mais um vídeo — um passeio rápido pelas rotas no Vue 3.",
+      es: "Salió un nuevo vídeo — un recorrido rápido por las rutas en Vue 3.",
+      de: "Ein neues Video ist da — ein kurzer Rundgang durch das Routing in Vue 3.",
+      fr: "Une nouvelle vidéo est sortie — un tour rapide du routing dans Vue 3.",
+      ja: "新しい動画が公開——Vue 3 のルーティングをさっと解説します。",
+    },
+    quote: {
+      en: "Routing, kept simple.",
+      pt: "Rotas, de forma simples.",
+      es: "Rutas, de forma simple.",
+      de: "Routing, einfach gehalten.",
+      fr: "Le routing, en simple.",
+      ja: "ルーティングを、シンプルに。",
+    },
+    body: {
+      en: [
+        "Another one is out!",
+        "In this video we talk a little about routing in Vue 3.",
+        "Watch on YouTube: https://www.youtube.com/watch?v=592GPE8uxcI",
+      ],
+      pt: [
+        "Saiu mais um!",
+        "Nesse vídeo falamos um pouco sobre rotas no Vue 3.",
+        "Assista no YouTube: https://www.youtube.com/watch?v=592GPE8uxcI",
+      ],
+      es: [
+        "¡Salió uno más!",
+        "En este vídeo hablamos un poco sobre las rutas en Vue 3.",
+        "Míralo en YouTube: https://www.youtube.com/watch?v=592GPE8uxcI",
+      ],
+      de: [
+        "Noch eines ist da!",
+        "In diesem Video sprechen wir ein wenig über Routing in Vue 3.",
+        "Auf YouTube ansehen: https://www.youtube.com/watch?v=592GPE8uxcI",
+      ],
+      fr: [
+        "Encore une qui sort !",
+        "Dans cette vidéo, nous parlons un peu du routing dans Vue 3.",
+        "À regarder sur YouTube : https://www.youtube.com/watch?v=592GPE8uxcI",
+      ],
+      ja: [
+        "また一本公開しました！",
+        "この動画では、Vue 3 のルーティングについて少し話しています。",
+        "YouTube で見る：https://www.youtube.com/watch?v=592GPE8uxcI",
       ],
     },
   },
