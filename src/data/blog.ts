@@ -305,6 +305,182 @@ Primary.args = {
     ],
   },
   {
+    slug: 'a-complete-vue3-setup-part-2',
+    date: '2023-03-29',
+    readingMinutes: 7,
+    tags: ['Vue', 'Jest', 'ESLint', 'Prettier', 'Husky'],
+    image: '/blog/vue3-part2-cover.jpg',
+    category: { en: 'Engineering', pt: 'Engenharia', es: 'Ingeniería', de: 'Engineering', fr: 'Ingénierie', ja: 'エンジニアリング' },
+    title: {
+      en: 'A Complete Vue 3 Setup — Part II',
+      pt: 'Um Setup Completo com Vue 3 — Parte II',
+      es: 'Un Setup Completo con Vue 3 — Parte II',
+      de: 'Ein komplettes Vue-3-Setup — Teil II',
+      fr: 'Un setup complet avec Vue 3 — Partie II',
+      ja: '完全な Vue 3 セットアップ — Part II',
+    },
+    excerpt: {
+      en: 'Setting up unit tests with Jest, plus Husky, Prettier and ESLint.',
+      pt: 'Configurando testes unitários com Jest, além de Husky, Prettier e ESLint.',
+      es: 'Configurando pruebas unitarias con Jest, además de Husky, Prettier y ESLint.',
+      de: 'Unit-Tests mit Jest einrichten, dazu Husky, Prettier und ESLint.',
+      fr: 'Mettre en place les tests unitaires avec Jest, plus Husky, Prettier et ESLint.',
+      ja: 'Jest でユニットテストを設定し、Husky・Prettier・ESLint も整える。',
+    },
+    quote: {
+      en: 'In most cases, it’s crucial to think about tests even before developing our features.',
+      pt: 'Na maioria dos casos, é crucial pensar em testes até antes de desenvolver nossas features.',
+      es: 'En la mayoría de los casos, es crucial pensar en pruebas incluso antes de desarrollar nuestras features.',
+      de: 'In den meisten Fällen ist es entscheidend, an Tests zu denken, noch bevor wir unsere Features entwickeln.',
+      fr: 'Dans la plupart des cas, il est crucial de penser aux tests avant même de développer nos fonctionnalités.',
+      ja: 'たいていの場合、機能を作る前にテストを考えることが重要だ。',
+    },
+    blocks: [
+      { type: 'p', text: { en: '“Jarvis, sometimes you have to run before you can walk.” — Stark, Tony.', pt: '“Jarvis, às vezes você tem que correr antes de andar.” — Stark, Tony.' } },
+      { type: 'p', text: { en: 'We start this post by paraphrasing the famous contemporary thinker, Tony Stark.', pt: 'Começamos este post parafraseando o famoso pensador contemporâneo, Tony Stark.' } },
+      { type: 'p', text: { en: 'The concept behind this phrase is that, in the vast majority of cases, it’s crucial to think about tests even before developing our features.', pt: 'O conceito por trás dessa frase é que, na grande maioria dos casos, é crucial pensar em testes até antes de desenvolver nossas features.' } },
+      { type: 'p', text: { en: 'Unfortunately in Frontend, tests are usually neglected at many companies. We can only change this reality by emphasizing how important it is to test your web app, so let’s talk a bit about that in this post.', pt: 'Infelizmente no Frontend, os testes costumam ser negligenciados em muitas empresas. Só conseguimos mudar essa realidade reforçando o quanto é importante testar sua web app, então vamos falar um pouco sobre isso neste post.' } },
+      { type: 'p', text: { en: '“Tests allow you to isolate specific functionality, detect bugs early, and ensure that changes to one component don’t break other parts of the application.” — Nidhi D.', pt: '“Os testes permitem isolar funcionalidades específicas, detectar bugs cedo e garantir que mudanças em um componente não quebrem outras partes da aplicação.” — Nidhi D.' } },
+      { type: 'h2', text: { en: 'Setting up Jest', pt: 'Configurando o Jest' } },
+      { type: 'p', text: { en: 'We’ll use Jest, which is currently the most famous library for web applications. Besides that, if we look closely, it’s also superior to the others (Karma, Mocha, etc.) when it comes to performance and concise syntax.', pt: 'Vamos usar o Jest, que atualmente é a biblioteca mais famosa para aplicações web. Além disso, se olharmos de perto, ele também é superior às outras (Karma, Mocha, etc.) quando o assunto é performance e sintaxe concisa.' } },
+      { type: 'code', code: `yarn add -D jest @vue/test-utils` },
+      { type: 'p', text: { en: 'After the installation, you need to create the jest configuration file. Create a file at the root of the project called .jest.config.json', pt: 'Depois da instalação, você precisa criar o arquivo de configuração do jest. Crie um arquivo na raiz do projeto chamado .jest.config.json' } },
+      { type: 'code', code: `// .jest.config.json
+{
+  "transform": {
+    "^.+\\\\.jsx?$": "babel-jest",
+    "^.+\\\\.vue$": "@vue/vue3-jest",
+    ".+\\\\.(css|scss|png|jpg|svg)$": "jest-transform-stub"
+  },
+  "testEnvironment": "jsdom",
+  "testEnvironmentOptions": {
+    "customExportConditions": ["node", "node-addons"]
+  },
+  "moduleNameMapper": {
+    "^@/(.*)$": "<rootDir>/src/$1"
+  }
+}` },
+      { type: 'p', text: { en: 'Now let’s go to our package.json and add this line to the scripts:', pt: 'Agora vamos ao nosso package.json e adicionamos esta linha aos scripts:' } },
+      { type: 'code', code: `// package.json
+"test": "jest"` },
+      { type: 'img', src: '/blog/vue3-part2-err-jsdom.png', alt: { en: 'Validation error: jest-environment-jsdom cannot be found', pt: 'Erro de validação: jest-environment-jsdom não encontrado' } },
+      { type: 'img', src: '/blog/vue3-part2-err-vue3jest.png', alt: { en: 'Validation error: @vue/vue3-jest not found', pt: 'Erro de validação: @vue/vue3-jest não encontrado' } },
+      { type: 'img', src: '/blog/vue3-part2-err-stub.png', alt: { en: 'Validation error: jest-transform-stub not found', pt: 'Erro de validação: jest-transform-stub não encontrado' } },
+      { type: 'p', text: { en: 'When running “yarn run test” you might run into some of the errors above. These are libraries required for the configuration to work, so run this command and the problem will be solved:', pt: 'Ao rodar “yarn run test” você pode esbarrar em alguns dos erros acima. São bibliotecas necessárias para a configuração funcionar, então rode este comando e o problema estará resolvido:' } },
+      { type: 'code', code: `yarn add jest-transform-stub @vue/vue3-jest jest-environment-jsdom` },
+      { type: 'p', text: { en: 'Now yes! When running “yarn run test”, you’ll see something like this in your terminal:', pt: 'Agora sim! Ao rodar “yarn run test”, você vai ver algo assim no seu terminal:' } },
+      { type: 'img', src: '/blog/vue3-part2-notests.png', alt: { en: 'No tests found — 13 files checked', pt: 'Nenhum teste encontrado — 13 arquivos verificados' } },
+      { type: 'p', text: { en: 'Even though it looks like an error, it means the configuration worked! We just don’t have any test file in the application yet.', pt: 'Mesmo parecendo um erro, isso significa que a configuração funcionou! Só não temos nenhum arquivo de teste na aplicação ainda.' } },
+      { type: 'p', text: { en: 'If you remember the first part of this tutorial, you know we created a button component in the following folder src/components/buttons. What we’ll do next is create a QcButton.test.js file in the same folder.', pt: 'Se você lembra da primeira parte deste tutorial, sabe que criamos um componente de botão na pasta src/components/buttons. O que vamos fazer agora é criar um arquivo QcButton.test.js na mesma pasta.' } },
+      { type: 'code', code: `// QcButton.test.js
+import QcButton from './QcButton.vue';
+import { mount } from '@vue/test-utils';
+
+test('Button Works', () => {
+  const wrapper = mount(QcButton);
+  expect(wrapper).toBeTruthy();
+});` },
+      { type: 'p', text: { en: 'Now that we have a valid test, you’ll probably see the following error:', pt: 'Agora que temos um teste válido, você provavelmente vai ver o seguinte erro:' } },
+      { type: 'img', src: '/blog/vue3-part2-importerr.png', alt: { en: 'SyntaxError: Cannot use import statement outside a module', pt: 'SyntaxError: Cannot use import statement outside a module' } },
+      { type: 'p', text: { en: 'This happens because Jest runs tests in a Node.js environment, which doesn’t support the use of import by default. To fix this we’ll install babel-jest, which will help us by transpiling our javascript.', pt: 'Isso acontece porque o Jest roda os testes num ambiente Node.js, que não suporta o uso de import por padrão. Para resolver, vamos instalar o babel-jest, que vai nos ajudar transpilando nosso javascript.' } },
+      { type: 'code', code: `yarn add --dev babel-jest @babel/preset-env` },
+      { type: 'p', text: { en: 'In our jest configuration file, I had already set up babel-jest, so we’ll just need to create a .babelrc file at the root of our project.', pt: 'No nosso arquivo de configuração do jest eu já tinha configurado o babel-jest, então só vamos precisar criar um arquivo .babelrc na raiz do projeto.' } },
+      { type: 'code', code: `// .babelrc
+{
+  "presets": ["@babel/preset-env"]
+}` },
+      { type: 'p', text: { en: 'And now when we run our test script… success!', pt: 'E agora, ao rodar nosso script de teste… sucesso!' } },
+      { type: 'img', src: '/blog/vue3-part2-success.png', alt: { en: 'Test Suites: 1 passed, Tests: 1 passed', pt: 'Test Suites: 1 passed, Tests: 1 passed' } },
+      { type: 'p', text: { en: 'Of course this is a basic test, it only checks whether the component is being mounted. As your component grows and becomes more complex, the tests for data input/output, methods, and requests will evolve along with it.', pt: 'Claro que este é um teste básico, ele só verifica se o componente está sendo montado. À medida que seu componente cresce e fica mais complexo, os testes de entrada/saída de dados, métodos e requisições vão evoluir junto.' } },
+      { type: 'p', text: { en: 'Also, just as we talked about Storybook earlier, the technology (Vue, Angular, React, Svelte, etc.), the global state management library, the material library, and so on — all of this influences how you’ll build your test, because once the component is rendered in the test, it becomes a “mirror” of your real component, thus requiring all the helpers and libraries your real component needs to work.', pt: 'Além disso, assim como falamos do Storybook antes, a tecnologia (Vue, Angular, React, Svelte, etc.), a biblioteca de estado global, a biblioteca material e por aí vai — tudo isso influencia como você vai construir seu teste, porque uma vez que o componente é renderizado no teste, ele vira um “espelho” do seu componente real, exigindo todos os helpers e bibliotecas que o componente real precisa pra funcionar.' } },
+      { type: 'p', text: { en: 'That’s why it’s not uncommon for tests to blow up due to missing dependencies in the Jest file. Each case is different, and third-party libraries usually provide, in their documentation, methods for working together with Jest.', pt: 'É por isso que não é incomum os testes explodirem por causa de dependências faltando no arquivo do Jest. Cada caso é diferente, e as bibliotecas de terceiros geralmente fornecem, na documentação, formas de trabalhar em conjunto com o Jest.' } },
+      { type: 'p', text: { en: 'Bonus: You can run the command below to generate a coverage folder in your project. It works like a snapshot, showing which files and lines of code are covered by tests and which aren’t. Besides that, we can link the Frontend coverage with the sonarqube of the deploy pipeline, setting a minimum coverage percentage for the pipeline to deploy successfully.', pt: 'Bônus: você pode rodar o comando abaixo para gerar uma pasta de coverage no seu projeto. Funciona como um snapshot, mostrando quais arquivos e linhas de código estão cobertos por testes e quais não estão. Além disso, dá pra ligar o coverage do Frontend ao sonarqube da pipeline de deploy, definindo uma porcentagem mínima de cobertura para a pipeline conseguir subir.' } },
+      { type: 'code', code: `yarn run test --coverage` },
+      { type: 'img', src: '/blog/vue3-part2-coverage.png', alt: { en: 'A test coverage report', pt: 'Um relatório de cobertura de testes' } },
+      { type: 'h2', text: { en: 'Lint, Prettier, Husky, a screwdriver and a wire', pt: 'Lint, Prettier, Husky, uma chave de fenda e um arame' } },
+      { type: 'img', src: '/blog/vue3-part2-beetle.jpg', alt: { en: 'A Beetle’s spare-tire compartment full of tools', pt: 'O compartimento do estepe de um Fusca cheio de ferramentas' } },
+      { type: 'p', text: { en: 'For those who’ve never had a Beetle (like me), they say that with a screwdriver and a piece of wire you can fix any kind of problem it might have on the road.', pt: 'Pra quem nunca teve um Fusca (como eu), dizem que com uma chave de fenda e um pedaço de arame dá pra resolver qualquer tipo de problema que ele tenha na estrada.' } },
+      { type: 'p', text: { en: 'That’s the concept behind these three tools that help a lot in the day-to-day of modern Frontend. So without further ado, let’s talk about them — I’ll leave the definitions for each below.', pt: 'Esse é o conceito por trás dessas três ferramentas que ajudam muito no dia a dia do Frontend moderno. Então sem mais delongas, vamos falar delas — deixo abaixo a definição de cada uma.' } },
+      { type: 'p', text: { en: 'ESLint statically analyzes your code to quickly find problems. It’s integrated into most text editors and you can run ESLint as part of your continuous integration pipeline.', pt: 'O ESLint analisa seu código estaticamente para encontrar problemas rapidamente. Ele é integrado à maioria dos editores de texto e você pode rodar o ESLint como parte da sua pipeline de integração contínua.' } },
+      { type: 'p', text: { en: 'In short, we use ESLint in Frontend projects so it can show us possible errors in our code, whether they’re syntax errors, logic errors, etc. It also helps us standardize the way the code is written, defining spacing, commas, quotes, line breaks, and much more!', pt: 'Resumindo, usamos o ESLint em projetos Frontend para que ele nos mostre possíveis erros no código, sejam erros de sintaxe, de lógica, etc. Ele também ajuda a padronizar a forma como o código é escrito, definindo espaçamento, vírgulas, aspas, quebras de linha e muito mais!' } },
+      { type: 'p', text: { en: 'Prettier is a code formatter that supports several file types such as JavaScript, JSX, Angular, Vue, TypeScript, HTML, CSS, SCSS, and JSON.', pt: 'O Prettier é um formatador de código que suporta vários tipos de arquivo como JavaScript, JSX, Angular, Vue, TypeScript, HTML, CSS, SCSS e JSON.' } },
+      { type: 'p', text: { en: 'Basically, Prettier will help us by formatting our code so you don’t have to indent your html, css, js line by line the way the Incas used to do in the past.', pt: 'Basicamente, o Prettier vai nos ajudar formatando o código pra você não ter que indentar seu html, css, js linha por linha como os incas faziam antigamente.' } },
+      { type: 'p', text: { en: 'Husky is a tool that lets us easily configure Git hooks and run scripts we want at certain stages. In other words, when you’re about to commit a change, or on any other Git hook, we can run commands like ESLint and Prettier, or even tests to ensure coverage.', pt: 'O Husky é uma ferramenta que permite configurar facilmente Git hooks e rodar scripts que a gente quiser em certas etapas. Ou seja, quando você está prestes a commitar uma mudança, ou em qualquer outro Git hook, podemos rodar comandos como ESLint e Prettier, ou até testes para garantir a cobertura.' } },
+      { type: 'h3', text: { en: 'Installing and configuring Eslint + Prettier', pt: 'Instalando e configurando Eslint + Prettier' } },
+      { type: 'code', code: `yarn add --dev eslint eslint-config-prettier eslint-plugin-prettier prettier eslint-plugin-vue @typescript-eslint/eslint-plugin @typescript-eslint/parser` },
+      { type: 'p', text: { en: 'After installing all these dependencies, let’s start configuring. We’ll create a .eslintrc.cjs file at the root of the project.', pt: 'Depois de instalar todas essas dependências, vamos começar a configurar. Vamos criar um arquivo .eslintrc.cjs na raiz do projeto.' } },
+      { type: 'p', text: { en: 'Note: Not all of these libraries and configurations are necessary if you’re not going to use Typescript.', pt: 'Nota: nem todas essas bibliotecas e configurações são necessárias se você não for usar Typescript.' } },
+      { type: 'code', code: `// .eslintrc.cjs
+module.exports = {
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/vue3-essential",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "overrides": [
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "vue",
+    "@typescript-eslint",
+    "prettier"
+  ],
+  "rules": {
+  }
+}` },
+      { type: 'p', text: { en: 'NOTE: One of the readers and a personal friend shared that he had some problems using the basic Typescript and Prettier plugin. It might be a good idea to use the Vue-specific ones in case you run into any kind of problem:', pt: 'NOTA: um dos leitores e amigo pessoal contou que teve alguns problemas usando o plugin básico de Typescript e Prettier. Pode ser uma boa ideia usar os específicos do Vue caso você esbarre em algum tipo de problema:' } },
+      { type: 'code', code: `"extends": [
+  ...
+  "@vue/typescript/recommended",
+  "@vue/prettier",
+  "@vue/prettier/@typescript-eslint"
+],
+...` },
+      { type: 'p', text: { en: 'Now let’s add the following scripts to our package.json', pt: 'Agora vamos adicionar os seguintes scripts ao nosso package.json' } },
+      { type: 'code', code: `"lint": "eslint src --ext \\"**/*.{ts,tsx,vue}\\" --no-error-on-unmatched-pattern",
+"lint:fix": "eslint src --ext \\"**/*.{ts,tsx,vue}\\" --fix --no-error-on-unmatched-pattern",
+"format": "npx prettier \\"src/**/*.{js,jsx,ts,tsx,html,css,scss,vue}\\" --write"` },
+      { type: 'p', text: { en: 'Besides that, we need to create a .prettierrc.json file at the root of the project. I’ll leave some default configurations, but both in the Prettier file and in ESLint, the rules can be customized in whatever way best suits your project.', pt: 'Além disso, precisamos criar um arquivo .prettierrc.json na raiz do projeto. Vou deixar algumas configurações padrão, mas tanto no arquivo do Prettier quanto no ESLint, as regras podem ser customizadas da forma que melhor servir ao seu projeto.' } },
+      { type: 'code', code: `// .prettierrc.json
+{
+  "trailingComma": "es5",
+  "printWidth": 80,
+  "singleQuote": true,
+  "useTabs": false,
+  "tabWidth": 2,
+  "semi": true,
+  "bracketSpacing": true
+}` },
+      { type: 'p', text: { en: 'With that, we have our entire environment configured and we can run the commands below to format or fix our code.', pt: 'Com isso, temos todo o nosso ambiente configurado e podemos rodar os comandos abaixo para formatar ou corrigir nosso código.' } },
+      { type: 'code', code: `// Prettier
+yarn run format
+
+// ESLint
+yarn run lint:fix` },
+      { type: 'h3', text: { en: 'Installing and configuring Husky 🐺', pt: 'Instalando e configurando o Husky 🐺' } },
+      { type: 'p', text: { en: 'Prerequisite: make sure you’ve initialized your project with git init.', pt: 'Pré-requisito: garanta que você inicializou seu projeto com git init.' } },
+      { type: 'code', code: `npx husky-init && yarn
+npx husky install
+npx husky add .husky/pre-commit "npm run lint:fix"
+npx husky add .husky/pre-commit "npm run format"` },
+      { type: 'p', text: { en: 'Running these commands in sequence, we’ll have our husky installed and configured to run ESLint and Prettier on every commit! There are many other hooks and you can use them in whatever way works best for your project.', pt: 'Rodando esses comandos em sequência, teremos nosso husky instalado e configurado para rodar ESLint e Prettier a cada commit! Existem muitos outros hooks e você pode usá-los da forma que funcionar melhor pro seu projeto.' } },
+      { type: 'h2', text: { en: 'Conclusion', pt: 'Conclusão' } },
+      { type: 'p', text: { en: 'It’s a lot of tools, I know! Frontend is a tangle of pieces that in the end become a beautiful unicorn, or in this case, a project.', pt: 'É bastante ferramenta, eu sei! Frontend é um emaranhado de peças que no fim viram um lindo unicórnio, ou neste caso, um projeto.' } },
+      { type: 'p', text: { en: 'Over time everything gets easier and you start working organically with all of it, and trust me, your productivity will increase in a crazy way, your code tested with Jest will be less buggy, and the quality of your web apps will be elevated. Like any change, it can be hard at the beginning, but don’t forget: practice makes perfect.', pt: 'Com o tempo tudo fica mais fácil e você começa a trabalhar com tudo isso de forma orgânica e, confie em mim, sua produtividade vai aumentar de um jeito absurdo, seu código testado com Jest vai ter menos bugs e a qualidade das suas web apps vai subir. Como toda mudança, pode ser difícil no começo, mas não esqueça: a prática leva à perfeição.' } },
+      { type: 'p', text: { en: 'In the next post we’ll talk a bit about how to provide our component library using NPM and Github Packages, so stay tuned so you don’t miss it.', pt: 'No próximo post vamos falar um pouco sobre como disponibilizar nossa biblioteca de componentes usando NPM e Github Packages, então fica ligado pra não perder.' } },
+    ],
+  },
+  {
     slug: 'blip-flutter-group',
     date: '2026-07-29',
     readingMinutes: 2,
