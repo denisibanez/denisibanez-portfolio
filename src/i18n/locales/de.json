@@ -118,5 +118,12 @@
     "page": "Seite",
     "enlarge": "Bild vergrößern",
     "close": "Schließen"
+  },
+  "stories": {
+    "portfolio": "Portfolio",
+    "blog": "Blog",
+    "testimonials": "Referenzen",
+    "open": "Stories öffnen",
+    "view": "Ansehen"
   }
 }

@@ -118,5 +118,12 @@
     "page": "Página",
     "enlarge": "Ampliar imagem",
     "close": "Fechar"
+  },
+  "stories": {
+    "portfolio": "Portfólio",
+    "blog": "Blog",
+    "testimonials": "Depoimentos",
+    "open": "Abrir stories",
+    "view": "Ver"
   }
 }
