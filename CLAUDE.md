@@ -37,6 +37,12 @@ truth — read it before creating any UI. In short:
 - **Projects** live in `src/data/projects.ts` (localized `Record<Locale>` copy, per-project
   media under `public/projects/<slug>/`). For any project work — adding, editing, drafting,
   wiring images/video — use the **`new-project`** skill.
+- **Blog** posts live in `src/data/blog.ts` (`BlogPost` type in `src/types/blog.ts`), media
+  under `public/blog/`. Card/header copy is `LocalizedText` (all six locales); rich-block prose
+  is `BlogText` (English required, others fall back). Leads: `youtube` / `video` / `images[]`
+  (gallery) / `image`, first match wins. For any blog work use the **`new-post`** skill — code
+  blocks are template literals, so `` ` ``/`${}`/`\` must be escaped (the build catches misses).
+  `status: 'draft'` posts are excluded from prerender/sitemap and 404 in prod (same as projects).
 
 ## Commands
 
@@ -79,3 +85,10 @@ Husky pre-commit runs `lint:eslint` + `type-check`. Use the **`open-pr`** skill 
    the public deploy — stage explicitly (`git add public/projects/<slug>/<clean>.png`) and
    leave `_source/`/`figma-export/` and unrelated raw files untracked. Crop frames with **PIL,
    not `sips`** (`sips -c` crops centred, missing the top hero). See the **`new-project`** skill.
+8. **Merged-branch orphans.** A branch's PR can merge at an *earlier* commit than its current
+   tip. Commits pushed onto that branch afterward sit on a **closed** branch and never reach
+   `main` (this bit us — BaseIconButton/MediaGallery got orphaned after PR #16 merged). After any
+   merge, `git fetch` and check `git log --oneline origin/main..HEAD` before building further on a
+   branch; recover orphans via a fresh branch off `origin/main` + `git cherry-pick`. The `gh` CLI
+   is a non-collaborator, so **`gh pr create` always fails** — open PRs via the web compare URL.
+   See the **`open-pr`** skill.
