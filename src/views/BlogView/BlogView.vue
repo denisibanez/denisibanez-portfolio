@@ -16,8 +16,8 @@ const { posts } = useBlog()
 const { localized } = useLocalize()
 const { rise } = useRise()
 
-// Two rows of cards per page (3 columns from lg → 6 per page).
-const PER_PAGE = 6
+// One row of cards per page (3 columns from lg → 3 per page) so the list fits the fold.
+const PER_PAGE = 3
 const page = ref(1)
 const pageCount = computed(() => Math.max(1, Math.ceil(posts.length / PER_PAGE)))
 const pagePosts = computed(() => posts.slice((page.value - 1) * PER_PAGE, page.value * PER_PAGE))
@@ -36,7 +36,7 @@ const linkTo = (post: BlogPost) => ({ name: 'blog-post', params: { slug: post.sl
 
 <template>
   <MediaBackdrop :src="blogBg">
-    <div class="relative z-10 flex min-h-dvh flex-col px-[5vw] pt-32 pb-28">
+    <div class="relative z-10 flex min-h-dvh flex-col justify-center px-[5vw] pt-32 pb-20">
       <!-- Header -->
       <header class="max-w-3xl">
         <Motion as="p" v-bind="rise(0)" class="flex items-center gap-4 text-label-lg uppercase tracking-widest text-tertiary">
@@ -46,15 +46,15 @@ const linkTo = (post: BlogPost) => ({ name: 'blog-post', params: { slug: post.sl
         <Motion as="h1" v-bind="rise(0.1)" class="mt-6 text-headline-md md:text-headline-lg">
           {{ t('blog.title') }}
         </Motion>
-        <Motion as="p" v-bind="rise(0.2)" class="mt-5 max-w-xl text-body-lg text-on-surface-variant">
+        <Motion as="p" v-bind="rise(0.2)" class="mt-4 max-w-xl text-body-lg text-on-surface-variant">
           {{ t('blog.subtitle') }}
         </Motion>
       </header>
 
       <div ref="gridTop" class="scroll-mt-32" />
 
-      <!-- Grid: uniform cards, two rows per page -->
-      <div class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <!-- Grid: uniform cards, one row per page (fits the fold) -->
+      <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Motion
           v-for="(post, i) in pagePosts"
           :key="post.slug"
@@ -66,7 +66,7 @@ const linkTo = (post: BlogPost) => ({ name: 'blog-post', params: { slug: post.sl
             {{ t('projects.draft') }}
           </BaseBadge>
           <RouterLink :to="linkTo(post)" class="flex h-full flex-col">
-            <div v-if="post.image" class="relative aspect-video overflow-hidden border-b border-white/10">
+            <div v-if="post.image" class="relative aspect-video overflow-hidden border-b border-white/10 lg:aspect-[16/8]">
               <img
                 :src="post.image"
                 :alt="localized(post.title)"
@@ -83,16 +83,16 @@ const linkTo = (post: BlogPost) => ({ name: 'blog-post', params: { slug: post.sl
                 </span>
               </span>
             </div>
-            <div class="flex flex-1 flex-col p-8">
+            <div class="flex flex-1 flex-col p-6">
             <div class="flex items-center justify-between text-label-lg uppercase tracking-widest">
               <span class="text-on-surface-variant/70">{{ localized(post.category) }}</span>
               <span class="text-on-surface-variant/50">{{ t('blog.readTime', { min: post.readingMinutes }) }}</span>
             </div>
-            <h2 class="mt-5 text-body-lg font-semibold leading-snug text-on-surface transition-colors group-hover:text-tertiary">
+            <h2 class="mt-4 line-clamp-2 text-body-lg font-semibold leading-snug text-on-surface transition-colors group-hover:text-tertiary">
               {{ localized(post.title) }}
             </h2>
-            <p class="mt-3 flex-1 text-body-lg text-on-surface-variant">{{ localized(post.excerpt) }}</p>
-            <div class="mt-6 flex items-center justify-between border-t border-outline-variant/20 pt-4">
+            <p class="mt-3 line-clamp-3 flex-1 text-body-lg text-on-surface-variant">{{ localized(post.excerpt) }}</p>
+            <div class="mt-5 flex items-center justify-between border-t border-outline-variant/20 pt-4">
               <span class="text-sm text-on-surface-variant">{{ formatDate(post.date) }}</span>
               <span class="text-tertiary transition-transform group-hover:translate-x-1" aria-hidden="true">&rarr;</span>
             </div>
