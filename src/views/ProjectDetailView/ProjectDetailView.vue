@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router'
 import { Motion } from 'motion-v'
 import BaseModal from '@/components/BaseModal/BaseModal.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
+import BaseIconButton from '@/components/BaseIconButton/BaseIconButton.vue'
 import BaseBadge from '@/components/BaseBadge/BaseBadge.vue'
 import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
 import { useProjects } from '@/composables/useProjects/useProjects'
@@ -205,39 +206,40 @@ const { rise } = useRise()
           <div v-if="!activeIsVideo" class="pointer-events-none absolute inset-0 bg-linear-to-t from-surface/50 to-transparent" />
 
           <!-- Maximize -->
-          <button
-            type="button"
-            class="absolute right-4 top-4 z-20 inline-flex size-11 cursor-pointer items-center justify-center border border-white/10 bg-surface/40 text-on-surface backdrop-blur-md transition-colors hover:bg-white/20"
-            :aria-label="t('projectDetail.expand')"
+          <BaseIconButton
+            variant="glass-soft"
+            size="lg"
+            class="absolute right-4 top-4 z-20 transition-colors"
+            :label="t('projectDetail.expand')"
             @click.stop="openLightbox"
           >
             <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
               <path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-          </button>
+          </BaseIconButton>
 
           <!-- Prev / next — reliable gallery nav even over a video's own controls -->
           <template v-if="slideCount > 1">
-            <button
-              type="button"
-              class="absolute left-3 top-1/2 z-20 inline-flex size-10 -translate-y-1/2 cursor-pointer items-center justify-center border border-white/15 bg-surface/40 text-on-surface opacity-0 backdrop-blur-md transition-all hover:bg-on-surface hover:text-surface focus-visible:opacity-100 group-hover:opacity-100"
-              :aria-label="t('projectDetail.prev')"
+            <BaseIconButton
+              size="md"
+              class="absolute left-3 top-1/2 z-20 -translate-y-1/2 opacity-0 transition-all focus-visible:opacity-100 group-hover:opacity-100"
+              :label="t('projectDetail.prev')"
               @click.stop="cycleImage(-1)"
             >
               <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
                 <path d="M15 5l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
-            </button>
-            <button
-              type="button"
-              class="absolute right-3 top-1/2 z-20 inline-flex size-10 -translate-y-1/2 cursor-pointer items-center justify-center border border-white/15 bg-surface/40 text-on-surface opacity-0 backdrop-blur-md transition-all hover:bg-on-surface hover:text-surface focus-visible:opacity-100 group-hover:opacity-100"
-              :aria-label="t('projectDetail.next')"
+            </BaseIconButton>
+            <BaseIconButton
+              size="md"
+              class="absolute right-3 top-1/2 z-20 -translate-y-1/2 opacity-0 transition-all focus-visible:opacity-100 group-hover:opacity-100"
+              :label="t('projectDetail.next')"
               @click.stop="cycleImage(1)"
             >
               <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
                 <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
-            </button>
+            </BaseIconButton>
           </template>
 
           <!-- Gallery indicators — lifted above a video's control bar so both stay tappable -->
@@ -367,26 +369,26 @@ const { rise } = useRise()
 
           <!-- Prev / next + indicators — same gallery as the page -->
           <template v-if="slideCount > 1">
-            <button
-              type="button"
-              class="absolute left-4 top-1/2 inline-flex size-11 -translate-y-1/2 cursor-pointer items-center justify-center border border-white/15 bg-surface/40 text-on-surface backdrop-blur-md transition-colors hover:bg-on-surface hover:text-surface"
-              :aria-label="t('projectDetail.prev')"
+            <BaseIconButton
+              size="lg"
+              class="absolute left-4 top-1/2 -translate-y-1/2 transition-colors"
+              :label="t('projectDetail.prev')"
               @click.stop="cycleImage(-1)"
             >
               <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
                 <path d="M15 5l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
-            </button>
-            <button
-              type="button"
-              class="absolute right-4 top-1/2 inline-flex size-11 -translate-y-1/2 cursor-pointer items-center justify-center border border-white/15 bg-surface/40 text-on-surface backdrop-blur-md transition-colors hover:bg-on-surface hover:text-surface"
-              :aria-label="t('projectDetail.next')"
+            </BaseIconButton>
+            <BaseIconButton
+              size="lg"
+              class="absolute right-4 top-1/2 -translate-y-1/2 transition-colors"
+              :label="t('projectDetail.next')"
               @click.stop="cycleImage(1)"
             >
               <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
                 <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
-            </button>
+            </BaseIconButton>
             <div class="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-2">
               <button
                 v-for="i in slideCount"
@@ -400,16 +402,16 @@ const { rise } = useRise()
             </div>
           </template>
 
-          <button
-            type="button"
-            class="absolute right-4 top-4 inline-flex size-11 cursor-pointer items-center justify-center border border-white/15 bg-surface/40 text-on-surface backdrop-blur-md transition-colors hover:bg-on-surface hover:text-surface"
-            :aria-label="t('projectDetail.close')"
+          <BaseIconButton
+            size="lg"
+            class="absolute right-4 top-4 transition-colors"
+            :label="t('projectDetail.close')"
             @click.stop="closeLightbox"
           >
             <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
               <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round" />
             </svg>
-          </button>
+          </BaseIconButton>
       </div>
     </BaseModal>
   </MediaBackdrop>
