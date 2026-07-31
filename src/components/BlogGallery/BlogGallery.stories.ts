@@ -15,10 +15,10 @@ type Story = StoryObj<typeof BlogGallery>
 
 export const Multiple: Story = {
   args: {
-    images: ['/projects/airbnb/home.png', '/projects/airbnb/reserve.png', '/projects/airbnb/price.png'],
+    images: ['/projects/airbnb/home.webp', '/projects/airbnb/reserve.png', '/projects/airbnb/price.png'],
   },
 }
 
 export const Single: Story = {
-  args: { images: ['/projects/airbnb/home.png'] },
+  args: { images: ['/projects/airbnb/home.webp'] },
 }

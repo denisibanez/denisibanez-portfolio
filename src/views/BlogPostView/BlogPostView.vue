@@ -11,7 +11,7 @@ import { useLocalize } from '@/composables/useLocalize/useLocalize'
 import { useRise } from '@/composables/useRise/useRise'
 import type { BlogText } from '@/types/blog'
 import type { Locale } from '@/i18n'
-import blogBg from '@/assets/images/banner-blog.png'
+import blogBg from '@/assets/images/banner-blog.webp'
 
 // `slug` prop overrides the route param (handy for stories/tests).
 type Props = { slug?: string }

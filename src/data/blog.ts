@@ -2089,7 +2089,7 @@ function changeLocale() {
     date: '2025-10-10',
     readingMinutes: 4,
     tags: ['Design System', 'AI', 'React'],
-    image: '/projects/airbnb/home.png',
+    image: '/projects/airbnb/home.webp',
     category: { en: 'Engineering', pt: 'Engenharia', es: 'Ingeniería', de: 'Engineering', fr: 'Ingénierie', ja: 'エンジニアリング' },
     title: {
       en: 'Rebuilding Airbnb From Scratch — Starting With the Design System',
