@@ -125,5 +125,9 @@
     "testimonials": "Referenzen",
     "open": "Stories öffnen",
     "view": "Ansehen"
+  },
+  "loading": {
+    "label": "Wird geladen",
+    "hint": "Bewege den Cursor zum Enthüllen"
   }
 }
