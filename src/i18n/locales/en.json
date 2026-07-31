@@ -125,5 +125,9 @@
     "testimonials": "Testimonials",
     "open": "Open stories",
     "view": "View"
+  },
+  "loading": {
+    "label": "Loading",
+    "hint": "Move your cursor to reveal"
   }
 }

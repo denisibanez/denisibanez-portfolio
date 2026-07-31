@@ -12,7 +12,7 @@ useSeo()
 
 // Keep <html lang> in sync with the active locale so screen readers pick the
 // right pronunciation engine (and translation/SEO tools read the right language).
-const { locale } = useI18n()
+const { t, locale } = useI18n()
 watch(
   locale,
   (value) => {
@@ -26,7 +26,7 @@ watch(
   <RouterView />
 
   <Transition name="loader-fade">
-    <LoadingReveal v-if="isLoading" />
+    <LoadingReveal v-if="isLoading" :label="t('loading.label')" :hint="t('loading.hint')" />
   </Transition>
 </template>
 

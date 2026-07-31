@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { Motion } from 'motion-v'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import BlogGallery from '@/components/BlogGallery/BlogGallery.vue'
 import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
+import ScrollProgressBar from '@/components/ScrollProgressBar/ScrollProgressBar.vue'
 import { useBlog } from '@/composables/useBlog/useBlog'
 import { useLocalize } from '@/composables/useLocalize/useLocalize'
+import { useScrollProgress } from '@/composables/useScrollProgress/useScrollProgress'
 import { useRise } from '@/composables/useRise/useRise'
 import type { BlogText } from '@/types/blog'
 import type { Locale } from '@/i18n'
-import blogBg from '@/assets/images/banner-blog.png'
+import blogBg from '@/assets/images/banner-blog.webp'
 
 // `slug` prop overrides the route param (handy for stories/tests).
 type Props = { slug?: string }
@@ -41,16 +43,8 @@ const blocks = computed(() =>
 const formatDate = (iso: string) =>
   new Date(`${iso}T00:00:00`).toLocaleDateString(locale.value, { year: 'numeric', month: 'long', day: 'numeric' })
 
-// Custom scroll indicator for the article panel (same pattern as ProjectSpecs):
-// native scrollbar hidden, a thin track + fill tracks progress.
-const scrollArea = ref<HTMLElement | null>(null)
-const scrollProgress = ref(0)
-const onScroll = () => {
-  const el = scrollArea.value
-  if (!el) return
-  const max = el.scrollHeight - el.clientHeight
-  scrollProgress.value = max > 0 ? (el.scrollTop / max) * 100 : 0
-}
+// Custom scroll indicator for the article panel.
+const { scrollArea, scrollProgress, onScroll } = useScrollProgress()
 </script>
 
 <template>
@@ -182,9 +176,7 @@ const onScroll = () => {
           </div>
 
           <!-- Scroll progress (desktop, where the panel scrolls internally) -->
-          <div class="my-8 hidden w-0.5 shrink-0 bg-on-surface/20 lg:block" aria-hidden="true">
-            <div class="w-full bg-tertiary transition-[height] duration-150" :style="{ height: `${scrollProgress}%` }" />
-          </div>
+          <ScrollProgressBar :progress="scrollProgress" variant="tertiary" class="my-8 hidden lg:block" aria-hidden="true" />
         </div>
       </Motion>
     </div>

@@ -125,5 +125,9 @@
     "testimonials": "Témoignages",
     "open": "Ouvrir les stories",
     "view": "Voir"
+  },
+  "loading": {
+    "label": "Chargement",
+    "hint": "Bougez le curseur pour révéler"
   }
 }

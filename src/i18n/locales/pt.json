@@ -125,5 +125,9 @@
     "testimonials": "Depoimentos",
     "open": "Abrir stories",
     "view": "Ver"
+  },
+  "loading": {
+    "label": "Carregando",
+    "hint": "Mova o cursor para revelar"
   }
 }

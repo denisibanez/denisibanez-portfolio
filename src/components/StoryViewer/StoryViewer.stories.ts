@@ -8,7 +8,7 @@ const groups: StoryGroup[] = [
     label: 'Portfolio',
     cover: '/projects/airbnb/cover.png',
     stories: [
-      { image: '/projects/airbnb/home.png', title: 'Airbnb', subtitle: 'Design System' },
+      { image: '/projects/airbnb/home.webp', title: 'Airbnb', subtitle: 'Design System' },
       { image: '/projects/airbnb/reserve.png', title: 'Airbnb', subtitle: 'Reserve flow' },
     ],
   },

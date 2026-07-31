@@ -9,7 +9,7 @@ import { useBlog } from '@/composables/useBlog/useBlog'
 import { useLocalize } from '@/composables/useLocalize/useLocalize'
 import { useRise } from '@/composables/useRise/useRise'
 import type { BlogPost } from '@/types/blog'
-import blogBg from '@/assets/images/banner-blog.png'
+import blogBg from '@/assets/images/banner-blog.webp'
 
 const { t, locale } = useI18n()
 const { posts } = useBlog()

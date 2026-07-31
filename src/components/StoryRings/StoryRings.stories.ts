@@ -3,7 +3,7 @@ import StoryRings from './StoryRings.vue'
 import type { StoryGroup } from '@/types/story'
 
 const groups: StoryGroup[] = [
-  { id: 'portfolio', label: 'Portfolio', cover: '/projects/airbnb/cover.png', stories: [{ image: '/projects/airbnb/home.png', title: 'Airbnb' }] },
+  { id: 'portfolio', label: 'Portfolio', cover: '/projects/airbnb/cover.png', stories: [{ image: '/projects/airbnb/home.webp', title: 'Airbnb' }] },
   { id: 'blog', label: 'Blog', cover: '/blog/ewor.jpeg', stories: [{ image: '/blog/ewor.jpeg', title: 'EWOR' }] },
   { id: 'testimonials', label: 'Testimonials', cover: '/testimonials/eymard-silva.jpg', stories: [{ image: '/testimonials/eymard-silva.jpg', title: 'Eymard Silva' }] },
 ]
