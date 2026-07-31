@@ -751,7 +751,7 @@ export const projects: Project[] = [
       ja: "物流プラットフォーム",
     },
     kind: 'client',
-    region: 'nearshore',
+    region: 'national',
     startDate: '2021-01',
     endDate: '2026-01',
     summary: {
@@ -806,7 +806,7 @@ export const projects: Project[] = [
       ja: "保険アプリ",
     },
     kind: 'client',
-    region: 'nearshore',
+    region: 'national',
     startDate: '2026-01',
     endDate: '2026-04',
     summary: {
