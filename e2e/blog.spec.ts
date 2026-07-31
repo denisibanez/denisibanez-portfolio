@@ -7,7 +7,6 @@ import { posts } from '../src/data/blog'
 // new posts.
 const visible = posts.filter((p) => !process.env.CI || p.status !== 'draft')
 const PER_PAGE = 6
-const pageCount = Math.ceil(visible.length / PER_PAGE)
 
 test.use({ viewport: { width: 1440, height: 1000 } })
 
@@ -32,7 +31,6 @@ test('opens a post detail page from a card', async ({ page }) => {
 })
 
 test('paginates to the next page of posts', async ({ page }) => {
-  test.skip(pageCount < 2, 'not enough posts for pagination')
   await page.goto('/blog')
 
   const firstBefore = await page.locator('article h2').first().textContent()

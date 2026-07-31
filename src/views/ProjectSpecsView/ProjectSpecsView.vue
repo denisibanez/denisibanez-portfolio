@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { Motion } from 'motion-v'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
+import ScrollProgressBar from '@/components/ScrollProgressBar/ScrollProgressBar.vue'
 import { useProjectRoute } from '@/composables/useProjectRoute/useProjectRoute'
 import { useLocalize } from '@/composables/useLocalize/useLocalize'
+import { useScrollProgress } from '@/composables/useScrollProgress/useScrollProgress'
 import { useRise } from '@/composables/useRise/useRise'
 import { monthsBetween, formatRange } from '@/utils/timeline/timeline'
 import { site } from '@/config/site'
@@ -22,14 +24,7 @@ const { localized } = useLocalize()
 const paragraphs = computed(() => (project.value ? localized(project.value.overview) : []))
 
 // Custom scroll-progress indicator for the narrative box.
-const scrollArea = ref<HTMLElement | null>(null)
-const scrollProgress = ref(0)
-const onScroll = () => {
-  const el = scrollArea.value
-  if (!el) return
-  const max = el.scrollHeight - el.clientHeight
-  scrollProgress.value = max > 0 ? (el.scrollTop / max) * 100 : 0
-}
+const { scrollArea, scrollProgress, onScroll } = useScrollProgress()
 
 // Shared panel/label styles.
 const glass = 'border border-white/10 bg-surface-container/70 backdrop-blur-xl'
@@ -83,9 +78,7 @@ const { rise } = useRise()
             </div>
 
             <!-- Scroll progress -->
-            <div class="w-0.5 shrink-0 bg-on-surface/20">
-              <div class="w-full bg-primary" :style="{ height: `${scrollProgress}%` }" />
-            </div>
+            <ScrollProgressBar :progress="scrollProgress" />
           </div>
 
           <div class="mt-8 flex shrink-0 flex-wrap gap-3 sm:gap-4">
