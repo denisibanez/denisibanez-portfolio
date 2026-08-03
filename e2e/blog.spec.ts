@@ -6,7 +6,7 @@ import { posts } from '../src/data/blog'
 // preview; local runs dev. Counts derive from the data so the suite survives
 // new posts.
 const visible = posts.filter((p) => !process.env.CI || p.status !== 'draft')
-const PER_PAGE = 6
+const PER_PAGE = 3
 
 test.use({ viewport: { width: 1440, height: 1000 } })
 
