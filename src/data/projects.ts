@@ -17,7 +17,6 @@ export const projects: Project[] = [
     },
     kind: 'client',
     region: 'nearshore',
-    status: 'draft',
     startDate: '2025-12',
     endDate: '2026-08',
     summary: {
