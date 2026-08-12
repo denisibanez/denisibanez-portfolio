@@ -17,18 +17,18 @@
   "home": {
     "eyebrow": "ポートフォリオ",
     "greetingLead": "こんにちは、私は",
-    "role": "Software Developer",
-    "description": "Vue・React・Angular を専門とするフロントエンド開発者。14年以上の経験があり、デザインシステムとプロトタイピングが得意です。",
+    "role": "AIエンジニア & フロントエンドアーキテクト",
+    "description": "AIエンジニア兼フロントエンドアーキテクトとして、AIネイティブなプロダクトとエージェント型ワークフローを構築。14年以上にわたりVue・React・Angularで大規模トラフィックのUIを手がけてきました。",
     "cta": "プロジェクトを見る",
     "play": "ショーリールを再生"
   },
   "about": {
     "eyebrow": "はじめまして",
     "title": "私について",
-    "lead": "デニス・イバニェスです。Vue・React・React Native・TypeScript を用いて、大規模トラフィックのプロダクトの設計とリードを14年以上手がけてきたシニア・フロントエンド／フルスタックエンジニアです。",
-    "body": "Design Ops チームと緊密に連携し、ブランドと体験を大規模でも一貫させるデザインシステムの構築・保守を行っています。スペイン、イギリス、オランダ、ドイツの分散チームと協働してきました。",
+    "lead": "デニス・イバニェスです。AIエンジニア兼シニア・フロントエンドアーキテクトとして、14年以上大規模トラフィックのプロダクトをリードしてきました。現在はVue・React・React Native・TypeScriptを用いてAIネイティブなインターフェースとエージェント型の開発ワークフローを構築しています。",
+    "body": "このフロントエンドの知見に、実践的なAIエンジニアリング——開発者向けのエージェント型ワークフローやAI-assistedな配信パイプラインの構築——を組み合わせています。同時にDesign Opsチームと緊密に連携し、スペイン、イギリス、オランダ、ドイツの分散チームとともに、ブランドと体験を大規模でも一貫させるデザインシステムを維持しています。",
     "cta": "制作実績を見る",
-    "roles": "Vue • React • Angular • TypeScript • Design Systems",
+    "roles": "AI Engineering • Vue • React • Angular • TypeScript • Design Systems",
     "certLabel": "認定",
     "certTitle": "AI-Empowered SAFe® Practitioner (SP)"
   },

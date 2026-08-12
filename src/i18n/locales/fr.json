@@ -17,18 +17,18 @@
   "home": {
     "eyebrow": "Portfolio",
     "greetingLead": "Bonjour, je suis",
-    "role": "Software Developer",
-    "description": "Développeur front-end spécialisé en Vue, React et Angular, avec plus de 14 ans d'expérience — solide en design systems et prototypage.",
+    "role": "AI Engineer & Architecte Front-end",
+    "description": "AI Engineer et architecte front-end, je construis des produits AI-native et des workflows agentic — plus de 14 ans à façonner des interfaces à fort trafic en Vue, React et Angular.",
     "cta": "Voir les projets",
     "play": "Lire le showreel"
   },
   "about": {
     "eyebrow": "Enchanté, c'est moi",
     "title": "À propos",
-    "lead": "Je suis Denis Ibañez, ingénieur front-end et full-stack senior avec plus de 14 ans d'expérience dans la conception et le pilotage de produits à fort trafic en Vue, React, React Native et TypeScript.",
-    "body": "Je collabore étroitement avec les équipes Design Ops pour construire et maintenir des design systems qui préservent la cohérence de la marque et de l'expérience à grande échelle, avec des équipes distribuées en Espagne, au Royaume-Uni, aux Pays-Bas et en Allemagne.",
+    "lead": "Je suis Denis Ibañez — AI Engineer et architecte front-end senior, avec plus de 14 ans à piloter des produits à fort trafic, désormais tourné vers les interfaces AI-native et les workflows agentic en Vue, React, React Native et TypeScript.",
+    "body": "J'allie cette expertise front-end à une pratique concrète de l'ingénierie IA — construction de workflows agentic pour développeurs et de pipelines de livraison AI-assisted — tout en collaborant avec les équipes Design Ops pour garder la marque et l'expérience cohérentes à grande échelle, avec des équipes distribuées en Espagne, au Royaume-Uni, aux Pays-Bas et en Allemagne.",
     "cta": "Voir mon travail",
-    "roles": "Vue • React • Angular • TypeScript • Design Systems",
+    "roles": "AI Engineering • Vue • React • Angular • TypeScript • Design Systems",
     "certLabel": "Certification",
     "certTitle": "AI-Empowered SAFe® Practitioner (SP)"
   },
