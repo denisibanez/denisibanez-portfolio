@@ -4,10 +4,10 @@
  */
 export const site = {
   name: 'Denis Ibañez',
-  role: 'Software Developer',
+  role: 'AI Engineer & Front-end Architect',
   url: 'https://denisibanez.dev',
   description:
-    'Front-end developer specialised in Vue, React and Angular, with 14+ years of experience — strong in design systems and prototyping.',
+    'AI Engineer and front-end architect building AI-native products and agentic workflows — 14+ years shaping high-traffic UIs in Vue, React and Angular.',
   whatsapp: '351961488375',
   /** Résumé PDF, served from public/ (stable URL, no hashing). */
   resumeUrl: '/denis-ibanez-cv.pdf',

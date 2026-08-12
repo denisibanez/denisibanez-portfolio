@@ -17,18 +17,18 @@
   "home": {
     "eyebrow": "Portfolio",
     "greetingLead": "Hi, I'm",
-    "role": "Software Developer",
-    "description": "Front-end developer specialised in Vue, React and Angular, with 14+ years of experience — strong in design systems and prototyping.",
+    "role": "AI Engineer & Front-end Architect",
+    "description": "AI Engineer and front-end architect building AI-native products and agentic workflows — 14+ years shaping high-traffic UIs in Vue, React and Angular.",
     "cta": "View projects",
     "play": "Play showreel"
   },
   "about": {
     "eyebrow": "Get to know me",
     "title": "About me",
-    "lead": "I'm Denis Ibañez — a senior front-end & full-stack engineer with 14+ years designing and leading high-traffic products across Vue, React, React Native and TypeScript.",
-    "body": "I partner closely with Design Ops to build and maintain design systems that keep brand and experience consistent at scale, collaborating with distributed teams across Spain, the UK, the Netherlands and Germany.",
+    "lead": "I'm Denis Ibañez — an AI Engineer and senior front-end architect with 14+ years leading high-traffic products, now building AI-native interfaces and agentic workflows across Vue, React, React Native and TypeScript.",
+    "body": "I pair that front-end depth with hands-on AI engineering — building agentic developer workflows and AI-assisted delivery pipelines — while partnering with Design Ops to keep brand and experience consistent at scale across distributed teams in Spain, the UK, the Netherlands and Germany.",
     "cta": "See my work",
-    "roles": "Vue • React • Angular • TypeScript • Design Systems",
+    "roles": "AI Engineering • Vue • React • Angular • TypeScript • Design Systems",
     "certLabel": "Certification",
     "certTitle": "AI-Empowered SAFe® Practitioner (SP)"
   },

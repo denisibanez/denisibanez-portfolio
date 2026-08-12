@@ -17,18 +17,18 @@
   "home": {
     "eyebrow": "Portfolio",
     "greetingLead": "Hallo, ich bin",
-    "role": "Software Developer",
-    "description": "Front-End-Entwickler mit Spezialisierung auf Vue, React und Angular, über 14 Jahre Erfahrung — stark in Designsystemen und Prototyping.",
+    "role": "AI Engineer & Front-End-Architekt",
+    "description": "AI Engineer und Front-End-Architekt – ich baue AI-native Produkte und agentische Workflows – über 14 Jahre Erfahrung mit stark frequentierten Interfaces in Vue, React und Angular.",
     "cta": "Projekte ansehen",
     "play": "Showreel abspielen"
   },
   "about": {
     "eyebrow": "Freut mich",
     "title": "Über mich",
-    "lead": "Ich bin Denis Ibañez – Senior-Front-End- und Full-Stack-Entwickler mit über 14 Jahren Erfahrung in der Gestaltung und Leitung stark frequentierter Produkte mit Vue, React, React Native und TypeScript.",
-    "body": "Ich arbeite eng mit Design-Ops-Teams zusammen, um Designsysteme aufzubauen und zu pflegen, die Marke und Nutzererlebnis auch bei großem Umfang konsistent halten – gemeinsam mit verteilten Teams in Spanien, Großbritannien, den Niederlanden und Deutschland.",
+    "lead": "Ich bin Denis Ibañez – AI Engineer und Senior-Front-End-Architekt mit über 14 Jahren Erfahrung in der Leitung stark frequentierter Produkte, heute fokussiert auf AI-native Interfaces und agentische Workflows mit Vue, React, React Native und TypeScript.",
+    "body": "Ich verbinde diese Front-End-Tiefe mit praktischer KI-Entwicklung – dem Aufbau agentischer Entwickler-Workflows und AI-assisted Delivery-Pipelines – und arbeite dabei eng mit Design-Ops-Teams zusammen, um Marke und Nutzererlebnis auch bei großem Umfang konsistent zu halten, gemeinsam mit verteilten Teams in Spanien, Großbritannien, den Niederlanden und Deutschland.",
     "cta": "Meine Arbeit ansehen",
-    "roles": "Vue • React • Angular • TypeScript • Design Systems",
+    "roles": "AI Engineering • Vue • React • Angular • TypeScript • Design Systems",
     "certLabel": "Zertifizierung",
     "certTitle": "AI-Empowered SAFe® Practitioner (SP)"
   },

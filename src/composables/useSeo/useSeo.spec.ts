@@ -48,7 +48,7 @@ const mountAt = async (path: string) => {
 describe('useSeo', () => {
   it('sets the home title without the site suffix', async () => {
     await mountAt('/')
-    expect(unref(captured.title)).toBe('Denis Ibañez — Software Developer')
+    expect(unref(captured.title)).toBe('Denis Ibañez — AI Engineer & Front-end Architect')
   })
 
   it('suffixes inner-page titles and sets a canonical URL', async () => {
