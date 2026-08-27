@@ -16,6 +16,10 @@ const i18n = createI18n({
         cta: 'See my work',
         roles: 'Vue • React • Angular',
       },
+      faq: {
+        eyebrow: 'Common questions',
+        title: 'Frequently asked questions',
+      },
     },
   },
 })
@@ -38,5 +42,11 @@ describe('AboutView', () => {
   it('renders the background image', () => {
     const wrapper = factory()
     expect(wrapper.get('img').attributes('src')).toBeTruthy()
+  })
+
+  it('renders the FAQ section with its disclosures', () => {
+    const wrapper = factory()
+    expect(wrapper.text()).toContain('Frequently asked questions')
+    expect(wrapper.findAll('details').length).toBeGreaterThan(0)
   })
 })

@@ -35,7 +35,7 @@ const linkTo = (post: BlogPost) => ({ name: 'blog-post', params: { slug: post.sl
 </script>
 
 <template>
-  <MediaBackdrop :src="blogBg">
+  <MediaBackdrop :src="blogBg" alt="Denis Ibañez's blog — essays on design systems and front-end craft">
     <div class="relative z-10 flex min-h-dvh flex-col justify-center px-[5vw] pt-32 pb-20">
       <!-- Header -->
       <header class="max-w-3xl">

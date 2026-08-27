@@ -74,7 +74,7 @@ const { rise } = useRise()
 </script>
 
 <template>
-  <MediaBackdrop :src="detailBg">
+  <MediaBackdrop :src="detailBg" :alt="project ? `${project.title} — project details` : 'Project details'">
     <!-- Mobile-only scrim — content spans the full height here, so keep it legible -->
     <template #scrim>
       <div class="pointer-events-none absolute inset-0 bg-linear-to-b from-surface/65 via-surface/45 to-surface/85 lg:hidden" />

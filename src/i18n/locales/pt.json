@@ -9,7 +9,8 @@
     "projects": "Projetos",
     "testimonials": "Depoimentos",
     "menu": "Menu",
-    "blog": "Blog"
+    "blog": "Blog",
+    "connect": "Connect"
   },
   "actions": {
     "resume": "Baixar resume"
@@ -31,6 +32,11 @@
     "roles": "AI Engineering • Vue • React • Angular • TypeScript • Design Systems",
     "certLabel": "Certificação",
     "certTitle": "AI-Empowered SAFe® Practitioner (SP)"
+  },
+  "faq": {
+    "eyebrow": "Perguntas frequentes",
+    "title": "Perguntas frequentes",
+    "subtitle": "Respostas rápidas sobre como trabalho e o que construo."
   },
   "projects": {
     "title": "Trabalhos Selecionados",
@@ -117,6 +123,17 @@
     "page": "Página",
     "enlarge": "Ampliar imagem",
     "close": "Fechar"
+  },
+  "connect": {
+    "eyebrow": "Para Agentes de IA",
+    "title": "Connect",
+    "lead": "Este portfolio fala MCP (Model Context Protocol) — aponte o seu assistente de IA para o endpoint abaixo e ele pode explorar projetos, artigos do blog, testemunhos e FAQ, e enviar uma mensagem diretamente ao Denis. Não é preciso conta, login ou chave de API do seu lado.",
+    "endpointLabel": "Endpoint",
+    "endpointNote": "Streamable HTTP · sem autenticação necessária",
+    "setupLabel": "Configuração",
+    "setupHint": "Cole o URL acima em:",
+    "toolsLabel": "Ferramentas disponíveis",
+    "footerNote": "Prefere texto simples? O llms.txt descreve o site para qualquer LLM, sem precisar de cliente MCP."
   },
   "stories": {
     "portfolio": "Portfólio",

@@ -1,0 +1,25 @@
+# Denis Ibañez
+
+> AI Engineer and front-end architect building AI-native products and agentic workflows — 14+ years shaping high-traffic UIs in Vue, React and Angular. Based in Portugal, working with distributed teams across Spain, the UK, the Netherlands and Germany. AI-Empowered SAFe® Practitioner (SP).
+
+## Pages
+
+- [About](https://denisibanez.dev/about): Background, tech stack, certifications, and a short FAQ about how he works.
+- [Projects](https://denisibanez.dev/projects): Selected case studies and self-driven studies in Vue, React, React Native and Angular.
+- [Blog](https://denisibanez.dev/blog): Essays on design systems, front-end craft, AI-assisted engineering and agentic workflows.
+- [Testimonials](https://denisibanez.dev/testimonials): Feedback from clients and collaborators.
+- [Connect](https://denisibanez.dev/connect): Setup instructions for connecting an AI client to the MCP server below.
+
+## For AI agents
+
+An MCP (Model Context Protocol) server is available at https://denisibanez.dev/api/mcp
+(Streamable HTTP, no authentication) exposing structured, localized tools: get_profile,
+get_projects, get_project, get_blog_posts, get_blog_post, get_testimonials, get_faq, and
+contact_denis (sends a message directly to Denis). See /connect for client setup steps.
+
+## Contact
+
+- [LinkedIn](https://www.linkedin.com/in/denis-ibanez)
+- [GitHub](https://github.com/denisibanez)
+- [Medium](https://medium.com/@denis.ibanez.gdl)
+- [Résumé (PDF)](https://denisibanez.dev/denis-ibanez-cv.pdf)

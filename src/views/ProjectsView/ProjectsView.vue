@@ -78,7 +78,7 @@ const posterClass =
 </script>
 
 <template>
-  <MediaBackdrop :src="projectsBg">
+  <MediaBackdrop :src="projectsBg" alt="Selected works by Denis Ibañez">
     <div class="relative z-10 flex min-h-dvh flex-col justify-start px-[5vw] pt-28 pb-28 sm:justify-center sm:pt-20 sm:pb-20">
       <BaseTabs v-model="activeTab" :tabs="tabs" class="mb-8 self-start" />
       <BaseCarousel

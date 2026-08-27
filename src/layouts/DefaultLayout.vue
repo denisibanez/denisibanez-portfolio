@@ -17,6 +17,7 @@ const navLinks = computed(() => [
   { label: t('nav.projects'), href: '/projects' },
   { label: t('nav.testimonials'), href: '/testimonials' },
   { label: t('nav.blog'), href: '/blog' },
+  { label: t('nav.connect'), href: '/connect' },
 ])
 
 const languages = [

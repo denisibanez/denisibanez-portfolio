@@ -36,3 +36,31 @@ without a CMS yet.
 ### 7. Full coverage per unit + i18n for all copy
 Every unit has a story + spec; flows have e2e; every string is translated to six locales.
 **Why:** confidence to refactor, and a genuinely international portfolio.
+
+### 8. MCP server as a Vercel serverless function
+`api/mcp.ts` exposes the portfolio over Streamable HTTP (`@modelcontextprotocol/sdk`),
+stateless (fresh `McpServer` per request — Vercel functions share no memory between
+invocations). Read-only tools (`get_profile`, `get_projects`, `get_project`,
+`get_blog_posts`, `get_blog_post`, `get_testimonials`, `get_faq`) are grounded only in data
+that already exists in `src/data/*`/`src/config/site.ts`; `api/_lib/*` mirrors that data
+layer 1:1 (draft filtering re-implemented without the `import.meta.env.DEV` escape hatch
+the Vue composables use — there's no reliable "dev" signal in a deployed function, so the
+public endpoint must never preview drafts). The locale-fallback rule was extracted from
+`useLocalize` into `src/utils/localizeText/localizeText.ts` so both the Vue app and the
+API share one source of truth. **Why:** additive to the static SSG build (Vercel deploys
+`/api` independently of `dist`).
+
+An eighth tool, `contact_denis`, delivers a project brief straight to WhatsApp via
+CallMeBot (`api/_lib/contact.ts`) — a free, unofficial personal-use API (not Meta's
+official WhatsApp Business Cloud API, which would need business verification and template
+approval). Only `CALLMEBOT_API_KEY` is a secret; the phone number reuses `site.whatsapp`
+(already public — it backs the site's own `wa.me` link). Since this tool is public,
+unauthenticated and triggers a real side effect, `api/_lib/rateLimit.ts` caps it at 3
+calls/hour per IP (in-memory, best-effort — resets on cold start, not shared across
+concurrent instances) via a check in `api/mcp.ts` before the request ever reaches the MCP
+transport; the read-only tools are deliberately not rate-limited.
+
+`src/views/ConnectView/ConnectView.vue` (route `/connect`, linked from the footer next to
+the socials) is the human-facing discoverability page: the endpoint URL, per-client setup
+steps (Claude/ChatGPT/Cursor — kept literal/untranslated, same treatment as other
+product-referential strings like cert titles), and the tool list.

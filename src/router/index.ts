@@ -55,6 +55,7 @@ export const routes: RouteRecordRaw[] = [
       },
       { path: 'testimonials', name: 'testimonials', component: () => import('@/views/TestimonialsView/TestimonialsView.vue') },
       { path: 'blog', name: 'blog', component: () => import('@/views/BlogView/BlogView.vue') },
+      { path: 'connect', name: 'connect', component: () => import('@/views/ConnectView/ConnectView.vue') },
       {
         path: 'blog/:slug',
         name: 'blog-post',

@@ -76,7 +76,12 @@ const openStory = (index: number) => {
 <template>
   <section class="relative min-h-dvh w-full overflow-hidden">
     <!-- Banner is always painted underneath so the video→image swap never flickers -->
-    <img :src="bannerHome" alt="" class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center" />
+    <img
+      :src="bannerHome"
+      alt="Denis Ibañez, AI Engineer & Front-end Architect"
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
+    />
     <video
       v-if="!prefersReducedMotion"
       :src="videoHome"

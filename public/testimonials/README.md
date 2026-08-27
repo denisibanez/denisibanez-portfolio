@@ -24,6 +24,9 @@ Expected files:
 - `vania-pontes.jpg` — Vania Pontes
 - `roberto-borges.jpg` — Roberto Borges
 - `juliana-dala-costa.jpg` — Juliana Dala Costa
+- `luis-rocha.jpeg` — Luis Rocha
+- `christian-jurg.jpeg` — Christian Jurg
+- `rui-neto.jpeg` — Rui Neto
 
 If a file is missing the Testimonials page falls back to the person's
 initials (no broken image), so it's safe to add photos incrementally.

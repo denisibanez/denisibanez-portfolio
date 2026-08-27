@@ -1,5 +1,6 @@
 import { useI18n } from 'vue-i18n'
 import type { Locale } from '@/i18n'
+import { localizeText } from '@/utils/localizeText/localizeText'
 
 /**
  * Picks the value for the active locale from a `Record<Locale, T>` map, falling
@@ -8,7 +9,6 @@ import type { Locale } from '@/i18n'
  */
 export const useLocalize = () => {
   const { locale } = useI18n()
-  const localized = <T>(map: Record<Locale, T>): T =>
-    map[locale.value as Locale] ?? map.en ?? map.pt
+  const localized = <T>(map: Record<Locale, T>): T => localizeText(map, locale.value as Locale)
   return { localized }
 }

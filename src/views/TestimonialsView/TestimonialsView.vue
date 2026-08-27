@@ -34,7 +34,7 @@ const closeDetail = () => {
 </script>
 
 <template>
-  <MediaBackdrop :src="testimonialsBg">
+  <MediaBackdrop :src="testimonialsBg" alt="Testimonials from Denis Ibañez's clients and collaborators">
     <div class="relative z-10 flex min-h-dvh flex-col justify-start px-[5vw] pt-28 pb-28 sm:justify-center sm:pt-20 sm:pb-20">
       <BaseCarousel
         :items="testimonials"
