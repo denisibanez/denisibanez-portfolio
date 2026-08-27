@@ -38,10 +38,11 @@ const metaContent = (key: 'name' | 'property', value: string) => {
   return entry ? unref(entry.content) : undefined
 }
 
-// The JSON-LD script's innerHTML is a computed ref of the serialized `@graph`.
+// Each JSON-LD node ships as its own <script>; flatten them back into a list
+// of nodes (each still carrying its own `@context`) for the assertions below.
 const graph = (): Array<Record<string, unknown>> => {
-  const script = (captured.script as Array<Record<string, unknown>>)[0]!
-  return JSON.parse(unref(script.innerHTML) as string)['@graph']
+  const scripts = unref(captured.script) as Array<Record<string, unknown>>
+  return scripts.map((s) => JSON.parse(unref(s.innerHTML) as string))
 }
 
 const mountAt = async (path: string) => {
