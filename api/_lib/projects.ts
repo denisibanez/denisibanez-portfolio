@@ -3,6 +3,7 @@ import type { Locale } from '../../src/i18n'
 import { projects } from '../../src/data/projects'
 import { site } from '../../src/config/site'
 import { localizeText } from '../../src/utils/localizeText/localizeText'
+import { notFound, type NotFound } from './notFound'
 
 // No `import.meta.env.DEV` escape hatch here (unlike `useProjects`'s `isVisible`):
 // there is no reliable "am I in dev" signal in a deployed serverless function,
@@ -60,11 +61,9 @@ export type ProjectDetail = ProjectSummary & {
   video?: string
 }
 
-export type NotFound = { error: 'not_found'; slug: string }
-
 export const getProject = (slug: string, locale: Locale): ProjectDetail | NotFound => {
   const p = published().find((project) => project.slug === slug)
-  if (!p) return { error: 'not_found', slug }
+  if (!p) return notFound(slug)
 
   const images = (p.images ?? (p.image ? [p.image] : [])).map(absolutize)
 

@@ -3,6 +3,7 @@ import type { Locale } from '../../src/i18n'
 import { posts } from '../../src/data/blog'
 import { site } from '../../src/config/site'
 import { localizeText } from '../../src/utils/localizeText/localizeText'
+import { notFound, type NotFound } from './notFound'
 
 // No `import.meta.env.DEV` escape hatch — see api/_lib/projects.ts for why.
 export const isPublished = (post: BlogPost): boolean => post.status !== 'draft'
@@ -64,11 +65,9 @@ export type BlogDetail = BlogSummary & {
   content: ContentBlock[]
 }
 
-export type NotFound = { error: 'not_found'; slug: string }
-
 export const getBlogPost = (slug: string, locale: Locale): BlogDetail | NotFound => {
   const p = published().find((post) => post.slug === slug)
-  if (!p) return { error: 'not_found', slug }
+  if (!p) return notFound(slug)
 
   return {
     ...toSummary(p, locale),
