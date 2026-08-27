@@ -66,7 +66,14 @@ export const useSeo = () => {
   // Structured data (JSON-LD): Organization + Person + WebSite on every page,
   // a WebPage (or Article, on the blog post route) per URL, a BreadcrumbList
   // on the project routes, and a FAQPage on `about` (mirrors the on-page FAQ).
-  const structuredData = computed(() => {
+  //
+  // Each node ships as its own <script type="application/ld+json"> (own
+  // @context) rather than one script with a shared `@graph`. Cross-refs
+  // (e.g. Person.worksFor -> Organization) still resolve via `@id` across
+  // scripts per schema.org/Google — but a single `@graph` blob reads as
+  // "no schema" to naive AEO/SEO auditors that only check a script's root
+  // `@type`, so one node per script keeps us compatible with those too.
+  const graph = computed(() => {
     const graph: Record<string, unknown>[] = [
       {
         '@type': 'Organization',
@@ -135,8 +142,16 @@ export const useSeo = () => {
       })
     }
 
-    return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })
+    return graph
   })
+
+  const structuredDataScripts = computed(() =>
+    graph.value.map((node) => ({
+      type: 'application/ld+json',
+      key: `ld-json-${String(node['@type']).toLowerCase()}`,
+      innerHTML: JSON.stringify({ '@context': 'https://schema.org', ...node }),
+    })),
+  )
 
   useHead({
     title,
@@ -150,6 +165,6 @@ export const useSeo = () => {
       { name: 'twitter:description', content: description },
     ],
     link: [{ rel: 'canonical', href: url }],
-    script: [{ type: 'application/ld+json', innerHTML: structuredData, key: 'ld-json' }],
+    script: structuredDataScripts,
   })
 }
