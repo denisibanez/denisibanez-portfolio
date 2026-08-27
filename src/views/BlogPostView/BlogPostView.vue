@@ -48,7 +48,7 @@ const { scrollArea, scrollProgress, onScroll } = useScrollProgress()
 </script>
 
 <template>
-  <MediaBackdrop :src="blogBg">
+  <MediaBackdrop :src="blogBg" :alt="post ? localized(post.title) : 'Blog post'">
     <div v-if="post" class="relative z-10 flex min-h-dvh items-center justify-center px-[5vw] pt-28 pb-24">
       <Motion
         as="article"

@@ -3,7 +3,9 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { Motion } from 'motion-v'
 import MediaBackdrop from '@/components/MediaBackdrop/MediaBackdrop.vue'
+import FaqSection from '@/components/FaqSection/FaqSection.vue'
 import { useRise } from '@/composables/useRise/useRise'
+import { faq } from '@/data/faq'
 import aboutBg from '@/assets/images/about-bg.jpg'
 
 const { t } = useI18n()
@@ -16,7 +18,7 @@ const badgeError = ref(false)
 </script>
 
 <template>
-  <MediaBackdrop :src="aboutBg">
+  <MediaBackdrop :src="aboutBg" alt="Portrait of Denis Ibañez, AI Engineer and front-end architect">
     <!-- Mobile-only scrim — subtle, just enough to keep the stacked copy legible -->
     <template #scrim>
       <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-surface/75 via-surface/35 to-transparent lg:hidden" />
@@ -135,4 +137,6 @@ const badgeError = ref(false)
       </div>
     </div>
   </MediaBackdrop>
+
+  <FaqSection :items="faq" :eyebrow="t('faq.eyebrow')" :title="t('faq.title')" />
 </template>

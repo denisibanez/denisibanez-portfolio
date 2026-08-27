@@ -21,6 +21,7 @@ const prerenderRoutes = [
   '/projects',
   '/testimonials',
   '/blog',
+  '/connect',
   ...publishedSlugs.flatMap((slug) => [`/projects/${slug}`, `/projects/${slug}/specs`]),
   ...posts.filter((p) => p.status !== 'draft').map((p) => `/blog/${p.slug}`),
 ]

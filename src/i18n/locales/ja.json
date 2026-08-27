@@ -9,7 +9,8 @@
     "projects": "プロジェクト",
     "testimonials": "お客様の声",
     "menu": "メニュー",
-    "blog": "ブログ"
+    "blog": "ブログ",
+    "connect": "Connect"
   },
   "actions": {
     "resume": "履歴書をダウンロード"
@@ -31,6 +32,11 @@
     "roles": "AI Engineering • Vue • React • Angular • TypeScript • Design Systems",
     "certLabel": "認定",
     "certTitle": "AI-Empowered SAFe® Practitioner (SP)"
+  },
+  "faq": {
+    "eyebrow": "よくある質問",
+    "title": "よくある質問",
+    "subtitle": "働き方や制作内容についての簡単な回答です。"
   },
   "projects": {
     "title": "選りすぐりの作品",
@@ -117,6 +123,17 @@
     "page": "ページ",
     "enlarge": "画像を拡大",
     "close": "閉じる"
+  },
+  "connect": {
+    "eyebrow": "AIエージェント向け",
+    "title": "Connect",
+    "lead": "このポートフォリオはMCP（Model Context Protocol）に対応しています。下記のエンドポイントをAIアシスタントに設定すると、プロジェクト、ブログ記事、推薦の声、FAQを閲覧したり、Denisに直接メッセージを送ったりできます。アカウント、ログイン、APIキーは不要です。",
+    "endpointLabel": "エンドポイント",
+    "endpointNote": "Streamable HTTP・認証不要",
+    "setupLabel": "セットアップ",
+    "setupHint": "上記のURLを次にペーストしてください:",
+    "toolsLabel": "利用可能なツール",
+    "footerNote": "シンプルなテキストの方がよい場合は、llms.txtがMCPクライアントなしでどのLLMにもサイトを説明します。"
   },
   "stories": {
     "portfolio": "ポートフォリオ",

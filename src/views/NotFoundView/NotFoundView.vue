@@ -8,7 +8,7 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <MediaBackdrop :src="notFoundBg">
+  <MediaBackdrop :src="notFoundBg" alt="404 — page not found">
     <!-- The backdrop already reads "404 — Page not found", so the overlay is a
          single action; the heading stays sr-only for accessibility/SEO. -->
     <h1 class="sr-only">{{ t('notFound.title') }}</h1>

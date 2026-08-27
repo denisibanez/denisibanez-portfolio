@@ -36,8 +36,14 @@ const onLeave = () => {
 
 <template>
   <div class="stage" role="status" aria-live="polite" :aria-label="label" @pointermove="onMove" @pointerleave="onLeave">
-    <img class="img img--blur" :src="bannerHome" alt="" />
-    <img class="img img--sharp" :src="bannerHome" alt="" :style="sharpStyle" />
+    <img class="img img--blur" :src="bannerHome" alt="Denis Ibañez portfolio hero banner" aria-hidden="true" />
+    <img
+      class="img img--sharp"
+      :src="bannerHome"
+      alt="Denis Ibañez portfolio hero banner"
+      aria-hidden="true"
+      :style="sharpStyle"
+    />
 
     <div class="sheen" aria-hidden="true" />
     <div class="glass-ring" :style="ringStyle" aria-hidden="true" />
